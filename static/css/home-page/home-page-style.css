@@ -1,0 +1,251 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100vh;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+header {
+    width: 100%;
+    background-color: #3e3c3d;
+    float: left;
+}
+
+.logo {
+    width: 150px;
+    height: 100%;
+    float: left;
+}
+
+.logo img {
+    width: 100%;
+    object-fit: cover;
+}
+.partners {
+    width: 100%;
+    height: 35px;
+    background-color: #3e3c3d;
+    text-align: center;
+    line-height: 2.1rem;
+    color: #fff;
+    position: absolute;
+    z-index: 1000;
+}
+
+#main {
+    position: relative;
+    width: 100%;
+    float: left;
+    height: calc(100vh - (40px + 334px));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 250px;
+    z-index: 1000;
+}
+.full-width {
+    max-width: 810px;
+    margin: 0 auto;
+}
+.row {
+    width: 100%;
+    margin-right: 0px;
+    margin-left: 0px;
+}
+.slishow{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: -1;
+}
+#slides{
+    position: relative;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.slide{
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 1;
+    -webkit-transition: opacity 1s;
+    -moz-transition: opacity 1s;
+    -o-transition: opacity 1s;
+    transition: opacity 1s;
+}
+.showing{
+    opacity: 1;
+    z-index: 2;
+}
+.slide img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.inner {
+    width: 50%;
+    padding: 15px 20px;
+    border: 1px solid rgb(205, 203, 204);
+    background-color: #2e7fe8;
+    transition: all .5s ease-in-out;
+}
+.inner:hover {
+    border: 1px solid #febd69;
+}
+
+.inner .suggestions {
+    font-size: 16px;
+    color: #fff;
+}
+
+.inner p {
+    color: #6ea8f2;
+    font-size: 14px;
+    margin-bottom: 0 !important;
+}
+.partners-logos {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 24px;
+}
+.owl-carousel {
+    width: 65%;
+    position: relative;
+}
+
+.owl-nav button {
+    width: 24px;
+    transition: all .4s ease-in-out;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.owl-nav button:hover {
+    background-color: #febd69 !important;
+    color: #fff !important;
+}
+.owl-nav {
+    margin-top: 0 !important;
+}
+.owl-nav .owl-next {
+    right: -30px
+}
+.owl-nav .owl-prev {
+    left: -30px;
+}
+#footer {
+    position: fixed;
+    bottom: 0;
+    min-height: 315px;
+}
+
+.footer-bottom{
+    background-color: #3e3c3d;
+}
+.full {
+    position: relative;
+    width: 100%;
+    float: left;
+}
+.foot-list {
+    display: flex;
+    flex-direction: column;
+}
+ul li,
+ol li {
+    position: relative;
+    float: left;
+    list-style-type: none;
+}
+
+a {
+    display: inline-block;
+    transition: color .2s ease-in-out;
+    text-decoration: none !important;
+}
+
+.foot-list li {
+    margin-bottom: 5px;
+    color: #c4c2c3;
+}
+
+.foot-list a {
+    color: #fff;
+    font-weight: 500;
+}
+.foot-list a:hover{
+    text-decoration: none;
+    color: #c4c2c3;
+}
+#footer p {
+    color: #c4c2c3;
+    font-size: 15px;
+}
+#footer .fa-copyright{
+    margin-right: 5px;
+}
+
+.contact-link {
+    position: relative;
+    right: 10px;
+    float: right;
+    color: #fff;
+    font-weight: 500;
+}
+.contact-link:hover{
+    color: #c4c2c3;
+}
+.social-media {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #c4c2c3;
+}
+
+.social-media p {
+    color: #FFF;
+    margin-bottom: 0 !important;
+}
+
+.social-media li {
+    padding: 10px;
+}
+
+.social-media path {
+    color: #FFF;
+}
+.social-media li a:hover path{
+    color: rgb(205, 203, 204);
+}
+
+/* end */
+
+.header-left-top li a{
+    color: white;
+}
+.header-left-bottom li a{
+    color: white;
+}

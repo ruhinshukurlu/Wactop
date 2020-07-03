@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Add your tour</h1>
+
+    
+    {% if user.is_authenticated %}
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ tour_form.as_p }}
+        <hr><br>
+        <h3>Tour Details</h3>
+        <div id="details">{{ detail_form.as_p }}</div><i class="fas fa-folder-plus" onclick="adddetail()"></i><hr><br>
+        <h3>Tour Images</h3>
+        <div id="images">{{ image_form.as_p }}</div><i class="fas fa-folder-plus" onclick="addimg()"></i><hr><br>
+        <h3>Tour Schedules</h3>
+        <div id="schedules">{{ schedule_form.as_p }}</div><i class="fas fa-folder-plus" onclick="addschedule()"></i>
+        <hr><br><button type="submit">Add</button>
+    </form>
+    {% else %}
+    <a href="{% url 'organizer:login' %}">Login</a>
+    {% endif %}
+
+    <script src="https://kit.fontawesome.com/560ceb8937.js" crossorigin="anonymous"></script>
+    <script src="{% static 'js/organizer/organizer.js' %}"></script>
+</body>
+</html>

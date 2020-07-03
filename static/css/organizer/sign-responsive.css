@@ -1,0 +1,77 @@
+@media (max-width : 570px){
+    .myform{
+        width: 450px;
+        
+    }
+}
+
+@media (max-width : 470px){
+    .myform{
+        width: 350px;
+        
+    }
+    .main-sign-in{
+        width: 300px;
+    }
+
+    .main-sign-in a{
+        width: 90%;
+        height: 30px;
+        padding: 0;
+    }
+
+    .main-sign-in h2 {
+       font-size: 25px;
+        margin: 15px;
+    }
+
+    .main-sign-in input {
+        width: 90%;
+        height: 40px;
+    }
+
+    .verify-btn{
+        width: 90%;
+    }
+
+    .myform input {
+        width: 90%;
+        height: 40px;
+        margin-bottom: 7px;
+        margin-top: 7px;
+    }
+
+    .myform button{
+        height: 35px;
+        width: 90%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+
+    .myform h2 {
+        font-size: 25px;
+        margin: 13px;
+    }
+    .submit-btn{
+        height: 35px;
+        width: 90%;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    .social-icons{
+        left: 45px;
+    }
+    .continue-btn button {
+        width: 90%;
+        margin-bottom: 10px;
+        margin-top: 5px;
+    }
+}
+
+@media (max-width : 370px){
+    .myform{
+        width: 300px;
+        font-size: 13px;
+    }
+    
+}

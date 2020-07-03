@@ -1,0 +1,7 @@
+location /static/ {
+    alias   /femigrants/static/;
+}
+
+location /media/ {
+    alias   /femigrants/media/;
+}

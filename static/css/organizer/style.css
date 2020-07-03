@@ -1,0 +1,703 @@
+/* design of spin, that works untill complete loading of the page */
+#loader { 
+    border: 12px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 12px solid #444444; 
+    width: 70px; 
+    height: 70px; 
+    animation: spin 1s linear infinite; 
+}    
+@keyframes spin { 
+    100% { 
+        transform: rotate(360deg); 
+    } 
+}    
+.center1 { 
+    position: absolute; 
+    top: 0; 
+    bottom: 0; 
+    left: 0; 
+    right: 0; 
+    margin: auto; 
+}
+/* end of spin design */
+
+
+/* 
+header design 
+    Our header that consist of two parts : head-up and .head-bottom
+    also head-up and head-bottom are devided into two parts, respectively left and right
+*/
+.head-up {
+    display: flex;
+    justify-content: space-between;
+    background-color: #3E3C3D;
+}
+
+.filter-btn{
+    display: none;
+}
+.menu-btn, .filter-btn{
+    width: 45px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.menu-btn:hover{
+    border-color: #fff;
+}
+
+.filter-btn:hover{
+    border-color: #fff;
+}
+
+.menu-btn svg{
+    color: #fff;
+}
+
+.menu-box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    z-index: 2;
+}
+
+.menu-box-in{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #EBECEE;
+    z-index: 1000;
+    -webkit-box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
+    -moz-box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
+    box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
+}
+
+.menu-box-in-head{
+    height: 53px;
+    background-color: #3e3c3d;
+}
+
+.menu-box-in-head img{
+    position: absolute;
+    left: 60px;
+}
+
+.close-btn svg{
+    color: #fff;
+}
+.filter-btn svg{
+    color: #fff;
+}
+.close-btn{
+    position: absolute;
+    top: 5px;
+    right: -50px;
+    width: 45px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.close-btn:hover{
+    border-color: #fff;
+}
+
+.main-menu-list{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-menu-list li{
+    margin-bottom: 8px;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+}
+.main-menu-list a{
+    font-size: 18px;
+    color:#000;
+    font-weight: 700;
+    transition: .2s;
+}
+.main-menu-list a:hover{
+    text-decoration: none;
+    color: #1679f0;
+}
+
+.head-menu{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    background-color: #EFEFF6;
+    width: 210px;
+    right: 40px;
+    text-align: center;
+    border-radius: 20px;
+    z-index: 1;
+    top: 50px;
+}
+
+.triangle{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 15px solid #fff;
+    top: -20px;
+}
+
+
+
+.head-bottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    background-color: #F5F9FA ;
+}
+.head-search{
+    position: relative;
+    width: 40%;
+}
+.head-search input{
+    width: 100%;
+    background-color: #EFF3F4;
+    height: 40px;                   
+    border-radius: 20px;
+    padding: 15px;  
+}
+
+.head-search button{
+    position: absolute;
+}
+
+.head-search input::placeholder{
+    color: #D9D5D6 ;
+}
+
+.head-search svg{
+    position: absolute;
+    right: 25px;
+    top: 10px;
+    color: #B3AAAB ;
+    transition: .5s;
+}
+.head-search svg:hover{
+    color: #1679f0;
+}
+/* end of header design */
+
+/* menu design*/
+.menu{
+    position: relative;
+    z-index: 1;
+}
+.menu-list{
+    display: flex;
+    flex-direction: column;
+}
+.menu-list li{
+    margin-bottom: 8px;
+}
+.menu-list a{
+    color:#000;
+    font-weight: 700;
+    transition: .4s;
+}
+.menu-list a:hover{
+    text-decoration: none;
+    color: #1679f0;
+}
+
+/* design of submenus */
+.dropdown-menu-list li{
+    margin-bottom: 5px;
+}
+.dropdown-menu-list{
+    display: none;
+}
+.dropdown-menu-list{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dropdown-menu-list a{
+    color: #777782;
+}
+.drop-menu:hover .dropdown-menu-list{
+    display: flex;
+}
+
+/* design  of mobile menu*/
+.mobile{
+    position: absolute;
+    z-index: 1;
+    background-color: #ccc;
+    display: none;
+}
+
+.mob-menu-list{
+    position: relative;
+    width: 200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    text-align: center;    
+}
+
+.mob-menu-list li{
+    margin-bottom: 10px;
+}
+.mob-menu-list a{
+    color:#000;
+    font-weight: 700;
+    transition: .4s;
+}
+.mob-menu-list a:hover{
+    text-decoration: none;
+    color: #1679f0;
+}
+.mob-dropdown-menu-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.mob-dropdown-menu-list a{
+    color: #777782;
+}
+.mob-menu-icon{
+    margin-left: 20px;
+    color: #cdcbcc;
+    cursor: pointer;
+    display: none;
+}
+.mobile-menu{
+    display: none;
+}
+/* end of menu */
+
+
+main{
+    background-color: #EBECEE ;
+}
+
+.main-cover{
+    margin-top: 25px;
+}
+
+
+/* card design */
+.card-list{
+    width: 100%;
+    padding: 5px;
+    background-color: #fff;
+}
+.travel-card{
+    max-width: 300px;
+    margin: 15px;
+}
+.travel-card img{
+    width: 100%;
+}
+.card-text{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+.card-text span{
+    font-weight: 500;
+    color: #777782;
+}
+.card-title{
+    color: #4b4b4d;
+    margin-top: 10px;
+    
+}
+.card-links a{
+    font-weight: 700;
+    line-height: 30px;
+}
+.card-links a:hover{
+    color: #febd69;
+}
+.card-img{
+    transition: .5s;
+}
+.card-img:hover{
+    opacity: .6;
+}
+.card-links span{
+    font-size: 20px;
+    font-weight: 700;
+}
+.card-links{
+    display: flex;
+    justify-content: space-between;
+}
+.card-content{
+    height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid #ccc;
+    padding: 5px;
+}
+
+.card-content a{
+    text-decoration: none;
+}
+/* end of card design */
+
+
+/*   */
+.top-to-box{
+    width: 100%;
+    text-align: center;
+    background-color: #2e7fe8;  
+}
+.top-to-box button{
+    color: #fff;
+    font-weight: 600;
+    font-size: 20px;
+}
+
+/* Footer design */
+#footer{
+    background-color: #3e3c3d;
+}
+.foot-list{
+    display: flex;
+    flex-direction: column;
+}
+.foot-list li{
+    margin-bottom: 5px;
+    color: #c4c2c3;
+}
+.foot-list a{
+    color: #fff;
+    font-weight: 600;
+}
+#footer p{
+    color: #c4c2c3;
+    margin: 0;
+}
+#footer .row{
+    padding-top: 15px;
+}
+#footer a:hover{
+    text-decoration: none;
+    color: #c4c2c3;
+}
+.contact-link{
+    position: relative;
+    right: 10px;
+    float: right;
+    color: #fff;
+    font-weight: 600;
+}
+.contact-link:hover{
+    color: #c4c2c3;
+}
+.social-media{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #c4c2c3;
+}
+.social-media li{
+    padding: 10px;
+}
+.social-media path {
+    color: #fff; 
+    transition: .4s;
+}
+.social-media li:hover path{
+    color: #c4c2c3;
+}
+/* End of footer design */
+
+
+/* Company profile design */
+.head-bottom-img{
+    overflow: hidden;
+    /* background-image: url("../images/climbing.jpg"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 300px;
+    justify-content: flex-start;
+}
+
+.head-overlay{
+    position: relative;
+    width: 400px;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #EBECEE;
+    opacity: 0.8;
+    border-radius: 30px;
+    left: 30px;
+    bottom: 70px;
+}
+
+.head-overlay h1{
+    color: #696972;
+    font-family: 'Lobster', cursive;
+}
+
+.head-bottom-content{
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    height: 70px;
+    bottom: 0;
+    background-color: #2e7fe8;
+}
+
+.company-logo{
+    position: absolute;
+    bottom: 10px;
+    left: 70px;
+    border-radius: 50%;
+}
+.company-logo img{
+    width: 120px;
+    border-radius: 50%;
+}
+
+.company-name{
+    position: absolute;
+    left: 200px;
+    top:10px;
+}
+
+.company-name h2{
+    color: #fff;
+}
+
+.head-menu-list a{
+    color: #fff;
+}
+
+.head-menu-list li{
+    margin: 10px;
+}
+
+/* main part */
+
+
+.main-container{
+    width: 85%;
+    margin: auto;
+    background-color: #fff;
+}
+
+.main-inner{
+    padding: 50px;
+}
+
+.main-inner table{
+    width: 100%;
+}
+
+.main-inner th{
+    width: 25%;
+}
+
+.main-inner td{
+    background-color: #ebecee;
+}
+.about th{
+    background-color: #ebecee;
+    border-right: 15px solid #fff;
+}
+
+.about th, td{
+    padding: 5px 20px;
+}
+
+.main-inner h4{
+    text-align: center;
+    line-height: 50px;
+}
+
+.img-galery .card-content{
+    font-size: 12px;
+}
+
+.img-galery .stars svg{
+    width: 15px;
+}
+
+.img-galery .travel-card{
+    max-width: 180px;
+}
+
+.img-galery h4{
+    font-size: 35px;
+    padding-bottom: 20px;
+    padding-top: 10px;
+}
+
+.more-text{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.img-card{
+    padding:5px;
+}
+.img-card img{
+   height: 200px;
+   cursor: pointer;
+}
+
+.blog-card{
+    max-width: 200px;
+    margin: 5px;
+}
+
+.blog-card img{
+    width: 100%;
+}
+
+.gallery img{
+    max-width: 200px;
+}
+
+.gallery li{
+    margin: 5px;
+}
+
+.owl-carousel {
+    width: 65%;
+    position: relative;
+}
+
+
+.owl-nav button {
+    width: 24px;
+    transition: all .4s ease-in-out;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.owl-nav button:hover {
+    background-color: #EBECEE !important;
+    color: #000 !important;
+}
+
+.owl-nav {
+    margin-top: 0 !important;
+}
+
+.owl-nav .owl-next {
+    right: -30px
+}
+
+.owl-nav .owl-prev {
+    left: -30px;
+}
+
+.owl-nav span{
+    font-size: 45px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+table tr:last-child th:first-child {
+    border-bottom-left-radius: 10px;
+}
+
+table tr:last-child td:last-child {
+    border-bottom-right-radius: 10px;
+}
+
+table tr:first-child th:first-child {
+    border-top-left-radius: 10px;
+}
+
+table tr:first-child td:last-child {
+    border-top-right-radius: 10px;
+}
+
+.img-list .card-content{
+    height: unset;
+}
+
+.pop_up_img_box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color:rgba(0,0,0,.8);
+    z-index: 3;
+}
+
+.img_box_self{
+    position: relative;
+    width: 60%;
+    height: 70%;
+    margin: auto;
+    top: 50px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.img_box_self img{
+    width: 100%;
+    height: 100%;
+}
+
+
+/*End of Company profile design */
+
+
+.form-box ul li button{
+    color: #535353;
+    background-color: #f0f0f0;
+    padding: 5px 20px;
+    border-radius: 15px;
+    width: 100%;
+}
+
+.form-box ul li select{
+    width: 70%;
+    background-color: #f0f0f0;
+    padding: 5px 20px;
+    border-radius: 15px;
+    -webkit-appearance: none;
+}
+.form-box ul li select option{
+    border-radius: 15px;
+    width: 70%;
+    background-color: #f0f0f0;
+    padding: 5px 20px;
+}
+
+.form-box ul li input[type=file]{
+    background-color: #f0f0f0;
+}
+
+/* end of style */
+
+.head-bottom-img img{
+    width: 100%;
+    height: 100%;
+}

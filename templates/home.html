@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Welcome</h1>
+
+    {% if user.is_authenticated %}
+        {% if user.is_superuser %}
+            <h3>super {{user.username}}</h3>
+        {% else %}
+            <h3>not super {{user.username}}</h3>
+        {% endif %}
+        <h3>{{user.organizer.name}}</h3>
+        <h3>{{user.organizer.organizerurl.url}}</h3>
+    {% else %}
+        <h3>Unknown</h3>
+    {% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,179 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    border: 0;
+    border-radius: 0;
+    outline: none;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+ul li,
+ol li {
+    position: relative;
+    float: left;
+    list-style-type: none;
+}
+
+a {
+    display: inline-block;
+    transition: color .2s ease-in-out;
+    text-decoration: none !important;
+}
+button {
+    background-color: transparent;
+}
+header {
+    width: 100%;
+    background-color: #3e3c3d;
+    float: left;
+}
+/* menu design */
+
+.menu-btn{
+    width: 45px;
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    outline: none;
+}
+
+.menu-btn:hover{
+    border-color: #fff;
+}
+
+.menu-btn svg{
+    color: #fff;
+}
+.menu-box{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,.8);
+    z-index: 2;
+}
+.menu-box-in{
+    position: fixed;
+    width: 300px;
+    height: 100%;
+    background-color: #EBECEE;
+    z-index: 1000;
+    -webkit-box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
+    -moz-box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
+    box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
+}
+
+.menu-box-in-head{
+    height: 53px;
+    background-color: #3e3c3d;
+}
+
+.menu-box-in-head img{
+    position: absolute;
+    left: 60px;
+}
+
+.close-btn svg{
+    color: #fff;
+}
+
+.close-btn{
+    position: absolute;
+    top: 5px;
+    right: -50px;
+    width: 45px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.close-btn:hover{
+    border-color: #fff;
+}
+.main-menu-list{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+
+.main-menu-list li{
+    margin-bottom: 8px;
+    padding: 5px;
+    border-bottom: 1px solid #000;
+}
+.main-menu-list a{
+    font-size: 18px;
+    color:#000;
+    font-weight: 700;
+    transition: .2s;
+}
+.main-menu-list a:hover{
+    text-decoration: none;
+    color: #1679f0;
+}
+/* end of menu design */
+
+.main-block {
+    background-color: #f0f0f0;
+    position: relative;
+    width: 100%;
+    float: left;
+}
+.inner-block {
+    position: relative;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    max-width: 1200px;
+}
+.form-box {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: auto;
+}
+.info-list {
+    position: relative;
+    margin: auto;
+    width: 100%;
+}
+.info-list li {
+    float: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+}
+label, p {
+    color: #535353;
+}
+input, textarea {
+    width: 70%;
+    background-color: #f0f0f0;
+    padding: 5px 20px;
+    border-radius: 15px;
+}
+section{
+    width: 70%;
+}
+.types{
+    width: auto;
+}
+.submit-btn{
+    float: right;
+    margin-right: 12px;
+    margin-top: 18px;
+    padding: 5px 27px;
+    border-radius: 17px;
+    background-color: #f0f0f0;
+    transition: all .3s ease-in-out;
+}
+button:hover{
+    background-color: #535353;
+    color: #fff;
+}

@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wactop</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="assets/css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="assets/css/add_tour.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+
+<body>
+  <header>
+    <div class="full">
+      <div class="head-up">
+        <div class="head-up-left">
+          <button class="menu-btn">
+            <svg
+              aria-hidden="true"
+              width="25"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="bars"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              class="svg-inline--fa fa-bars fa-w-14 fa-3x"
+            >
+              <path
+                fill="currentColor"
+                d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                class=""
+              ></path>
+            </svg>
+          </button>
+          <a href="{% url 'tour:home' %}"
+            ><img src="assets/images/wactop.png" alt="Wactop" width="150"
+          /></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="menu-box" style="display: none;"></div>
+  <div class="menu-box-in" style="display: none;">
+    <div class="menu-box-in-head">
+      <img src="assets/images/wactop.png" width="150px" alt="" />
+      <button class="close-btn">
+        <svg
+          aria-hidden="true"
+          width="20"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="times"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 352 512"
+          class="svg-inline--fa fa-times fa-w-11 fa-3x"
+        >
+          <path
+            fill="currentColor"
+            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            class=""
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <div class="menu-box-in-body">
+      <nav>
+        <ul class="main-menu-list">
+          <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+    <main>
+      <div class="main-block">
+          <div class="inner-block">
+              <form action="" class="form-box">
+                  <ul class="info-list">
+                    <li>
+                      <label for="">Title</label>
+                      <input type="text" name="" id="">
+                   </li>
+                    <li>
+                      <label for="">Description Az</label>
+                      <textarea name="" id="" cols="30" rows="7" min placeholder="Please write description"></textarea>
+                    </li>
+                    <li>
+                      <label for="">Description En</label>
+                      <textarea name="" id="" cols="30" rows="7" min placeholder="Please write description"></textarea>
+                    </li>
+                    <li>
+                      <label for="">Description Ru</label>
+                      <textarea name="" id="" cols="30" rows="7" min placeholder="Please write description"></textarea>
+                     </li>
+                     <li>
+                      <label for="">Type</label>
+                      <section>
+                        <input type="checkbox" class="types" value="">
+                      <label for=""> Travel</label><br>
+                      <input type="checkbox" class="types" value="">
+                      <label for=""> Mountain</label><br>
+                      <input type="checkbox" class="types" value="">
+                      <label for=""> Beach</label><br>
+                      </section>
+                     </li>
+                     <li>
+                      <label for="">Country</label>
+                      <input type="text" placeholder="Azerbaijan">
+                     </li>
+                     <li>
+                      <label for="">City</label>
+                      <input type="text" >
+                     </li>
+                      <li>
+                        <label for="">Price</label>
+                        <input type="text" >
+                    </li>
+                    <li>
+                      <label for="">Pricefor</label>
+                      <input type="text" placeholder="1">
+                    </li>
+                    <li>
+                      <label for="">Currency</label>
+                      <input type="text" placeholder="AZN">
+                   </li>
+                   <li>
+                    <label for="">Datefrom</label> 
+                    <input type="date" >
+                   </li>
+                      <li>
+                          <label for="">Dateto</label> 
+                          <input type="date" >
+                      </li>
+                      <li>       
+                          <label for="">Guide</label>
+                          <input type="text" name="" id="">
+                      </li>
+                     <button type="submit" class="submit-btn">Add</button>
+                  </ul>
+                 
+                  
+              </form>
+          </div>
+      </div>
+  </main>
+
+    <script src="assets/js/jquery-latest.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="assets/js/owl.carousel.js"></script>
+    <script src="assets/js/owl.carousel.min.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+
+</html>

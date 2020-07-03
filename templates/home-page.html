@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/home-page/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/home-page-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/home-page-responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/style.css' %}">
+</head>
+
+<body>
+        <header>
+            <a href="{% url 'main:home' %}" class="logo"><img src="{% static 'images/home-page/wactop.png' %}" title="Wactop" alt="wactop"></a>
+            <div class="header-left">
+                {% if user.is_authenticated %}
+                <nav class="header-left-top">
+                    <ul>
+                        <li><a href="{% url 'organizer:edit' pk %}">edit profile</a></li>
+                        <li><a href="{% url 'organizer:logout' %}">logout</a></li>
+                        <li><a href="{% url 'organizer:addtour' %}">add tour</a></li>
+                        <li><a href="{% url 'organizer:addtour' %}">add activity</a></li>
+                        <li><a href="{% url 'organizer:addtour' %}">add training</a></li>
+                    </ul>
+                </nav>
+                {% else %}
+                <nav class="header-left-bottom">
+                    <ul>
+                        <li><a href="{% url 'organizer:login' %}">login</a></li>
+                        <li><a href="{% url 'organizer:register' %}">register</a></li>
+                    </ul>
+                </nav>
+                {% endif %}
+            </div>
+            
+        </header>
+
+    <div id="login" class="login">
+        <form class="modal-content animate" method="POST" action="{% url 'organizer:login' %}">
+            {% csrf_token %}
+          <div class="login-container">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" class="login-txt" placeholder="Enter Username" name="username" required>
+      
+            <label for="psw"><b>Password</b></label>
+            <input type="password" class="login-psw" placeholder="Enter Password" name="password" required>
+              
+            <button type="submit" class="login-btn">Login</button>
+          </div>
+        </form>
+    </div>
+
+    <main id="main">
+        <div class="slishow">
+            <ul id="slides">
+                <li class="slide showing"><img src="{% static 'images/home-page/slide-img-1.jpg' %}" alt=""></li>
+                <li class="slide"><img src="{% static 'images/home-page/slide-img-2.jpg' %}" alt=""></li>
+                <li class="slide"><img src="{% static 'images/home-page/slide-img-3.jpg' %}" alt=""></li>
+            </ul>
+        </div>
+        <div class="container">
+            <div class="full-width">
+                <div class="row text-center">
+                    <div class="inner">
+                        <a href="{% url 'tour:home' %}" class="suggestions">Tours</a>
+                        <p>{{tourcount}}</p>
+                    </div>
+                    <div class="inner">
+                        <a href="{% url 'activity:home' %}" class="suggestions">Activities</a>
+                        <p>{{activitycount}}</p>
+                    </div>
+                    <div class="inner">
+                        <a href="{% url 'training:home' %}" class="suggestions">Tranings</a>
+                        <p>{{trainingcount}}</p>
+                    </div>
+                    <div class="inner">
+                        <a href="{% url 'organizer:home' %}" class="suggestions">Organizer</a>
+                        <p>{{organizercount}}</p>
+                    </div>
+                 
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="full">
+        <div class="footer-up">
+            <div class="partners">Our partners</div>
+            <div class="partners-logos">
+                <div class="owl-carousel owl-theme">
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item" id="partners-crsl"><img src="https://yer.az/banner/yeraz-150x150.jpg" alt="" onclick="window.open('http://www.yer.az')"></div>
+                    <!-- <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div> -->
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                    <div class="item"><img src="{% static 'images/home-page/wacgtop1.png' %}" alt=""></div>
+                </div>
+            </div>
+        </div>
+        <div class="full footer-bottom">
+            <div class="row">
+                <div class="col">
+                    <ul class="foot-list">
+                        <li>
+                            <a href="#">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms</a>
+                        </li>
+                        <li>
+                            <a href="#">Privacy</a>
+                        </li>
+                    </ul>
+                    <p><i class="far fa-copyright"></i> 2019</p>
+                </div>
+                <div class="col social-media">
+                    <p>Follow Us</p>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-facebook-square fa-w-14 fa-2x">
+                <path fill="currentColor"
+                  d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
+                  class=""></path>
+              </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="ins-icon svg-inline--fa fa-instagram fa-w-14 fa-2x">
+                <path fill="currentColor"
+                  d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                  class=""></path>
+              </svg>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-linkedin fa-w-14 fa-2x">
+                <path fill="currentColor"
+                  d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                  class=""></path>
+              </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col">
+                    <a class="contact-link" href="#">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/home-page/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/home-page/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/home-page/owl.carousel.js' %}"></script>
+    <script src="{% static 'js/home-page/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/home-page/main.js' %}"></script>
+    <script>
+    var slides = document.querySelectorAll('#slides .slide');
+var currentSlide = 0;
+var slideInterval = setInterval(nextSlide,2000);
+
+function nextSlide(){
+    slides[currentSlide].className = 'slide';
+    currentSlide = (currentSlide+1)%slides.length;
+    slides[currentSlide].className = 'slide showing';
+}
+    </script>
+</body>
+
+</html>

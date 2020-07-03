@@ -1,0 +1,309 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tours</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/tour-list/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tour-list/fontawesome.min.css' %}">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/tour-list/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tour-list/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/tour-list/responsive.css' %}">
+
+    <script src="{% static 'js/tour-list/jquery-3.4.1.min.js' %}"></script>
+
+    <style>
+        .card-links span:last-child{
+            color: #2e7fe8;;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="loader" class="center1"></div> 
+    <header>
+        <div class="full">
+            <div class="head-up">
+                <div class="head-up-left">
+                    <button class="menu-btn">
+                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14 fa-3x"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" class=""></path></svg> 
+                    </button>
+                    <a href="{% url 'main:home' %}"><img src="{% static 'images/tour-list/wactop-logo.png' %}" alt="Wactop" width="150"></a>
+                    <button class="filter-btn">
+                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="sort-amount-down-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sort-amount-down-alt fa-w-16 fa-3x"><path fill="currentColor" d="M240 96h64a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm0 128h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm256 192H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-256-64h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm-64 0h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352z" class=""></path></svg>
+                    </button>
+                </div>
+            </div>
+            <section>
+                <div class="full mobile">
+                    <!-- Mobile Menu -->
+                    <div class="mobile-menu">
+                        <nav>
+                            <ul class="mob-menu-list">
+                                <li class="drop-menu"><a href="#">Price</a>
+                                    <svg aria-hidden="true" width = "12" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 fa-2x icon arrow-icon"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path></svg>
+                                    <ul class="mob-dropdown-menu-list">
+                                        <li><a href="#">Low</a></li>
+                                        <li><a href="#">High</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Country</a></li>
+                                <li><a href="#">Travel style</a></li>
+                                <li><a href="#">Duration</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        
+            <div class="head-bottom">
+                <div class="head-search">
+                    <form action="{% url 'tour:filter' %}">
+                        <input type="text" placeholder="Search" name="search">
+                        <button type="submit"><svg aria-hidden="true" width =  "18" focusable="false" data-prefix="fas" data-icon="search" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-search fa-w-16 fa-2x"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z" class=""></path></svg></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;" >
+        <div class="menu-box-in-head">
+            <img src="{% static 'images/tour-list/wactop-logo.png" width="150px" alt="">
+            <button class="close-btn">
+                <svg aria-hidden="true" width = "20" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline--fa fa-times fa-w-11 fa-3x"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" class=""></path></svg>
+            </button>
+        </div>
+        <div class="menu-box-in-body">
+            <nav>
+                <ul class="main-menu-list">
+                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    
+
+
+    <main class="full">
+        <div class="full">
+            <div class="row main-cover">
+                <div class="col-1">
+                    <div class="menu">
+                        <nav>
+                            <ul class="menu-list">
+                                <li class="drop-menu"><a href="#">Price</a>
+                                    <ul class="dropdown-menu-list">
+                                        <form action="{% url 'tour:filter' %}">
+                                            <li><a href=""><button type="submit" name="price"  value="high">high</button></a></li>
+                                            <li><a href=""><button type="submit" name="price"  value="low">low</button></a></li>
+                                        </form>
+                                    </ul>
+                                </li>
+                                <li class="drop-menu"><a href="#">Country</a>
+                                    <ul class="dropdown-menu-list">
+                                        <form action="{% url 'tour:filter' %}">
+                                            {% for i in country %}
+                                                <li><a href=""><button type="submit" name="country"  value="{{i}}">{{i}}</button></a></li>
+                                            {% endfor %}
+                                        </form>
+                                    </ul>
+                                </li>
+                                <li class="drop-menu"><a href="#">Travel style</a>
+                                    <ul class="dropdown-menu-list">
+                                        <form action="{% url 'tour:filter' %}">
+                                            {% for i in style %}
+                                                <li><a href=""><button type="submit" name="style"  value="{{i}}">{{i}}</button></a></li>
+                                            {% endfor %}
+                                        </form>
+                                    </ul>
+                                </li>
+                                <li class="drop-menu"><a href="#">Duration</a>
+                                    <ul class="dropdown-menu-list">
+                                        <form action="{% url 'tour:filter' %}">
+                                            <li><a href=""><button type="submit" name="duration"  value="long">long</button></a></li>
+                                            <li><a href=""><button type="submit" name="duration"  value="short">short</button></a></li>
+                                        </form>
+                                    </ul>
+                                </li>
+                                <li class="drop-menu"><a href="#">Discount</a>
+                                    <ul class="dropdown-menu-list">
+                                        <form action="{% url 'tour:filter' %}">
+                                            <li><a href=""><button type="submit" name="discount"  value="1">discount</button></a></li>
+                                        </form>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-11">
+                    <div class="card-list">
+                        <div class="row  justify-content-center">
+
+                            {% if notfound %}
+                                <h3>{{notfound}}</h3>
+                            {% else %}
+                                {% for i in tour %}
+                                    <div class="travel-card" >
+                                        {% if i.avatar %}
+                                        <a href="{% url 'tour:detail' i.id %}"><div class="avatarbox" style="background-image:url({{i.avatar.url}})"></div></a>
+                                        {% endif %}
+                                        <div class="card-content">
+                                            <a href="#">
+                                                <h5 class="card-title">{{i.title}}</h5>
+                                                <div class="line"></div>
+                                            </a>
+                                            <p class="card-text">
+                                                <span>Location: {%if i.city%} {{i.city}}, {%endif%}{{i.country}}</span>
+                                                <span>Company: {{i.organizer.name}}</span>
+                                            </p>
+                                            <div class="card-links">
+                                                <span>{{i.price}} {{i.currency}}</span>
+                                                <span>{{i.durationday}} days</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+                        </div>
+                        <nav style="margin-top: 25px;">
+                            <ul class="pagination justify-content-center">
+                                {% for i in paginator %}
+                                    {% if query %}
+                                        {% if price2 %}<li class="page-item"><a class="page-link" href="?price={{price2}}&{{page}}={{i}}">{{i}}</a></li>{%endif%}
+                                        {% if country2 %}<li class="page-item"><a class="page-link" href="?country={{country2}}&{{page}}={{i}}">{{i}}</a></li>{%endif%}
+                                        {% if style2 %}<li class="page-item"><a class="page-link" href="?style={{style2}}&{{page}}={{i}}">{{i}}</a></li>{%endif%}
+                                        {% if duration2 %}<li class="page-item"><a class="page-link" href="?duration={{duration2}}&{{page}}={{i}}">{{i}}</a></li>{%endif%}
+                                        {% if discount2 %}<li class="page-item"><a class="page-link" href="?discount={{discount2}}&{{page}}={{i}}">{{i}}</a></li>{%endif%}
+                                    {% else %}
+                                        <li class="page-item"><a class="page-link" href="?{{page}}={{i}}">{{i}}</a></li>
+                                    {% endif %}
+                                        
+                                {% endfor %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="top-to-box">
+                    <button type="button" onclick="topFunction();">Back to top</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="full">
+        <div class="full">
+            <div class="row">
+                <div class="col">
+                    <ul class="foot-list">
+                        <li>
+                            <a href="#">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms</a>
+                        </li>
+                        <li>
+                            <a href="#">Privacy</a>
+                        </li>
+                    </ul>
+                    <p>© 2019</p>
+                </div>
+                <div class="col social-media">
+                    <p>Follow Us</p>
+                    <ul>
+                            <li>
+                                <a href="#">
+                                    <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-facebook-square fa-w-14 fa-2x"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" class=""></path></svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="ins-icon svg-inline--fa fa-instagram fa-w-14 fa-2x"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" class=""></path></svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-linkedin fa-w-14 fa-2x"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" class=""></path></svg>
+                                </a>
+                            </li>
+                        </ul>
+                </div>
+                <div class="col">
+                    <a class="contact-link" href="#">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        $('.menu-btn').click(function(){
+            $('.menu-box-in').stop().animate({
+                width : 'toggle'
+            },500);
+        });
+        
+        $('.menu-btn').click(function(){
+            $('.menu-box').css("display","block");
+            $('body').css("overflow","hidden");
+        });
+        $('.close-btn, .menu-box').click(function(){
+            $('.menu-box').css("display","none");
+            $('.menu-box-in').stop().animate({
+                width : 'toggle'
+            },500);
+            $('body').css("overflow","auto");
+        });
+
+
+        
+    </script>
+
+    <script>
+
+        document.onreadystatechange = function() { 
+            if (document.readyState !== "complete") { 
+                document.querySelector( 
+                  "body").style.visibility = "hidden"; 
+                document.querySelector( 
+                  "#loader").style.visibility = "visible"; 
+            } else { 
+                document.querySelector( 
+                  "#loader").style.display = "none"; 
+                document.querySelector( 
+                  "body").style.visibility = "visible"; 
+            } 
+        };
+       
+       $('.filter-btn').click(function(){
+            $('.mobile').slideToggle(1000);
+       });
+
+       $('.arrow-icon').click(function(){
+            $(this).toggleClass('rotate');
+            $('.mob-dropdown-menu-list').slideToggle(1000);
+       });
+        
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    
+
+    <script src="{% static 'js/tour-list/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/tour-list/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/tour-list/main.js' %}"></script>
+    
+</body>
+</html>

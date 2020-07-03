@@ -1,0 +1,375 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>{{tour.title}}</title>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{% static 'css/tour-page/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tour-page/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tour-page/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-responsive.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/tour-page/reset.css' %}" />
+  </head>
+
+  <body>
+    <header>
+      <div class="full">
+        <div class="head-up">
+          <div class="head-up-left">
+            <button class="menu-btn">
+              <svg
+                aria-hidden="true"
+                width="25"
+                focusable="false"
+                data-prefix="fas"
+                data-icon="bars"
+                role="img"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 448 512"
+                class="svg-inline--fa fa-bars fa-w-14 fa-3x"
+              >
+                <path
+                  fill="currentColor"
+                  d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                  class=""
+                ></path>
+              </svg>
+            </button>
+            <a href="{% url 'main:home' %}"
+              ><img src="{% static 'images/tour-page/wactop.png' %}" alt="Wactop" width="150"
+            /></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;">
+      <div class="menu-box-in-head">
+        <img src="{% static 'images/tour-page/wactop.png' %}" width="150px" alt="" />
+        <button class="close-btn">
+          <svg
+            aria-hidden="true"
+            width="20"
+            focusable="false"
+            data-prefix="fas"
+            data-icon="times"
+            role="img"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 352 512"
+            class="svg-inline--fa fa-times fa-w-11 fa-3x"
+          >
+            <path
+              fill="currentColor"
+              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+              class=""
+            ></path>
+          </svg>
+        </button>
+      </div>
+      <div class="menu-box-in-body">
+        <nav>
+          <ul class="main-menu-list">
+            <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+
+    <main id="main">
+      <div class="below-header">
+        <div class="coverdiv">
+          <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%}" alt="" class="back-img" />
+        </div>
+        <div class="center-img">
+          <div class="img-center">
+            <div class="to-center">
+              <div class="img"><img src="{%if tour.avatar%}{{tour.avatar.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%}" alt="" class="back-img" /></div>
+              <div class="comps-info-container">
+                <div class="comps-info">
+                  <h5>{{tour.title}}</h5>
+                  <p class="location">{% if tour.city %} {{tour.city}}, {%endif%} {{tour.country}}</p>
+                  <div class="mountain">
+                    <a href="" class="place"> something idk / Mountain of Azerbaijan</a>
+                    <div class="select-langs">
+                      <form action="{% url 'tour:detail' tour.id %}">
+                        <select name='lang' onchange="this.form.submit()">
+                          <option value="" selected hidden disabled>{{lang}}</option>
+                          <option value="en">En</option>
+                          <option value="az">Az</option>
+                          <option value="ru">Ru</option>
+                        </select>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="cover-menu">
+        <div class="main-container">
+          <div class="left-wrapper">
+            <div class="center">
+              <div class="overlay">
+                <div class="top-main">
+                  <div class="left">
+                    <p class="word">
+                      {{description}}
+                    </p>
+                    <nav class="details">
+                      {% for i in detail %}
+                        <div class="visible">
+                          <p><b>{{i.title}}:</b></p>
+                          <p>{{i.text|linebreaks}}</p>
+                        </div>
+                      {% endfor %}
+                      {% if detail %}
+                        <span onclick="readmore()" style="color: #63a3eb;" class="readmore"><strong>read more</strong></span>
+                      {%endif%}
+                    </nav>
+                  </div>
+                  <div class="middle-container">
+                    <div class="middle">
+                      <nav>
+                        <ul>
+                          <li><p class="price">Price</p></li>
+                          <li>
+                            <h4>{{tour.price}} {{tour.currency}}</h4>
+                            <i class="person"> For {{tour.pricefor}} Person</i>
+                          </li>
+                          <li ng-app="myApp" ng-controller="Main">
+                            <button ng-click="doVote()">
+                            </button>
+                            <span ng-model="like.votes">{{tour.viewcount}} views</span>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                    <div class="about-company-mobile">
+                      <span>About company</span>
+                      <ul>
+                        <li>Email address:</li>
+                        <li>Phone address:</li>
+                        <li>Website:</li>
+                        <li>Other links:</li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="right">
+                    <p>{{tour.datefrom}} - {% if tour.dateto %}{{tour.dateto}}{%endif%}</p>
+                    <div class="right-list">
+                      <span><i class="fas fa-clock"></i></span>
+                      <nav>
+                        <ul>
+                          <li>{%if tour.durationday%} {{tour.durationday}} day {%endif%}</li>
+                          <li>{%if tour.durationnight%} {{tour.durationnight}} night {%endif%}</li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="images">
+                <div class="owl-carousel owl-theme">
+                  {% if image %}
+                    {% for i in image %}
+                    <div class="item">
+                      <img src="{{ i.image.url }}" alt="2" />
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="images">
+                <div class="owl-carusel owl-theme">
+                  {% if schedule %}
+                    {% for i in schedule %}
+                    <div class="item">
+                      <img src="{{ i.image.url }}" alt="2" />
+                    </div>
+                    {% endfor %}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="iframe-container">
+                <iframe
+                  src="https://www.google.com/maps/d/u/0/embed?mid=1AliYtRiH2owJkZpHS3jn5A16B41ZDlHj"
+                ></iframe>
+              </div>
+              {% if tour.organizer %}
+                <div class="about-company">
+                  <span>About organizer</span>
+                  <ul>
+                    <li>Name: <a href="{% url 'organizer:detail' tour.organizer.id %}">{{tour.organizer.name}}</a></li>
+                    {% if tour.organizer.email %}<li>Email: {{tour.organizer.email}}</li>{% endif %}
+                    {% if tour.organizer.number1 %}<li>Contact number: {{tour.organizer.number1}}</li>{% endif %}
+                    {% if tour.organizer.number2 %}<li>Contact number: {{tour.organizer.number2}}</li>{% endif %}
+                    {% if tour.organizer.website %}<li>Website: {{tour.organizer.website}}</li>{% endif %}
+                    {% if url %}
+                      <ul>Other links:
+                      {% for i in url %}
+                        <li>{{i}}</li>
+                      {% endfor %}
+                    {% endif %}</ul>
+                  </ul>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="top-to-box">
+          <button type="button" onclick="topFunction();">Back to top</button>
+        </div>
+      </div>
+    </main>
+
+    <footer id="footer" class="full">
+      <div class="full">
+        <div class="row">
+          <div class="col">
+            <ul class="foot-list">
+              <li>
+                <a href="#">About Us</a>
+              </li>
+              <li>
+                <a href="#">Terms</a>
+              </li>
+              <li>
+                <a href="#">Privacy</a>
+              </li>
+            </ul>
+            <p>© 2019</p>
+          </div>
+          <div class="col social-media">
+            <p>Follow Us</p>
+            <ul>
+              <li>
+                <a href="#">
+                  <svg
+                    width="20"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fab"
+                    data-icon="facebook-square"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    class="svg-inline--fa fa-facebook-square fa-w-14 fa-2x"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z"
+                      class=""
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <svg
+                    width="20"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fab"
+                    data-icon="instagram"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    class="svg-inline--fa fa-instagram fa-w-14 fa-2x ins-icon"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z"
+                      class=""
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+              <li>
+                <a href="#">
+                  <svg
+                    width="20"
+                    aria-hidden="true"
+                    focusable="false"
+                    data-prefix="fab"
+                    data-icon="linkedin"
+                    role="img"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 448 512"
+                    class="svg-inline--fa fa-linkedin fa-w-14 fa-2x"
+                  >
+                    <path
+                      fill="currentColor"
+                      d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"
+                      class=""
+                    ></path>
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <div class="col">
+            <a class="contact-link" href="#">Contact Us</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="{% static 'js/tour-page/angular.min.js' %}"></script>
+
+    <script>
+      details = document.querySelectorAll(".details .visible")
+      for(let i=1; i<details.length; i++){
+        details[i].style.display = "none"
+      }
+      function readmore(){
+        if(details[1].style.display == "none"){
+          document.querySelector(".readmore").innerHTML = "read less"
+          for(let i=1; i<details.length; i++){
+            details[i].style.display = "block"
+          }
+        }
+        else{
+          document.querySelector(".readmore").innerHTML = "<strong>read more</strong/>"
+          for(let i=1; i<details.length; i++){
+            details[i].style.display = "none"
+          }
+        }
+      }
+    </script>
+
+    <script>
+      var myApp = angular.module("myApp", []).controller("Main", [
+        "$scope",
+        function($scope) {
+          $scope.like = {};
+          $scope.like.votes = 5;
+          $scope.doVote = function() {
+            if ($scope.like.userVotes == 6) {
+              delete $scope.like.userVotes;
+              $scope.like.votes--;
+            } else {
+              $scope.like.userVotes = 6;
+              $scope.like.votes++;
+            }
+          };
+        }
+      ]);
+    </script>
+    <script src="{% static 'js/tour-page/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/tour-page/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/tour-page/owl.carousel.js' %}"></script>
+    <script src="{% static 'js/tour-page/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/tour-page/main.js' %}"></script>
+  </body>
+</html>

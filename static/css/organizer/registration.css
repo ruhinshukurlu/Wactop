@@ -1,0 +1,118 @@
+.pop-up-form{
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+    transition: .5s ease;
+}
+
+.myform{
+    position: relative;
+    width: 550px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    background-color: #ebebeb;
+    border-radius: 5px;
+    z-index: 10;
+    top: 15%;
+}
+
+.myform h2{
+    text-align: center;
+    margin: 20px;
+    color: #686766;
+}
+
+.myform span{
+    color: #686766;
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.myform-content{
+    display: flex;
+    justify-content: center;
+}
+
+.myform input{
+    width: 80%;
+    height: 45px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.myform input::placeholder{
+    color: #c7c5c5;
+}
+.close-icon{
+    position: absolute;
+    color: #fff;
+    right: 40px;
+    top: 40px;
+}
+
+.myform button{
+    background-color: #0098e5;
+    color: #fff;
+    height: 40px;
+    width: 80%;
+    border-radius: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.sign-in-content a{
+    margin-bottom: 20px;
+}
+
+/* sign-in-user.html design */
+.sign-in-user a{
+    margin-bottom: 20px;
+}
+
+ /* sign-in-1.html design */
+ 
+.sign-in-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.continue-btn{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.continue-btn button{
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.sign-form{
+    margin-bottom: 20px;
+}
+
+.social-icons{
+    position: absolute;
+    left: 110px;
+    top: 10px;
+}
+
+input:invalid{
+    outline: outset;
+    outline-color: red;
+}
+/* end of sign-in-1 */
+ 

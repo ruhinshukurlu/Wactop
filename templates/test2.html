@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+  span{
+    color: blue;
+  }
+
+</style>
+<body>
+    <h1>Salam</h1>
+
+    <div class="maindiv">
+      <!-- <div class="visible">
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laboriosam quasi repellendus tenetur ab dignissimos, dolor deserunt tempora. Voluptas, doloremque odio nostrum beatae, at libero voluptates ab exercitationem cum, expedita eius?
+        Aut, tempore commodi consequatur molestiae dolore dolor, accusamus ullam iure, quo aliquam laborum nostrum? Praesentium laborum odit, porro tenetur quis illum sapiente, quidem veritatis, quod ut atque vel accusamus ratione!
+        Quos sint ut quidem modi! Unde eos alias impedit quidem, autem velit facere fugiat nobis! Quisquam dignissimos porro rerum exercitationem itaque, iure libero minima adipisci laudantium enim. Molestiae, provident odio.
+        Architecto deleniti non incidunt maiores adipisci dolores possimus corrupti quis perferendis modi, in aspernatur libero voluptatibus, minus praesentium, ducimus rerum sit! Sequi repellendus repellat deleniti dolorum rerum, iure consequatur quasi.
+        </div> <div class="invisible">obcaecati architecto nesciunt esse laborum sed voluptatibus dolorum est aut sequi voluptate fuga eius rem inventore tempore necessitatibus, magni ad, placeat aperiam minus magnam iste fugit atque assumenda? Ratione.
+        Voluptatum eum consectetur nihil fuga distinctio natus beatae consequatur architecto velit animi rerum commodi corporis sint quasi, assumenda excepturi molestias itaque perspiciatis nisi et, omnis quas repellendus. Modi, officia optio.
+        Necessitatibus inventore nostrum nobis perferendis tempora magni facilis. Amet repudiandae eos earum facere tenetur voluptates omnis perspiciatis hic vel ullam ratione, ducimus neque quis maxime aspernatur ad. Quo, quia nostrum?
+        Amet, nam. Et id consequuntur sed itaque porro sequi, odit dolor sunt. Odit magni beatae sapiente quisquam maiores nesciunt, amet veniam, placeat quidem corporis iusto nulla labore molestias sit sint.
+        Harum molestiae a quia modi repudiandae eum ab, earum optio obcaecati sed! Cupiditate quos deleniti ab eaque, consequuntur optio possimus veritatis et ducimus! Quisquam veniam exercitationem quasi asperiores, doloremque consectetur.
+        Minus accusantium ratione dolorem necessitatibus maiores numquam placeat deserunt omnis illo dolor praesentium impedit modi, fugiat maxime ab illum. Temporibus nesciunt impedit tempore accusamus molestias provident assumenda ex commodi suscipit!
+      </div><span onclick="readmore()">read more</span> -->
+      {% for i in detail %}
+        <div class="visible">
+          <p><b>{{i.title}}:</b></p>
+          <p>{{i.text|linebreaks}}</p>
+        </div>
+      {% endfor %}
+      <span onclick="readmore()">read more</span>
+    </div>
+    <div>test</div>
+    
+    <script>
+      details = document.querySelectorAll(".details .visible")
+      for(let i=1; i<details.length; i++){
+        details[i].style.display = "none"
+      }
+      function readmore(){
+        if(details[1].style.display == "none"){
+          for(let i=1; i<details.length; i++){
+            details[i].style.display = "block"
+          }
+        }
+        else{
+          for(let i=1; i<details.length; i++){
+            details[i].style.display = "none"
+          }
+        }
+      }
+    </script>
+</body>
+</html>

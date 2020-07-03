@@ -1,0 +1,282 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wactop</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/organizer/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/fontawesome.min.css' %}">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/organizer/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/new-page-1.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/responsive.css' %}">
+
+    <script src="{% static 'js/organizer/jquery-3.4.1.min.js' %}"></script>
+
+    
+
+</head>
+<body>
+    <div id="loader" class="center1"></div> 
+    <header>
+        <div class="full">
+            <div class="head-up">
+                <div class="head-up-left">
+                    <button class="menu-btn">
+                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14 fa-3x"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" class=""></path></svg> 
+                    </button>
+                    <a href="{% url 'main:home' %}"><img src="{% static 'images/organizer/wactop-logo.png' %}" alt="Wactop" width="150"></a>
+                    <button class="filter-btn" style="visibility: hidden;">
+                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="sort-amount-down-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sort-amount-down-alt fa-w-16 fa-3x"><path fill="currentColor" d="M240 96h64a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm0 128h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm256 192H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-256-64h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm-64 0h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352z" class=""></path></svg>
+                    </button>
+                </div>
+            </div>
+            <section>
+                <div class="full mobile">
+                    <!-- Mobile Menu -->
+                    <div class="mobile-menu">
+                        <nav>
+                            <ul class="mob-menu-list">
+                                <li class="drop-menu"><a href="#">Price</a>
+                                    <svg aria-hidden="true" width = "12" focusable="false" data-prefix="fas" data-icon="chevron-down" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-chevron-down fa-w-14 fa-2x icon arrow-icon"><path fill="currentColor" d="M207.029 381.476L12.686 187.132c-9.373-9.373-9.373-24.569 0-33.941l22.667-22.667c9.357-9.357 24.522-9.375 33.901-.04L224 284.505l154.745-154.021c9.379-9.335 24.544-9.317 33.901.04l22.667 22.667c9.373 9.373 9.373 24.569 0 33.941L240.971 381.476c-9.373 9.372-24.569 9.372-33.942 0z" class=""></path></svg>
+                                    <ul class="mob-dropdown-menu-list">
+                                        <li><a href="#">Low</a></li>
+                                        <li><a href="#">High</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Country</a></li>
+                                <li><a href="#">Travel style</a></li>
+                                <li><a href="#">Duration</a></li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </header>
+
+    <div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;" >
+        <div class="menu-box-in-head">
+            <img src="{% static 'images/organizer/wactop-logo.png' %}" width="150px" alt="">
+            <button class="close-btn">
+                <svg aria-hidden="true" width = "20" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline--fa fa-times fa-w-11 fa-3x"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" class=""></path></svg>
+            </button>
+        </div>
+        <div class="menu-box-in-body">
+            <nav>
+                <ul class="main-menu-list">
+                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <main>
+        <div class="full main-block">
+            <div class="inner-block">
+                <h3>Add your tour</h3>
+                <form method="post" enctype="multipart/form-data" class="form-box">
+                    <ul class="info-list">
+                        {% csrf_token %}
+                        {{tour_form.non_field_errors }}
+                        {{ detail_form.non_field_errors }}
+                        {{ image_form.non_field_errors }}
+                        {{ schedule_form.non_field_errors }}
+                        
+                        <li>
+                            <label for="">Tour title</label>
+                            {{ tour_form.title }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Description</label>
+                            {{ tour_form.descriptionen }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Type</label>
+                            {{ tour_form.type }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Country</label>
+                            {{ tour_form.country }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">City</label>
+                            {{ tour_form.city }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Price</label>
+                            {{ tour_form.price }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Currency</label>
+                            {{ tour_form.currency }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Price for person</label>
+                            {{ tour_form.pricefor }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Profile photo</label>
+                            {{ tour_form.avatar }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Cover photo</label>
+                            {{ tour_form.cover }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Start date</label>
+                            <div id="datefrom">
+                                {{ tour_form.datefrom }}
+                                {{ tour_form.non_field_errors }}
+                            </div>
+                        </li>
+                        <li>
+                            <label for="">End date</label>
+                            {{ tour_form.dateto }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <li>
+                            <label for="">Guide</label>
+                            {{ tour_form.guide }}
+                            {{ tour_form.non_field_errors }}
+                        </li>
+                        <div class="line"></div>
+                        <h5>Tour details</h5>
+                        <li id="li-details">
+                            <div id="details">{{ detail_form.as_p }}</div>
+                            <i class="fas fa-folder-plus" onclick="adddetail()"> add</i>
+                        </li>
+                        <div class="line"></div>
+                        <h5>Tour images</h5>
+                        <li id="li-images">
+                            <div id="images">{{ image_form.as_p }}</div>
+                            <i class="fas fa-folder-plus" onclick="addimage()"> add</i>
+                        </li>
+                        <!-- <div class="line"></div>
+                        <h5>Tour schedules</h5>
+                        <li id="li-schedules">
+                            <div id="schedules">{{ schedule_form.as_p }}</div>
+                            <i class="fas fa-folder-plus" onclick="addschedule()"> add</i>
+                        </li> -->
+                        <li>
+                            <button type="submit">Add</button>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </main>
+
+
+    <script>
+        $(function() {
+          $( ".datepicker" ).datepicker({
+            changeMonth: true,
+            changeYear: true,
+            yearRange: "1900:2012",
+            // You can put more options here.
+      
+          });
+        });
+    </script>
+
+
+    
+    <script>
+        
+        $(document).ready(function(){
+            $('.input-file').change(function(){
+                var my_img = $(this).parent().siblings();
+                
+                if (this.files && this.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        my_img.attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(this.files[0]);
+                }
+            });
+        });
+        
+    </script> 
+    
+    <script>
+        $('.menu-btn').click(function(){
+            $('.menu-box-in').stop().animate({
+                width : 'toggle'
+            },500);
+        });
+        
+        $('.menu-btn').click(function(){
+            $('.menu-box').css("display","block");
+            $('body').css("overflow","hidden");
+        });
+        $('.close-btn, .menu-box').click(function(){
+            $('.menu-box').css("display","none");
+            $('.menu-box-in').stop().animate({
+                width : 'toggle'
+            },500);
+            $('body').css("overflow","auto");
+        });
+        
+    </script>
+    
+    <script>
+        
+        document.onreadystatechange = function() { 
+            if (document.readyState !== "complete") { 
+                document.querySelector( 
+                    "body").style.visibility = "hidden"; 
+                    document.querySelector( 
+                        "#loader").style.visibility = "visible"; 
+                    } else { 
+                        document.querySelector( 
+                            "#loader").style.display = "none"; 
+                            document.querySelector( 
+                                "body").style.visibility = "visible"; 
+                            } 
+                        };
+                        
+                        $('.filter-btn').click(function(){
+            $('.mobile').slideToggle(1000);
+        });
+        
+        $('.arrow-icon').click(function(){
+            $(this).toggleClass('rotate');
+            $('.mob-dropdown-menu-list').slideToggle(1000);
+        });
+        
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    
+    
+    <script src="{% static 'js/organizer/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/organizer/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer/main.js' %}"></script>
+    <script src="{% static 'js/organizer/register.js' %}"></script>
+    <script src="https://kit.fontawesome.com/560ceb8937.js" crossorigin="anonymous"></script>
+    
+</body>
+</html>

@@ -1,0 +1,7 @@
+.venv
+.vscode
+edit.txt
+.postgresdb
+*.pyc
+__pycache__/
+docker-compose copy.yml

@@ -1,0 +1,138 @@
+.main-block{
+    background-color: #f0f0f0;
+}
+
+.inner-block{
+    position: relative;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 10px;
+    max-width: 1200px;
+}
+
+.inner-block h3{
+    position: relative;
+    display: flex;
+    width: 300px;
+    height: 60px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    margin: 20px auto;
+}
+
+.form-box{
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    margin: auto;
+}
+
+.line{
+    width: 80%;
+    height: 5px;
+    margin: 20px auto;
+    border-radius: 5px;
+    background-color: #f0f0f0;
+}
+
+input, textarea{
+    width: 70%;
+    background-color: #f0f0f0;
+    padding: 5px 20px;
+    border-radius: 15px;
+}
+
+textarea{
+    min-height: 100px;
+}
+
+.cover-photo, .profil-photo{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+}
+
+.img-box{
+    
+    width: 60%;
+}
+
+.img-box img{
+    width: 100%;
+    height: 300px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.img-box-text{
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+}
+
+.profil-photo img{
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+}
+
+.profil-photo .img-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.info-list{
+    position: relative;
+    margin: auto;
+}
+
+.info-list li{
+    float: none;
+    display: flex;
+    justify-content: space-between;
+    margin: 5px;
+    padding: 5px;
+    /* border-bottom: 2px solid #f0f0f0; */
+}
+
+
+.social-accounts{
+    display: flex;
+}
+
+.social-accounts input{
+    margin: 0 5px;
+}
+
+.address-list{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+}
+
+.address-list input{
+    width: 100%;
+    margin: 5px 0;
+}
+
+label, p{
+    color: #535353;
+}
+
+.input-file{
+    cursor: pointer;
+    opacity: 0;
+    position: absolute;
+    width: 170px;
+    right: 0;
+}
+
+.label{
+    cursor: pointer;
+    color: blue;
+}

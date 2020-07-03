@@ -1,0 +1,387 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Company Profile</title>
+
+    <link rel="stylesheet" href="{% static 'css/organizer/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/fontawesome.min.css' %}">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/organizer/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/group_tours_style.css' %}">
+
+   
+    <link rel="stylesheet" href="{% static 'css/organizer/responsive.css' %}">
+
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+
+    <!-- carousel -->
+    <link rel="stylesheet" href="{% static 'css/organizer/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer/owl.theme.default.min.css' %}">
+
+    <script src="{% static 'js/organizer/jquery-3.4.1.min.js' %}"></script>
+
+    <style>
+        .active-img-galery .card-links a:hover {
+            border-bottom: 0px;
+            color: #febd69;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="loader" class="center1"></div> 
+    <header class="full">
+        <div class="full">
+            <div class="head-up">
+                <div class="head-up-left">
+                    <button class="menu-btn">
+                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14 fa-3x"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" class=""></path></svg> 
+                    </button>
+                    <a href="{% url 'main:home' %}"><img src="{% static 'images/organizer/wactop-logo.png' %}" alt="Wactop" width="150"></a>
+                    <button class="filter-btn" style="visibility: hidden;">
+                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="sort-amount-down-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sort-amount-down-alt fa-w-16 fa-3x"><path fill="currentColor" d="M240 96h64a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm0 128h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm256 192H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-256-64h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm-64 0h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352z" class=""></path></svg>
+                    </button>
+                </div>
+            </div>
+
+            <div class="head-bottom head-bottom-img">
+                <img src="{{organizer.cover.url}}" alt="">
+                <div class="head-bottom-content">
+                    <div class="company-logo">
+                        <img src="{{organizer.avatar.url}}" alt="">
+                    </div>
+                    <div class="company-name">
+                        <h2>{{ organizer.name }}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;" >
+        <div class="menu-box-in-head">
+            <img src="{% static 'images/organizer/wactop-logo.png' %}" width="150px" alt="">
+            <button class="close-btn">
+                <svg aria-hidden="true" width = "20" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline--fa fa-times fa-w-11 fa-3x"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" class=""></path></svg>
+            </button>
+        </div>
+        <div class="menu-box-in-body">
+            <nav>
+                <ul class="main-menu-list">
+                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+   
+
+<div class="clear"></div>
+    <main class="full">
+        <div class="full">
+            <div class="main-container">
+                <div class="main-inner">
+                    <div class="about">
+                        <h4>About</h4>
+                        <table>
+                            <tr>
+                                {% if organizer.adress %}
+                                    <th>Location:</th>
+                                    <td>{{organizer.adress}}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.email %}
+                                    <th>Email:</th>
+                                    <td>{{organizer.email}}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.number1 %}
+                                    <th>Contact:</th>
+                                    <td>{{organizer.number1}}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.number2 %}
+                                    <th>Contact:</th>
+                                    <td>{{organizer.number2}}</td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.website %}
+                                    <th>Website:</th>
+                                    <td><a href="{{organizer.website}}">explorecaucauses.com</a></td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.facebook %}
+                                    <th>Facebook:</th>
+                                    <td><a href="{{organizer.facebook}}">facebook</a></td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.instagram %}
+                                    <th>Instagram:</th>
+                                    <td><a href="{{organizer.instagram}}">instagram</a></td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                {% if organizer.descriptionen %}
+                                    <th>Description:</th>
+                                    <td>{{organizer.descriptionen}}</td>
+                                {% endif %}
+                            </tr>
+                        </table>
+                    </div>
+                    
+                    <div class="img-galery active-img-galery">
+                        <h4>Posts</h4>
+                        <div class="img-inner">
+                            <div class="owl-carousel owl-theme">
+                                {% for i in tour %}
+                                <div class="item">
+                                    <div class="travel-card" >
+                                        <a href="{% url 'tour:detail' i.id %}"><div class="avatarbox" style="background-image:url({%if i.avatar%}{{i.avatar.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%})"></div></a>
+                                        <div class="card-content">
+                                            <a href="{% url 'tour:detail' i.id %}"><h5 class="card-title">{{i.title}}</h5></a>
+                                            <p class="card-text">
+                                                <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
+                                                <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
+                                                <span>Type: tour</span>
+                                            </p>
+                                            <div class="card-links">
+                                                <span>{{i.price}} {{i.currency}}</span>
+                                                <a href="{% url 'tour:detail' i.id %}" class="">View Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for i in activity %}
+                                <div class="item">
+                                    <div class="travel-card" >
+                                        <a href="{% url 'activity:detail' i.id %}"><div class="avatarbox" style="background-image:url({%if i.avatar%}{{i.avatar.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%})"></div></a>
+                                        <div class="card-content">
+                                            <a href="{% url 'activity:detail' i.id %}"><h5 class="card-title">{{i.title}}</h5></a>
+                                            <p class="card-text">
+                                                <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
+                                                <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
+                                                <span>Type: activity</span>
+                                            </p>
+                                            <div class="card-links">
+                                                <span>{{i.price}} {{i.currency}}</span>
+                                                <a href="{% url 'activity:detail' i.id %}" class="">View Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                {% for i in training %}
+                                <div class="item">
+                                    <div class="travel-card" >
+                                        <a href="{% url 'training:detail' i.id %}"><div class="avatarbox" style="background-image:url({%if i.avatar%}{{i.avatar.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%})"></div></a>
+                                        <div class="card-content">
+                                            <a href="{% url 'training:detail' i.id %}"><h5 class="card-title">{{i.title}}</h5></a>
+                                            <p class="card-text">
+                                                <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
+                                                <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
+                                                <span>Type: training</span>
+                                            </p>
+                                            <div class="card-links">
+                                                <span>{{i.price}} {{i.currency}}</span>
+                                                <a href="{% url 'training:detail' i.id %}" class="">View Details</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="more-text">
+                        </div>
+                    </div>
+                    
+                    <div class="img-galery img-list">
+                        <h4>Photos</h4>
+
+                        <div class="pop_up_img_box" style="display: none;">
+                            <div class="img_box_self">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+
+                        <div class="owl-carousel owl-theme">
+                            {% for i in image %}
+                            <div class="item">
+                                <div class="img-card">
+                                    <img src="{{ i.image.url }}" alt="" class="img">
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        <div class="more-text">
+                            <a href="#">Show all</a>
+                        </div>
+                    </div>
+                   
+                    
+                </div>
+            </div>
+            <div class="top-to-box">
+                <button type="button" onclick="topFunction();">Back to top</button>
+            </div>
+        </div>
+    </main>
+
+    <footer id="footer" class="full">
+        <div class="full">
+            <div class="row">
+                <div class="col">
+                    <ul class="foot-list">
+                        <li>
+                            <a href="#">About Us</a>
+                        </li>
+                        <li>
+                            <a href="#">Terms</a>
+                        </li>
+                        <li>
+                            <a href="#">Privacy</a>
+                        </li>
+                    </ul>
+                    <p>© 2019</p>
+                </div>
+                <div class="col social-media">
+                    <p>Follow Us</p>
+                    <ul>
+                            <li>
+                                <a href="#">
+                                    <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="facebook-square" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-facebook-square fa-w-14 fa-2x"><path fill="currentColor" d="M400 32H48A48 48 0 0 0 0 80v352a48 48 0 0 0 48 48h137.25V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.27c-30.81 0-40.42 19.12-40.42 38.73V256h68.78l-11 71.69h-57.78V480H400a48 48 0 0 0 48-48V80a48 48 0 0 0-48-48z" class=""></path></svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="instagram" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="ins-icon svg-inline--fa fa-instagram fa-w-14 fa-2x"><path fill="currentColor" d="M224.1 141c-63.6 0-114.9 51.3-114.9 114.9s51.3 114.9 114.9 114.9S339 319.5 339 255.9 287.7 141 224.1 141zm0 189.6c-41.1 0-74.7-33.5-74.7-74.7s33.5-74.7 74.7-74.7 74.7 33.5 74.7 74.7-33.6 74.7-74.7 74.7zm146.4-194.3c0 14.9-12 26.8-26.8 26.8-14.9 0-26.8-12-26.8-26.8s12-26.8 26.8-26.8 26.8 12 26.8 26.8zm76.1 27.2c-1.7-35.9-9.9-67.7-36.2-93.9-26.2-26.2-58-34.4-93.9-36.2-37-2.1-147.9-2.1-184.9 0-35.8 1.7-67.6 9.9-93.9 36.1s-34.4 58-36.2 93.9c-2.1 37-2.1 147.9 0 184.9 1.7 35.9 9.9 67.7 36.2 93.9s58 34.4 93.9 36.2c37 2.1 147.9 2.1 184.9 0 35.9-1.7 67.7-9.9 93.9-36.2 26.2-26.2 34.4-58 36.2-93.9 2.1-37 2.1-147.8 0-184.8zM398.8 388c-7.8 19.6-22.9 34.7-42.6 42.6-29.5 11.7-99.5 9-132.1 9s-102.7 2.6-132.1-9c-19.6-7.8-34.7-22.9-42.6-42.6-11.7-29.5-9-99.5-9-132.1s-2.6-102.7 9-132.1c7.8-19.6 22.9-34.7 42.6-42.6 29.5-11.7 99.5-9 132.1-9s102.7-2.6 132.1 9c19.6 7.8 34.7 22.9 42.6 42.6 11.7 29.5 9 99.5 9 132.1s2.7 102.7-9 132.1z" class=""></path></svg>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <svg width="20" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="linkedin" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-linkedin fa-w-14 fa-2x"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z" class=""></path></svg>
+                                </a>
+                            </li>
+                        </ul>
+                </div>
+                <div class="col">
+                    <a class="contact-link" href="#">Contact Us</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    
+
+    <script>
+        $(document).ready(function(){
+            $('.img').click(function(){
+                var src = $(this).attr('src');
+                $('.img_box_self img').attr('src',src);
+                $('.pop_up_img_box').fadeIn(1000);
+                
+            });
+            $('.pop_up_img_box').click(function(){
+                $('.pop_up_img_box').fadeOut(1000)
+            });
+            
+        });
+    </script>
+
+    <script>
+        $('.menu-btn').click(function(){
+            $('.menu-box-in').stop().animate({
+                width : 'toggle'
+            },500);
+        });
+        
+        $('.menu-btn').click(function(){
+            $('.menu-box').css("display","block");
+            $('body').css("overflow","hidden");
+        });
+        $('.close-btn, .menu-box').click(function(){
+            $('.menu-box').css("display","none");
+            $('.menu-box-in').stop().animate({
+                width : 'toggle'
+            },500);
+            $('body').css("overflow","auto");
+        });
+   
+    </script>
+    
+    <script>
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <script>
+        $(document).ready(function(){
+            $('.show-more').click(function(){
+                $('.more-img').slideToggle(1000);
+            });
+            $('.show-more2').click(function(){
+                $('.more-img2').slideToggle(1000);
+            });
+        });
+    </script>
+
+    
+
+    <script>
+
+        document.onreadystatechange = function() { 
+            if (document.readyState !== "complete") { 
+                document.querySelector( 
+                  "body").style.visibility = "hidden"; 
+                document.querySelector( 
+                  "#loader").style.visibility = "visible"; 
+            } else { 
+                document.querySelector( 
+                  "#loader").style.display = "none"; 
+                document.querySelector( 
+                  "body").style.visibility = "visible"; 
+            } 
+        }; 
+       
+       $('.mob-menu-icon').click(function(){
+            $('.mobile').slideToggle(1000);
+       });
+       $('.arrow-icon').click(function(){
+            $(this).toggleClass('rotate');
+            $('.mob-dropdown-menu-list').slideToggle(1000);
+       });
+        
+        
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+
+    <script src="{% static 'js/organizer/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/organizer/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer/owl.carousel.js' %}"></script>
+    <script src="{% static 'js/organizer/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/organizer/main.js' %}"></script>
+    
+</body>
+</html>

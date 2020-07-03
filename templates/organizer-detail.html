@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Organizer</title>
+</head>
+<body>
+    <h1><a href="{% url 'main:home' %}">Ana Sehife</a></h1>
+    <h1>{{organizer.name}}</h1>
+
+    {% if tour %}
+        <h2>Tours:</h2>
+        {% for i in tour %}
+            <h3>{{i.title}}</h3>
+            <a href="{% url 'tour:detail' i.id %}">Etrafli</a>
+        {% endfor %}
+    {% endif %}
+
+    {% if activity %}
+        <h2>Activities:</h2>
+        {% for i in tour %}
+            <h3>{{i.title}}</h3>
+            <a href="{% url 'activity:detail' i.id %}">Etrafli</a>
+        {% endfor %}
+    {% endif %}
+
+    {% if training %}
+        <h2>Trainings:</h2>
+        {% for i in training %}
+            <h3>{{i.title}}</h3>
+            <a href="{% url 'training:detail' i.id %}">Etrafli</a>
+        {% endfor %}
+    {% endif %}
+    
+</body>
+</html>

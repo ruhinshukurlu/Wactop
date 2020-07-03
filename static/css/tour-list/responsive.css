@@ -1,0 +1,265 @@
+/* Codes that provide page responsiveness were written below */
+@media (max-width : 2600px){
+    .head-up-left img{
+        width: 250px;
+    }
+    
+    .travel-card{
+        max-width: 500px;
+    }
+    .menu-list a,
+    .head-up-right a{
+        font-size: 25px;
+    }
+}
+
+@media (max-width : 1925px){
+    .travel-card{
+        max-width: 300px;
+    }
+    .menu-list a{
+        font-size: 20px;
+    }
+}
+
+@media (max-width : 1700px){
+    .head-up-left img{
+        width: 150px;
+    }
+    .head-up-right a{
+        font-size: 16px;
+    }
+    .menu-list a {
+        font-size: 15px;
+    }
+}
+@media (max-width : 1480px){
+    
+    .travel-card{
+        max-width: 290px;
+    }
+    
+}
+
+@media (max-width : 1450px){
+    
+    .travel-card{
+        max-width: 280px;
+    }
+    .menu-list a {
+        font-size: 12px;
+    }
+}
+
+@media (max-width : 1395px){
+    .travel-card{
+        max-width: 240px;
+    }
+}
+
+@media (max-width : 1220px){
+    .travel-card{
+        max-width: 230px;
+    }
+}
+
+@media (max-width : 1200px){
+    .mob-menu-icon{
+        display: block;
+    }
+    .filter-btn{
+        display: block;
+    }
+    .head-up-left{
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+    }
+    .head-bottom-img{
+        height: 300px;
+    }
+    .col-1{
+        display: none;
+    }
+
+    .main-cover{
+        display: flex;
+        justify-content: center;
+    }
+    .mobile-menu{
+        display: block;
+    }
+    .menu-list{
+        text-align: center;
+    }
+    .travel-card{
+        max-width: 45%;
+    }
+
+}
+
+@media (max-width : 800px){
+    .head-search{
+        width: 80%;
+    }
+
+    main{
+        background-color: #fff;
+    }
+
+    .col-11{
+        padding: 0;
+        display: contents;
+    }
+}
+
+@media (max-width : 700px){
+    .travel-card{
+        max-width: 43%;
+    }
+}
+
+@media (max-width : 500px){
+    .close-btn{
+        width: 40px;
+    }
+    .close-btn svg{
+        width: 15px;
+    }
+    .head-overlay{
+        width: 200px;
+        height: 70px;
+    }
+    .head-overlay h1{
+        font-size: 25px;
+    }
+    .head-up-right{
+        width: 130px;
+    }
+    .head-up-left img {
+        width: 120px;
+    }
+
+    .head-up-left svg{
+        width: 20px;
+    }
+    .head-bottom{
+        height: 100px;
+    }
+    .company-logo{
+        left: 20px;
+    }
+    .company-logo img{
+        width: 100px;
+    }
+    .company-name{
+        left: 150px;
+        top: 15px;
+    }
+    .company-name h2{
+        font-size: 25px;
+    }
+    .main-inner{
+        padding: 0;
+    }
+    .main-inner th {
+        width: 30%;
+    }
+    .about th, td {
+        padding: 2px;
+        font-size: 14px;
+    }
+    .img-galery .travel-card{
+        max-width: 100%;
+    }
+    .card-list{
+        padding: 0;
+    }
+    .travel-card{
+        max-width: 100%;
+        margin: 0;
+        margin-bottom: 20px;
+    }
+    .card-content{
+        border-left: none;
+        padding: 15px;
+        padding-top: 5px;
+    }
+    
+    .card-title{
+        border-bottom: 1.5px solid #C5C5CA;
+        padding-bottom: 5px;
+    }
+    .pagination{
+        display: none;
+    }
+    .top-to-box button{
+        font-size: 15px;
+    }
+    .social-media svg{
+        width: 14px;
+    }
+    .social-media li{
+        padding: 0;
+    }
+    .ins-icon{
+        margin: 0 20px;
+    } 
+    #footer a{
+        font-size: 13px;
+    }
+    .foot-list{
+        margin: 0;
+    } 
+    #footer p{
+        font-size: 13px;
+    } 
+}
+
+@media (max-width : 400px){
+    .menu-box-in{
+        width: 240px;
+    }
+    .menu-box-in-head img {
+        left: 40px;
+    }
+    
+}
+
+
+@media (max-width : 340px){
+    #footer p{
+        font-size: 10px;
+    }
+    .ins-icon{
+        margin: 0 11px;
+    } 
+    .head-overlay{
+        left: 20px;
+        height: 60px;
+    }
+    .head-menu{
+        right: 10px;
+    }
+    .head-up-right {
+        width: 135px;
+    }
+    .company-name{
+        left: 130px;
+        top: 20px;
+    }
+    .company-name h2{
+        font-size: 18px;
+    }
+    .about th, td {
+        padding: 5px;
+        font-size: 12px;
+    }
+    .guides,
+    .instructor th {
+        text-align: center;
+        font-size: 12px;
+        padding: 5px;
+    }
+
+}

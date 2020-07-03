@@ -1,0 +1,17 @@
+.my-sign-in{
+    width: 500px;
+    height: 250px;
+}
+
+.verify-btn{
+    background-color: #0098e5;
+    color: #fff;
+    height: 40px;
+    width: 80%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.main-sign-in input{
+    margin-bottom: 20px;
+}

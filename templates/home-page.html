@@ -25,18 +25,18 @@
                 {% if user.is_authenticated %}
                 <nav class="header-left-top">
                     <ul>
-                        <li><a href="{% url 'organizer:edit' pk %}">edit profile</a></li>
-                        <li><a href="{% url 'organizer:logout' %}">logout</a></li>
-                        <li><a href="{% url 'organizer:addtour' %}">add tour</a></li>
-                        <li><a href="{% url 'organizer:addtour' %}">add activity</a></li>
-                        <li><a href="{% url 'organizer:addtour' %}">add training</a></li>
+                        <li><a href="{% url 'organizer:edit' pk %}">Edit profile</a></li>
+                        <li><a href="{% url 'organizer:logout' %}">Logout</a></li>
+                        <li><a href="{% url 'organizer:addtour' %}">Add tour</a></li>
+                        <li><a href="{% url 'organizer:addtour' %}">Add activity</a></li>
+                        <li><a href="{% url 'organizer:addtour' %}">Add training</a></li>
                     </ul>
                 </nav>
                 {% else %}
                 <nav class="header-left-bottom">
                     <ul>
-                        <li><a href="{% url 'organizer:login' %}">login</a></li>
-                        <li><a href="{% url 'organizer:register' %}">register</a></li>
+                        <li><a href="{% url 'organizer:login' %}">Login</a></li>
+                        <li><a href="{% url 'organizer:register' %}">Register</a></li>
                     </ul>
                 </nav>
                 {% endif %}

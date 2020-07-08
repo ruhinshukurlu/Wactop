@@ -86,6 +86,7 @@ def logout_page(request):
     logout(request)
     return redirect('main:home')
 
+
 class CustomLoginView(LoginView):
     form_class = LoginForm
     template_name = 'login.html'
@@ -97,6 +98,7 @@ class ProfileEditView(UpdateView):
     template_name = "edit-profile.html"
     def get_success_url(self):
         return reverse_lazy('organizer:detail', args = (self.kwargs['pk'],))
+
 
 def OrganizerDetail(request, pk):
     organizer = Organizer.objects.get(pk=pk)

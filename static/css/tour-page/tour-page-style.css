@@ -191,7 +191,7 @@ main {
     margin-top: 58px;
 }
 .main-container{
-    width: 82%;
+    width: 1055px;
     margin: 0 auto;
     display: flex;
 }
@@ -203,7 +203,7 @@ main {
     background-color: #fff;
 }
 .right{
-    width: 14%;
+    width: 140px;
     background-color: #fff;
 }
 .right p {
@@ -254,7 +254,7 @@ bottom: -10px;
 .overlay{  width: 100%;
 padding-top: 10px ; }
 .left{
-    width: 64%;
+    width: 650px;
     float: left;
     margin-bottom: 10px;
     margin-right: 10px;
@@ -290,7 +290,7 @@ margin-left: 10px;
     text-transform: uppercase;
 }
 .middle-container{
-    width: 22%;
+    width: 192px;
     margin-top: -10px;
     position: relative;
 }

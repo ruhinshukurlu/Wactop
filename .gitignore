@@ -6,4 +6,4 @@ edit.txt
 __pycache__/
 docker-compose copy.yml
 pgdb
-
+_development

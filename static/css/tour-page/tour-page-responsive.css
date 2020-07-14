@@ -1,9 +1,124 @@
-@media (max-width: 2560px){
+@media (max-width: 2600px){
   .comps-info {
     width: 99%;
+    
 }
+  .main-container{
+    width: 2150px;
+  }
+  .left{
+    width: 1505px;
+  }
+  .middle-container{
+    width: 303px;
+  }
+  .right{
+    width: 279px;
+  }
+  .right p::after{
+    left: 28%;
+    width: 120px;
+  }
 }
+@media (max-width: 2000px){
+  .main-container{
+    width: 1600px;
+  }
+  .left{
+    width: 1043px;
+  }
+  .middle-container{
+    width: 284px;
+  }
+  .right{
+    width: 211px;
+  }
+  .right p::after{
+    width: 120px;
+    left: 22%;
+  }
+}
+@media (max-width: 1800px) { 
+  .main-container{
+    width: 1492px;
+  }
+  .left{
+    width: 968px;
+  }
+  .middle-container{
+    width: 269px
+  }
+  .right{
+    width: 194px;
+  }
+  .right p::after{
+    left: 19%;
+  }
+ }
+@media (max-width: 1600px) { 
+  .main-container{
+    width: 1313px;
+  }
+  .left{
+    width: 829px;
+  }
+  .middle-container{
+    width: 252px
+  }
+  .right{
+    width: 173px;
+  }
+  .right p::after{
+    left: 16%;
+  }
+ }
+@media (max-width: 1500px) { 
+  .main-container{
+    width: 1213px;
+  }
+  .left{
+    width: 773px;
+  }
+  .middle-container{
+    width: 218px
+  }
+  .right{
+    width: 160px;
+  }
+  .right p::after{
+    left: 13%;
+  }
+ }
+@media (max-width: 1375px) { 
+  .main-container{
+    width: 1116px;
+  }
+  .left{
+    width: 713px;
+  }
+  /* .middle-container{
+    width: 195px
+  } */
+  .right{
+    width: 150px;
+  }
+  .right p::after{
+    left: 11%;
+  }
+ }
 @media (max-width: 1024px) {
+  .main-container{
+    width: 995px;
+  }
+  .left{
+    width: 583px;
+  }
+  .middle-container{
+
+  }
+  .right{
+    width: 132px;
+  }
   .comps-info {
     width: 100%;
   }
@@ -12,12 +127,13 @@
   }
   .right p::after {
     left: 13%;
+    width: 96px;
   }
   .right-list span {
     font-size: 19px;
   }
 }
-@media (max-width: 770px) {
+@media (max-width: 800px) {
   .below-header {
     height: 590px;
     /* padding-top: 40px; */
@@ -45,7 +161,7 @@
   }
   .img {
     left: 50%;
-    bottom: 105px;
+    bottom: 115px;
     transform: translateX(-50%);
   }
   .comps-info-container {

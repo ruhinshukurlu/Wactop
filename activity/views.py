@@ -7,11 +7,11 @@ from tour.models import *
 
 
 style = Type.objects.all()
-data = Activity.objects.all()
-country = []
-for i in data:
-    if i.country not in country:
-        country.append(i.country)
+# data = Activity.objects.all()
+# country = []
+# for i in data:
+#     if i.country not in country:
+#         country.append(i.country)
 
 
 

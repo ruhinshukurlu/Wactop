@@ -6,11 +6,11 @@ from .models import *
 
 
 style = Type.objects.all()
-data = Tour.objects.all()
-country = []
-for i in data:
-    if i.country not in country:
-        country.append(i.country)
+# data = Tour.objects.all()
+# country = []
+# for i in data:
+#     if i.country not in country:
+#         country.append(i.country)
 
 
 

@@ -5,5 +5,3 @@ edit.txt
 *.pyc
 __pycache__/
 docker-compose copy.yml
-pgdb
-_development

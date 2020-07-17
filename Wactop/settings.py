@@ -98,10 +98,10 @@ if not DEBUG:
 else:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'db_name',
-            'USER': 'db_user',
-            'PASSWORD': 'SvYbm5l5BVhw2WEB7XPYBMKI',
+            'ENGINE': 'django.db.backends.postgresql',
+            'USER': 'kamilgarib',
+            'NAME': 'wactop',
+            'PASSWORD': '1',
             'HOST': 'localhost',
             'PORT': '5432',
         }

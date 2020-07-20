@@ -30,13 +30,13 @@
     text-decoration: none;
     border-bottom: 2px solid #9d9d9d;
 }
-.company-logo img{
+/* .company-logo img{
     max-height: 150px;
     max-width: 150px;
 }
 .company-name{
     margin-left: 50px;
-}
+} */
 
 .avatarbox{
     width:  240px;

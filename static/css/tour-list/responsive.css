@@ -1,13 +1,5 @@
 /* Codes that provide page responsiveness were written below */
 
-
-@media (max-width : 1925px){
-    .travel-card{
-        max-width: 300px;
-    }
-    
-}
-
 @media (max-width : 1700px){
     .head-up-left img{
         width: 150px;
@@ -19,35 +11,14 @@
         font-size: 15px;
     }
 }
-@media (max-width : 1480px){
-    
-    .travel-card{
-        max-width: 290px;
-    }
-    
-}
 
 @media (max-width : 1450px){
     
-    .travel-card{
-        max-width: 280px;
-    }
     .menu-list a {
         font-size: 12px;
     }
 }
 
-@media (max-width : 1395px){
-    .travel-card{
-        max-width: 240px;
-    }
-}
-
-@media (max-width : 1220px){
-    .travel-card{
-        max-width: 230px;
-    }
-}
 
 @media (max-width : 1200px){
     .mob-menu-icon{
@@ -78,9 +49,7 @@
     .menu-list{
         text-align: center;
     }
-    .travel-card{
-        max-width: 45%;
-    }
+    
 
 }
 
@@ -99,11 +68,14 @@
     }
 }
 
-@media (max-width : 700px){
+@media (max-width : 576px) {
     .travel-card{
-        max-width: 43%;
+        max-width: 100%;
+        margin: 0;
+        margin-bottom: 20px;
     }
 }
+
 
 @media (max-width : 500px){
     .close-btn{
@@ -161,11 +133,7 @@
     .card-list{
         padding: 0;
     }
-    .travel-card{
-        max-width: 100%;
-        margin: 0;
-        margin-bottom: 20px;
-    }
+    
     .card-content{
         border-left: none;
         padding: 15px;

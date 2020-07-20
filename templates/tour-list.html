@@ -149,31 +149,32 @@
                 </div>
                 <div class="col-11">
                     <div class="card-list">
-                        <div class="row  justify-content-center">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4  justify-content-center">
 
                             {% if notfound %}
                                 <h3>{{notfound}}</h3>
                             {% else %}
                                 {% for i in tour %}
-                                    <div class="travel-card" >
-                                        {% if i.avatar %}
-                                        <a href="{% url 'tour:detail' i.id %}">
-                                            <!-- <div class="avatarbox" style="background-image:url({{i.avatar.url}})"></div> -->
-                                            <img src="{{i.avatar.url}}" class="card-img" alt="">
-                                        </a>
-                                        {% endif %}
-                                        <div class="card-content">
+                                    <div class="col">
+                                        <div class="travel-card" >
+                                            {% if i.avatar %}
                                             <a href="{% url 'tour:detail' i.id %}">
-                                                <h5 class="card-title">{{i.title}}</h5>
-                                                <div class="line"></div>
+                                                <img src="{{i.avatar.url}}" class="card-img" alt="">
                                             </a>
-                                            <p class="card-text">
-                                                <span>Location: {%if i.city%} {{i.city}}, {%endif%}{{i.country}}</span>
-                                                <span>Company: {{i.organizer.name}}</span>
-                                            </p>
-                                            <div class="card-links">
-                                                <span>{{i.price}} {{i.currency}}</span>
-                                                <span>{{i.durationday}} days</span>
+                                            {% endif %}
+                                            <div class="card-content">
+                                                <a href="{% url 'tour:detail' i.id %}">
+                                                    <h5 class="card-title">{{i.title}}</h5>
+                                                    <div class="line"></div>
+                                                </a>
+                                                <p class="card-text">
+                                                    <span>Location: {%if i.city%} {{i.city}}, {%endif%}{{i.country}}</span>
+                                                    <span>Company: {{i.organizer.name}}</span>
+                                                </p>
+                                                <div class="card-links">
+                                                    <span>{{i.price}} {{i.currency}}</span>
+                                                    <span>{{i.durationday}} days</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -102,19 +102,21 @@
                 </div>
                 <div class="col-11">
                     <div class="card-list">
-                        <div class="row  justify-content-center">
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4 justify-content-center">
 
                             {% if notfound %}
                                 <h3>{{notfound}}</h3>
                             {% else %}
                                 {% for i in organizer %}
-                                    <div class="travel-card" >
-                                        <div class="orgavatarbox">
-                                            <a href="{% url 'organizer:detail' i.id %}"><img src="{{i.avatar.url}}" class="card-img" alt="travel"></a>
-                                        </div>
-                                        <div class="orgcard-content">
-                                            <div class="card-links">
-                                                <span><a href="{% url 'organizer:detail' i.id %}">{{i.name}}</a></span>
+                                    <div class="col">
+                                        <div class="travel-card" >
+                                            <div class="orgavatarbox">
+                                                <a href="{% url 'organizer:detail' i.id %}"><img src="{{i.avatar.url}}" class="card-img" alt="travel"></a>
+                                            </div>
+                                            <div class="orgcard-content">
+                                                <div class="card-links">
+                                                    <span><a href="{% url 'organizer:detail' i.id %}">{{i.name}}</a></span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

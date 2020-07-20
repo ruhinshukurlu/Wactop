@@ -1,10 +1,10 @@
 .main-block{
-    background-color: #f0f0f0;
+    background-color: #EBECEE;
 }
 
 .inner-block{
     position: relative;
-    margin: 20px auto;
+    margin: 100px auto;
     padding: 15px;
     background-color: #fff;
     border-radius: 10px;

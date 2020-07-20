@@ -311,7 +311,6 @@ main{
 .travel-card{
     position: relative;
     max-width: 100%;
-    margin: 15px;
 }
 .travel-card a{
     width: 100%;

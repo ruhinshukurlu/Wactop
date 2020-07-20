@@ -230,8 +230,16 @@ header design
 .dropdown-menu-list a{
     color: #777782;
 }
+.dropdown-menu-list a:hover{
+    color: #1679f0;
+}
 .drop-menu:hover .dropdown-menu-list{
     display: flex;
+}
+
+.dropdown-menu-list form{
+    display: flex;
+    flex-direction: column;
 }
 
 /* design  of mobile menu*/

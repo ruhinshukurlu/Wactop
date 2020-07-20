@@ -309,8 +309,12 @@ main{
     background-color: #fff;
 }
 .travel-card{
+    position: relative;
     max-width: 100%;
     margin: 15px;
+}
+.travel-card a{
+    width: 100%;
 }
 /* .travel-card img{
     width: 100%;
@@ -338,7 +342,8 @@ main{
 }
 .card-img{
     transition: .5s;
-    height: 200px;
+    height: 230px;
+    width: 100%;
 }
 .card-img:hover{
     opacity: .6;

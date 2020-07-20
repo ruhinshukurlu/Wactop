@@ -127,7 +127,7 @@ main {
     height: 150px;
     display: inline-block;
     position: absolute;
-    bottom: 0;
+    bottom: 10px;
     border-radius: 50%;
     background-color: #fff;
 }

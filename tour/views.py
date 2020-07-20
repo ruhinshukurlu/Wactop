@@ -22,7 +22,7 @@ def TourList(request):
         if i.country not in country:
             country.append(i.country)
     data = Tour.objects.filter(status=1)
-    paginator = Paginator(data, 2)
+    paginator = Paginator(data, 30)
     page_request = 'page'
     page = request.GET.get(page_request)
     try:

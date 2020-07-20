@@ -12,10 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/home-page/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/home-page/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/home-page/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home-page/home-page-style.css' %}">
-    <!-- <link rel="stylesheet" href="{% static 'css/home-page/home-page-responsive.css' %}"> -->
-    <link rel="stylesheet" href="{% static 'css/home-page/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/home-page/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/responsive.css' %}">
 </head>
 
 <body>
@@ -60,14 +58,21 @@
     </div>
 
     <main id="main">
-        <div class="slishow">
-            <ul id="slides">
-                <li class="slide showing"><img src="{% static 'images/home-page/slide-img-1.jpg' %}" alt=""></li>
-                <li class="slide"><img src="{% static 'images/home-page/slide-img-2.jpg' %}" alt=""></li>
-                <li class="slide"><img src="{% static 'images/home-page/slide-img-3.jpg' %}" alt=""></li>
-            </ul>
-        </div>
-        <div class="container">
+        <div class="img-overlay"></div>
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img class="d-block w-100" src="{% static 'images/home-page/slide-img-1.jpg' %}" alt="First slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'images/home-page/slide-img-2.jpg' %}" alt="Second slide">
+              </div>
+              <div class="carousel-item">
+                <img class="d-block w-100" src="{% static 'images/home-page/slide-img-3.jpg' %}" alt="Third slide">
+              </div>
+            </div>
+          </div>
+        <div class="container" style="z-index: 1;">
             <div class="full-width">
                 <div class="row text-center">
                     <div class="inner">
@@ -90,9 +95,11 @@
                 </div>
             </div>
         </div>
+       
     </main>
 
     <footer id="footer" class="full">
+        
         <div class="footer-up">
             <div class="partners">Our partners</div>
             <div class="partners-logos">

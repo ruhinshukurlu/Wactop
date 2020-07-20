@@ -33,12 +33,12 @@ header {
     padding-top: 18px;
     font-size: 15px;
 }
-/* .header-left-top{
+.header-left-top{
     display: none;
-} */
-/* .header-left-bottom{
+}
+.header-left-bottom{
     /* display: none; */
-} */
+}
 .header-left li{
     padding-right: 15px;
 }
@@ -120,7 +120,7 @@ header {
     position: relative;
     width: 100%;
     float: left;
-    height: calc(100vh - (40px + 326px));
+    height: calc(100vh - (41px + 326px));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -303,9 +303,7 @@ a {
 }
 .social-media li a:hover path{
     color: rgb(205, 203, 204);
-}
-
-/* end of style */
+}   
 
 header a{
     margin-right: 20px;

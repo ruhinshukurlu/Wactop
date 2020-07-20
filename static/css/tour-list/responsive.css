@@ -10,10 +10,13 @@
     .menu-list a {
         font-size: 15px;
     }
+    
 }
 
-@media (max-width : 1450px){
-    
+@media (max-width : 1600px){
+    .card-img{
+        height: 200px;
+    }
     .menu-list a {
         font-size: 12px;
     }
@@ -73,6 +76,13 @@
         max-width: 100%;
         margin: 0;
         margin-bottom: 20px;
+    }
+
+    .card-list .col{
+        padding: 0;
+    }
+    .card-img{
+        height: 300px;
     }
 }
 

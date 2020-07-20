@@ -342,7 +342,7 @@ main{
 }
 .card-img{
     transition: .5s;
-    height: 230px;
+    height: 250px;
     width: 100%;
 }
 .card-img:hover{

@@ -50,7 +50,7 @@
             </div>
 
             <div class="full-width">
-                <div class="container">
+                <div class="container custom-container">
                     <div class="header-content">
                         <div class="header-bottom-left">
                             <div class="company-image">
@@ -69,7 +69,7 @@
                                         <div class="location">Mountain of Azerbaijan ldjhfjhf sjhj </div>
                                         <div class="select-langs">
                                             <form action="{% url 'tour:detail' tour.id %}">
-                                                <select name='lang' onchange="this.form.submit()">
+                                                <select class="select-style" name='lang' onchange="this.form.submit()">
                                                   <option value="" selected hidden disabled>{{lang}}</option>
                                                   <option value="en">En</option>
                                                   <option value="az">Az</option>
@@ -140,7 +140,7 @@
                                     <p>{{i.text|linebreaks}}</p>
                                 </div>
                                 {% endfor %} {% if detail %}
-                                <span onclick="readmore()" style="color: #63a3eb;" class="readmore"><strong>read more</strong></span> {%endif%}
+                                <span onclick="readmore()" style="color: #63a3eb;" class="readmore"><strong>Read more</strong></span> {%endif%}
                             </nav>
 
                         </div>
@@ -312,11 +312,13 @@
 
         function readmore() {
             if (details[1].style.display == "none") {
-                document.querySelector(".readmore").innerHTML = "read less"
-                for (let i = 1; i < details.length; i++) {}
+                document.querySelector(".readmore").innerHTML = "<strong>Read less</strong/>"
+                for (let i = 1; i < details.length; i++) {
+                    details[i].style.display = "block"
+                }
             } else {
                 document.querySelector(
-                    ".readmore").innerHTML = "<strong>read more</strong/>"
+                    ".readmore").innerHTML = "<strong>Read more</strong/>"
                 for (let i = 1; i < details.length; i++) {
                     details[i].style.display = "none"
                 }

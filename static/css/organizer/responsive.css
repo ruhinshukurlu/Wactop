@@ -1,29 +1,5 @@
 /* Codes that provide page responsiveness were written below */
-@media (max-width : 2600px){
-    .head-up-left img{
-        width: 200px;
-    }
-    
-    .travel-card{
-        max-width: 500px;
-    }
-    .menu-list a,
-    .head-up-right a{
-        font-size: 25px;
-    }
-    .img-galery .travel-card {
-        max-width: 250px;
-    }
-}
 
-@media (max-width : 1925px){
-    .travel-card{
-        max-width: 320px;
-    }
-    .menu-list a{
-        font-size: 20px;
-    }
-}
 
 @media (max-width : 1700px){
     .head-up-left img{

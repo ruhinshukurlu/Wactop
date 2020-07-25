@@ -126,13 +126,13 @@
                             <tr>
                                 {% if organizer.facebook %}
                                     <th>Facebook:</th>
-                                    <td><a href="{{organizer.facebook}}">facebook</a></td>
+                                    <td><a href="{{organizer.facebook}}">{{ organizer.name }} Facebook Address</a></td>
                                 {% endif %}
                             </tr>
                             <tr>
                                 {% if organizer.instagram %}
                                     <th>Instagram:</th>
-                                    <td><a href="{{organizer.instagram}}">instagram</a></td>
+                                    <td><a href="{{organizer.instagram}}">{{ organizer.name }} Instagram Address</a></td>
                                 {% endif %}
                             </tr>
                             <tr>
@@ -143,6 +143,7 @@
                             </tr>
                         </table>
                     </div>
+
                     
                     <div class="img-galery active-img-galery">
                         <h4>Posts</h4>
@@ -150,18 +151,30 @@
                             <div class="owl-carousel owl-theme">
                                 {% for i in tour %}
                                 <div class="item">
-                                    <div class="travel-card" >
-                                        <a href="{% url 'tour:detail' i.id %}"><div class="avatarbox" style="background-image:url({%if i.avatar%}{{i.avatar.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%})"></div></a>
-                                        <div class="card-content">
-                                            <a href="{% url 'tour:detail' i.id %}"><h5 class="card-title">{{i.title}}</h5></a>
-                                            <p class="card-text">
-                                                <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
-                                                <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
-                                                <span>Type: tour</span>
-                                            </p>
-                                            <div class="card-links">
-                                                <span>{{i.price}} {{i.currency}}</span>
-                                                <a href="{% url 'tour:detail' i.id %}" class="">View Details</a>
+                                    <div class="col">
+                                        <div class="travel-card" >
+                                            <a href="{% url 'tour:detail' i.id %}">
+                                                <div class="avatarbox" style="background-image:url()"></div>
+                                                {%if i.avatar%}
+                                                    <img src=" {{i.avatar.url}}" class="card-img" alt="">
+                                                {%else%}
+                                                    <img src="{% static 'images/organizer/image2.jpg' %}" class="card-img" alt="">
+                                                {%endif%}
+                                            </a>
+                                            <div class="card-content">
+                                                <a href="{% url 'tour:detail' i.id %}">
+                                                    <h5 class="card-title">{{i.title}}</h5>
+                                                    <div class="line"></div>
+                                                </a>
+                                                <p class="card-text">
+                                                    <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
+                                                    <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
+                                                    <span>Type: Tour</span>
+                                                </p>
+                                                <div class="card-links">
+                                                    <span>{{i.price}} {{i.currency}}</span>
+                                                    <a href="{% url 'tour:detail' i.id %}" class="">View Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

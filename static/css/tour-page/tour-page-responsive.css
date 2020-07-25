@@ -1,310 +1,203 @@
-@media (max-width: 2600px){
-  .comps-info {
-    width: 99%;
-    
+@media (max-width: 2800px){
+    .custom-container{
+        max-width: 85%;
+    }
+    .main-tour-container{
+        max-width: 85%;
+    }
 }
-  .main-container{
-    width: 2150px;
-  }
-  .left{
-    width: 1505px;
-  }
-  .middle-container{
-    width: 303px;
-  }
-  .right{
-    width: 279px;
-  }
-  .right p::after{
-    left: 28%;
-    width: 120px;
-  }
-}
-@media (max-width: 2000px){
-  .main-container{
-    width: 1600px;
-  }
-  .left{
-    width: 1043px;
-  }
-  .middle-container{
-    width: 284px;
-  }
-  .right{
-    width: 211px;
-  }
-  .right p::after{
-    width: 120px;
-    left: 22%;
-  }
-}
-@media (max-width: 1800px) { 
-  .main-container{
-    width: 1492px;
-  }
-  .left{
-    width: 968px;
-  }
-  .middle-container{
-    width: 269px
-  }
-  .right{
-    width: 194px;
-  }
-  .right p::after{
-    left: 19%;
-  }
- }
-@media (max-width: 1600px) { 
-  .main-container{
-    width: 1313px;
-  }
-  .left{
-    width: 829px;
-  }
-  .middle-container{
-    width: 252px
-  }
-  .right{
-    width: 173px;
-  }
-  .right p::after{
-    left: 16%;
-  }
- }
-@media (max-width: 1500px) { 
-  .main-container{
-    width: 1213px;
-  }
-  .left{
-    width: 773px;
-  }
-  .middle-container{
-    width: 218px
-  }
-  .right{
-    width: 160px;
-  }
-  .right p::after{
-    left: 13%;
-  }
- }
-@media (max-width: 1375px) { 
-  .main-container{
-    width: 1116px;
-  }
-  .left{
-    width: 713px;
-  }
-  /* .middle-container{
-    width: 195px
-  } */
-  .right{
-    width: 150px;
-  }
-  .right p::after{
-    left: 11%;
-  }
- }
+
 @media (max-width: 1024px) {
-  .main-container{
-    width: 995px;
-  }
-  .left{
-    width: 583px;
-  }
-  .middle-container{
-
-  }
-  .right{
-    width: 132px;
-  }
-  .comps-info {
-    width: 100%;
-  }
-  .right {
-    font-size: 13px;
-  }
-  .right p::after {
-    left: 13%;
-    width: 96px;
-  }
-  .right-list span {
-    font-size: 19px;
-  }
+    .right {
+        font-size: 13px;
+    }
+    .right-list span {
+        font-size: 19px;
+    }
 }
+
 @media (max-width: 800px) {
-  .below-header {
-    height: 590px;
-    /* padding-top: 40px; */
-  }  
-  .center {
-    padding-left: 0;
-    padding-top: 10px;
-  }
-  .center::before {
-    display: none;
-  }
-  .location {
-    margin-bottom: 0;
-    margin-top: 12px;
-  }
-  .mountain {
-    clear: both;
-    float: initial;
-  }
-  .main-container {
-    width: 100%;
-  }
-  .img-center {
-    width: 95%;
-  }
-  .img {
-    left: 50%;
-    bottom: 115px;
-    transform: translateX(-50%);
-  }
-  .comps-info-container {
-    width: 100%;
-  }
-  .below-header {
-    height: 300px;
-  }
-  .center-img {
-    height: 110px;
-  }
-  .mountain .select-langs {
-    margin-right: 5px;
-  }
-  .comps-info {
-    padding-top: 10px;
-  }
-  .comps-info h5{
-    font-size: 1.5rem;
-  }
-  .left {
-    padding: 0 25px;
-  }
-  .cover-menu {
-    margin-top: 120px;
-  }
-  .read-more-div {
-    width: 100%;
-  }
-  .middle-container {
-    width: 100%;
-    padding: 0 25px;
-    height: 435px;
-  }
-  .middle-container .about-company-mobile{
-    display: block;
-    position: static;
-  }
-  .about-company-mobile ul{
-    border-bottom: 2px solid #dadada;
-    padding-bottom: 26px;
-  }
-  .about-company{
-    display: none;
-  }
-  .top-main {
-    flex-direction: column;
-  }
-  .middle {
-    border-top: none;
-    border-left: none;
-    margin-bottom: 57px
-  }
-  .left-wrapper {
-    width: 100%;
-  }
-  .overlay {
-    padding-top: 0;
-  }
-  .left {
-    width: 100%;
-    margin-bottom: 20px;
-  }
-  .right {
-    font-size: 17px;
-    width: 126px;
-    margin: 0 auto;
-    padding-bottom: 10px;
-  }
-  .right p {
-    border-bottom: 2px solid #f0f0f0;
-    padding-bottom: 10px;
-  }
-  .right p::after {
-    display: none;
-  }
-  .right-list span {
-    font-size: 22px;
-  }
-  .images {
-    width: 100%;
-  }
-  .iframe-container iframe {
-    width: 100%;
-    /* height: 400px; */
-  }
-  .all-reviews {
-    width: 100%;
-  }
+    .below-header {
+        height: 590px;
+        /* padding-top: 40px; */
+    }
+    .center {
+        padding-left: 0;
+        padding-top: 10px;
+    }
+    .center::before {
+        display: none;
+    }
+    .container {
+        max-width: 100%
+    }
+    .full-width {
+        max-height: 160px;
+    }
+    .header-content {
+        flex-direction: column;
+    }
+    .image-right {
+        width: 100%;
+    }
+    .company-image {
+        position: absolute;
+        left: 50%;
+        top: 56%;
+        transform: translate(-50%, -50%);
+    }
+    .tour-name {
+        left: initial;
+    }
+    .header-bottom-right {
+        flex-direction: column;
+    }
+    .bottom-right {
+        justify-content: space-between;
+    }
+    .location {
+        margin-bottom: 0;
+        /* margin-top: 12px; */
+    }
+    .left {
+        padding-left: 0;
+        margin-right: 0;
+    }
+    .mountain {
+        clear: both;
+        float: initial;
+    }
+    .main-container {
+        width: 100%;
+    }
+    .img-center {
+        width: 95%;
+    }
+    .tour-details {
+        border-right: none;
+    }
+    .img {
+        left: 50%;
+        bottom: 115px;
+        transform: translateX(-50%);
+    }
+    .comps-info-container {
+        width: 100%;
+    }
+    .below-header {
+        height: 300px;
+    }
+    .center-img {
+        height: 110px;
+    }
+    .mountain .select-langs {
+        margin-right: 5px;
+    }
+    .comps-info {
+        padding-top: 10px;
+    }
+    .comps-info h5 {
+        font-size: 1.5rem;
+    }
+    .read-more-div {
+        width: 100%;
+    }
+    .middle-container {
+        width: 100%;
+        padding: 0 25px;
+    }
+    .about-company {
+        padding-left: 0;
+    }
+    .top-main {
+        flex-direction: column;
+    }
+    .middle {
+        border-top: none;
+        border-left: none;
+        margin-bottom: 57px
+    }
+    .left-wrapper {
+        width: 100%;
+    }
+    .overlay {
+        padding-top: 0;
+    }
+    .right {
+        font-size: 17px;
+        width: 126px;
+        margin: 0 auto;
+        padding-bottom: 10px;
+    }
+    .right-list span {
+        font-size: 22px;
+    }
+    .images {
+        width: 100%;
+        padding-left: 0;
+    }
+    .iframe-container {
+        padding-left: 0;
+    }
+    .iframe-container iframe {
+        width: 100%;
+        height: 270px;
+    }
 }
 
-@media (max-width : 500px){
-  .menu-box-in-head{
-      height: 47px;
-  }
-  .social-media svg{
-      width: 14px;
-  }
-  .social-media li{
-      padding: 0;
-  }
-  .foot-list{
-      margin: 0;
-  }
-  #footer a{
-      font-size: 13px;
-  }
-  #footer p {
-      font-size: 13px;
-  }
-  .ins-icon{
-      margin: 0 20px;
-  }
-
-  .close-btn{
-      width: 40px;
-  }
-  .close-btn svg{
-      width: 15px;
-  }
-  .head-up-left img {
-      width: 120px;
-  }
-  .head-up-left svg{
-      width: 20px;
-  }
+@media (max-width: 524px) {
+    .company-image {
+        top: 47%;
+    }
+    .menu-box-in-head {
+        height: 47px;
+    }
+    .social-media svg {
+        width: 14px;
+    }
+    .social-media li {
+        padding: 0;
+    }
+    .foot-list {
+        margin: 0;
+    }
+    #footer a {
+        font-size: 13px;
+    }
+    #footer p {
+        font-size: 13px;
+    }
+    .ins-icon {
+        margin: 0 20px;
+    }
+    .close-btn {
+        width: 40px;
+    }
+    .close-btn svg {
+        width: 15px;
+    }
+    .head-up-left img {
+        width: 120px;
+    }
+    .head-up-left svg {
+        width: 20px;
+    }
 }
 
-@media (max-width : 400px){
-  .menu-box-in{
-      width: 240px;
-  }
-  .menu-box-in-head img {
-      left: 40px;
-  }
-  
+@media (max-width: 400px) {
+    .menu-box-in {
+        width: 240px;
+    }
+    .menu-box-in-head img {
+        left: 40px;
+    }
 }
 
 @media (max-width: 340px) {
-  #footer p {
-      font-size: 10px;
-  }
-  .ins-icon {
-      margin: 0px 11px;
-  }
+    #footer p {
+        font-size: 10px;
+    }
+    .ins-icon {
+        margin: 0px 11px;
+    }
 }

@@ -79,6 +79,25 @@
         </div>
     </header>
 
+    <div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;" >
+        <div class="menu-box-in-head">
+            <img src="{% static 'images/organizer/wactop-logo.png' %}" width="150px" alt="">
+            <button class="close-btn">
+                <svg aria-hidden="true" width = "20" focusable="false" data-prefix="fas" data-icon="times" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512" class="svg-inline--fa fa-times fa-w-11 fa-3x"><path fill="currentColor" d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z" class=""></path></svg>
+            </button>
+        </div>
+        <div class="menu-box-in-body">
+            <nav>
+                <ul class="main-menu-list">
+                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
 
 <div class="clear"></div>
 
@@ -93,7 +112,7 @@
             <div class="row">
                 <h3 class="full mb-5 mt-5 text-center" style="font-weight: bold;">{{ organizer.name }} Image Gallery</h3>
             </div>
-            <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-2">
+            <div class="row row-cols-xl-5 row-cols-lg-4 row-cols-md-3 row-cols-2">
                 {% for i in image_list %}
                     <div class="col img-card">
                         <img src="{{i.image.url}}" width="100%" alt="">
@@ -234,7 +253,7 @@
         }
     </script>
 
-   <script src="{% static 'js/organizer/jquery-3.4.1.min.js' %}"></script>
+    <script src="{% static 'js/organizer/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/organizer/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer/owl.carousel.js' %}"></script>
     <script src="{% static 'js/organizer/owl.carousel.min.js' %}"></script>

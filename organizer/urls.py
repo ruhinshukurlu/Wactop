@@ -10,6 +10,7 @@ urlpatterns = [
     path('register/', register, name='register'),
     path('edit/<int:pk>/', ProfileEditView.as_view(), name='edit'),
     path('<int:pk>', OrganizerDetail, name='detail'),
+    path('<int:pk>/images', organizer_image_list, name = 'organizer_image_list'),
     path('add/tour', OrganizerTour, name='addtour'),
     path('add/activity', OrganizerActivity, name='addactivity'),
     path('add/training', OrganizerTraining, name='addtraining'),

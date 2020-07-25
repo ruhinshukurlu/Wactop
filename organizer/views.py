@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView
+from django.views.generic.list import ListView
 from django.contrib.auth.views import LoginView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth import logout
@@ -116,6 +117,17 @@ def OrganizerDetail(request, pk):
     }
     # return render(request, 'organizer-detail.html', context)
     return render(request, 'company_profile.html', context)
+
+def organizer_image_list(request, pk):
+    organizer = Organizer.objects.get(pk=pk)
+    image = OrganizerImage.objects.filter(organizer=organizer)
+
+    context = {
+        'organizer': organizer,
+        'image_list': image,
+    }
+    return render(request, 'image-list.html', context)
+
 
 
 def OrganizerTour(request):

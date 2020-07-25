@@ -47,7 +47,7 @@
     .active-img-galery .col{
         padding: 0;
     }
-    
+
     .img-galery .card-list{
         font-size: 15px;
     }
@@ -194,9 +194,7 @@
     .head-up-left svg{
         width: 20px;
     }
-    .head-bottom{
-        height: 100px;
-    }
+    
     .head-bottom-img{
         height: 300px;
     }

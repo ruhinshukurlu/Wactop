@@ -18,7 +18,10 @@
 
 <body>
         <header>
-            <a href="{% url 'main:home' %}" class="logo"><img src="{% static 'images/home-page/wactop.png' %}" title="Wactop" alt="wactop"></a>
+            <a href="{% url 'main:home' %}" class="header-logo logo">
+                <img src="{% static 'images/home-page/wactop-logo-new.png' %}" width="170px" title="Wactop" alt="wactop">
+                <p>World Active Tourism Platform</p>
+            </a>
             <div class="header-left">
                 {% if user.is_authenticated %}
                 <nav class="header-left-top">

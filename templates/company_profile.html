@@ -41,9 +41,14 @@
             <div class="head-up">
                 <div class="head-up-left">
                     <button class="menu-btn">
-                        <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="bars" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="svg-inline--fa fa-bars fa-w-14 fa-3x"><path fill="currentColor" d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z" class=""></path></svg> 
+                        <div class="menu-line"></div>
+                        <div class="menu-line"></div>
+                        <div class="menu-line"></div>
                     </button>
-                    <a href="{% url 'main:home' %}"><img src="{% static 'images/organizer/wactop-logo.png' %}" alt="Wactop" width="150"></a>
+                    <a href="{% url 'main:home' %}">
+                        <img src="{% static 'images/organizer/wactop-logo-new.png' %}" alt="Wactop" width="170">
+                        <p>World Active Tourism Platform</p>
+                    </a>
                     <button class="filter-btn" style="visibility: hidden;">
                         <svg aria-hidden="true" width = "25" focusable="false" data-prefix="fas" data-icon="sort-amount-down-alt" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" class="svg-inline--fa fa-sort-amount-down-alt fa-w-16 fa-3x"><path fill="currentColor" d="M240 96h64a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16h-64a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm0 128h128a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm256 192H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h256a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm-256-64h192a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16H240a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16zm-64 0h-48V48a16 16 0 0 0-16-16H80a16 16 0 0 0-16 16v304H16c-14.19 0-21.37 17.24-11.29 27.31l80 96a16 16 0 0 0 22.62 0l80-96C197.35 369.26 190.22 352 176 352z" class=""></path></svg>
                     </button>
@@ -126,13 +131,13 @@
                             <tr>
                                 {% if organizer.facebook %}
                                     <th>Facebook:</th>
-                                    <td><a href="{{organizer.facebook}}">facebook</a></td>
+                                    <td><a href="{{organizer.facebook}}">{{ organizer.name }} Facebook Address</a></td>
                                 {% endif %}
                             </tr>
                             <tr>
                                 {% if organizer.instagram %}
                                     <th>Instagram:</th>
-                                    <td><a href="{{organizer.instagram}}">instagram</a></td>
+                                    <td><a href="{{organizer.instagram}}">{{ organizer.name }} Instagram Address</a></td>
                                 {% endif %}
                             </tr>
                             <tr>
@@ -143,6 +148,7 @@
                             </tr>
                         </table>
                     </div>
+
                     
                     <div class="img-galery active-img-galery">
                         <h4>Posts</h4>
@@ -150,18 +156,29 @@
                             <div class="owl-carousel owl-theme">
                                 {% for i in tour %}
                                 <div class="item">
-                                    <div class="travel-card" >
-                                        <a href="{% url 'tour:detail' i.id %}"><div class="avatarbox" style="background-image:url({%if i.avatar%}{{i.avatar.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%})"></div></a>
-                                        <div class="card-content">
-                                            <a href="{% url 'tour:detail' i.id %}"><h5 class="card-title">{{i.title}}</h5></a>
-                                            <p class="card-text">
-                                                <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
-                                                <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
-                                                <span>Type: tour</span>
-                                            </p>
-                                            <div class="card-links">
-                                                <span>{{i.price}} {{i.currency}}</span>
-                                                <a href="{% url 'tour:detail' i.id %}" class="">View Details</a>
+                                    <div class="col">
+                                        <div class="travel-card" >
+                                            <a href="{% url 'tour:detail' i.id %}">
+                                                {%if i.avatar%}
+                                                    <img src=" {{i.avatar.url}}" class="card-img" alt="">
+                                                {%else%}
+                                                    <img src="{% static 'images/organizer/image2.jpg' %}" class="card-img" alt="">
+                                                {%endif%}
+                                            </a>
+                                            <div class="card-content">
+                                                <a href="{% url 'tour:detail' i.id %}">
+                                                    <h5 class="card-title">{{i.title}}</h5>
+                                                    <div class="line"></div>
+                                                </a>
+                                                <p class="card-text">
+                                                    <span>{%if i.datefrom%}{{i.datefrom}}{%endif%}{%if i.dateto%} - {{i.dateto}}{%endif%}</span>
+                                                    <span>Location: {%if i.city%}{{i.city}}, {%endif%}{% if i.country %}{{i.country}}{%endif%}</span>
+                                                    <span>Type: Tour</span>
+                                                </p>
+                                                <div class="card-links">
+                                                    <span>{{i.price}} {{i.currency}}</span>
+                                                    <a href="{% url 'tour:detail' i.id %}" class="">View Details</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -230,7 +247,7 @@
                             {% endfor %}
                         </div>
                         <div class="more-text">
-                            <a href="#">Show all</a>
+                            <a href="{% url 'organizer:organizer_image_list' organizer.id %}">Show all</a>
                         </div>
                     </div>
                    

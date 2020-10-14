@@ -143,9 +143,6 @@
         width: 100%;
         height: 270px;
     }
-    .select-langs{
-        padding-top: 24px;
-    }
 }
 
 @media (max-width: 524px) {

@@ -18,15 +18,17 @@ header {
     float: left;
 }
 
-.logo {
-    width: 150px;
-    height: 100%;
-    float: left;
+
+.header-logo {
+    margin-left: 20px;
 }
-.logo img {
-    width: 100%;
-    object-fit: cover;
+
+.header-logo p{
+    color: #fff;
+    font-size: 12px;
+    margin: 0;
 }
+
 .header-left{
     float: right;
     display: flex;
@@ -36,9 +38,8 @@ header {
 .header-left-top{
     display: none;
 }
-.header-left-bottom{
-    /* display: none; */
-}
+ 
+
 .header-left li{
     padding-right: 15px;
 }

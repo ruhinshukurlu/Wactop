@@ -37,26 +37,46 @@ header design
 .filter-btn{
     display: none;
 }
+
+.head-up-left{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.head-up-left a{
+    margin-left: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.head-up-left p{
+    color: #fff;
+    font-size: 12px;
+    margin: 0;
+}
+
+
 .menu-btn, .filter-btn{
-    width: 45px;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid #ccc;
+    position: relative;
+    width: 35px;
+    margin-left: 10px;
     border-radius: 5px;
     outline: none;
 }
 
-.menu-btn:hover{
-    border-color: #fff;
+.menu-line{
+    width: 100%;
+    height: 2px;
+    background-color: #fff;
+    margin-bottom: 8px;
 }
 
 .filter-btn:hover{
     border-color: #fff;
 }
 
-.menu-btn svg{
-    color: #fff;
-}
 
 .menu-box{
     position: fixed;
@@ -300,10 +320,7 @@ main{
     padding: 5px;
     background-color: #fff;
 }
-.travel-card{
-    max-width: 300px;
-    margin: 15px;
-}
+
 .travel-card img{
     width: 100%;
 }
@@ -541,9 +558,6 @@ main{
     width: 15px;
 }
 
-.img-galery .travel-card{
-    max-width: 180px;
-}
 
 .img-galery h4{
     font-size: 35px;

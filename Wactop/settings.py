@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -34,12 +36,15 @@ ALLOWED_HOSTS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social_django',
+    'account',
     'main',
     'organizer',
     'tour',
@@ -50,6 +55,14 @@ INSTALLED_APPS = [
     'rest_framework',
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'social_core.backends.linkedin.LinkedinOAuth2',
+    'social_core.backends.instagram.InstagramOAuth2',
+    'social_core.backends.facebook.FacebookOAuth2',
+    'social_core.backends.google.GoogleOAuth2',
+    'django.contrib.auth.backends.ModelBackend',
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -58,6 +71,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
+
 ]
 
 ROOT_URLCONF = 'Wactop.urls'
@@ -73,13 +88,29 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',  # <-- Here
+                'social_django.context_processors.login_redirect', 
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'Wactop.wsgi.application'
+SOCIAL_AUTH_PIPELINE = (
 
+    'social_core.pipeline.social_auth.social_details',
+    'social_core.pipeline.social_auth.social_uid',
+    'social_core.pipeline.social_auth.auth_allowed',
+    'social_core.pipeline.social_auth.social_user',
+    'social_core.pipeline.user.get_username',
+    'social_core.pipeline.user.create_user',
+    'social_core.pipeline.social_auth.associate_user',
+    'social_core.pipeline.social_auth.load_extra_data',
+    'social_core.pipeline.user.user_details',
+    'social.pipeline.social_auth.associate_by_email'
+)
+
+WSGI_APPLICATION = 'Wactop.wsgi.application'
+AUTH_USER_MODEL = "account.User"
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -155,10 +186,45 @@ else:
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-from django.urls import reverse_lazy
 
-LOGIN_REDIRECT_URL = reverse_lazy('main:home')
+LOGIN_REDIRECT_URL = reverse_lazy('account:user-register')
+LOGIN_URL = reverse_lazy('main:home')
+LOGOUT_REDIRECT_URL = reverse_lazy('main:home')
 
+
+SITE_ID = 1
+SITE_ADDRESS = 'http://127.0.0.1:8000'
+
+
+SOCIAL_AUTH_FACEBOOK_KEY = '392591698427125'        # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = '22d371049b745b4a0f3187ebd63e80f4'
+
+SOCIAL_AUTH_FACEBOOK_SCOPE = ['email', 'user_link'] # add this
+SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {       # add this
+  'fields': 'id, name, email, picture.type(large), link'
+}
+SOCIAL_AUTH_FACEBOOK_EXTRA_DATA = [                 # add this
+    ('name', 'name'),
+    ('email', 'email'),
+    ('picture', 'picture'),
+    ('link', 'profile_url'),
+]
+
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
+
+SOCIAL_AUTH_STRATEGY = 'social_django.strategy.DjangoStrategy'  # new
+SOCIAL_AUTH_STORAGE = 'social_django.models.DjangoStorage' 
+
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '471307023873-4c3bnvcker03laka7qj7iognida9ae2h.apps.googleusercontent.com' # Google Consumer Key
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'FS9rg2W2SAyIPwixaK2bl6lk'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'reservetimealligator@gmail.com'
+EMAIL_HOST_PASSWORD = 'alligator123'
 
 
 # EMAIL_HOST = 'smtp.gmail.com'
@@ -166,3 +232,12 @@ LOGIN_REDIRECT_URL = reverse_lazy('main:home')
 # EMAIL_HOST_USER = 'parsifal_app'
 # EMAIL_HOST_PASSWORD = 'password'
 # EMAIL_USE_TLS = True
+
+
+
+# http://localhost:8000/complete/google-oauth2/
+# http://127.0.0.1:8000/complete/google-oauth2/
+# http://localhost:8000/social-auth/complete/google-oauth
+# http://127.0.0.1:8000/social-auth/complete/google-oauth
+# http://127.0.0.1:8000/auth/complete/google-oauth2/
+# http://localhost:8000/auth/complete/google-oauth2/

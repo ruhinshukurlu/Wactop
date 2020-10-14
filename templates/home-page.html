@@ -9,11 +9,36 @@
     <title>Home</title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/home-page/owl.carousel.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home-page/owl.theme.default.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home-page/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home-page/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/home-page/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/register.css' %}"> 
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+    <style>
+      .input_style {
+        outline: 0;
+        border-bottom: 2px solid rgb(236, 233, 233);
+        padding: 5px 10px;
+        width: 80%;
+      }
+      .input_style:focus {
+        border-bottom: 2px solid #6ea8f2;
+      }
+      .login_btn{
+        border-radius: 20px;
+        width: 80%;
+      }
+      .loginBtn, .registerBtn,.logout{
+        color: #febd69;
+        transition: color .2s ease-in-out;
+      }
+      .loginBtn:hover, .registerBtn:hover,.logout:hover{
+        color: #ccc;
+      }
+    </style>
 </head>
 
 <body>
@@ -23,21 +48,17 @@
                 <p>World Active Tourism Platform</p>
             </a>
             <div class="header-left">
-                {% if user.is_authenticated %}
-                <nav class="header-left-top">
+                {% if request.user.is_authenticated %}
+                <nav class="">
                     <ul>
-                        <li><a href="{% url 'organizer:edit' pk %}">Edit profile</a></li>
-                        <li><a href="{% url 'organizer:logout' %}">Logout</a></li>
-                        <li><a href="{% url 'organizer:addtour' %}">Add tour</a></li>
-                        <li><a href="{% url 'organizer:addtour' %}">Add activity</a></li>
-                        <li><a href="{% url 'organizer:addtour' %}">Add training</a></li>
+                        <li><a href="{% url 'account:logout' %}" class="logout" >Logout</a></li>
                     </ul>
                 </nav>
                 {% else %}
                 <nav class="header-left-bottom">
                     <ul>
-                        <li><a href="{% url 'organizer:login' %}">Login</a></li>
-                        <li><a href="{% url 'organizer:register' %}">Register</a></li>
+                        <li><button type="button" class="loginBtn" data-toggle="modal" data-target="#exampleModal">Login</a></li>
+                        <li><button type="button" class="registerBtn" data-toggle="modal" data-target="#exampleModal2">Register</a></li>
                     </ul>
                 </nav>
                 {% endif %}
@@ -45,19 +66,74 @@
             
         </header>
 
-    <div id="login" class="login">
-        <form class="modal-content animate" method="POST" action="{% url 'organizer:login' %}">
+    <div class="modal fade " style="margin-top: 90px;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" style="width: 400px;">
+        <div class="modal-content pt-4 pb-2 shadow">
+          <form class="" method="post">
             {% csrf_token %}
-          <div class="login-container">
-            <label for="uname"><b>Username</b></label>
-            <input type="text" class="login-txt" placeholder="Enter Username" name="username" required>
-      
-            <label for="psw"><b>Password</b></label>
-            <input type="password" class="login-psw" placeholder="Enter Password" name="password" required>
-              
-            <button type="submit" class="login-btn">Login</button>
+            <div class="login-container">
+                <h4 class="text-center" style="color: rgb(139, 138, 138);">Login</h4>
+                <hr>
+                <div class="form-group row  f-size mt-4">
+                    <!-- <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">Username</label> -->
+                    <div class="col-sm-12  d-flex justify-content-center">
+                        {{form.username}}
+                        {{form.username.errors}}
+                      <!-- <input type="text" class="input_style" id="staticEmail" placeholder="Username" name="username"> -->
+                    </div>
+                </div>
+                <div class="form-group row  f-size mt-4" style="margin-bottom: 40px;">
+                    <!-- <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">Password</label> -->
+                    <div class="col-sm-12 d-flex justify-content-center">
+                        {{form.password}}
+                        {{form.password.errors}}
+                      <!-- <input type="password" class="input_style" id="staticEmail" placeholder="Password" name='password' > -->
+                    </div>
+                </div>
+                <a href="{% url 'account:password_reset' %}" class="float-right">Forgot password?</a>
+
+                <div class="form-group row f-size mt-4 mb-5">
+                    <div class="col-sm-12 d-flex justify-content-center">
+                      <input type="submit" class="btn btn-outline-secondary login_btn form-input" value="Login" />
+                    </div>
+                </div>
+            </div>
+          </form>
+          <div class="row">
+              <div class=" mx-auto">
+                  <form>
+                      <div class="form-group">
+                          <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google py-1" style="border: 1px solid #ccc;">
+                              <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
+                          </a>
+                          <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook py-1 social" style="border: 1px solid #ccc">
+                              <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
+                          </a>
+                      
+                      </div>
+                  </form>
+              </div>
           </div>
-        </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade mt-2" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" >
+        <div class="modal-content pt-4 pb-4 custom_modal" >
+          <div class="d-flex flex-column justify-content-center align-items-center">
+            <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link "  href="{% url 'organizer:organizer-register' %}" style="color: #fff;padding: .5rem 3rem;">
+                  Register as Organizer</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'account:user-register' %}" style="color: #fff; padding: .5rem 3rem;">
+                  Register as User</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
 
     <main id="main">
@@ -91,7 +167,7 @@
                         <p>{{trainingcount}}</p>
                     </div>
                     <div class="inner">
-                        <a href="{% url 'organizer:home' %}" class="suggestions">Organizer</a>
+                        <a href="" class="suggestions">Organizer</a>
                         <p>{{organizercount}}</p>
                     </div>
                  
@@ -184,15 +260,7 @@
     <script src="{% static 'js/home-page/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/home-page/main.js' %}"></script>
     <script>
-    var slides = document.querySelectorAll('#slides .slide');
-var currentSlide = 0;
-var slideInterval = setInterval(nextSlide,2000);
-
-function nextSlide(){
-    slides[currentSlide].className = 'slide';
-    currentSlide = (currentSlide+1)%slides.length;
-    slides[currentSlide].className = 'slide showing';
-}
+    
     </script>
 </body>
 

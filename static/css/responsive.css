@@ -1,0 +1,141 @@
+@media (max-width: 1300px){
+    #footer{
+        position: static;
+    }
+}
+
+@media (max-width: 1024px) {
+    .container{
+        padding:20px 55px;
+        /* padding-left: 55px; */
+    }
+}
+@media (max-width : 768px){
+    .modal-content{
+        width: 50%;
+    }
+}
+@media (max-width : 576px){
+    .form-box {
+        width: 100%;
+        align-items: center;
+    }
+    .info-list li {
+        align-items: center;
+        padding: 0;
+        margin: 0;
+        margin-bottom: 10px;
+    }
+    label {
+        font-size: 13px;
+    }
+    ::placeholder{
+        font-size: 14px;
+    }
+}
+@media (max-width : 500px){
+    .menu-box-in-head{
+        height: 47px;
+    }
+    .close-btn{
+        width: 40px;
+    }
+    .close-btn svg{
+        width: 15px;
+    }
+    .head-up-left img {
+        width: 120px;
+    }
+    .head-up-left svg{
+        width: 20px;
+    }
+    .modal-content{
+        width: 80%;
+    }
+    #main{
+        min-height: 400px;
+    }
+    .inner{
+        width: 100%;
+    }
+    .social-media svg{
+        width: 14px;
+    }
+    .social-media li{
+        padding: 0;
+    }
+    .foot-list{
+        margin: 0;
+    }
+    #footer{
+        min-height: 0;
+    }
+    #footer a{
+        font-size: 13px;
+    }
+    #footer p {
+        font-size: 13px;
+    }
+    .ins-icon{
+        margin: 0 20px;
+    }
+}
+@media (max-width: 420px)
+{
+    .inner {
+        padding: 7px 20px;
+}
+}
+@media (max-width : 400px){
+    .menu-box-in{
+        width: 240px;
+    }
+    .menu-box-in-head img {
+        left: 40px;
+    }
+    
+  }
+@media (max-width: 380px)
+{
+    .inner {
+        padding: 7px 20px;
+}
+}
+@media (max-width: 360px)
+{
+    #main{
+        min-height: 350px;
+    }
+    .inner {
+        padding: 1px 20px;
+}
+}
+
+@media (max-width: 340px) {
+    .social-media svg {
+        width: 14px;
+    }
+    #footer p {
+        font-size: 10px;
+    }
+    .ins-icon {
+        margin: 0px 11px;
+    }
+}
+
+
+@media (max-width: 320px)
+{
+    .inner {
+        padding: 0px 20px;
+}
+}
+@media(max-width:320px)
+{
+    .partners-logos {
+        height: 155px;
+    }
+    #main { 
+        height: calc(100vh - (45px + 296px));
+}
+}

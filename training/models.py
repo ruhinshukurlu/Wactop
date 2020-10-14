@@ -9,13 +9,13 @@ from Wactop.mail import *
 
 
 class Training(models.Model):
-    organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True)
+    organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='training')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
     descriptionaz = models.TextField(blank=True, null=True)
     descriptionen = models.TextField(blank=True, null=True)
     descriptionru = models.TextField(blank=True, null=True)
-    type = models.ManyToManyField(Type, verbose_name=("type"), related_name="training", blank=True)
+    training_type = models.ManyToManyField(Type, verbose_name=("type"), related_name="training", blank=True)
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
     adress = models.CharField(max_length=63, null=True, blank=True)
@@ -51,40 +51,40 @@ class Training(models.Model):
         return self.title
 
 class TrainingDetailAZ(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail_az')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "AZ" + self.training.title + ": " + self.title
 
 class TrainingDetailEN(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail_en')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "EN" + self.training.title + ": " + self.title
 
 class TrainingDetailRU(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail_ru')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "RU" + self.training.title + ": " + self.title
 
 class TrainingImage(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_image')
     image = models.ImageField(upload_to='training/image/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.training.title
 
 class TrainingSchedule(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_schedule')
     image = models.ImageField(upload_to='training/schedule/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.training.title
 
 class TrainingUrl(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE)
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_url')
     url = models.URLField()
     def __str__ (self):
         return self.training.title

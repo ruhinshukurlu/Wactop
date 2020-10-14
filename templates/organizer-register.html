@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Orgnizer Register</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+        integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <link rel="stylesheet" href="{% static 'css/register.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+    <style>
+      input, textarea{
+          font-size: 14px;
+      }
+    </style>
+</head>
+
+<body id="main_body">
+  <header>
+    <div class="full">
+      <div class="head-up">
+        <div class="head-up-left">
+          <button type="button" class="menu-btn">
+            <svg
+              aria-hidden="true"
+              width="25"
+              focusable="false"
+              data-prefix="fas"
+              data-icon="bars"
+              role="img"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 448 512"
+              class="svg-inline--fa fa-bars fa-w-14 fa-3x"
+            >
+              <path
+                fill="currentColor"
+                d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"
+                class=""
+              ></path>
+            </svg>
+          </button>
+          <a href="#"
+            ><img src="{% static 'images/wactop.png' %}" alt="Wactop" width="150"
+          /></a>
+        </div>
+      </div>
+    </div>
+  </header>
+  <div class="menu-box" style="display: none;"></div>
+  <div class="menu-box-in" style="display: none;">
+    <div class="menu-box-in-head">
+      <img src="{% static 'images/wactop.png' %}" width="150px" alt="" />
+      <button type="button" class="close-btn">
+        <svg
+          aria-hidden="true"
+          width="20"
+          focusable="false"
+          data-prefix="fas"
+          data-icon="times"
+          role="img"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 352 512"
+          class="svg-inline--fa fa-times fa-w-11 fa-3x"
+        >
+          <path
+            fill="currentColor"
+            d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
+            class=""
+          ></path>
+        </svg>
+      </button>
+    </div>
+    <div class="menu-box-in-body">
+      <nav>
+        <ul class="main-menu-list">
+          <li><a href="#">Tours</a></li>
+          <li><a href="#">Activities</a></li>
+          <li><a href="#">Trainings</a></li>
+          <li><a href="#">Others</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+<main class="pt-5">
+    <div class="container custom-container mt-5 ">
+        <div class="row">
+            <div class="col-12 pt-3">
+                <form class="form-box" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                    <div class="form-group p-relative">
+                        <div class="cover-img-box">
+                            <div class="d-flex p-absolute add-cover-img-box">
+                                <label for="coverimgInp" class="add-img-label bold"><i class="fas fa-camera"></i></i></label>
+                                {{form.cover_image}}
+                                {{form.cover_image.errors}}
+                            </div>
+                            <img id="cover" src="{% static 'images/default-organizer.jpg' %}" alt="Your cover image" style="width: 100%;height: 100%; object-fit: cover;" />
+                        </div>
+                        <div class="profile-img-box">
+                            <div class="d-flex p-absolute add-img-box">
+                                <label for="profileimgInp" class="add-img-label bold"><i class="fas fa-camera"></i></i></label>
+                                {{form.profile_image}}
+                                {{form.profile_image.errors}}
+                            </div>
+                            <!-- <img class="default-img" src="./assets/images/profile2.png" alt="" style="width: 100%;height: 100%; object-fit: cover;" > -->
+                            <img id="profile" src="{% static 'images/profile2.png' %}" alt="your image" />
+                        </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size mt-4">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.organizer_name.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.organizer_name}}
+                          {{form.organizer_name.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.username.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.username}}
+                          {{form.username.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.email.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.email}}
+                          {{form.email.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.password1.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.password1}}
+                          {{form.password1.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.password2.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.password2}}
+                          {{form.password2.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.description.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.description}} 
+                          {{form.description.errors}}  
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.about.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.about}}
+                          {{form.about.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.address.label_tag}}</label>
+                      <div class="col-sm-7">
+                        {{form.address}}
+                        {{form.address.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.contact_number.label_tag}}</label>
+                      <div class="col-sm-7">
+                        {{form.contact_number}}
+                        {{form.contact_number.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.website.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.website}}
+                          {{form.website.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.facebook.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.facebook}}
+                          {{form.facebook.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-center f-size">
+                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.instagram.label_tag}}</label>
+                      <div class="col-sm-7">
+                          {{form.instagram}}
+                          {{form.instagram.errors}}
+                      </div>
+                    </div>
+                    <div class="form-group row justify-content-end f-size">
+                        <div class="" style="width: 25%;">
+                          <input type="submit" value="Register" class="btn btn-outline-secondary">
+                        </div>
+                    </div>
+
+                 
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+
+</html>

@@ -17,7 +17,7 @@ class Type(models.Model):
 
 
 class Tour(models.Model):
-    organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True)
+    organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='tour')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
     descriptionaz = models.TextField(blank=True, null=True)
@@ -62,40 +62,40 @@ class Tour(models.Model):
     #     super(Tour, self).save(*args, **kwargs)
 
 class TourDetailAZ(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_az')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "AZ" + self.tour.title + ": " + self.title
 
 class TourDetailEN(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_en')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "EN" + self.tour.title + ": " + self.title
 
 class TourDetailRU(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_ru')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "RU" + self.tour.title + ": " + self.title
 
 class TourImage(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_image')
     image = models.ImageField(upload_to='tour/image/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.tour.title
 
 class TourSchedule(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_schedule')
     image = models.ImageField(upload_to='tour/schedule/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.tour.title
 
 class TourUrl(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE)
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_url')
     url = models.URLField()
     def __str__ (self):
         return self.tour.title

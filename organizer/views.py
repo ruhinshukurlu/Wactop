@@ -132,6 +132,7 @@ def organizer_image_list(request, pk):
 
 def OrganizerTour(request):
     image_formset = modelformset_factory(TourImage, fields=('image', ), extra=10, form=OrganizerTourImageForm, validate_max=2)
+    
     detail_formset = modelformset_factory(TourDetailEN, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
     schedule_formset = modelformset_factory(TourSchedule, fields=('image', ), extra=10, form=OrganizerTourScheduleForm)
 

@@ -38,103 +38,171 @@
       .loginBtn:hover, .registerBtn:hover,.logout:hover{
         color: #ccc;
       }
+
+
+.user-profile img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-profile:hover{
+    color: #ccc;
+    cursor: pointer;
+}
+
+.header-menu{
+    display: none;
+    z-index: 1111; 
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(153,153,153,.4);
+    right: 5px;
+}
+
+.user-profile span{
+  color: #fff;
+}
+
+.header-menu li{
+    padding: 7px 50px;
+    transition: .4s;
+}
+
+.header-menu li:hover{
+    background-color: #d3d3d3;
+    color: #4CAEFF;
+}
+
+.header-menu a{
+    text-decoration: none;
+    color: rgb(63, 63, 63);
+}
+
+.user-profile:hover .header-menu{
+    display: block;
+}
+
+.menu-btn{
+  display: none;
+}
     </style>
 </head>
 
 <body>
-        <header>
-            <a href="{% url 'main:home' %}" class="header-logo logo">
-                <img src="{% static 'images/home-page/wactop-logo-new.png' %}" width="170px" title="Wactop" alt="wactop">
-                <p>World Active Tourism Platform</p>
-            </a>
-            <div class="header-left">
-                {% if request.user.is_authenticated %}
-                <nav class="">
-                    <ul>
-                        <li><a href="{% url 'account:logout' %}" class="logout" >Logout</a></li>
-                    </ul>
-                </nav>
-                {% else %}
-                <nav class="header-left-bottom">
-                    <ul>
-                        <li><button type="button" class="loginBtn" data-toggle="modal" data-target="#exampleModal">Login</a></li>
-                        <li><button type="button" class="registerBtn" data-toggle="modal" data-target="#exampleModal2">Register</a></li>
-                    </ul>
-                </nav>
-                {% endif %}
-            </div>
-            
-        </header>
+      
+    {% include 'partials/header.html' %}
 
-    <div class="modal fade " style="margin-top: 90px;" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" style="width: 400px;">
-        <div class="modal-content pt-4 pb-2 shadow">
+    <style>
+      .form-input{
+        height: 50px;
+        padding: 5px 10px;
+      }
+
+      .login_btn{
+        border-radius: 10px;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .modal-dialog{
+        max-width: 550px;
+      }
+
+      .social-login a{
+        border-radius: 10px;
+        padding: 10px 0;
+        margin-bottom: 10px;
+      }
+
+      .register-link{
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        background-color: #fff;
+        color: #000;
+        border-radius: 6px;
+        margin-bottom: 20px;
+      }
+      .register-link:hover{
+        color: rgb(49, 49, 49);
+      }
+    </style>
+
+    <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" >
+        <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
           <form class="" method="post">
             {% csrf_token %}
             <div class="login-container">
-                <h4 class="text-center" style="color: rgb(139, 138, 138);">Login</h4>
+                <h4 class="text-center mb-3" style="color: rgb(112, 111, 111);">Sing-In</h4>
                 <hr>
-                <div class="form-group row  f-size mt-4">
-                    <!-- <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">Username</label> -->
+                <div class="form-group row">
                     <div class="col-sm-12  d-flex justify-content-center">
                         {{form.username}}
                         {{form.username.errors}}
-                      <!-- <input type="text" class="input_style" id="staticEmail" placeholder="Username" name="username"> -->
                     </div>
                 </div>
-                <div class="form-group row  f-size mt-4" style="margin-bottom: 40px;">
-                    <!-- <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">Password</label> -->
+                <div class="form-group row" >
                     <div class="col-sm-12 d-flex justify-content-center">
                         {{form.password}}
                         {{form.password.errors}}
-                      <!-- <input type="password" class="input_style" id="staticEmail" placeholder="Password" name='password' > -->
                     </div>
                 </div>
-                <a href="{% url 'account:password_reset' %}" class="float-right">Forgot password?</a>
-
-                <div class="form-group row f-size mt-4 mb-5">
+                <div class="form-group row mt-3">
                     <div class="col-sm-12 d-flex justify-content-center">
-                      <input type="submit" class="btn btn-outline-secondary login_btn form-input" value="Login" />
+                      <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
                     </div>
+                </div>
+
+                <div class="form-group row justify-content-end d-flex">
+                  <a href="{% url 'account:password_reset' %}" class="float-right mr-3">Forgot password?</a>
                 </div>
             </div>
           </form>
           <div class="row">
-              <div class=" mx-auto">
-                  <form>
-                      <div class="form-group">
-                          <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google py-1" style="border: 1px solid #ccc;">
-                              <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
-                          </a>
-                          <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook py-1 social" style="border: 1px solid #ccc">
-                              <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
-                          </a>
-                      
-                      </div>
-                  </form>
+            <form class="full p-2">
+              <div class="form-group d-column social-login">
+                  <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" >
+                      <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
+                  </a>
+                  <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" style="border: 1px solid #ccc">
+                      <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
+                  </a>
+              
               </div>
+            </form>
+            <div class="d-column full mb-3">
+              <p class="text-center">Are you new?</p>
+              <a class="text-center" href="#">Create your account</a>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
-    <div class="modal fade mt-2" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" >
-        <div class="modal-content pt-4 pb-4 custom_modal" >
-          <div class="d-flex flex-column justify-content-center align-items-center">
-            <ul class="nav nav-tabs md-tabs tabs-2 light-blue darken-3" role="tablist">
-              <li class="nav-item">
-                <a class="nav-link "  href="{% url 'organizer:organizer-register' %}" style="color: #fff;padding: .5rem 3rem;">
-                  Register as Organizer</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{% url 'account:user-register' %}" style="color: #fff; padding: .5rem 3rem;">
-                  Register as User</a>
-              </li>
-            </ul>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #ebebeb;">
+          
+          <div class="modal-body d-column">
+            <h4 class="full text-center mb-3 pb-2 border-bottom">Register</h4>
+            <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
+              Register as Organizer
+            </a>
+            <a class="register-link" href="{% url 'account:user-register' %}">
+              Register as User
+            </a>
           </div>
+          
         </div>
       </div>
     </div>
+
 
     <main id="main">
         <div class="img-overlay"></div>
@@ -167,7 +235,7 @@
                         <p>{{trainingcount}}</p>
                     </div>
                     <div class="inner">
-                        <a href="" class="suggestions">Organizer</a>
+                        <a href="{% url 'organizer:home' %}" class="suggestions">Organizer</a>
                         <p>{{organizercount}}</p>
                     </div>
                  

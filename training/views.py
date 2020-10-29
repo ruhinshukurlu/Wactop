@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.views.generic.list import ListView
+
 from .models import *
 from tour.models import *   
 # pip install psycopg2
@@ -14,6 +16,13 @@ style = Type.objects.all()
 #         country.append(i.country)
 
 
+class TrainingListView(ListView):
+    model = Training
+    context_object_name = 'trainings'
+    template_name = "training-list.html"
+
+    def get_queryset(self):
+        return super().get_queryset().filter(status=1)
 
 
 def TrainingList(request):

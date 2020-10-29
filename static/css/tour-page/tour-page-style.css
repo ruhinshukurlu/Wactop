@@ -5,11 +5,11 @@ body {
 .head-up {
     display: flex;
     justify-content: space-between;
-    background-color: #3E3C3D;
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
 }
 
 .head-bottom-img {
-    height: 260px;
+    height: 500px;
 }
 
 .header-content {
@@ -107,6 +107,13 @@ body {
     outline: none;
 }
 
+.menu-btn i{
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    padding: 10px 12px;
+}
+
 .menu-line{
     width: 100%;
     height: 2px;
@@ -142,8 +149,10 @@ body {
     left: 60px;
 }
 
-.close-btn svg {
+.close-btn i {
     color: #fff;
+    font-size: 25px;
+    margin: 5px;
 }
 
 .close-btn {
@@ -515,7 +524,7 @@ body {
 /* design of footer */
 
 #footer {
-    background-color: #3e3c3d;
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
 }
 
 .full {

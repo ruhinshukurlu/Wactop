@@ -4,7 +4,7 @@ from .views import *
 app_name = 'training'
 
 urlpatterns = [
-    path('', TrainingList, name='home'),
+    path('', TrainingListView.as_view(), name='home'),
     path('<int:pk>', TrainingDetailView, name='detail'),
     path('filter/', TrainingFilter, name='filter')
 ]

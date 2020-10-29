@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Guides & Instructors</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="assets/css/fontawesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+  
+    <main>
+        <div class="row justify-content-center full-h">
+            <div class="col-2 p-0 bg-white " id="menu-column">
+                {% include 'partials/organizer-menu.html' %}
+            </div>
+            <div class="col-10">
+                <div class="custom-container mt-5 mb-5">
+                    <h3 class="full bold border-bottom pb-2 mb-4">
+                        Add New {{worker}}
+                    </h3>
+                    
+                    <div class="inner-container">
+                        <div class="row d-flex justify-content-end mb-5">
+                            <div class="row full">
+                                <div class="form-box full mt-5 pt-5">
+                                    <form method="POST" class="full">
+                                        {% csrf_token %}
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.name.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.name}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.surname.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.surname}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.experience.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.experience}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.certification.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.certification}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row ">
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <input type="submit" value="Save" class="btn btn-outline-success pl-5 pr-5">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <nav class="footer-menu">
+                        <ul class="d-column">
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacy</a>
+                            </li>
+                        </ul>
+                        <p><i class="far fa-copyright"></i> 2019</p>
+                    </nav>
+                </div>
+                <div class="col-4">
+                    <div class="d-column align-center">
+                        <span class="mb-2 mt-2">Follow Us</span>
+                        <ul class="footer-social-links" >
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-facebook-square"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+    <script>
+        function readURL(input,place) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+               reader.onload = function (e) {
+                console.log(e.target.result);
+                    console.log($(place));
+                   $(place).attr('src', e.target.result);
+               }
+               
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
+
+       $("#photo").change(function(){
+           readURL(this,$('#choosen-photo'));
+       });
+
+       
+       
+   </script>
+
+
+   <script>
+       $('.menu_btn').click(function(){
+            $('#menu-column').slideToggle()
+       })
+   </script>
+
+    
+
+</body>
+</html>

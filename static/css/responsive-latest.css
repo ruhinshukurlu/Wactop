@@ -1,0 +1,92 @@
+@media (max-width : 1650px) {
+    .tour-item .title,
+    .tour-item .price,
+    .tour-item .duration{
+        font-size: 15px;
+
+    }
+
+    .tour-item .stars i,
+    .tour-item span{
+        font-size: 13px;
+    }
+
+    .tour-item img {
+        height: 170px;
+    }
+
+}
+
+@media (max-width : 1500px) {
+    .custom-container,
+    .inner-container{
+        max-width: 90%;
+    }
+}
+
+@media (max-width : 1200px) {
+    .tour-item .title,
+    .tour-item .price{
+        font-size: 15px;
+    }
+
+    .tour-item .duration{
+        font-size: 13px;
+    }
+
+    .tour-item .stars i,
+    .tour-item span{
+        font-size: 11px;
+    }
+
+    .tour-item img {
+        height: 160px;
+    }
+
+    .tour-list .col-12{
+        padding: 0px 5px;
+    }
+
+    .inner-container{
+        max-width: 95%;
+    }
+
+}
+
+
+@media ( max-width : 577px ) {
+    .custom-container, .inner-container{
+        max-width: 100%;
+    }
+
+    .tour-list .col-12{
+        padding: 0px;
+    }
+
+    .tour-item .title{
+        font-size: 20px;
+    }
+
+    .tour-item .price,
+    .tour-item .duration{
+        font-size: 18px;
+
+    }
+
+    .tour-item .stars i,
+    .tour-item span{
+        font-size: 16px;
+    }
+
+    .tour-item img {
+        height: 300px;
+    }
+
+    .tour-item{
+        border-radius: 0px;
+    }
+
+    .tour-search{
+        width: 80%;
+    }
+}

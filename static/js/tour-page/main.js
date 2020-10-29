@@ -34,7 +34,7 @@ function myFunc(){
 $('.menu-btn').click(function(){
   $('.menu-box-in').stop().animate({
       width : 'toggle'
-  },500);
+  },300);
 });
 
 $('.menu-btn').click(function(){
@@ -45,7 +45,7 @@ $('.close-btn, .menu-box').click(function(){
   $('.menu-box').css("display","none");
   $('.menu-box-in').stop().animate({
       width : 'toggle'
-  },500);
+  },300);
   $('body').css("overflow","auto");
 });
 

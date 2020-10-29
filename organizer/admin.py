@@ -18,6 +18,8 @@ class OrganizerAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Organizer, OrganizerAdmin)
+admin.site.register(Guide)
+admin.site.register(Instructor)
 admin.site.register(OrganizerType)
 admin.site.register(OrganizerImage)
 admin.site.register(OrganizerUrl)

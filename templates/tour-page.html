@@ -23,13 +23,10 @@
             <div class="head-up">
                 <div class="head-up-left">
                     <button class="menu-btn">
-                        <div class="menu-line"></div>
-                        <div class="menu-line"></div>
-                        <div class="menu-line"></div>
+                        <i class="fas fa-bars"></i>
                     </button>
-                    <a href="{% url 'main:home' %}">
-                        <img src="{% static 'images/tour-page/wactop-logo-new.png' %}" alt="Wactop" width="170" />
-                        <p>World Active Tourism Platform</p>
+                    <a href="{% url 'main:home' %}" >
+                        <img src="{% static 'images/wactop.png' %}" alt="Wactop" width="180" class="mb-2" />
                     </a>
                 </div>
             </div>
@@ -48,7 +45,6 @@
                             <div class="image-right">
                                 <div class="tour-name">
                                     <h5>{{tour.title}}</h5>
-
                                 </div>
                                 <div class="header-bottom-right">
                                     <div class="tour-location">
@@ -76,42 +72,9 @@
             </div>
         </div>
     </header>
+    
+    {% include 'partials/main-menu.html' %}
 
-    <div class="menu-box" style="display: none;"></div>
-    <div class="menu-box-in" style="display: none;">
-        <div class="menu-box-in-head">
-            <img src="{% static 'images/tour-page/wactop.png' %}" width="150px" alt="" />
-            <button class="close-btn">
-          <svg
-            aria-hidden="true"
-            width="20"
-            focusable="false"
-            data-prefix="fas"
-            data-icon="times"
-            role="img"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 352 512"
-            class="svg-inline--fa fa-times fa-w-11 fa-3x"
-          >
-            <path
-              fill="currentColor"
-              d="M242.72 256l100.07-100.07c12.28-12.28 12.28-32.19 0-44.48l-22.24-22.24c-12.28-12.28-32.19-12.28-44.48 0L176 189.28 75.93 89.21c-12.28-12.28-32.19-12.28-44.48 0L9.21 111.45c-12.28 12.28-12.28 32.19 0 44.48L109.28 256 9.21 356.07c-12.28 12.28-12.28 32.19 0 44.48l22.24 22.24c12.28 12.28 32.2 12.28 44.48 0L176 322.72l100.07 100.07c12.28 12.28 32.2 12.28 44.48 0l22.24-22.24c12.28-12.28 12.28-32.19 0-44.48L242.72 256z"
-              class=""
-            ></path>
-          </svg>
-        </button>
-        </div>
-        <div class="menu-box-in-body">
-            <nav>
-                <ul class="main-menu-list">
-                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
-                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
-                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
-                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
 
     <main id="main">
         <div class="cover-menu">
@@ -207,7 +170,7 @@
                         <div class="about-company">
                             <span>About company</span>
                             <ul>
-                                <li>Name: <a href="{% url 'organizer:detail' tour.organizer.id %}">{{tour.organizer.name}}</a></li>
+                                {% comment %}<li>Name: <a href="{% url 'organizer:detail' tour.organizer.id %}">{{tour.organizer.name}}</a></li>{% endcomment %}
                                 {% if tour.organizer.email %}
                                 <li>Email: {{tour.organizer.email}}</li>{% endif %} {% if tour.organizer.number1 %}
                                 <li>Contact number: {{tour.organizer.number1}}</li>{% endif %} {% if tour.organizer.number2 %}

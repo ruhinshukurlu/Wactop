@@ -39,7 +39,7 @@ class OrganizerRegisterForm(UserCreationForm):
                 }), label = 'Confirm Password')
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
                     'class': 'form-input',
-                    'placeholder' : 'Email........'
+                    'placeholder' : 'Email....'
 
                 }),label='Email')
     description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={
@@ -179,3 +179,9 @@ class ChangePasswordForm(PasswordChangeForm):
         'placeholder' : 'Re-enter new password'
     }), required=True)
     
+
+# class UserEditForm(forms.ModelForm):
+
+#     class Meta:
+#         model = User
+#         fields = []

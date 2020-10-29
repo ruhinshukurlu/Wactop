@@ -1,0 +1,20 @@
+{% load static %}
+<div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;" >
+        <div class="menu-box-in-head">
+            <img src="{% static 'images/tour-list/wactop-logo.png' %}" width="150px" alt="">
+            <button class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="menu-box-in-body">
+            <nav>
+                <ul class="main-menu-list">
+                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>

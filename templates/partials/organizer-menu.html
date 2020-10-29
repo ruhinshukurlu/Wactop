@@ -1,0 +1,79 @@
+
+{% load static %}
+<nav class="organizer-menu">
+    <ul class="d-column">
+        <li>
+            <a href="{% url 'organizer:detail' request.user.organizer.pk %}">
+                <div class="align-center">
+                    <i class="fas fa-home"></i>
+                    <span>{{request.user.organizer.organizer_name}}</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:organizer-profile' %}">
+                <div class="align-center">
+                    <i class="fas fa-cog"></i>
+                    <span>Organizer Settings</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:add_tour' %}">
+                <div class="align-center">
+                    <i class="fas fa-directions"></i>
+                    <span>Add Tour</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:add_training' %}">
+                <div class="align-center">
+                    <i class="fas fa-running"></i>
+                    <span>Add Training</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:add_activity' %}">
+                <div class="align-center">
+                    <i class="fas fa-hiking"></i>
+                    <span>Add Activity</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:organizer_edit' request.user.organizer.pk %}">
+                <div class="align-center">
+                    <i class="fas fa-user-edit"></i>
+                    <span>Edit Informations</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:organizer-photos' %}">
+                <div class="align-center">
+                    <i class="fas fa-camera-retro"></i>
+                    <span>Photos</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:organizer-actions' %}">
+                <div class="align-center">
+                    <i class="fas fa-history"></i>
+                    <span>Torus, Activities, Trainings</span>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'organizer:guides-instructors' %}">
+                <div class="align-center">
+                    <i class="fas fa-chalkboard-teacher"></i>
+                    <span>Guides & Instructors</span>
+                </div>
+            </a>
+        </li>
+        
+    </ul>
+</nav>

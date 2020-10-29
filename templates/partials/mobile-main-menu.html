@@ -1,0 +1,103 @@
+{% load static %}
+<div class="menu-box" style="display: none;"></div>
+    <div class="menu-box-in" style="display: none;" >
+        <div class="menu-box-in-head">
+            <img src="{% static 'images/tour-list/wactop-logo.png' %}" width="150px" alt="">
+            <button class="close-btn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="menu-box-in-body">
+            <nav>
+                <ul class="main-menu-list">
+                    <li><a href="{% url 'tour:home' %}">Tours</a></li>
+                    <li><a href="{% url 'activity:home' %}">Activities</a></li>
+                    <li><a href="{% url 'training:home' %}">Trainings</a></li>
+                    <li><a href="{% url 'organizer:home' %}">Organizer</a></li>
+                </ul>
+
+                <ul class="d-column organizer-menu">
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-home"></i>
+                                <span>Organizer Profile</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-cog"></i>
+                                <span>Organizer Setting</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-directions"></i>
+                                <span>Add Tour</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-running"></i>
+                                <span>Add Training</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-hiking"></i>
+                                <span>Add Activity</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="organizer-edit.html">
+                            <div class="align-center">
+                                <i class="fas fa-user-edit"></i>
+                                <span>Edit Informations</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-camera-retro"></i>
+                                <span>Photos</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-bookmark"></i>
+                                <span>Organizers & Tours</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Instructors</span>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <div class="align-center">
+                                <i class="fas fa-map-signs"></i>
+                                <span>Guides</span>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>

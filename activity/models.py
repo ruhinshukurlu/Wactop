@@ -1,6 +1,6 @@
 from django.db import models
 from organizer.models import *
-from tour.models import status_choices, Type
+from tour.models import status_choices, Type, TourType
 from multiselectfield import MultiSelectField
 import smtplib
 from django.core.mail import send_mail
@@ -8,19 +8,29 @@ from Wactop.mail import *
 
 
 class Activity(models.Model):
+
+    CURRENCIES = [
+        ('AZN', 'AZN'),
+        ('USD', 'USD'),
+        ('EUR', 'EUR'),
+        ('TRY', 'TRY'),
+        ('RUB','RUB')
+    ]
+
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
     descriptionaz = models.TextField(blank=True, null=True)
     descriptionen = models.TextField(blank=True, null=True)
     descriptionru = models.TextField(blank=True, null=True)
-    type = models.ManyToManyField(Type, verbose_name=("type"), related_name="activity", blank=True)
+    # type = models.ManyToManyField(Type, verbose_name=("type"), related_name="activity", blank=True)
+    activity_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='activity')
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
-    adress = models.CharField(max_length=63, null=True, blank=True)
+    address = models.CharField(max_length=63, null=True, blank=True)
     price = models.IntegerField()
     pricefor = models.IntegerField(default=1)
-    currency = models.CharField(max_length=31, default='AZN')
+    currency = models.CharField(max_length=31, choices = CURRENCIES, default='AZN')
     discount = models.IntegerField(blank=True, null=True)
     distance = models.CharField(max_length=31, blank=True, null=True)
     durationday = models.IntegerField(blank=True, null=True)

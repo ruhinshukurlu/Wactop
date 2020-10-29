@@ -9,28 +9,42 @@ from Wactop.mail import *
 
 status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past')]
 
+
+class TourType(models.Model):
+    title = models.CharField(max_length=31)
+    def __str__ (self):
+        return self.title
+
 class Type(models.Model):
     type = models.CharField(max_length=31)
     def __str__ (self):
         return self.type
 
 
-
 class Tour(models.Model):
+
+    CURRENCIES = [
+        ('AZN', 'AZN'),
+        ('USD', 'USD'),
+        ('EUR', 'EUR'),
+        ('TRY', 'TRY'),
+        ('RUB','RUB')
+    ]
+ 
+
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='tour')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
     descriptionaz = models.TextField(blank=True, null=True)
     descriptionen = models.TextField(blank=True, null=True)
     descriptionru = models.TextField(blank=True, null=True)
-    # type = MultiSelectField(choices=type_choices, max_choices=3, max_length=3, blank=True, null=True)
-    type = models.ManyToManyField(Type, verbose_name=("type"), related_name="tour", blank=True)
+    tour_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='tour')
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
-    adress = models.CharField(max_length=63, null=True, blank=True)
+    address = models.CharField(max_length=63, null=True, blank=True)
     price = models.IntegerField()
     pricefor = models.IntegerField(default=1)
-    currency = models.CharField(max_length=31, default='AZN')
+    currency = models.CharField(max_length=31, default='AZN', choices = CURRENCIES)
     discount = models.IntegerField(blank=True, null=True)
     distance = models.CharField(max_length=31, blank=True, null=True)
     durationday = models.IntegerField(blank=True, null=True)
@@ -61,6 +75,7 @@ class Tour(models.Model):
     #                 sendemail(self.organizer.email, message)
     #     super(Tour, self).save(*args, **kwargs)
 
+
 class TourDetailAZ(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_az')
     title = models.CharField(max_length=31)
@@ -68,12 +83,14 @@ class TourDetailAZ(models.Model):
     def __str__ (self):
         return "AZ" + self.tour.title + ": " + self.title
 
+
 class TourDetailEN(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_en')
     title = models.CharField(max_length=31)
     text = models.TextField()
     def __str__ (self):
         return "EN" + self.tour.title + ": " + self.title
+
 
 class TourDetailRU(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_ru')

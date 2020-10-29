@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{organizer.organizer_name}}</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    
+    <!-- carousel -->
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+ 
+    <!-- FancyBox -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+    <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+    
+
+
+    <style>
+        .shadow{
+            -webkit-box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
+            -moz-box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
+            box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
+        }
+    </style>
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+  
+    <main>
+        <div class="cover-photo-box p-relative">
+            {% if organizer.cover %}
+                <img src="{{organizer.cover.url}}" class="cover-photo" alt="">
+            {% else %}
+                <img src="{% static 'images/default.png' %}" class="cover-photo" alt="">
+            {% endif %}
+
+            {% if organizer.profile_photo %}
+                <img src="{{organizer.profile_photo.url}}" class="profile-photo" alt="">
+            {% else %}
+                <img src="{% static 'images/default.png' %}" class="profile-photo" alt="">
+            {% endif %}
+            <div class="company-name-box">
+                <h3 class="bold m-0"> 
+                    {{organizer.organizer_name}}
+                </h3>
+            </div>
+        </div>
+
+        <div class="custom-container copmany-infos-block">
+            <div class="row mb-4">
+                <h2 class="full bold border-bottom pb-2 mb-5">About</h2>
+                <div class="col-lg-8">
+                    
+                    <div class="mb-5 pl-3">
+                        <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
+                        <p class="description">
+                            {{organizer.about}}
+                        </p>
+                    </div>
+                    
+                    <div class="pl-3"> 
+                        <ul class="info-list border-bottom pb-2 mb-4">
+                            <li>
+                                <div class="align-center mr-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    Address : 
+                                </div>
+                                <span>{{organizer.address}}</span>
+                            </li>
+                            <li>
+                                <div class="align-center mr-1">
+                                    <i class="far fa-envelope"></i>
+                                    Email : 
+                                </div>
+                                <span>{{organizer.user.email}}</span>
+                            </li>
+                        </ul>
+                        
+                        <h5 class="full bold border-bottom pb-2 mb-3">Social Links</h5>
+                        <ul class="company-links">
+                            <li>
+                                <div class="align-center mr-1">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Website : 
+                                </div>
+                                <a href="{{organizer.website}}" target="blank">{{organizer.organizer_name}} Website Address</a>
+                            </li>
+                            <li>
+                                <div class="align-center mr-1">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Facebook : 
+                                </div>
+                                <a href="{{organizer.facebook}}" target="blank">{{organizer.organizer_name}} FaceBook Address</a>
+                            </li>
+                            <li>
+                                <div class="align-center mr-1">
+                                    <i class="fas fa-external-link-alt"></i>
+                                    Instagram : 
+                                </div>
+                                <a href="{{organizer.instagram}}" target="blank">{{organizer.organizer_name}} Instagram Address</a>
+                            </li>
+                            
+                        </ul>
+                    </div>
+        
+                </div>
+                <div class="col-lg-4">
+                    <div class="phone-box">
+                        <h5 class="full bold border-bottom text-center pb-2 mb-4">Contact</h5>
+                        <div class="d-column">
+                            <div class="d-flex justify-content-center phone-item">
+                                <div class="align-center mr-2">
+                                    <i class="fas fa-phone-alt"></i>
+                                    Number 1 : 
+                                </div>
+                                {% if organizer.contact_number_1 %}
+                                    <span class="phone">{{organizer.contact_number_1}}</span>
+                                {% else %}
+                                    <span class="phone">xxx xxx xx xx</span>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-center phone-item">
+                                <div class="align-center mr-2">
+                                    <i class="fas fa-phone-alt"></i>
+                                    Number 2 :
+                                </div>
+                                {% if organizer.contact_number_2 %}
+                                    <span class="phone">{{organizer.contact_number_2}}</span>
+                                {% else %}
+                                    <span class="phone">xxx xxx xx xx</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <h2 class="full bold border-bottom pb-2 mb-4">Guides</h2>
+                
+                <div class="inner-container full">
+                    {% if guides %}
+                        <table class="table mb-5">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Surname</th>
+                                <th scope="col">Experience</th>
+                                <th scope="col">Certifications</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for guide in guides %}
+                                    <tr>
+                                        <td>{{guide.name}}</td>
+                                        <td>{{guide.surname}}</td>
+                                        <td>{{guide.experience}}</td>
+                                        <td>{{guide.certification}}</td>
+                                        
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <h3 class="full bold text-center">
+                            No Guides
+                        </h3>
+                    {% endif %}
+                    
+                </div>
+
+                <h2 class="full bold border-bottom pb-2 mb-4">Instructors</h2>
+                
+                <div class="inner-container full">
+                    {% if instructors %}
+                        <table class="table">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Surname</th>
+                                <th scope="col">Experience</th>
+                                <th scope="col">Certifications</th>
+                                
+                            </tr>
+                            </thead>
+                            <tbody>
+                                {% for instructor in instructors %}
+                                    <tr>
+                                        <td>{{instructor.name}}</td>
+                                        <td>{{instructor.surname}}</td>
+                                        <td>{{instructor.experience}}</td>
+                                        <td>{{instructor.certification}}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    {% else %}
+                        <h3 class="full bold text-center">
+                            No Instructors
+                        </h3>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <h2 class="full bold border-bottom pb-2 mb-3">Tours</h2>
+                {% if tours %}
+                    <div class="owl-carousel owl-theme">
+                        {% for tour in tours %}
+                            <div class="item">
+                                <div class="tour-item">
+                                    <a href="{% url 'tour:detail' tour.pk %}">
+                                        <div class="d-column">
+                                            {% if tour.avatar %}
+                                                <img src="{{tour.avatar.url}}" alt="">
+                                            {% else %}
+                                                <img src="{% static 'images/default.png' %}" alt="">
+                                            {% endif %}
+                                            <div class="card-body">
+                                                <div class="title border-bottom mb-3">
+                                                    {{tour.title}}
+                                                </div>
+                                                <div class="d-column">
+                                                    <div class="d-flex mb-2 align-center">
+                                                        <div class="stars d-flex mr-2">
+                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                            <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                            <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                        </div> 
+                                                        <span>15 reviews</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class="bold mr-2">Location : </span>
+                                                        <span>{{tour.city}}, {{tour.country}}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class="bold mr-2">Company : </span>
+                                                        <span>{{tour.organizer.organizer_name}}</span>
+                                                    </div>
+                                                    <div class="d-flex full justify-content-between mt-3">
+                                                        <div class="price">
+                                                            {{tour.price}} {{tour.currency}}
+                                                        </div>
+                                                        <div class="duration align-center">
+                                                            <i class="far fa-clock mr-1"></i>
+                                                            {{tour.duration}} days
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="d-flex full justify-content-end">
+                        <a href="#">Show all</a>
+                    </div>
+                {% else %}
+                    <h3 class="full bold text-center">No Tours</h3>
+                {% endif %}
+            </div>
+
+            <div class="row">
+                <h2 class="full bold border-bottom pb-2 mb-3">Photos</h2>
+                <div class="owl-carousel owl-theme photo-list">
+                    {% for image in images %}
+                        <div class="item">
+                            <a data-fancybox="gallery" href="{{image.image.url}}"><img src="{{image.image.url}}"></a>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="d-flex full justify-content-end mt-3">
+                    <a href="#">Show all</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <nav class="footer-menu">
+                        <ul class="d-column">
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacy</a>
+                            </li>
+                        </ul>
+                        <p><i class="far fa-copyright"></i> 2020</p>
+                    </nav>
+                </div>
+                <div class="col-4">
+                    <div class="d-column align-center">
+                        <span class="mb-2 mt-2">Follow Us</span>
+                        <ul class="footer-social-links" >
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-facebook-square"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
+
+    <script>
+        function readURL(input,place) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+               reader.onload = function (e) {
+                console.log(e.target.result);
+                    console.log($(place));
+                   $(place).attr('src', e.target.result);
+               }
+               
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
+
+       $("#photo").change(function(){
+           readURL(this,$('#choosen-photo'));
+       });
+
+       
+       
+   </script>
+
+
+   <script>
+       $('.menu_btn').click(function(){
+            $('#menu-column').slideToggle()
+       })
+
+       $('.owl-carousel').owlCarousel({
+            nav: true,
+            margin: 25,
+            // dots: false,
+            responsive: {
+                1: {
+                    items: 1,
+                    dots: false
+                },
+                600: {
+                    items: 3
+                },
+                800: {
+                    items: 4
+                },
+                1000: {
+                    items: 5
+
+                }
+            }
+        });
+
+   </script>
+
+    
+
+</body>
+</html>

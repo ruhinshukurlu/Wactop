@@ -28,6 +28,7 @@ class TourAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Type)
+admin.site.register(TourType)
 
 admin.site.register(Tour, TourAdmin)
 admin.site.register(TourDetailAZ)

@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{request.user.organizer.organizer_name}} Actions</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    
+    <style>
+        .tour-item{
+            margin-bottom: 20px;
+            border-color: #5cc3ff;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+  
+    <main>
+        <div class="row justify-content-center">
+            <div class="col-2 p-0 bg-white " id="menu-column">
+                {% include 'partials/organizer-menu.html' %}
+            </div>
+            
+            <div class="col-10">
+                
+                <div class="custom-container mt-5">
+                    <div class="row mb-5">
+                        <div class="full bg-white org-actions shadow">
+                            <h3 class="bold m-3">Your Tours</h3>
+                        </div>
+                        <div class="row tour-list bg-white pt-3 shadow">
+                            {% for tour in tours %}
+                                <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                                    <div class="tour-item">
+                                        <a href="{% url 'tour:detail' tour.pk %}">
+                                            <div class="d-column">
+                                                {% if tour.avatar %}
+                                                    <img src="{{tour.avatar.url}}" alt="">
+                                                {% else %}
+                                                    <img src="{% static 'images/default.png' %}" alt="">
+                                                {% endif %}
+                                                <div class="card-body">
+                                                    <div class="title border-bottom mb-3">
+                                                        {{tour.title|capfirst|truncatechars:25 }}
+                                                    </div>
+                                                    <div class="d-column">
+                                                        <div class="d-flex mb-2 align-center">
+                                                            <div class="stars d-flex mr-2">
+                                                                <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                                <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                            </div> 
+                                                            <span>15 reviews</span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <span class="bold mr-2">Location : </span>
+                                                            <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <span class="bold mr-2">Company : </span>
+                                                            <span>{{tour.organizer.organizer_name}}</span>
+                                                        </div>
+                                                        <div class="d-flex full justify-content-between mt-3">
+                                                            <div class="price">
+                                                                {{tour.price}} {{tour.currency}}
+                                                            </div>
+                                                            <div class="duration align-center">
+                                                                <i class="far fa-clock mr-1"></i>
+                                                                {{tour.durationday}} days
+                                                            </div>
+                                                        </div>
+                                                    </div>
+        
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %} 
+                            
+                        </div>
+                    </div>
+
+                    <div class="row  mb-5">
+                        <div class="full bg-white org-actions shadow">
+                            <h3 class="bold m-3">Your Activities</h3>
+                        </div>
+                        <div class="row tour-list bg-white pt-3 shadow">
+                            {% if activities %}
+                                {% for activity in activities %}
+                                    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                                        <div class="tour-item">
+                                            <a href="{% url 'activity:detail' activity.pk %}">
+                                                <div class="d-column">
+                                                    {% if activity.avatar %}
+                                                        <img src="{{activity.avatar.url}}" alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                    {% endif %}
+                                                    <div class="card-body">
+                                                        <div class="title border-bottom mb-3">
+                                                            {{activity.title|capfirst|truncatechars:25 }}
+                                                        </div>
+                                                        <div class="d-column">
+                                                            <div class="d-flex mb-2 align-center">
+                                                                <div class="stars d-flex mr-2">
+                                                                    <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                                </div> 
+                                                                <span>15 reviews</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Location : </span>
+                                                                <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Company : </span>
+                                                                <span>{{activity.organizer.organizer_name}}</span>
+                                                            </div>
+                                                            <div class="d-flex full justify-content-between mt-3">
+                                                                <div class="price">
+                                                                    {{activity.price}} {{activity.currency}}
+                                                                </div>
+                                                                <div class="duration align-center">
+                                                                    <i class="far fa-clock mr-1"></i>
+                                                                    {{activity.durationday}} days
+                                                                </div>
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %} 
+                            {% else %}
+                                <h3 class="full bold text-center" style="height: 500px;">
+                                    No Activities <i class="far fa-folder-open ml-2"></i>
+                                </h3>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="row mb-5">
+                        <div class="full bg-white org-actions shadow">
+                            <h3 class="bold m-3">Your Trainings</h3>
+                        </div>
+                        <div class="row tour-list bg-white pt-3 shadow">
+                            {% if trainings %}
+                                {% for training in trainings %}
+                                    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                                        <div class="tour-item">
+                                            <a href="{% url 'training:detail' training.pk %}">
+                                                <div class="d-column">
+                                                    {% if training.avatar %}
+                                                        <img src="{{training.avatar.url}}" alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                    {% endif %}
+                                                    <div class="card-body">
+                                                        <div class="title border-bottom mb-3">
+                                                            {{training.title|capfirst|truncatechars:25 }}
+                                                        </div>
+                                                        <div class="d-column">
+                                                            <div class="d-flex mb-2 align-center">
+                                                                <div class="stars d-flex mr-2">
+                                                                    <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                                    <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                                </div> 
+                                                                <span>15 reviews</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Location : </span>
+                                                                <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Company : </span>
+                                                                <span>{{training.organizer.organizer_name}}</span>
+                                                            </div>
+                                                            <div class="d-flex full justify-content-between mt-3">
+                                                                <div class="price">
+                                                                    {{training.price}} {{training.currency}}
+                                                                </div>
+                                                                <div class="duration align-center">
+                                                                    <i class="far fa-clock mr-1"></i>
+                                                                    {{training.durationday}} days
+                                                                </div>
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %} 
+                            {% else %}
+                                <h3 class="full bold text-center" style="height: 500px;">
+                                    No Trainings <i class="far fa-folder-open ml-2"></i>
+                                </h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <nav class="footer-menu">
+                        <ul class="d-column">
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacy</a>
+                            </li>
+                        </ul>
+                        <p><i class="far fa-copyright"></i> 2019</p>
+                    </nav>
+                </div>
+                <div class="col-4">
+                    <div class="d-column align-center">
+                        <span class="mb-2 mt-2">Follow Us</span>
+                        <ul class="footer-social-links" >
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-facebook-square"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
+    <script>
+        function readURL(input,place) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+               reader.onload = function (e) {
+                console.log(e.target.result);
+                    console.log($(place));
+                   $(place).attr('src', e.target.result);
+               }
+               
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
+
+       $("#coverPhoto").change(function(){
+           readURL(this,$('#default-cover-photo'));
+       });
+
+       $("#profilePhoto").change(function(){
+           readURL(this,$('#default-profile-photo'));
+       });
+       
+   </script>
+
+
+    
+
+</body>
+</html>

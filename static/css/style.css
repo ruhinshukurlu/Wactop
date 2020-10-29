@@ -14,8 +14,10 @@ body {
 }
 header {
     width: 100%;
-    background-color: #3e3c3d;
-    float: left;
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .logo {
@@ -28,9 +30,7 @@ header {
     object-fit: cover;
 }
 .header-left{
-    float: right;
     display: flex;
-    padding-top: 18px;
     font-size: 15px;
 }
 .header-left-top{
@@ -46,9 +46,8 @@ header {
     color: #febd69;
     transition: color .3s ease-in-out;
 }
-.header-left a:hover{
-    color: #cdcbcc;
-}
+
+
 .login-txt ,.login-psw  {
     width: 100%;
     padding: 12px 20px;
@@ -85,7 +84,7 @@ header {
     position: relative;
     width: 100%;
     float: left;
-    height: calc(100vh - (41px + 326px));
+    height: calc(100vh - (50px + 326px));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,7 +185,7 @@ header {
 }
 
 .footer-bottom{
-    background-color: #3e3c3d;
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
 }
 .full {
     position: relative;

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.views.generic import CreateView, DetailView, UpdateView
 from django.contrib.auth.views import LoginView,PasswordChangeView,PasswordChangeDoneView,PasswordResetView, PasswordResetConfirmView
 from account.forms import *
 from account.models import *
@@ -29,3 +29,7 @@ class ChangePasswordView(PasswordChangeView):
     success_url = reverse_lazy('main:home')
 
 
+# class UserUpdate(UpdateView):
+#     model = User
+#     form_class = UserEditForm
+#     template_name = 'user-update.html'

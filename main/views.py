@@ -30,21 +30,22 @@ def HomeView(request):
 
             if user.is_active:
                 login(request, user, backend='django.contrib.auth.backends.ModelBackend')
-                return redirect('account:user-register')
+                return redirect('main:home')
         else:
             messages.error(request,'Email or password is not correct')
-            return redirect('organizer:organizer-register')
+            return redirect('main:home')
 
     else:
         form = LoginForm()
         tourcount = Tour.objects.filter(status=1).count()
         activitycount = Activity.objects.filter(status=1).count()
         trainingcount = Training.objects.filter(status=1).count()
+        organizercount = Organizer.objects.all().count() 
     context = {
         'tourcount': tourcount,
         'activitycount': activitycount,
         'trainingcount': trainingcount,
-        # 'organizercount': organizercount,
+        'organizercount': organizercount,
         # 'pk': pk,
         'form': form
     }

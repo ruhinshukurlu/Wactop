@@ -24,7 +24,7 @@ urlpatterns = [
     path("guides/<int:pk>/delete", GuideDeleteView.as_view(), name="guide-delete"),
     path("instructors/<int:pk>/delete", InstructorDeleteView.as_view(), name="instructor-delete"),
 
-    path('list', OrganizerListView.as_view(), name='home'),
+    path('list/', OrganizerListView.as_view(), name='home'),
     path('<int:pk>', OrganizerDetail, name='detail'),
 
     path("actions", OrganizerAllActions.as_view(), name="organizer-actions"),

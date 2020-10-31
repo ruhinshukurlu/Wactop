@@ -46,6 +46,17 @@ class OrganizerListView(ListView):
     model = Organizer
     context_object_name = 'organizers'
     template_name = "organizer-list.html"
+    paginate_by = 1
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            
+            title_name = self.request.GET.get('q', None)
+            if title_name is not None:
+                queryset1 = Organizer.objects.filter(organizer_name__icontains=title_name)
+                return queryset1
+        
+        return super().get_queryset().all()
 
 
 

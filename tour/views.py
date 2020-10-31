@@ -20,10 +20,17 @@ class TourListView(ListView):
     model = Tour
     context_object_name = 'tours'
     template_name = "tour-list.html"
+    paginate_by = 1
 
     def get_queryset(self):
+        if self.request.method == 'GET':
+            queryset1 = Tour.objects.filter(status=1)
+            title_name = self.request.GET.get('q', None)
+            if title_name is not None:
+                queryset1 = queryset1.filter(title__icontains=title_name)
+                return queryset1
+        
         return super().get_queryset().filter(status=1)
-    
 
 
 

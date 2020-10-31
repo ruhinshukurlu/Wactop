@@ -48,10 +48,10 @@
                                 </div>
                                 <div class="header-bottom-right">
                                     <div class="tour-location">
-                                        {% if tour.city %} {{tour.city}}, {%endif%} {{tour.country}}
+                                        {% if tour.city %} {{tour.city}}, {% else %} ... {%endif%} {% if tour.country %}{{tour.country}} {% else %}...{% endif %}
                                     </div>
                                     <div class="bottom-right">
-                                        <div class="location">Mountain of Azerbaijan ldjhfjhf sjhj </div>
+                                        <div class="location">{% if tour.address %} {{tour.address}}{% else %}...{% endif %} </div>
                                         <div class="select-langs">
                                             <form action="{% url 'tour:detail' tour.id %}">
                                                 <select class="select-style" name='lang' onchange="this.form.submit()">
@@ -83,13 +83,13 @@
                     <div class="col-lg-7">
                         <div class="left">
                             <p class="word">
-                                {{description}}
+                                {{description|capfirst}}
                             </p>
                             <nav class="details">
                                 {% for i in detail %}
                                 <div class="visible">
-                                    <p><b>{{i.title}}:</b></p>
-                                    <p>{{i.text|linebreaks}}</p>
+                                    <p><b>{{i.title|capfirst}}:</b></p>
+                                    <p>{{i.text|capfirst}}</p>
                                 </div>
                                 {% endfor %} {% if detail %}
                                 <span onclick="readmore()" style="color: #63a3eb;" class="readmore"><strong>Read more</strong></span> {%endif%}
@@ -172,13 +172,20 @@
                             <ul>
                                 {% comment %}<li>Name: <a href="{% url 'organizer:detail' tour.organizer.id %}">{{tour.organizer.name}}</a></li>{% endcomment %}
                                 {% if tour.organizer.email %}
-                                <li>Email: {{tour.organizer.email}}</li>{% endif %} {% if tour.organizer.number1 %}
-                                <li>Contact number: {{tour.organizer.number1}}</li>{% endif %} {% if tour.organizer.number2 %}
-                                <li>Contact number: {{tour.organizer.number2}}</li>{% endif %} {% if tour.organizer.website %}
-                                <li>Website: {{tour.organizer.website}}</li>{% endif %} {% if url %}
-                                <ul>Other links: {% for i in url %}
+                                <li>Email: {{tour.organizer.email}}</li>{% endif %} 
+                                {% if tour.organizer.number1 %}
+                                <li>Contact number: {{tour.organizer.number1}}</li>{% endif %} 
+                                {% if tour.organizer.number2 %}
+                                <li>Contact number: {{tour.organizer.number2}}</li>{% endif %} 
+                                {% if tour.organizer.website %}
+                                <li>Website: {{tour.organizer.website}}</li>{% endif %} 
+                                {% if url %}
+                                <ul>Other links: 
+                                {% for i in url %}
                                     <li>{{i}}</li>
-                                    {% endfor %} {% endif %}</ul>
+                                {% endfor %} 
+                                {% endif %}
+                                </ul>
                             </ul>
                         </div>
                         {% endif %}
@@ -254,7 +261,7 @@
         </div>
     </footer>
 
-    <script src="{% static 'js/tour-page/angular.min.js' %}"></script>
+
 
     <script>
         details = document.querySelectorAll(".details .visible")
@@ -278,24 +285,7 @@
         }
     </script>
 
-    <script>
-        var myApp = angular.module("myApp", []).controller("Main", [
-            "$scope",
-            function($scope) {
-                $scope.like = {};
-                $scope.like.votes = 5;
-                $scope.doVote = function() {
-                    if ($scope.like.userVotes == 6) {
-                        delete $scope.like.userVotes;
-                        $scope.like.votes--;
-                    } else {
-                        $scope.like.userVotes = 6;
-                        $scope.like.votes++;
-                    }
-                };
-            }
-        ]);
-    </script>
+   
     <script src="{% static 'js/tour-page/jquery-latest.js' %}"></script>
     <script src="{% static 'js/tour-page/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/tour-page/owl.carousel.js' %}"></script>

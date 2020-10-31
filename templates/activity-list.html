@@ -22,7 +22,9 @@
             -moz-box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
             box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
         }
-        
+        .page-link{
+            margin: 0px 5px;
+        }
     </style>
 </head>
 
@@ -35,9 +37,9 @@
     <main>
 
         <div class="search-block">
-            <form action="" class="tour-search">
+            <form method='GET'  class="tour-search">
                 <div class="d-flex ">
-                    <input type="text" class="search-input">
+                    <input type="text" name='q' class="search-input">
                     <button type="submit" class="search_btn" style="outline: none;">
                         <i class="fas fa-search"></i>
                     </button>
@@ -59,8 +61,8 @@
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <li><a href="#">Low</a></li>
-                                    <li><a href="#">High</a></li>
+                                    <li><a href="{% url 'activity:low-filter' %}">Low</a></li>
+                                    <li><a href="{% url 'activity:high-filter' %}">High</a></li>
                                   </ul>
                               </li>
                               <li><a href="#" class="align-center">Country
@@ -158,26 +160,34 @@
                         </h3>
                     {% endif %}
                 </div>
-                <div class="row justify-content-center mt-3">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination">
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                              <span aria-hidden="true">&laquo;</span>
-                              <span class="sr-only">Previous</span>
-                            </a>
-                          </li>
-                          <li class="page-item"><a class="page-link" href="#">1</a></li>
-                          <li class="page-item"><a class="page-link" href="#">2</a></li>
-                          <li class="page-item"><a class="page-link" href="#">3</a></li>
-                          <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                              <span aria-hidden="true">&raquo;</span>
-                              <span class="sr-only">Next</span>
-                            </a>
-                          </li>
-                        </ul>
-                      </nav>
+               
+                <div class="row mt-5">
+                    <div class="col text-center">
+                        <div class="block-27">
+                            {% if is_paginated %}
+                            <ul class="pagination d-flex justify-content-center">
+                                {% if page_obj.has_previous %}
+                                <li><a class='btn btn-outline-info page-link' href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+                                {% else %}
+                                <li class="disabled btn btn-outline-info page-link"><span >&laquo;</span></li>
+                                {% endif %}
+                                {% for i in paginator.page_range %}
+                                {% if page_obj.number == i %}
+                                    <li class="active btn btn-info page-link"><span >{{ i }} <span class="sr-only">(current)</span></span></li>
+                                {% else %}
+                                    <li><a class='btn btn-outline-info page-link' href="?page={{ i }}">{{ i }}</a></li>
+                                {% endif %}
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+                                <li><a class='btn btn-outline-info page-link' href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+                                {% else %}
+                                <li class="disabled btn btn-outline-info page-link"><span >&raquo;</span></li>
+                                {% endif %}
+                            </ul>
+                            {% endif %}
+
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -264,6 +274,8 @@
        $('.menu_btn').click(function(){
             $('#menu-column').slideToggle()
        })
+
+       
    </script>
 
     

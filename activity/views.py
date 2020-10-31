@@ -20,40 +20,51 @@ class ActivityListView(ListView):
     model = Activity
     context_object_name = 'activities'
     template_name = "activity-list.html"
+    paginate_by = 1
 
     def get_queryset(self):
+        if self.request.method == 'GET':
+            queryset1 = Activity.objects.filter(status=1)
+            title_name = self.request.GET.get('q', None)
+            if title_name is not None:
+                queryset1 = queryset1.filter(title__icontains=title_name)
+                return queryset1
+        
         return super().get_queryset().filter(status=1)
 
-def ActivityList(request):
-    data = Activity.objects.all()
-    country = []
-    for i in data:
-        if i.country not in country:
-            country.append(i.country)
-    style = Type.objects.all()
-    data = Activity.objects.filter(status=1)
-    paginator = Paginator(data, 1)
-    page_request = 'page'
-    page = request.GET.get(page_request)
-    try:
-        eachpage = paginator.page(page)
-    except PageNotAnInteger:
-        eachpage = paginator.page(1)
-    except EmptyPage:
-        eachpage = paginator.page(paginator.num_pages)
-    
-    arr = []
-    for i in range(0, eachpage.paginator.num_pages):
-        arr.append(i+1)
-    context = {
-        'activity': eachpage,
-        'page': page_request,
-        'paginator': arr,
-        'country': country,
-        'style': style,
-        'link': request.build_absolute_uri()
-    }
-    return render(request, 'activity-list.html', context)
+
+class ActivityHighFilterListView(ListView):
+    model = Activity
+    context_object_name = 'activities'
+    template_name = "activity-list.html"
+    paginate_by = 2
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            queryset1 = Activity.objects.filter(status=1)
+            title_name = self.request.GET.get('q', None)
+            if title_name is not None:
+                queryset1 = queryset1.filter(title__icontains=title_name)
+                return queryset1
+        
+        return super().get_queryset().filter(status=1).order_by('-price')   
+
+
+class ActivityLowFilterListView(ListView):
+    model = Activity
+    context_object_name = 'activities'
+    template_name = "activity-list.html"
+    paginate_by = 2
+
+    def get_queryset(self):
+        if self.request.method == 'GET':
+            queryset1 = Activity.objects.filter(status=1)
+            title_name = self.request.GET.get('q', None)
+            if title_name is not None:
+                queryset1 = queryset1.filter(title__icontains=title_name)
+                return queryset1
+        
+        return super().get_queryset().filter(status=1).order_by('price') 
 
 
 def ActivityDetailView(request, pk):

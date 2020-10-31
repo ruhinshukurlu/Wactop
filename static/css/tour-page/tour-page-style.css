@@ -454,8 +454,15 @@ body {
     width: 500px;
     margin-bottom: 30px;
     padding-left: 25px;
+    height: 300px;
 }
-
+.owl-carousel, .owl-stage-outer, .owl-stage, .owl-item, .item{
+    height: 100%;
+}
+.item img{
+    height: 100%;
+    object-fit: cover;
+}
 .owl-nav button {
     width: 40px;
     height: 40px;

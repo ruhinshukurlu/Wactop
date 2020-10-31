@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-
+from django.contrib.auth import views as auth_views 
+from django.urls import reverse_lazy
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
@@ -15,6 +16,8 @@ urlpatterns = [
     path('activity/', include('activity.urls', namespace='activity')),
     path('api/', include('api.urls', namespace='api')),
     path('social-auth/', include('social_django.urls', namespace="social")), 
+    path('password_reset_confirm//<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name = 'password_reset_confirm.html',success_url = reverse_lazy('account:password_reset_complete')), 
+        name="password_reset_confirm"),
 
 ]
 

@@ -24,17 +24,47 @@ function addSchedule(){
     schedule_count++
 }
 
-var paragraph_box = $('#text-forms').children('.form-group')
-// console.log(paragraph_box);
-var paragraph_count = 1
+var paragraph_box_en = $('#text-forms-en').children('.form-group')
+var paragraph_box_az = $('#text-forms-az').children('.form-group')
+var paragraph_box_ru = $('#text-forms-ru').children('.form-group')
 
-for(let i=1; i<paragraph_box.length; i++){
-    $(paragraph_box[i]).css('display','none')
+// console.log(paragraph_box);
+var paragraph_count_en = 1
+var paragraph_count_az = 1
+var paragraph_count_ru = 1
+
+
+for(let i=1; i<paragraph_box_en.length; i++){
+    $(paragraph_box_en[i]).css('display','none')
+    $(paragraph_box_az[i]).css('display','none')
+    $(paragraph_box_ru[i]).css('display','none')
 }
 
-function adddetail(){
-    $(paragraph_box[paragraph_count]).show()
-    paragraph_count++
+function adddetail_en(){
+    $(paragraph_box_en[paragraph_count_en]).show()
+    paragraph_count_en++
+}
+
+function adddetail_az(){
+    $(paragraph_box_az[paragraph_count_az]).show()
+    paragraph_count_az++
+}
+
+function adddetail_ru(){
+    $(paragraph_box_ru[paragraph_count_ru]).show()
+    paragraph_count_ru++
+}
+
+var url_box = $('#urls').children('.form-group')
+
+var url_count = 3
+for(let i=3; i<url_box.length; i++){
+    $(url_box[i]).css('display','none')
+}
+
+function addurl(){
+    $(url_box[url_count]).show()
+    url_count++
 }
 
 

@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from account.models import *
 
+
 class Organizer(models.Model):
 
     user = models.OneToOneField("account.User", verbose_name=_("User"), on_delete=models.CASCADE, related_name = 'organizer')

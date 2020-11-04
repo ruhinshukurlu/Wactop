@@ -8,13 +8,61 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>{{tour.title}}</title>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+
+
     <link rel="stylesheet" href="{% static 'css/tour-page/owl.carousel.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/owl.theme.default.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-style.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-responsive.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/reset.css' %}" />
+
+    <style>
+        .info-list,
+        .info-list li{
+            display: flex;
+        }
+
+        .info-list li{
+            margin-right: 50px;
+        }
+
+        .info-list i,
+        .company-links i,
+        .phone-box i{
+            color: #0093E9;
+            margin-right: 5px;
+        }
+
+        .company-links a:hover{
+            color: #0093E9;
+        }
+
+        .company-links {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .company-links li{
+            margin-bottom: 10px;
+            display: flex;
+        }
+
+        .company-links a{
+            text-decoration: none;
+            color: #4b4b4d;
+            transition: .4s;
+        }
+
+        .d-column{
+            display: flex;
+            flex-direction: column;
+        }
+        .phone{
+            color: #0093E9;
+        }
+    </style>
 </head>
 
 <body>
@@ -55,7 +103,7 @@
                                         <div class="select-langs">
                                             <form action="{% url 'tour:detail' tour.id %}">
                                                 <select class="select-style" name='lang' onchange="this.form.submit()">
-                                                  <option value="" selected hidden disabled>{{lang}}</option>
+                                                  <option value="" selected hidden disabled>{{lang|capfirst}}</option>
                                                   <option value="en">En</option>
                                                   <option value="az">Az</option>
                                                   <option value="ru">Ru</option>
@@ -165,31 +213,88 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-10 tour-details">
-                        {% if tour.organizer %}
-                        <div class="about-company">
-                            <span>About company</span>
-                            <ul>
-                                {% comment %}<li>Name: <a href="{% url 'organizer:detail' tour.organizer.id %}">{{tour.organizer.name}}</a></li>{% endcomment %}
-                                {% if tour.organizer.email %}
-                                <li>Email: {{tour.organizer.email}}</li>{% endif %} 
-                                {% if tour.organizer.number1 %}
-                                <li>Contact number: {{tour.organizer.number1}}</li>{% endif %} 
-                                {% if tour.organizer.number2 %}
-                                <li>Contact number: {{tour.organizer.number2}}</li>{% endif %} 
-                                {% if tour.organizer.website %}
-                                <li>Website: {{tour.organizer.website}}</li>{% endif %} 
+                    <div class="col-lg-10 tour-details pl-5 d-column">
+                        <h3 class="full bold border-bottom pb-2 mb-3">About company</h3>
+                        
+                        <div class="mb-5 d-flex">
+                            <div class="d-flex mr-3" style="font-weight: bold;">
+                                Company Name : {{tour.organizer.organizer_name}} 
+                            </div>
+                            <a href="{% url 'organizer:detail' tour.organizer.id %}">
+                                <i class="fas fa-external-link-alt mr-1"></i>
+                                Go To {{tour.organizer.organizer_name}}
+                            </a>
+                        </div>
+
+                        <div class="mb-5">
+                            <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
+                            <p class="description">
+                                {{tour.organizer.about}}
+                            </p>
+                        </div>
+
+                        <div class="d-column"> 
+                            <ul class="info-list border-bottom pb-2 mb-4">
+                                <li>
+                                    <div class="align-center mr-1">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        Address : 
+                                    </div>
+                                    <span>{{tour.organizer.address}}</span>
+                                </li>
+                                <li>
+                                    <div class="align-center mr-1">
+                                        <i class="far fa-envelope"></i>
+                                        Email : 
+                                    </div>
+                                    <span>{{tour.organizer.user.email}}</span>
+                                </li>
+                                <li>
+                                    <div class="align-center mr-1">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Number 1 : 
+                                    </div>
+                                    {% if tour.organizer.contact_number_1 %}
+                                        <span class="phone">{{tour.organizer.contact_number_1}}</span>
+                                    {% else %}
+                                        <span class="phone">xxx xxx xx xx</span>
+                                    {% endif %}
+                                </li>
+                                <li>
+                                    <div class="align-center mr-1">
+                                        <i class="fas fa-phone-alt"></i>
+                                        Number 2 : 
+                                    </div>
+                                    {% if tour.organizer.contact_number_2 %}
+                                        <span class="phone">{{tour.organizer.contact_number_2}}</span>
+                                    {% else %}
+                                        <span class="phone">xxx xxx xx xx</span>
+                                    {% endif %}
+                                </li>
+                            </ul>
+                            
+                            <h5 class="full bold border-bottom pb-2 mb-3">Other Links</h5>
+                            <ul class="company-links">
                                 {% if url %}
-                                <ul>Other links: 
-                                {% for i in url %}
-                                    <li>{{i}}</li>
-                                {% endfor %} 
+                                    {% for link in url %}
+                                        <li>
+                                            <div class="align-center mr-1">
+                                                <i class="fas fa-external-link-alt"></i>
+                                            </div>
+                                            <a href="{{link.url}}" target="blank">{{link.url}}</a>
+                                        </li>
+                                    {% endfor %} 
+                                {% else %}
+                                    <li>
+                                        No links added
+                                    </li>
                                 {% endif %}
-                                </ul>
+                                    
                             </ul>
                         </div>
-                        {% endif %}
+            
                     </div>
+                    
                 </div>
             </div>
 

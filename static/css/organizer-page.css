@@ -752,3 +752,8 @@ h4{
 .org-actions h3{
     color: #777782;
 }
+
+.tour-list,
+.organizer-list{
+    margin-bottom: 130px;
+}

@@ -31,7 +31,6 @@ class Tour(models.Model):
         ('RUB','RUB')
     ]
  
-
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='tour')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
@@ -80,6 +79,7 @@ class TourDetailAZ(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_az')
     title = models.CharField(max_length=31)
     text = models.TextField()
+
     def __str__ (self):
         return "AZ" + self.tour.title + ": " + self.title
 
@@ -88,6 +88,7 @@ class TourDetailEN(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_en')
     title = models.CharField(max_length=31)
     text = models.TextField()
+
     def __str__ (self):
         return "EN" + self.tour.title + ": " + self.title
 
@@ -96,8 +97,10 @@ class TourDetailRU(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_ru')
     title = models.CharField(max_length=31)
     text = models.TextField()
+    
     def __str__ (self):
         return "RU" + self.tour.title + ": " + self.title
+
 
 class TourImage(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_image')

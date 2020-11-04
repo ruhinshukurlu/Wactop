@@ -7,12 +7,18 @@ from .models import *
 # pip install psycopg2
 
 
-style = Type.objects.all()
-# data = Tour.objects.all()
-# country = []
-# for i in data:
-#     if i.country not in country:
-#         country.append(i.country)
+tour_types = TourType.objects.all()
+tour_type_list = []
+
+for tour_type in tour_types:
+    if tour_type.title not in tour_type_list:
+        tour_type_list.append(tour_type.title)
+
+tours = Tour.objects.all()
+country_list = []
+for tour in tours:
+    if tour.country not in country_list:
+        country_list.append(tour.country)
 
 
 
@@ -20,7 +26,7 @@ class TourListView(ListView):
     model = Tour
     context_object_name = 'tours'
     template_name = "tour-list.html"
-    paginate_by = 1
+    paginate_by = 16
 
     def get_queryset(self):
         if self.request.method == 'GET':
@@ -32,6 +38,12 @@ class TourListView(ListView):
         
         return super().get_queryset().filter(status=1)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["countries"] = country_list
+        context['tour_types'] = tour_type_list
+        return context
+    
 
 
 def TourList(request):
@@ -112,79 +124,74 @@ def TourDetailView(request, pk):
 
 
 def TourFilter(request):
+    print('okkkk')
+
     context2 = {}
     data = Tour.objects.all()
-    print(request.GET)
+    # print(request.GET)
     price_query = request.GET.get('price')
     if price_query:
         if price_query == 'high':
             context2['price2'] = 'high'
-            data = Tour.objects.all().order_by('-price')
+            data = Tour.objects.filter(status=1).order_by('-price')
         elif price_query == 'low':
             context2['price2'] = 'low'
-            data = Tour.objects.all().order_by('price')
+            data = Tour.objects.filter(status=1).order_by('price')
     duration_query = request.GET.get('duration')
     if duration_query:
         if duration_query == 'long':
             context2['duration2'] = 'long'
-            data = Tour.objects.all().order_by('-durationday')
+            data = Tour.objects.filter(status=1).order_by('-durationday')
         elif duration_query == 'short':
             context2['duration2'] = 'short'
-            data = Tour.objects.all().order_by('durationday')
+            data = Tour.objects.filter(status=1).order_by('durationday')
+
     country_query = request.GET.get('country')
     if country_query:
         context2['country2'] = country_query
-        data = Tour.objects.filter(country__icontains=country_query)
-    discount_query = request.GET.get('discount')
-    if discount_query:
-        context2['discount2'] = '1'
-        data = Tour.objects.filter(discount__isnull=False)
+        data = Tour.objects.filter(country__icontains=country_query, status=1)
+    
+    # discount_query = request.GET.get('discount')
+    # if discount_query:
+    #     context2['discount2'] = '1'
+    #     data = Tour.objects.filter(discount__isnull=False)
+
     style_query = request.GET.get('style')
     if style_query:
         context2['style2'] = style_query
-        notnull = False
-        for i in type_choices:
-            if i[1] == style_query:
-                x = i[0]
-        idArr =[]
-        for i in data:
-            for j in i.type:
-                n = int(j)
-                if x == n:
-                    idArr.append(i.pk)
-                    notnull = True
-        for i in data:
-            if i.pk not in idArr:
-                data = data.exclude(pk=i.pk)
-    if request.GET.get('search'):
-        context2['search2'] = request.GET.get('search')
-        data = Tour.objects.filter(keyword__icontains=request.GET.get('search'))
+        data = Tour.objects.filter(tour_type=TourType.objects.filter(title=style_query).first().id, status=1)
+        
 
-    data = data.filter(status=1)
-    paginator = Paginator(data, 2)
-    page_request = 'page'
-    page = request.GET.get(page_request)
-    try:
-        eachpage = paginator.page(page)
-    except PageNotAnInteger:
-        eachpage = paginator.page(1)
-    except EmptyPage:
-        eachpage = paginator.page(paginator.num_pages)
+    # if request.GET.get('search'):
+    #     context2['search2'] = request.GET.get('search')
+    #     data = Tour.objects.filter(keyword__icontains=request.GET.get('search'))
 
-    arr = []
-    for i in range(0, eachpage.paginator.num_pages):
-        arr.append(i+1)
-    haslink = True
+    # paginator = Paginator(data, 2)
+    # page_request = 'page'
+    # page = request.GET.get(page_request)
+    # try:
+    #     eachpage = paginator.page(page)
+    # except PageNotAnInteger:
+    #     eachpage = paginator.page(1)
+    # except EmptyPage:
+    #     eachpage = paginator.page(paginator.num_pages)
+
+    # arr = []
+    # for i in range(0, eachpage.paginator.num_pages):
+    #     arr.append(i+1)
+    # haslink = True
 
     context = {
-        'tour': eachpage,
-        'page': page_request,
-        'paginator': arr,
-        'country': country,
-        'link': request.build_absolute_uri(),
-        'style': style,
-        'haslink': haslink
+        'tours': data,
+        'tour_types' : tour_type_list,
+        # 'page': page_request,
+        # 'paginator': arr,
+        'countries': country_list,
+        # 'link': request.build_absolute_uri(),
+        # 'style': style,
+        # 'haslink': haslink
     }
+    print(context)
     if context2:
         context.update(context2)
         context.update({'query': 1})

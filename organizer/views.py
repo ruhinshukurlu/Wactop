@@ -327,34 +327,61 @@ def organizer_image_list(request, pk):
 
 
 def OrganizerTour(request):
-    # print(Organizer.objects.filter(user=request.user))
     image_formset = modelformset_factory(TourImage, fields=('image', ), extra=10, form=OrganizerTourImageForm, validate_max=2)
-    detail_formset = modelformset_factory(TourDetailEN, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
     schedule_formset = modelformset_factory(TourSchedule, fields=('image', ), extra=10, form=OrganizerTourScheduleForm)
+    url_formset = modelformset_factory(TourUrl, fields = ('url',), extra=10, form = OrganizerTourURLForm)
+    detail_formset_en = modelformset_factory(TourDetailEN, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
+    detail_formset_az = modelformset_factory(TourDetailAZ, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
+    detail_formset_ru = modelformset_factory(TourDetailRU, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
 
     if request.method == 'POST':
         tour_form = OrganizerTourForm(request.POST or None, request.FILES or None)
-        detail_form = detail_formset(request.POST or None)
+        detail_form_en = detail_formset_en(request.POST or None)
+        detail_form_az = detail_formset_az(request.POST or None)
+        detail_form_ru = detail_formset_ru(request.POST or None)
+        url_form = url_formset(request.POST or None)
         image_form = image_formset(request.POST or None, request.FILES or None)
         schedule_form = schedule_formset(request.POST or None, request.FILES or None)
-        print(tour_form.errors, image_form.errors, schedule_form.errors)
-        if tour_form.is_valid() and detail_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
+
+        # print(tour_form.errors, image_form.errors, schedule_form.errors)
+        if tour_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
             print('oookkkkk')
             
             tour = tour_form.save(commit=False)
             tour.organizer = request.user.organizer
             tour.status = 2
             tour.save()
+            
             for i in image_form:
                 if i.cleaned_data:
                     image = i.save(commit=False)
                     image.tour = tour
                     image.save()
-            for i in detail_form:
+
+            for i in detail_form_en:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
                     detail.tour = tour
                     detail.save()
+
+            for i in detail_form_az:
+                if i.cleaned_data:
+                    detail = i.save(commit=False)
+                    detail.tour = tour
+                    detail.save()
+
+            for i in detail_form_ru:
+                if i.cleaned_data:
+                    detail = i.save(commit=False)
+                    detail.tour = tour
+                    detail.save()
+            
+            for i in url_form:
+                if i.cleaned_data:
+                    url = i.save(commit=False)
+                    url.tour = tour
+                    url.save()
+
             for i in schedule_form:
                 if i.cleaned_data:
                     schedule = i.save(commit=False)
@@ -371,7 +398,10 @@ def OrganizerTour(request):
     else:
         context = {
             'tour_form': OrganizerTourForm,
-            'detail_form': detail_formset(queryset=TourDetailEN.objects.none()),
+            'detail_form_en': detail_formset_en(queryset=TourDetailEN.objects.none()),
+            'detail_form_az': detail_formset_az(queryset=TourDetailAZ.objects.none()),
+            'detail_form_ru': detail_formset_ru(queryset=TourDetailRU.objects.none()),
+            'url_form': url_formset(queryset=TourUrl.objects.none()),
             'image_form': image_formset(queryset=TourImage.objects.none()),
             'schedule_form': schedule_formset(queryset=TourSchedule.objects.none())
         }

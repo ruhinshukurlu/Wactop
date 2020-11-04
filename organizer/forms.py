@@ -40,6 +40,7 @@ class GuideForm(forms.ModelForm):
             })
         }
 
+
 class InstructorForm(forms.ModelForm):
 
     class Meta:
@@ -70,6 +71,7 @@ class OrganizerPhotoEditForm(forms.ModelForm):
         model = TrainingImage
         fields = ('image', )
 
+
 class OrganizerTourForm(forms.ModelForm):
     title = forms.CharField(label='Tour Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
     country = forms.CharField(label='Country', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Country...'}))
@@ -85,11 +87,13 @@ class OrganizerTourForm(forms.ModelForm):
     }))
 
     guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
-    descriptionen = forms.CharField(label = 'Tour Description', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
+    descriptionen = forms.CharField(label = 'Tour Description in Engilsh', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
+    descriptionaz = forms.CharField(label = 'Tour Description in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
+    descriptionru = forms.CharField(label = 'Tour Description in Russia', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
     
     class Meta:
         model = Tour
-        fields = [ 'title','city','address','guide','descriptionen', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', ]
+        fields = [ 'title','city','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', ]
 
         widgets = {
 
@@ -160,9 +164,22 @@ class OrganizerTourScheduleForm(forms.ModelForm):
         model = TourSchedule
         fields = ('image', )
 
+class OrganizerTourURLForm(forms.ModelForm):
+
+    class Meta:
+        model = TourUrl
+        fields = ('url',)
+
+        widgets = {
+            'url' : forms.URLInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Add URL here'
+            })
+        }
+
 
 class OrganizerActivityForm(forms.ModelForm):
-    title = forms.CharField(label='Tour Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
+    title = forms.CharField(label='Activity Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
     country = forms.CharField(label='Country', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Country...'}))
     city = forms.CharField(label='City', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'City...'}))
 
@@ -306,6 +323,7 @@ class OrganizerTrainingForm(forms.ModelForm):
             })
         }
 
+
 class OrganizerTrainingDetailForm(forms.ModelForm):
     title = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
     text = forms.CharField(widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
@@ -323,6 +341,7 @@ class OrganizerTrainingImageForm(forms.ModelForm):
     class Meta:
         model = TrainingImage
         fields = ('image', )
+
 
 class OrganizerTrainingScheduleForm(forms.ModelForm):
 

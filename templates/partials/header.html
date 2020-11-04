@@ -24,20 +24,23 @@
                         </div>
                         <div class="header-menu" >
                             <nav>
-                                <ul class="d-column">   
+                                <ul class="d-column mb-0">   
                                     {% if request.user.is_organizer %}
                                         <li>
-                                            <a href="{% url 'organizer:organizer-profile' %}">Organizer Profile</a>
+                                            <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name}}</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'organizer:organizer-profile' %}">Organizer Settings</a>
                                         </li>
                                     {% endif %}
                                     <li>
-                                        <a href="#">My Profile</a>
+                                        <a href="{% url 'account:change-password' %}">Change Password</a>
                                     </li>
                                     <li>
-                                        <a href="#">My Profile</a>
+                                        <a href="#">Account Details</a>
                                     </li>
                                     <li>
-                                        <a href="#">My Profile</a>
+                                        <a href="#">Saved Tours</a>
                                     </li>
                                     <li>
                                         <a href="#">My Profile</a>

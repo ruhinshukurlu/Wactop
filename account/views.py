@@ -33,3 +33,14 @@ class ChangePasswordView(PasswordChangeView):
 #     model = User
 #     form_class = UserEditForm
 #     template_name = 'user-update.html'
+
+class CustomerUpdateView(UpdateView):
+    model = User
+    form_class = UserEditForm
+    template_name = 'user-edit.html'
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return reverse_lazy('main:home')

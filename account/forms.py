@@ -185,3 +185,22 @@ class ChangePasswordForm(PasswordChangeForm):
 #     class Meta:
 #         model = User
 #         fields = []
+
+
+class UserEditForm(forms.ModelForm):
+    # profile_img = forms.ImageField(widget=forms.FileInput())
+
+    class Meta:
+        model = User
+        fields = ['username','email','profile_img']
+
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Username',
+                }),
+            'email' : forms.EmailInput(attrs = {
+                'class' : 'form-input',
+                'placeholder' : 'Email'
+            })
+        }

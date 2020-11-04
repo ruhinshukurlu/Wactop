@@ -1,5 +1,14 @@
 
-{% load static %}
+{% load static custom-tags %}
+<style>
+    .loginBtn, .registerBtn,.logout{
+        color: #febd69;
+        transition: color .2s ease-in-out;
+    }
+    .loginBtn:hover, .registerBtn:hover,.logout:hover{
+        color: #ccc;
+    }
+</style>
 <header id="header">
     <div class="container-fluid">
         <div class="row justify-content-between">
@@ -43,7 +52,7 @@
                                         <a href="#">Saved Tours</a>
                                     </li>
                                     <li>
-                                        <a href="#">My Profile</a>
+                                        <a href="{% url 'account:user-update' request.user.pk %}">My Profile</a>
                                     </li>
                                     <li>
                                         <a href="{% url 'account:logout' %}">Sign Out</a>
@@ -53,9 +62,80 @@
                         </div>
                     </div>
                 {% else %}
+                {% login_form as login %}
+                <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" >
+                        <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
+                        <form class="" method="post" action="{% url 'main:home' %}">
+                            {% csrf_token %}
+                            <div class="login-container">
+                                <h4 class="text-center mb-3" style="color: rgb(112, 111, 111);">Sing-In</h4>
+                                <hr>
+                                <div class="form-group row">
+                                    <div class="col-sm-12  d-flex justify-content-center">
+                                        {{login.username}}
+                                        {{login.username.errors}}
+                                    </div>
+                                </div>
+                                <div class="form-group row" >
+                                    <div class="col-sm-12 d-flex justify-content-center">
+                                        {{login.password}}
+                                        {{login.password.errors}}
+                                    </div>
+                                </div>
+                                <div class="form-group row mt-3">
+                                    <div class="col-sm-12 d-flex justify-content-center">
+                                    <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
+                                    </div>
+                                </div>
+
+                                <div class="form-group row justify-content-end d-flex">
+                                <a href="{% url 'account:password_reset' %}" class="float-right mr-3">Forgot password?</a>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <form class="full p-2">
+                            <div class="form-group d-column social-login">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" >
+                                    <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
+                                </a>
+                                <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" style="border: 1px solid #ccc">
+                                    <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
+                                </a>
+                            
+                            </div>
+                            </form>
+                            <div class="d-column full mb-3">
+                            <p class="text-center">Are you new?</p>
+                            <a class="text-center" href="#">Create your account</a>
+                            </div>
+                        </div>
+
+                        </div>
+                    </div>
+                    </div>
+
+                    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" style="background-color: #ebebeb;">
+                        
+                        <div class="modal-body d-column">
+                            <h4 class="full text-center mb-3 pb-2 border-bottom">Register</h4>
+                            <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
+                            Register as Organizer
+                            </a>
+                            <a class="register-link" href="{% url 'account:user-register' %}">
+                            Register as User
+                            </a>
+                        </div>
+                        
+                        </div>
+                    </div>
+                    </div>
                     <nav class="header-left-bottom">
                         <ul>
-                            <li><button type="button" class="loginBtn" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                            <li class='mr-2'><button type="button" class="loginBtn" data-toggle="modal" data-target="#loginModal">Login</a></li>
                             <li><button type="button" class="registerBtn" data-toggle="modal" data-target="#registerModal">Register</a></li>
                         </ul>
                     </nav>

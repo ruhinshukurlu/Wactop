@@ -60,32 +60,42 @@
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <li><a value='low' >Low</a></li>
-                                    <li><a value='high' >High</a></li>
+                                    <form action="{% url 'training:filter' %}">
+                                        <li><a href=""><button type="submit" name="price"  value="high">High</button></a></li>
+                                        <li><a href=""><button type="submit" name="price"  value="low">Low</button></a></li>
+                                    </form>
                                   </ul>
                               </li>
                               <li><a href="#" class="align-center">Country
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                  <li><a href="#">Azerbaijan</a></li>
-                                  <li><a href="#">Turkey</a></li>
+                                    <form action="{% url 'training:filter' %}">
+                                        {% for country in countries %}
+                                            <li><a href=""><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
+                                        {% endfor %}
+                                    </form>
                                 </ul>
                               </li>
                               <li><a href="#" class="align-center">Travel style
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <li><a href="#">Azerbaijan</a></li>
-                                    <li><a href="#">Turkey</a></li>
+                                    <form action="{% url 'training:filter' %}">
+                                        {% for training_type in training_types %}
+                                            <li><a href=""><button type="submit" name="style"  value="{{training_type}}">{{training_type|capfirst}}</button></a></li>
+                                        {% endfor %}
+                                    </form>
                                 </ul>
                               </li>
                               <li><a href="#" class="align-center">Duration
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <li><a href="#">Low</a></li>
-                                    <li><a href="#">High</a></li>
+                                    <form action="{% url 'training:filter' %}">
+                                        <li><a href=""><button type="submit" name="duration"  value="long">Long</button></a></li>
+                                        <li><a href=""><button type="submit" name="duration"  value="short">Short</button></a></li>
+                                    </form>
                                 </ul>
                               </li>
                               <li><a href="#" class="align-center">Discount

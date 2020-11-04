@@ -31,62 +31,53 @@
         border-radius: 20px;
         width: 80%;
       }
-      .loginBtn, .registerBtn,.logout{
-        color: #febd69;
-        transition: color .2s ease-in-out;
-      }
-      .loginBtn:hover, .registerBtn:hover,.logout:hover{
+    .user-profile img{
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+    }
+
+    .user-profile:hover{
         color: #ccc;
-      }
+        cursor: pointer;
+    }
 
+    .header-menu{
+        display: none;
+        z-index: 1111; 
+        position: absolute;
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(153,153,153,.4);
+        right: 5px;
+    }
 
-.user-profile img{
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-}
+    .user-profile span{
+      color: #fff;
+    }
 
-.user-profile:hover{
-    color: #ccc;
-    cursor: pointer;
-}
+    .header-menu li{
+        padding: 7px 50px;
+        transition: .4s;
+    }
 
-.header-menu{
-    display: none;
-    z-index: 1111; 
-    position: absolute;
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(153,153,153,.4);
-    right: 5px;
-}
+    .header-menu li:hover{
+        background-color: #d3d3d3;
+        color: #4CAEFF;
+    }
 
-.user-profile span{
-  color: #fff;
-}
+    .header-menu a{
+        text-decoration: none;
+        color: rgb(63, 63, 63);
+    }
 
-.header-menu li{
-    padding: 7px 50px;
-    transition: .4s;
-}
+    .user-profile:hover .header-menu{
+        display: block;
+    }
 
-.header-menu li:hover{
-    background-color: #d3d3d3;
-    color: #4CAEFF;
-}
-
-.header-menu a{
-    text-decoration: none;
-    color: rgb(63, 63, 63);
-}
-
-.user-profile:hover .header-menu{
-    display: block;
-}
-
-.menu-btn{
-  display: none;
-}
+    .menu-btn{
+      display: none;
+    }
     </style>
 </head>
 
@@ -132,77 +123,6 @@
       }
     </style>
 
-    <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" >
-        <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
-          <form class="" method="post">
-            {% csrf_token %}
-            <div class="login-container">
-                <h4 class="text-center mb-3" style="color: rgb(112, 111, 111);">Sing-In</h4>
-                <hr>
-                <div class="form-group row">
-                    <div class="col-sm-12  d-flex justify-content-center">
-                        {{form.username}}
-                        {{form.username.errors}}
-                    </div>
-                </div>
-                <div class="form-group row" >
-                    <div class="col-sm-12 d-flex justify-content-center">
-                        {{form.password}}
-                        {{form.password.errors}}
-                    </div>
-                </div>
-                <div class="form-group row mt-3">
-                    <div class="col-sm-12 d-flex justify-content-center">
-                      <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
-                    </div>
-                </div>
-
-                <div class="form-group row justify-content-end d-flex">
-                  <a href="{% url 'account:password_reset' %}" class="float-right mr-3">Forgot password?</a>
-                </div>
-            </div>
-          </form>
-          <div class="row">
-            <form class="full p-2">
-              <div class="form-group d-column social-login">
-                  <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" >
-                      <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
-                  </a>
-                  <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" style="border: 1px solid #ccc">
-                      <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
-                  </a>
-              
-              </div>
-            </form>
-            <div class="d-column full mb-3">
-              <p class="text-center">Are you new?</p>
-              <a class="text-center" href="#">Create your account</a>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content" style="background-color: #ebebeb;">
-          
-          <div class="modal-body d-column">
-            <h4 class="full text-center mb-3 pb-2 border-bottom">Register</h4>
-            <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
-              Register as Organizer
-            </a>
-            <a class="register-link" href="{% url 'account:user-register' %}">
-              Register as User
-            </a>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-
 
     <main id="main">
         <div class="img-overlay"></div>
@@ -222,23 +142,30 @@
         <div class="container" style="z-index: 1;">
             <div class="full-width">
                 <div class="row text-center">
-                    <div class="inner">
-                        <a href="{% url 'tour:home' %}" class="suggestions">Tours</a>
-                        <p>{{tourcount}}</p>
-                    </div>
-                    <div class="inner">
-                        <a href="{% url 'activity:home' %}" class="suggestions">Activities</a>
-                        <p>{{activitycount}}</p>
-                    </div>
-                    <div class="inner">
-                        <a href="{% url 'training:home' %}" class="suggestions">Tranings</a>
-                        <p>{{trainingcount}}</p>
-                    </div>
-                    <div class="inner">
-                        <a href="{% url 'organizer:home' %}" class="suggestions">Organizer</a>
-                        <p>{{organizercount}}</p>
-                    </div>
-                 
+                    <a class="inner" href="{% url 'tour:home' %}">
+                      <div >
+                          <p class="suggestions">Tours</p>
+                          <p>{{tourcount}}</p>
+                      </div>
+                    </a>
+                    <a class="inner" href="{% url 'activity:home' %}">
+                      <div >
+                          <p class="suggestions">Activities</p>
+                          <p>{{activitycount}}</p>
+                      </div>
+                    </a>
+                    <a class="inner" href="{% url 'training:home' %}" >
+                      <div >
+                          <p class="suggestions">Tranings</p>
+                          <p>{{trainingcount}}</p>
+                      </div>
+                    </a>
+                    <a class="inner" href="{% url 'organizer:home' %}"">
+                      <div >
+                          <p class="suggestions">Organizer</p>
+                          <p>{{organizercount}}</p>
+                      </div>
+                    </a>
                 </div>
             </div>
         </div>

@@ -45,7 +45,6 @@ class TourListView(ListView):
         return context
     
 
-
 def TourList(request):
     data = Tour.objects.all()
     country = []

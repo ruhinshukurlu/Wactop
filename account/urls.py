@@ -11,6 +11,7 @@ urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='user-register'),
     path('logout', LogoutView.as_view(), name = 'logout'),
     path('change_password/',ChangePasswordView.as_view(), name = 'change-password'),
+    path("user/<int:pk>/update", CustomerUpdateView.as_view(), name="user-update"),
 
     path('reset_password/',auth_views.PasswordResetView.as_view(template_name = 'reset-password.html',
         success_url = reverse_lazy('account:password_reset_done')),

@@ -8,12 +8,23 @@ from tour.models import *
 # pip install psycopg2
 
 
-style = Type.objects.all()
+training_types = TourType.objects.all()
 # data = Training.objects.all()
 # country = []
 # for i in data:
 #     if i.country not in country:
 #         country.append(i.country)
+training_type_list = []
+
+for training_type in training_types:
+    if training_type.title not in training_type_list:
+        training_type_list.append(training_type.title)
+
+trainings = Training.objects.all()
+country_list = []
+for training in trainings:
+    if training.country not in country_list:
+        country_list.append(training.country)
 
 
 class TrainingListView(ListView):
@@ -30,6 +41,13 @@ class TrainingListView(ListView):
                 queryset1 = queryset1.filter(title__icontains=title_name)
                 return queryset1
         return super().get_queryset().filter(status=1)
+
+    def get_context_data(self, **kwargs):
+        context = super(TrainingListView, self).get_context_data(**kwargs)
+
+        context['countries'] = country_list
+        context['training_types'] = training_type_list
+        return context
 
 
 def TrainingList(request):
@@ -133,20 +151,10 @@ def TrainingFilter(request):
         data = Training.objects.filter(discount__isnull=False)
     style_query = request.GET.get('style')
     if style_query:
-        notnull = False
-        for i in type_choices:
-            if i[1] == style_query:
-                x = i[0]
-        idArr =[]
-        for i in data:
-            for j in i.type:
-                n = int(j)
-                if x == n:
-                    idArr.append(i.pk)
-                    notnull = True
-        for i in data:
-            if i.pk not in idArr:
-                data = data.exclude(pk=i.pk)
+        context2['style2'] = style_query
+        data = Training.objects.filter(training_type=TourType.objects.filter(title=style_query).first().id, status=1)
+        
+
     
     if request.GET.get('search'):
         data = Training.objects.filter(keyword__icontains=request.GET.get('search'))
@@ -167,13 +175,14 @@ def TrainingFilter(request):
     haslink = True
 
     context = {
-        'training': eachpage,
-        'page': page_request,
-        'paginator': arr,
-        'country': country,
-        'link': request.build_absolute_uri(),
-        'style': style,
-        'haslink': haslink
+        'trainings': data,
+        # 'page': page_request,
+        # 'paginator': arr,
+        'training_types' : training_type_list,
+        'countries': country_list,
+        # 'link': request.build_absolute_uri(),
+        # 'style': style,
+        # 'haslink': haslink
     }
     if len(data) == 0:
         context.update( {'notfound' : 'No result found'} )

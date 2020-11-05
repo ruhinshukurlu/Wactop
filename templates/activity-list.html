@@ -50,56 +50,64 @@
         <div class="custom-container bg-white mt-4 shadow pt-4">
             <div class="inner-container ">
                 <div class="row">
-                    <form action="" class="d-flex full">
-                        <nav role="navigation" class="full">
-                            <ul class="filter-menu-list d-flex align-center"> 
-                                <span>
-                                    <i class="fas fa-sort-amount-down-alt mr-1"></i>
-                                    Filter
-                                </span>
-                              <li><a href="#" class="align-center">Price
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                    <li><a href="{% url 'activity:low-filter' %}">Low</a></li>
-                                    <li><a href="{% url 'activity:high-filter' %}">High</a></li>
-                                  </ul>
-                              </li>
-                              <li><a href="#" class="align-center">Country
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                  <li><a href="#">Azerbaijan</a></li>
-                                  <li><a href="#">Turkey</a></li>
+                    <nav role="navigation" class="full">
+                        <ul class="filter-menu-list d-flex align-center"> 
+                            <span>
+                                <i class="fas fa-sort-amount-down-alt mr-1"></i>
+                                Filter
+                            </span>
+                            <li><a href="#" class="align-center">Price
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
+                                <form action="{% url 'activity:filter' %}">
+                                    <li><a href=""><button type="submit" name="price"  value="high">High</button></a></li>
+                                    <li><a href=""><button type="submit" name="price"  value="low">Low</button></a></li>
+                                </form>
                                 </ul>
-                              </li>
-                              <li><a href="#" class="align-center">Travel style
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Azerbaijan</a></li>
-                                    <li><a href="#">Turkey</a></li>
-                                </ul>
-                              </li>
-                              <li><a href="#" class="align-center">Duration
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Low</a></li>
-                                    <li><a href="#">High</a></li>
-                                </ul>
-                              </li>
-                              <li><a href="#" class="align-center">Discount
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                    <li><a href="#">Azerbaijan</a></li>
-                                    <li><a href="#">Turkey</a></li>
-                                </ul>
-                              </li>
+                            </li>
+                            <li><a href="#" class="align-center">Country
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
+                                <form action="{% url 'activity:filter' %}">
+                                    {% for country in countries %}
+                                        <li><a href=""><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
+                                    {% endfor %}
+                                </form>
                             </ul>
-                          </nav>
-                    </form>
+                            </li>
+                            <li><a href="#" class="align-center">Travel style
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
+                                <form action="{% url 'activity:filter' %}">
+                                    {% for tour_type in tour_types %}
+                                        <li><a href=""><button type="submit" name="style"  value="{{tour_type}}">{{tour_type|capfirst}}</button></a></li>
+                                    {% endfor %}
+                                </form>
+                            </ul>
+                            </li>
+                            <li><a href="#" class="align-center">Duration
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
+                                <form action="{% url 'activity:filter' %}">
+                                    <li><a href=""><button type="submit" name="duration"  value="long">Long</button></a></li>
+                                    <li><a href=""><button type="submit" name="duration"  value="short">Short</button></a></li>
+                                </form>
+                            </ul>
+                            </li>
+                            <li><a href="#" class="align-center">Discount
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
+                                <li><a href="#">Azerbaijan</a></li>
+                                <li><a href="#">Turkey</a></li>
+                            </ul>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
 
                 <div class="row tour-list">
@@ -119,16 +127,6 @@
                                                     {{activity.title|capfirst|truncatechars:25 }}
                                                 </div>
                                                 <div class="d-column">
-                                                    <div class="d-flex mb-2 align-center">
-                                                        <div class="stars d-flex mr-2">
-                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-deactive"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-deactive"></i></div>
-                                                        </div> 
-                                                        <span>15 reviews</span>
-                                                    </div>
                                                     <div class="d-flex">
                                                         <span class="bold mr-2">Location : </span>
                                                         <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>

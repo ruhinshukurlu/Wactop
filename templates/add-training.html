@@ -42,12 +42,16 @@
                                             <div class="number">2</div>
                                             <span>Training Descriptions</span>
                                         </li>
-                                        <li data-target="tourPhotos">
+                                        <li data-target="tourURL">
                                             <div class="number">3</div>
+                                            <span>Training URL</span>
+                                        </li>
+                                        <li data-target="tourPhotos">
+                                            <div class="number">4</div>
                                             <span>Training Photos</span>
                                         </li>
                                         <li data-target="tourSchedules">
-                                            <div class="number">4</div>
+                                            <div class="number">5</div>
                                             <span>Training Schedules</span>
                                         </li>
                                     </ul>
@@ -62,7 +66,10 @@
                                     {% csrf_token %}
                                     
                                     {{tour_form.management_form}}
-                                    {{detail_form.management_form }}
+                                    {{detail_form_en.management_form }}
+                                    {{detail_form_az.management_form }}
+                                    {{detail_form_ru.management_form }}
+                                    {{url_form.management_form}}
                                     {{image_form.management_form}}
                                     {{schedule_form.management_form}}
 
@@ -207,12 +214,12 @@
                                     <div id="tourDescription" style="display: none;">
                                         <div class="d-column border-bottom pb-2 mb-4">
                                             <h3 class="full bold ">
-                                                In this form you can write more information about your training
+                                                In this form you can write more information about your tour
                                             </h3>
                                             <span>Click "Add new Paragraph", if you need to add more paragraph.</span>
                                         </div>
-
-                                        <div class="form-box">
+                                        <div class="form-box mb-3">
+                                            
                                             <div class="form-group row">
                                                 <div class='col-12'>
                                                     {{tour_form.descriptionen.label_tag}}
@@ -222,8 +229,8 @@
                                                 </div>
                                             </div>
                                             
-                                            <div id="text-forms">
-                                                {% for form in detail_form %}
+                                            <div id="text-forms-en">
+                                                {% for form in detail_form_en %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
                                                             {{form.title.label_tag}}
@@ -239,17 +246,120 @@
                                             </div>
 
                                             <div class="form-group justify-content-end d-flex">
-                                                <button type="button" class="add_detail_btn" onclick = 'adddetail()' style="outline: none;">
+                                                <button type="button" class="add_detail_btn" onclick = 'adddetail_en()' style="outline: none;">
                                                     <i class="fas fa-plus-circle mr-2"></i>
                                                     Add new Paragraph
                                                 </button>
                                             </div>
+                                        </div>
+
+                                        <div class="form-box mb-3">
+                                            <div class="form-group row">
+                                                <div class='col-12'>
+                                                    {{tour_form.descriptionaz.label_tag}}
+                                                </div>
+                                                <div class='col-12'>
+                                                    {{tour_form.descriptionaz}}
+                                                </div>
+                                            </div>
+
+                                            <div id="text-forms-az">
+                                                {% for form in detail_form_az %}
+                                                    <div class="form-group row">
+                                                        <div class='col-12'>
+                                                            {{form.title.label_tag}}
+                                                        </div>
+                                                        <div class='col-12'>
+                                                            {{form.title}}
+                                                        </div>
+                                                        <div class='col-12'>
+                                                            {{form.text}}
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+
+                                            <div class="form-group justify-content-end d-flex">
+                                                <button type="button" class="add_detail_btn" onclick = 'adddetail_az()' style="outline: none;">
+                                                    <i class="fas fa-plus-circle mr-2"></i>
+                                                    Add new Paragraph
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-box">
+                                            <div class="form-group row">
+                                                <div class='col-12'>
+                                                    {{tour_form.descriptionru.label_tag}}
+                                                </div>
+                                                <div class='col-12'>
+                                                    {{tour_form.descriptionru}}
+                                                </div>
+                                            </div>
+
+                                            <div id="text-forms-ru">
+                                                {% for form in detail_form_ru %}
+                                                    <div class="form-group row">
+                                                        <div class='col-12'>
+                                                            {{form.title.label_tag}}
+                                                        </div>
+                                                        <div class='col-12'>
+                                                            {{form.title}}
+                                                        </div>
+                                                        <div class='col-12'>
+                                                            {{form.text}}
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            
+                                            <div class="form-group justify-content-end d-flex">
+                                                <button type="button" class="add_detail_btn" onclick = 'adddetail_ru()' style="outline: none;">
+                                                    <i class="fas fa-plus-circle mr-2"></i>
+                                                    Add new Paragraph
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                            
                                             <div class="d-flex full justify-content-end">
-                                                <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourPhotos">
+                                                <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourURL">
                                                     Next
                                                     <i class="fas fa-angle-double-right ml-1"></i>
                                                 </button>
                                             </div>
+                                    
+                                    </div>
+
+                                    <div id="tourURL" style="display: none;">
+                                        <div class="d-column border-bottom pb-2 mb-4">
+                                            <h3 class="full bold ">
+                                                In this form you can add Links related to your tour
+                                            </h3>
+                                            <span>Click "Add new Paragraph", if you need to add more paragraph.</span>
+                                        </div>  
+
+                                        <div class="form-box mb-3" id="urls">
+                                            {% for form in url_form %}
+                                                <div class="form-group row">
+                                                    <div class="col-12">
+                                                        {{form.url}}
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                            <div class="form-group justify-content-end d-flex">
+                                                <button type="button" class="add_detail_btn" onclick = 'addurl()' style="outline: none;">
+                                                    <i class="fas fa-plus-circle mr-2"></i>
+                                                    Add new URL
+                                                </button>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-flex full justify-content-end">
+                                            <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourPhotos">
+                                                Next
+                                                <i class="fas fa-angle-double-right ml-1"></i>
+                                            </button>
                                         </div>
                                     </div>
         

@@ -8,6 +8,42 @@
     .loginBtn:hover, .registerBtn:hover,.logout:hover{
         color: #ccc;
     }
+    .register-modal .register-link{
+        width: 90%;
+        margin: auto;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        background-color: #fff;
+        color: #000;
+        border-radius: 6px;
+        margin-bottom: 20px;
+        text-decoration: none !important;
+      }
+      .register-modal .register-link:hover{
+        color: rgb(49, 49, 49);
+      }
+
+      .login-modal .form-input{
+        height: 50px;
+        padding: 5px 10px;
+      }
+
+      .login-modal .login_btn{
+        border-radius: 10px;
+        width: 100%;
+        padding: 10px 0;
+      }
+
+      .modal-dialog{
+        max-width: 550px;
+      }
+
+      .login-modal .social-login a{
+        border-radius: 10px;
+        padding: 10px 0;
+        margin-bottom: 10px;
+      }
 </style>
 <header id="header">
     <div class="container-fluid">
@@ -64,7 +100,7 @@
                 {% else %}
                 {% login_form as login %}
                 <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" >
+                    <div class="modal-dialog login-modal" >
                         <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
                         <form class="" method="post" action="{% url 'main:home' %}">
                             {% csrf_token %}
@@ -117,19 +153,17 @@
                     </div>
 
                     <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
+                    <div class="modal-dialog register-modal" role="document">
                         <div class="modal-content" style="background-color: #ebebeb;">
-                        
-                        <div class="modal-body d-column">
-                            <h4 class="full text-center mb-3 pb-2 border-bottom">Register</h4>
-                            <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
-                            Register as Organizer
-                            </a>
-                            <a class="register-link" href="{% url 'account:user-register' %}">
-                            Register as User
-                            </a>
-                        </div>
-                        
+                            <div class="modal-body d-column">
+                                <h4 class="full text-center mb-3 pb-2 border-bottom">Register</h4>
+                                <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
+                                Register as Organizer
+                                </a>
+                                <a class="register-link" href="{% url 'account:user-register' %}">
+                                Register as User
+                                </a>
+                            </div>
                         </div>
                     </div>
                     </div>

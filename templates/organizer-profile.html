@@ -26,6 +26,14 @@
         <div class="custom-container company-admin-container mt-5">
             <div class="row justify-content-center">
                 <div class="col-3">
+                    <a href="{% url 'organizer:detail' request.user.organizer.pk %}" class="link-box">
+                        <div class="align-center">
+                            <i class="fas fa-home"></i>
+                            <span>{{request.user.organizer.organizer_name}}</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-3">
                     <a href="{% url 'organizer:add_tour' %}" class="link-box">
                         <div class="align-center">
                             <i class="fas fa-directions"></i>
@@ -62,14 +70,6 @@
                         <div class="align-center">
                             <i class="fas fa-camera-retro"></i>
                             <span>Photos</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="saved-tours.html" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-bookmark"></i>
-                            <span>Saved Tours</span>
                         </div>
                     </a>
                 </div>

@@ -80,8 +80,6 @@ def TrainingList(request):
         'link': request.build_absolute_uri()
     }
     return render(request, 'training-list.html', context)
-
-
 def TrainingDetailView(request, pk):
     training = Training.objects.get(pk=pk)
     image = TrainingImage.objects.filter(training=training)
@@ -132,23 +130,25 @@ def TrainingFilter(request):
     price_query = request.GET.get('price')
     if price_query:
         if price_query == 'high':
-            data = Training.objects.all().order_by('-price')
+            data = Training.objects.filter(status=1).order_by('-price')
             context2['price'] = 'high'
         elif price_query == 'low':
-            data = Training.objects.all().order_by('price')
+            data = Training.objects.filter(status=1).order_by('price')
             context2['price'] = 'low'
     duration_query = request.GET.get('duration')
     if duration_query:
         if duration_query == 'long':
-            data = Training.objects.all().order_by('-durationday')
+            data = Training.objects.filter(status=1).order_by('-durationday')
         elif duration_query == 'short':
-            data = Training.objects.all().order_by('durationday')
+            data = Training.objects.filter(status=1).order_by('durationday')
     country_query = request.GET.get('country')
     if country_query:
-        data = Training.objects.filter(country__icontains=country_query)
+        data = Training.objects.filter(country__icontains=country_query, status=1)
+        
     discount_query = request.GET.get('discount')
     if discount_query:
         data = Training.objects.filter(discount__isnull=False)
+
     style_query = request.GET.get('style')
     if style_query:
         context2['style2'] = style_query
@@ -156,23 +156,23 @@ def TrainingFilter(request):
         
 
     
-    if request.GET.get('search'):
-        data = Training.objects.filter(keyword__icontains=request.GET.get('search'))
-    data = data.filter(status=1)
-    paginator = Paginator(data, 1)
-    page_request = 'page'
-    page = request.GET.get(page_request)
-    try:
-        eachpage = paginator.page(page)
-    except PageNotAnInteger:
-        eachpage = paginator.page(1)
-    except EmptyPage:
-        eachpage = paginator.page(paginator.num_pages)
+    # if request.GET.get('search'):
+    #     data = Training.objects.filter(keyword__icontains=request.GET.get('search'))
+    # data = data.filter(status=1)
+    # paginator = Paginator(data, 1)
+    # page_request = 'page'
+    # page = request.GET.get(page_request)
+    # try:
+    #     eachpage = paginator.page(page)
+    # except PageNotAnInteger:
+    #     eachpage = paginator.page(1)
+    # except EmptyPage:
+    #     eachpage = paginator.page(paginator.num_pages)
 
-    arr = []
-    for i in range(0, eachpage.paginator.num_pages):
-        arr.append(i+1)
-    haslink = True
+    # arr = []
+    # for i in range(0, eachpage.paginator.num_pages):
+    #     arr.append(i+1)
+    # haslink = True
 
     context = {
         'trainings': data,

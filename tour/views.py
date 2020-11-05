@@ -127,7 +127,6 @@ def TourFilter(request):
 
     context2 = {}
     data = Tour.objects.all()
-    # print(request.GET)
     price_query = request.GET.get('price')
     if price_query:
         if price_query == 'high':

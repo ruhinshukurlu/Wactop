@@ -34,28 +34,8 @@
 
 <body>
     
-    <header id="header">
-        <div class="container-fluid">
-            <div class="row justify-content-between">
-                <div class="left">
-                    <button type="button" class="menu_btn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <a href="#">
-                        <img src="{% static 'images/wactop.png' %}" width="180px" class="mb-2" alt="">
-                    </a>
-                </div>
-                <div class="align-center">
-                    <div class="user-profile">
-                        <div class="d-flex">
-                            <img src="assets/images/profile.png" width="50px" alt="">
-                            <span class="ml-2">ruhinshukurlu</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
   
     <main class="full-h">
         <div class="row justify-content-center full-h">
@@ -151,6 +131,8 @@
    
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
 
     <script>
         function readURL(input,place) {

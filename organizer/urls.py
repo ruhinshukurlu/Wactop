@@ -29,21 +29,12 @@ urlpatterns = [
 
     path("actions", OrganizerAllActions.as_view(), name="organizer-actions"),
 
-    # path('login/', CustomLoginView.as_view(), name='login'),
-    # path('logout/', logout_page, name='logout'),
-    # path('register/', register, name='register'),
-    # path('edit/<int:pk>/', ProfileEditView.as_view(), name='edit'),
-    # path('add/tour', OrganizerTour, name='addtour'),
-    # path('add/activity', OrganizerActivity, name='addactivity'),
-    # path('add/training', OrganizerTraining, name='addtraining'),
-    # path('test/', test, name='test'),
-    # path('', OrganizerList, name='home'),
-    # path('login/', CustomLoginView.as_view(), name='login'),
-    # path('logout/', logout_page, name='logout'),
-    # path('register/', register, name='register'),
-    # path('<int:pk>', OrganizerDetail, name='detail'),
-    # path('<int:pk>/images', organizer_image_list, name = 'organizer_image_list'),
-    # path('add/tour', OrganizerTour, name='addtour'),
-    # path('test/', test, name='test'),
+    path("tours/<int:pk>/edit", TourUpdateView.as_view(), name="tour-edit"),
+    path("activities/<int:pk>/edit", ActivityUpdateView.as_view(), name="activity-edit"),
+    path("trainigs/<int:pk>/edit", TrainingUpdateView.as_view(), name="training-edit"),
+
+    path("tours/<int:pk>/delete", TourDeleteView.as_view(), name="tour-delete"),
+    path("activities/<int:pk>/delete", ActivityDeleteView.as_view(), name="activity-delete"),
+    path("trainigs/<int:pk>/delete", TrainingDeleteView.as_view(), name="training-delete"),
 
 ]

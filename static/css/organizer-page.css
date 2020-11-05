@@ -144,7 +144,7 @@ body{
 }
 
 
-.add-img-box input{
+.add-img-box input[type='file']{
     display: none;
 }
 
@@ -568,6 +568,11 @@ h4{
     margin-right: 5px;
 }
 
+.organizer-item-infos i{
+    color: #0093E9;
+    font-size: 13px;
+}
+
 .company-links a:hover{
     color: #0093E9;
 }
@@ -756,4 +761,41 @@ h4{
 .tour-list,
 .organizer-list{
     margin-bottom: 130px;
+}
+
+.delete-edit-box{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.delete-edit-box .edit-btn{
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #65B5F8;
+    border: 1px solid #65B5F8;
+    margin-right: 10px;
+    transition: .4s;
+}
+
+.delete-edit-box .delete-btn{
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #f73f3f;
+    border: 1px solid #f73f3f;
+    transition: .4s;
+}
+
+.delete-edit-box .delete-btn:hover{
+    background-color: #f73f3f;
+    color: #fff;
+}
+
+.delete-edit-box .edit-btn:hover{
+    background-color: #65B5F8;
+    color: #fff;
 }

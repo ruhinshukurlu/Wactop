@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Tour</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+  
+    <main>
+        <div class="row justify-content-center">
+            <div class="col-2 p-0 bg-white " id="menu-column">
+                {% include 'partials/organizer-menu.html' %}
+            </div>
+            <div class="col-10">
+                <div class="custom-container mt-5 mb-5">
+                    <div class="">
+                        <div class="row">
+                            <div class="col-3">
+                                <nav class="full">
+                                    <ul class="full tour-menu-list d-column" id="formControlMenu">
+                                        <li data-target="tourBasics">
+                                            <div class="number">1</div>
+                                            <span>Tour Basics</span>
+                                        </li>
+                                        <li data-target="tourDescription">
+                                            <div class="number">2</div>
+                                            <span>Tour Descriptions</span>
+                                        </li>
+                                        <li data-target="tourURL">
+                                            <div class="number">3</div>
+                                            <span>Tour URL</span>
+                                        </li>
+                                        <li data-target="tourPhotos">
+                                            <div class="number">4</div>
+                                            <span>Tour Photos</span>
+                                        </li>
+                                        <li data-target="tourSchedules">
+                                            <div class="number">5</div>
+                                            <span>Tour Schedules</span>
+                                        </li>
+                                    </ul>
+                                    
+                                </nav>
+                            </div>
+                            <div class="col-9">
+                                <form method="post" enctype="multipart/form-data" id="addTourForm">
+                                    {% csrf_token %}
+                                    
+                                    <div id="tourBasics">
+                                        <div class="d-column border-bottom pb-2 mb-4">
+                                            <h3 class="full bold ">
+                                                Let's start adding new Tour
+                                            </h3>
+                                            <span>First you have to write basic information about your new tour :)</span>
+                                        </div>
+                                        
+                                        <div class="form-box">
+                                            
+                                            <div class="form-group row">
+                                                <div class="col-9">
+                                                    <div class="cover-photo-box mt-5 mb-3">
+                                                        <div class="p-relative">
+                                                            {% if tour.cover %}
+                                                                <img src="{{tour.cover.url}}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                            {% else %}
+                                                                <img src="{% static 'images/default-tour-photo.jpg' %}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                            {% endif %}
+                                                            <div class="d-flex add-img-box profile-img-box d-column">
+                                                                {{form.cover}}
+                                                                <label for="coverPhotoInput" class="align-center change-photo-btn">
+                                                                    <i class="fas fa-camera"></i>
+                                                                    Change Cover Photo
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-3">
+                                                    <div class="profile-photo-box mt-5 mb-3">
+                                                        <div class="d-column justify-content-center align-center ">
+                                                            {% if tour.avatar %}
+                                                                <img src="{{tour.avatar.url}}" class="org-profile-photo" id="profilePhoto" alt="">
+                                                            {% else %}
+                                                                <img src="{% static 'images/default.png' %}" class="org-profile-photo" id="profilePhoto" alt="">
+                                                            {% endif %}
+                                                            <div class="d-flex add-img-box mt-3 d-column" >
+                                                                {{form.avatar}}
+                                                                <label for="profilePhotoExample" class="align-center m-0 change-photo-btn">
+                                                                    <i class="fas fa-camera"></i>
+                                                                    Change Profile Photo
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.title.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.title}}
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.country.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.country}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.city.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.city}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.address.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.address}}
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.tour_type.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.tour_type}}
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.pricefor.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.pricefor}}
+                                                </div>
+                                                
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="" class="col-3">Price & Currency</label>
+                                                <div class="col-9">
+                                                    <div class="full row">
+                                                        <div class="col-6 pl-0">
+                                                            {{form.price}}
+                                                        </div>
+                                                        <div class="col-6 pr-0">
+                                                            {{form.currency}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="" class="col-3">Duration Day & Night</label>
+                                                <div class="col-9">
+                                                    <div class="full row">
+                                                        <div class="col-6 pl-0">
+                                                            {{form.durationday}}
+                                                        </div>
+                                                        <div class="col-6 pr-0">
+                                                            {{form.durationnight}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label for="" class="col-3">Start & End Date</label>
+                                                <div class="col-9 ">
+                                                    <div class="full row">
+                                                        <div class="col-6 pl-0">
+                                                            {{form.datefrom}}
+                                                        </div>
+                                                        <div class="col-6 pr-0">
+                                                            {{form.dateto}}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class='col-3'>
+                                                    {{form.guide.label_tag}}
+                                                </div>
+                                                <div class='col-9'>
+                                                    {{form.guide}}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class='col-12'>
+                                                    {{form.descriptionen.label_tag}}
+                                                </div>
+                                                <div class='col-12'>
+                                                    {{form.descriptionen}}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class='col-12'>
+                                                    {{form.descriptionaz.label_tag}}
+                                                </div>
+                                                <div class='col-12'>
+                                                    {{form.descriptionaz}}
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group row">
+                                                <div class='col-12'>
+                                                    {{form.descriptionru.label_tag}}
+                                                </div>
+                                                <div class='col-12'>
+                                                    {{form.descriptionru}}
+                                                </div>
+                                            </div>
+
+                                            <div class="d-flex full justify-content-end">
+                                                <input type="submit" value="Save Tour" class="btn btn-success">
+                                            </div>
+                                        </div>
+                                    </div>
+        
+                                   
+
+                                   
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <nav class="footer-menu">
+                        <ul class="d-column">
+                            <li>
+                                <a href="#">About Us</a>
+                            </li>
+                            <li>
+                                <a href="#">Terms</a>
+                            </li>
+                            <li>
+                                <a href="#">Privacy</a>
+                            </li>
+                        </ul>
+                        <p><i class="far fa-copyright"></i> 2019</p>
+                    </nav>
+                </div>
+                <div class="col-4">
+                    <div class="d-column align-center">
+                        <span class="mb-2 mt-2 text-center">Follow Us</span>
+                        <ul class="footer-social-links d-flex justify-content-center" >
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-facebook-square"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-4 d-flex justify-content-end">
+                    <a href="#">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
+
+    <script>
+
+        // Photo and schedule input labels were same, that is why I have to add one of them manually
+        var schedule_label_list = $('#schedule-form-box').find('label')
+        var schedule_input_list = $('#schedule-form-box').find('.schedule-input')
+
+        for(var i=0; i<schedule_label_list.length; i++){
+            $(schedule_label_list[i]).attr('for',`schedule-input-${i}`)
+            $(schedule_input_list[i]).attr('id',`schedule-input-${i}`)
+        }
+
+
+        // Function to assign selected photo to particular img tag
+        function readURL(input,place) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+                reader.onload = function (e) {
+                   $(place).attr('src', e.target.result);
+                }
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
+
+        
+        $('.photo-input').change(function(){
+            console.log('okkk-tour');
+            var photo = $(this).parents('.photo-item').find('img')
+            readURL(this,$(photo));
+        })
+
+        $('.schedule-input').change(function(){
+            console.log('okkk-schedule');
+            var schedule = $(this).parent('.add-img-box').siblings('img')
+            console.log(schedule);
+            readURL(this,$(schedule));
+        })
+
+        
+        $("#profilePhotoExample").change(function(){
+            readURL(this,$('#profilePhoto'));
+        });
+
+        $("#coverPhotoInput").change(function(){
+            readURL(this,$('#coverPhoto'));
+        });
+   </script>
+
+
+   <script>
+       $('.menu_btn').click(function(){
+            $('#menu-column').animate({
+                width : 'toggle'
+            });
+       })
+   </script>
+
+    
+
+</body>
+</html>

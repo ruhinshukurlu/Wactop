@@ -156,7 +156,7 @@ class OrganizerTourImageForm(forms.ModelForm):
 
 class OrganizerTourScheduleForm(forms.ModelForm):
 
-    image = forms.FileField(label = 'Select Photo', widget = forms.ClearableFileInput(attrs={
+    image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
         'class' : 'schedule-input'
     }))
 
@@ -273,7 +273,7 @@ class OrganizerActivityImageForm(forms.ModelForm):
 
 class OrganizerActivityScheduleForm(forms.ModelForm):
 
-    image = forms.FileField(label = 'Select Photo', widget = forms.ClearableFileInput(attrs={
+    image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
         'class' : 'schedule-input'
     }))
 
@@ -377,7 +377,7 @@ class OrganizerTrainingImageForm(forms.ModelForm):
 
 class OrganizerTrainingScheduleForm(forms.ModelForm):
 
-    image = forms.FileField(label = 'Select Photo', widget = forms.ClearableFileInput(attrs={
+    image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
         'class' : 'schedule-input'
     }))
 

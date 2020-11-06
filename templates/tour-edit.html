@@ -30,45 +30,13 @@
             <div class="col-10">
                 <div class="custom-container mt-5 mb-5">
                     <div class="">
-                        <div class="row">
-                            <div class="col-3">
-                                <nav class="full">
-                                    <ul class="full tour-menu-list d-column" id="formControlMenu">
-                                        <li data-target="tourBasics">
-                                            <div class="number">1</div>
-                                            <span>Tour Basics</span>
-                                        </li>
-                                        <li data-target="tourDescription">
-                                            <div class="number">2</div>
-                                            <span>Tour Descriptions</span>
-                                        </li>
-                                        <li data-target="tourURL">
-                                            <div class="number">3</div>
-                                            <span>Tour URL</span>
-                                        </li>
-                                        <li data-target="tourPhotos">
-                                            <div class="number">4</div>
-                                            <span>Tour Photos</span>
-                                        </li>
-                                        <li data-target="tourSchedules">
-                                            <div class="number">5</div>
-                                            <span>Tour Schedules</span>
-                                        </li>
-                                    </ul>
-                                    
-                                </nav>
-                            </div>
-                            <div class="col-9">
+                        <div class="row justify-content-center">
+                            
+                            <div class="col-10">
                                 <form method="post" enctype="multipart/form-data" id="addTourForm">
                                     {% csrf_token %}
                                     
                                     <div id="tourBasics">
-                                        <div class="d-column border-bottom pb-2 mb-4">
-                                            <h3 class="full bold ">
-                                                Let's start adding new Tour
-                                            </h3>
-                                            <span>First you have to write basic information about your new tour :)</span>
-                                        </div>
                                         
                                         <div class="form-box">
                                             
@@ -76,8 +44,8 @@
                                                 <div class="col-9">
                                                     <div class="cover-photo-box mt-5 mb-3">
                                                         <div class="p-relative">
-                                                            {% if tour.cover %}
-                                                                <img src="{{tour.cover.url}}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                            {% if form.cover %}
+                                                                <img src="{{form.cover.value.url}}" class="org-cover-photo" id="coverPhoto" alt="">
                                                             {% else %}
                                                                 <img src="{% static 'images/default-tour-photo.jpg' %}" class="org-cover-photo" id="coverPhoto" alt="">
                                                             {% endif %}
@@ -96,8 +64,8 @@
                                                 <div class="col-3">
                                                     <div class="profile-photo-box mt-5 mb-3">
                                                         <div class="d-column justify-content-center align-center ">
-                                                            {% if tour.avatar %}
-                                                                <img src="{{tour.avatar.url}}" class="org-profile-photo" id="profilePhoto" alt="">
+                                                            {% if form.avatar %}
+                                                                <img src="{{form.avatar.value.url}}" class="org-profile-photo" id="profilePhoto" alt="">
                                                             {% else %}
                                                                 <img src="{% static 'images/default.png' %}" class="org-profile-photo" id="profilePhoto" alt="">
                                                             {% endif %}
@@ -240,7 +208,7 @@
                                             </div>
 
                                             <div class="d-flex full justify-content-end">
-                                                <input type="submit" value="Save Tour" class="btn btn-success">
+                                                <input type="submit" value="Save Changes" class="btn btn-success">
                                             </div>
                                         </div>
                                     </div>

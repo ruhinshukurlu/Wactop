@@ -3,11 +3,11 @@ var photo_count = 1
 // console.log(photo_box);
 
 for(let i=1; i<photo_box.length; i++){
-    $(photo_box[i]).css('display','none')
+    $(photo_box[i]).css('visibility','hidden')
 }
 
 function addPhoto(){
-    $(photo_box[photo_count]).show()
+    $(photo_box[photo_count]).css('visibility','unset')
     photo_count++
 }
 
@@ -16,11 +16,11 @@ var schedule_box = $('#schedule-form-box').children('.photo-item')
 var schedule_count = 1
 
 for(let i=1; i<schedule_box.length; i++){
-    $(schedule_box[i]).css('display','none')
+    $(schedule_box[i]).css('visibility','hidden')
 }
 
 function addSchedule(){
-    $(schedule_box[schedule_count]).show()
+    $(schedule_box[schedule_count]).css('visibility','unset')
     schedule_count++
 }
 
@@ -59,11 +59,11 @@ var url_box = $('#urls').children('.form-group')
 
 var url_count = 3
 for(let i=3; i<url_box.length; i++){
-    $(url_box[i]).css('display','none')
+    $(url_box[i]).css('visibility','hidden')
 }
 
 function addurl(){
-    $(url_box[url_count]).show()
+    $(url_box[url_count]).css('visibility','unset')
     url_count++
 }
 

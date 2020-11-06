@@ -118,8 +118,8 @@
                     {% for tour in tours %}
                         <div class="col-12 col-lg-3 col-md-4 col-sm-6">
                             <div class="tour-item">
-                                <a href="{% url 'tour:detail' tour.pk %}">
-                                    <div class="d-column">
+                                <a href="{% url 'tour:detail' tour.pk %}" class="full">
+                                    <div class="d-column full">
                                         {% if tour.avatar %}
                                             <img src="{{tour.avatar.url}}" alt="">
                                         {% else %}

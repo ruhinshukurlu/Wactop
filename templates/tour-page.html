@@ -14,7 +14,12 @@
     <link rel="stylesheet" href="{% static 'css/tour-page/owl.carousel.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/owl.theme.default.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/dropdown-menu-style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
     <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-style.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-responsive.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/reset.css' %}" />
 
@@ -66,19 +71,9 @@
 </head>
 
 <body>
-    <header>
-        <div class="full">
-            <div class="head-up">
-                <div class="head-up-left">
-                    <button class="menu-btn">
-                        <i class="fas fa-bars"></i>
-                    </button>
-                    <a href="{% url 'main:home' %}" >
-                        <img src="{% static 'images/wactop.png' %}" alt="Wactop" width="180" class="mb-2" />
-                    </a>
-                </div>
-            </div>
-
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+    <div class="">
             <div class="head-bottom head-bottom-img">
                 <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%}" alt="" class="back-img" />
             </div>
@@ -119,10 +114,6 @@
                 </div>
             </div>
         </div>
-    </header>
-    
-    {% include 'partials/main-menu.html' %}
-
 
     <main id="main">
         <div class="cover-menu">
@@ -130,7 +121,7 @@
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="left">
-                            <p class="word">
+                            <p class="pt-4 word">
                                 {{description|capfirst}}
                             </p>
                             <nav class="details">
@@ -167,10 +158,10 @@
                     <div class="col-lg-2">
                         <div class="right">
                             <p>{{tour.datefrom}} - {% if tour.dateto %}{{tour.dateto}}{%endif%}</p>
-                            <div class="right-list">
+                            <div class="right-list pt-2">
                                 <span><i class="fas fa-clock"></i></span>
                                 <nav>
-                                    <ul class="day-count-list">
+                                    <ul class="day-count-list mb-0">
                                         <li class='day'>{%if tour.durationday%} {{tour.durationday}} day {%endif%}</li>
                                         <li>{%if tour.durationnight%} {{tour.durationnight}} night {%endif%}</li>
                                     </ul>

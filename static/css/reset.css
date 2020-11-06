@@ -142,4 +142,7 @@ ol li{
     position: fixed;
     width: 100%;
 }
+button{
+	outline: none !important;
+}
 

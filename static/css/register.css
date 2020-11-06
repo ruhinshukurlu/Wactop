@@ -36,15 +36,92 @@ header {
     float: left;
 }
 /* menu design */
-
-.menu-btn{
-    width: 45px;
-    padding: 5px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    outline: none;
+body{
+    background-color: #F2F2F2;
 }
+
+
+#header{
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
+}
+.menu_btn{
+    border: 1px solid #f7F9F9;
+    border-radius: 5px;
+    width: 40px;
+    height: 40px;
+}
+
+.menu_btn i{
+    color: #f7F9F9;
+    font-size: 18px;
+}
+
+.user-profile{
+    color: #fff;
+}
+
+.custom-container{
+    max-width: 85%;
+    margin: auto;
+}
+
+.inner-container{
+    max-width: 80%;
+    margin: auto;  
+}
+
+
+.company-admin-container .col-3{
+    display: flex;
+    justify-content: center;
+}
+
+.company-admin-container a{
+    width: 100%;
+    height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 20px;
+    background-color: #0093E9;
+    background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+}
+
+.company-admin-container i{
+    font-size: 40px;
+    margin-right: 10px;
+}
+
+.tour-menu-list li{
+    display: flex;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    transition: .4s;
+}
+
+.tour-menu-list li:hover{
+    color: #0093E9;
+    border-bottom: 1px solid #0093E9;
+}
+
+.number{
+    color: #fff;
+    background-color: #ccc;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 5px;
+}
+
 
 .menu-btn:hover{
     border-color: #fff;
@@ -71,18 +148,48 @@ header {
     box-shadow: 9px -1px 57px -16px rgba(255,255,255,0.73);
 }
 
-.menu-box-in-head{
-    height: 53px;
-    background-color: #3e3c3d;
-}
-
-.menu-box-in-head img{
-    position: absolute;
-    left: 60px;
+.menu-box-in-head {
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
 }
 
 .close-btn svg{
     color: #fff;
+}
+
+.close-btn {
+    position: absolute;
+    top: 5px;
+    right: -50px;
+    width: 45px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.close-btn:hover{
+    border-color: #fff;
+}
+.main-menu-list{
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    text-align: center;
+}
+.main-menu-list a{
+    font-size: 18px;
+    color:#000;
+    font-weight: 700;
+    transition: .2s;
+}
+.main-menu-list a:hover{
+    text-decoration: none;
+    color: #1679f0;
+}
+
+.close-btn i{
+    color: #fff;
+    font-size: 25px;
+    margin: 5px;
 }
 
 .close-btn{
@@ -97,6 +204,7 @@ header {
 .close-btn:hover{
     border-color: #fff;
 }
+
 .main-menu-list{
     display: flex;
     flex-direction: column;
@@ -105,20 +213,72 @@ header {
 }
 
 .main-menu-list li{
-    margin-bottom: 8px;
-    padding: 5px;
     border-bottom: 1px solid #000;
 }
 .main-menu-list a{
     font-size: 18px;
     color:#000;
     font-weight: 700;
-    transition: .2s;
+    transition: .4s;
+    width: 100%;
+    padding: 10px;
 }
 .main-menu-list a:hover{
     text-decoration: none;
     color: #1679f0;
 }
+
+
+.org-actions{
+    margin-bottom: 10px;
+}
+
+.org-actions h3{
+    color: #777782;
+}
+
+.tour-list,
+.organizer-list{
+    margin-bottom: 130px;
+}
+
+.delete-edit-box{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.delete-edit-box .edit-btn{
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #65B5F8;
+    border: 1px solid #65B5F8;
+    margin-right: 10px;
+    transition: .4s;
+}
+
+.delete-edit-box .delete-btn{
+    background-color: #fff;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    color: #f73f3f;
+    border: 1px solid #f73f3f;
+    transition: .4s;
+}
+
+.delete-edit-box .delete-btn:hover{
+    background-color: #f73f3f;
+    color: #fff;
+}
+
+.delete-edit-box .edit-btn:hover{
+    background-color: #65B5F8;
+    color: #fff;
+}
+
 /* end of menu design */
 
 label, p {
@@ -130,7 +290,7 @@ button:hover{
 }
 .custom-container{
     max-width: 60%;
-    background-color: #fff;
+    /* background-color: #fff; */
     clear: both;
 }
 .cover-img-box{

@@ -84,7 +84,7 @@ header {
     position: relative;
     width: 100%;
     float: left;
-    height: calc(100vh - (50px + 326px));
+    height: calc(100vh - (60px + 326px));
     display: flex;
     justify-content: center;
     align-items: center;
@@ -186,11 +186,6 @@ header {
 
 .footer-bottom{
     background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
-}
-.full {
-    position: relative;
-    width: 100%;
-    float: left;
 }
 .foot-list {
     display: flex;

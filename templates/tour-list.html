@@ -115,47 +115,53 @@
                 </div>
 
                 <div class="row tour-list">
-                    {% for tour in tours %}
-                        <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-                            <div class="tour-item">
-                                <a href="{% url 'tour:detail' tour.pk %}" class="full">
-                                    <div class="d-column full">
-                                        {% if tour.avatar %}
-                                            <img src="{{tour.avatar.url}}" alt="">
-                                        {% else %}
-                                            <img src="{% static 'images/default.png' %}" alt="">
-                                        {% endif %}
-                                        <div class="card-body">
-                                            <div class="title border-bottom mb-3">
-                                                {{tour.title|capfirst|truncatechars:25 }}
-                                            </div>
-                                            <div class="d-column">
-                                                
-                                                <div class="d-flex">
-                                                    <span class="bold mr-2">Location : </span>
-                                                    <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                    {% if tours %}
+                        {% for tour in tours %}
+                            <div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                                <div class="tour-item">
+                                    <a href="{% url 'tour:detail' tour.pk %}" class="full">
+                                        <div class="d-column full">
+                                            {% if tour.avatar %}
+                                                <img src="{{tour.avatar.url}}" alt="">
+                                            {% else %}
+                                                <img src="{% static 'images/default.png' %}" alt="">
+                                            {% endif %}
+                                            <div class="card-body">
+                                                <div class="title border-bottom mb-3">
+                                                    {{tour.title|capfirst|truncatechars:25 }}
                                                 </div>
-                                                <div class="d-flex">
-                                                    <span class="bold mr-2">Company : </span>
-                                                    <span>{{tour.organizer.organizer_name}}</span>
-                                                </div>
-                                                <div class="d-flex full justify-content-between mt-3">
-                                                    <div class="price">
-                                                        {{tour.price}} {{tour.currency}}
+                                                <div class="d-column">
+                                                    
+                                                    <div class="d-flex">
+                                                        <span class="bold mr-2">Location : </span>
+                                                        <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
                                                     </div>
-                                                    <div class="duration align-center">
-                                                        <i class="far fa-clock mr-1"></i>
-                                                        {{tour.durationday}} days
+                                                    <div class="d-flex">
+                                                        <span class="bold mr-2">Company : </span>
+                                                        <span>{{tour.organizer.organizer_name}}</span>
+                                                    </div>
+                                                    <div class="d-flex full justify-content-between mt-3">
+                                                        <div class="price">
+                                                            {{tour.price}} {{tour.currency}}
+                                                        </div>
+                                                        <div class="duration align-center">
+                                                            <i class="far fa-clock mr-1"></i>
+                                                            {{tour.durationday}} days
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
 
+                                            </div>
                                         </div>
-                                    </div>
-                                </a>
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                    {% endfor %} 
+                        {% endfor %} 
+                    {% else %}
+                        <h3 class="full bold text-center" style="height: 400px;">
+                            No Tours added <i class="far fa-folder-open ml-2"></i>
+                        </h3>
+                    {% endif %}
                    
                 </div>
                 <div class="row mt-5">

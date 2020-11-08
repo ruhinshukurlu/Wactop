@@ -46,14 +46,14 @@ class OrganizerRegisterForm(UserCreationForm):
                     'class': 'form-input',
                     'placeholder' : 'Description',
                     'cols': "10",
-                    'rows' : "2"
+                    'rows' : "5"
 
                 }),label='Description')
     about = forms.CharField(max_length=250, widget=forms.Textarea(attrs={
                     'class': 'form-input',
                     'placeholder' : 'About you...',
                     'cols': "10",
-                    'rows' : "2"
+                    'rows' : "5"
 
                 }), label='About')
     address = forms.CharField(max_length=150, widget=forms.TextInput(attrs={

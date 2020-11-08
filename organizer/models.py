@@ -78,3 +78,15 @@ class Instructor(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Contact(models.Model):
+
+    first_name = models.CharField(_("First Name"), max_length=50)
+    last_name = models.CharField(_("Last Name"), max_length=50)
+    email = models.EmailField(_("Email"), max_length=254)
+    phone_number = models.CharField(_("Phone Number"), max_length=50)
+    message = models.TextField(_("Message"))
+
+    def __str__(self):
+        return self.first_name

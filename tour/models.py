@@ -6,6 +6,8 @@ from django.dispatch import receiver
 import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
+from django.utils.translation import ugettext as _
+
 
 status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past')]
 
@@ -55,6 +57,8 @@ class Tour(models.Model):
     cover = models.ImageField(upload_to='tour/cover/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
     guide = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
+
+    map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
 
     def __str__ (self):
         return self.title

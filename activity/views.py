@@ -5,15 +5,8 @@ from django.views.generic.list import ListView
 
 from .models import *
 from tour.models import *
-# pip install psycopg2
 
 
-# style = Type.objects.all()
-# data = Activity.objects.all()
-# country = []
-# for i in data:
-#     if i.country not in country:
-#         country.append(i.country)
 
 tour_types = TourType.objects.all()
 tour_type_list = []

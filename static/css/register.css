@@ -353,14 +353,21 @@ button:hover{
     font-size: 25px;
 }
 .f-size label{
-    font-size: 13px; 
+    font-size: 15px; 
 }
 .form-input{
     border: 1px solid #D2D3D3;
     padding: 5px;
     border-radius: 5px;
     width: 100%;
-}.form-input::placeholder{
+    
+}
+
+.form-input:not(textarea){
+    height: 45px;
+}
+
+.form-input::placeholder{
     color: #8C8C8C
 ;
 }.form-input:focus{
@@ -401,3 +408,44 @@ button:hover{
     background-color: #0277bd;
     border: 8px double #fff
 }
+
+.user-profile img{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-profile:hover{
+    color: #ccc;
+    cursor: pointer;
+}
+
+.header-menu{
+    display: none;
+    z-index: 1; 
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(153,153,153,.4);
+    right: 5px;
+}
+
+.header-menu li{
+    padding: 7px 50px;
+    transition: .4s;
+}
+
+.header-menu li:hover{
+    background-color: #d3d3d3;
+    color: #4CAEFF;
+}
+
+.header-menu a{
+    text-decoration: none;
+    color: rgb(63, 63, 63);
+}
+
+.user-profile:hover .header-menu{
+    display: block;
+}
+

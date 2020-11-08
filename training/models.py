@@ -2,6 +2,8 @@ from django.db import models
 from organizer.models import *
 from tour.models import status_choices, Type, TourType
 from multiselectfield import MultiSelectField
+from django.utils.translation import ugettext as _
+
 import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
@@ -26,7 +28,6 @@ class Training(models.Model):
     descriptionen = models.TextField(blank=True, null=True)
     descriptionru = models.TextField(blank=True, null=True)
     training_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='training')
-    # training_type = models.ManyToManyField(Type, verbose_name=("type"), related_name="training", blank=True)
 
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
@@ -46,7 +47,14 @@ class Training(models.Model):
     trainer = models.CharField(max_length=31, blank=True, null=True)
     availabledays = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
+
+    start_hour = models.TimeField(_("Start Hour"))
+    finish_hour = models.TimeField(_("Finish Hour"))
+
+    map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
+    
     old_status = None
+
     def __init__(self, *args, **kwargs):
         super(Training, self).__init__(*args, **kwargs)
         self.old_status = self.status

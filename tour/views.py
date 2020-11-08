@@ -21,7 +21,6 @@ for tour in tours:
         country_list.append(tour.country)
 
 
-
 class TourListView(ListView):
     model = Tour
     context_object_name = 'tours'
@@ -40,7 +39,9 @@ class TourListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        
         context["countries"] = country_list
+        print(country_list)
         context['tour_types'] = tour_type_list
         return context
     

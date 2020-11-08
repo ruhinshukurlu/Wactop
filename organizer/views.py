@@ -368,6 +368,14 @@ class TrainingDeleteView(DeleteView):
     def get_success_url(self):
         return reverse_lazy('organizer:organizer-actions')
 
+class ContactView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = "contact.html"
+
+    def get_success_url(self):
+        return reverse_lazy('main:home')
+
 
 def OrganizerTour(request):
     image_formset = modelformset_factory(TourImage, fields=('image', ), extra=10, form=OrganizerTourImageForm, validate_max=2)

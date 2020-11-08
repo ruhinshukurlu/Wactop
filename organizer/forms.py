@@ -93,7 +93,7 @@ class OrganizerTourForm(forms.ModelForm):
     
     class Meta:
         model = Tour
-        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', ]
+        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
 
         widgets = {
 
@@ -128,6 +128,10 @@ class OrganizerTourForm(forms.ModelForm):
             'address' : forms.TextInput(attrs={
                 'class' : 'form-input',
                 'placeholder' : 'Address'
+            }),
+            'map_link' : forms.URLInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Add Map link here'
             })
         }
 
@@ -199,7 +203,7 @@ class OrganizerActivityForm(forms.ModelForm):
     
     class Meta:
         model = Activity
-        fields = [ 'title','city','country','address','guide','descriptionen','descriptionaz','descriptionru', 'activity_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', ]
+        fields = [ 'title','city','country','address','guide','descriptionen','descriptionaz','descriptionru', 'activity_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
 
         widgets = {
 
@@ -234,6 +238,10 @@ class OrganizerActivityForm(forms.ModelForm):
             'address' : forms.TextInput(attrs={
                 'class' : 'form-input',
                 'placeholder' : 'Address'
+            }),
+             'map_link' : forms.URLInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Add Map link here'
             })
         }
     
@@ -296,14 +304,24 @@ class OrganizerTrainingForm(forms.ModelForm):
         'type' : 'date'
     }))
 
-    guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
+    start_hour = forms.TimeField(widget = forms.TimeInput(attrs={
+        'class' : 'form-input',
+        'type' : 'time'
+    }), required=False)
+
+    finish_hour = forms.TimeField(widget = forms.TimeInput(attrs={
+        'class' : 'form-input',
+        'type' : 'time'
+    }), required=False)
+
+    # guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
     descriptionen = forms.CharField(label = 'Training Description in English', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
     descriptionaz = forms.CharField(label = 'Training Description in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
     descriptionru = forms.CharField(label = 'Training Description in Russia', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
     
     class Meta:
         model = Training
-        fields = ['title', 'descriptionen','descriptionaz','descriptionru', 'training_type', 'country', 'city','address', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', ]
+        fields = ['title', 'descriptionen','descriptionaz','descriptionru', 'training_type', 'country', 'city','address', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'start_hour', 'finish_hour', 'avatar', 'cover', 'trainer','map_link']
 
         widgets = {
 
@@ -338,6 +356,14 @@ class OrganizerTrainingForm(forms.ModelForm):
             'address' : forms.TextInput(attrs={
                 'class' : 'form-input',
                 'placeholder' : 'Address'
+            }),
+            'trainer' : forms.TextInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Who is trainer?'
+            }),
+             'map_link' : forms.URLInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Add Map link here'
             })
         }
 
@@ -415,4 +441,35 @@ class OrganizerEditForm(forms.ModelForm):
         }
 
 
+
+class ContactForm(forms.ModelForm):
+    
+    class Meta:
+        model = Contact
+        fields = ("first_name", 'last_name','email', 'phone_number', 'message',)
+
+        widgets = {
+            'first_name' : forms.TextInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Enter First Name'
+            }),
+            'last_name' : forms.TextInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Enter Last Name'
+            }),
+            'email' : forms.EmailInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Enter Email'
+            }),
+            'phone_number' : forms.TextInput(attrs={
+                'class' : 'form-input',
+                'id' : 'phone',
+                'type' : 'tel'
+            }),
+            'message' : forms.Textarea(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Message...',
+                'rows' : '5'
+            })
+        }
 

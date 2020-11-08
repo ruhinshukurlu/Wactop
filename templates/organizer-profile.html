@@ -24,76 +24,91 @@
   
     <main>
         <div class="custom-container company-admin-container mt-5">
-            <div class="row justify-content-center">
-                <div class="col-3">
-                    <a href="{% url 'organizer:detail' request.user.organizer.pk %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-home"></i>
-                            <span>{{request.user.organizer.organizer_name}}</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:add_tour' %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-directions"></i>
-                            <span>Add Tour</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:add_training' %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-running"></i>
-                            <span>Add Training</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:add_activity' %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-hiking"></i>
-                            <span>Add Activity</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:organizer_edit' request.user.organizer.pk %}" class="link-box">
-                        <div class="align-center"> 
-                            <i class="fas fa-user-edit"></i>
-                            <span>Edit Informations</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:organizer-photos' %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-camera-retro"></i>
-                            <span>Photos</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:guides-instructors' %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-chalkboard-teacher"></i>
-                            <span>Guides & Instructors</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="{% url 'organizer:organizer-actions' %}" class="link-box">
-                        <div class="align-center">
-                            <i class="fas fa-history"></i>
-                            <div class="d-column">
-                                <span>Tours</span>
-                                <span>Activities</span>
-                                <span>Trainings</span>
+            {% if request.user.is_organizer %}
+                <div class="row justify-content-center">
+                    <div class="col-3">
+                        <a href="{% url 'organizer:detail' request.user.organizer.pk %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-home"></i>
+                                <span>{{request.user.organizer.organizer_name}}</span>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:add_tour' %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-directions"></i>
+                                <span>Add Tour</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:add_training' %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                                <span>Add Training</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:add_activity' %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-hiking"></i>
+                                <span>Add Activity</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:organizer_edit' request.user.organizer.pk %}" class="link-box">
+                            <div class="align-center"> 
+                                <i class="fas fa-edit"></i>
+                                <span>Edit Informations</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:organizer-photos' %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-camera-retro"></i>
+                                <span>Photos</span>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:guides-instructors' %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-users"></i>
+                                <div class="d-column">
+                                    <span>Guides &</span>
+                                    <span>Instructors</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-3">
+                        <a href="{% url 'organizer:organizer-actions' %}" class="link-box">
+                            <div class="align-center">
+                                <i class="fas fa-history"></i>
+                                <div class="d-column">
+                                    <span>Tours</span>
+                                    <span>Activities</span>
+                                    <span>Trainings</span>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
-            </div>
+            
+            {% else %}
+                <div class="row justify-content-center">
+                    <div class="d-column">
+                        <h3 class="bold text-center">You don't have access to this page.</h3>
+                        <p class="text-center mb-5">Because you didn't register as organizer</p>
+                        <a href="{% url 'organizer:organizer-register' %}" class="btn" style="height: 70px;">Switch Account</a>
+                    </div>
+                </div>
+                
+            {% endif %}
         </div>
     </main>
     

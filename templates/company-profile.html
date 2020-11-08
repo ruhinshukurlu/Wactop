@@ -151,10 +151,11 @@
             </div>
 
             <div class="row mb-4">
+                {% if guides %}
                 <h2 class="full bold border-bottom pb-2 mb-4">Guides</h2>
                 
                 <div class="inner-container full">
-                    {% if guides %}
+                    
                         <table class="table mb-5">
                             <thead class="thead-light">
                             <tr>
@@ -177,18 +178,17 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                    {% else %}
-                        <h3 class="full bold text-center">
-                            No Guides
-                        </h3>
-                    {% endif %}
+                    
+                    
                     
                 </div>
 
-                <h2 class="full bold border-bottom pb-2 mb-4">Instructors</h2>
-                
-                <div class="inner-container full">
-                    {% if instructors %}
+                {% endif %}
+
+                {% if instructors %}
+                    <h2 class="full bold border-bottom pb-2 mb-4">Instructors</h2>
+                    
+                    <div class="inner-container full">
                         <table class="table">
                             <thead class="thead-light">
                             <tr>
@@ -210,74 +210,68 @@
                                 {% endfor %}
                             </tbody>
                         </table>
-                    {% else %}
-                        <h3 class="full bold text-center">
-                            No Instructors
-                        </h3>
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="row">
-                <h2 class="full bold border-bottom pb-2 mb-3">Tours</h2>
-                {% if tours %}
-                    <div class="owl-carousel owl-theme">
-                        {% for tour in tours %}
-                            <div class="item">
-                                <div class="tour-item">
-                                    <a href="{% url 'tour:detail' tour.pk %}">
-                                        <div class="d-column">
-                                            {% if tour.avatar %}
-                                                <img src="{{tour.avatar.url}}" alt="">
-                                            {% else %}
-                                                <img src="{% static 'images/default.png' %}" alt="">
-                                            {% endif %}
-                                            <div class="card-body">
-                                                <div class="title border-bottom mb-3">
-                                                    {{tour.title}}
-                                                </div>
-                                                <div class="d-column">
-                                                        
-                                                    <div class="d-flex">
-                                                        <span class="bold mr-2">Location : </span>
-                                                        <span>{{tour.city}}, {{tour.country}}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class="bold mr-2">Company : </span>
-                                                        <span>{{tour.organizer.organizer_name}}</span>
-                                                    </div>
-                                                    <div class="d-flex full justify-content-between mt-3">
-                                                        <div class="price">
-                                                            {{tour.price}} {{tour.currency}}
-                                                        </div>
-                                                        <div class="duration align-center">
-                                                            <i class="far fa-clock mr-1"></i>
-                                                            {{tour.duration}} days
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %}
                     </div>
-                    <div class="d-flex full justify-content-end">
-                        <a href="#">Show all</a>
-                    </div>
-                {% else %}
-                    <h3 class="full bold text-center">No Tours</h3>
                 {% endif %}
             </div>
+
+            {% if tours %}
+                <div class="row">
+                    <h2 class="full bold border-bottom pb-2 mb-3">Tours</h2>
+                        <div class="owl-carousel owl-theme">
+                            {% for tour in tours %}
+                                <div class="item">
+                                    <div class="tour-item">
+                                        <a href="{% url 'tour:detail' tour.pk %}" class="full">
+                                            <div class="d-column full">
+                                                {% if tour.avatar %}
+                                                    <img src="{{tour.avatar.url}}" alt="">
+                                                {% else %}
+                                                    <img src="{% static 'images/default.png' %}" alt="">
+                                                {% endif %}
+                                                <div class="card-body">
+                                                    <div class="title border-bottom mb-3">
+                                                        {{tour.title}}
+                                                    </div>
+                                                    <div class="d-column">
+                                                            
+                                                        <div class="d-flex">
+                                                            <span class="bold mr-2">Location : </span>
+                                                            <span>{{tour.city}}, {{tour.country}}</span>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <span class="bold mr-2">Company : </span>
+                                                            <span>{{tour.organizer.organizer_name}}</span>
+                                                        </div>
+                                                        <div class="d-flex full justify-content-between mt-3">
+                                                            <div class="price">
+                                                                {{tour.price}} {{tour.currency}}
+                                                            </div>
+                                                            <div class="duration align-center">
+                                                                <i class="far fa-clock mr-1"></i>
+                                                                {{tour.duration}} days
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="d-flex full justify-content-end">
+                            <a href="#">Show all</a>
+                        </div>
+                </div>
+            {% endif %}
 
             <div class="row">
                 <h2 class="full bold border-bottom pb-2 mb-3">Photos</h2>
                 <div class="owl-carousel owl-theme photo-list">
                     {% for image in images %}
                         <div class="item">
-                            <a data-fancybox="gallery" href="{{image.image.url}}"><img src="{{image.image.url}}"></a>
+                            <a data-fancybox="gallery" class="full" href="{{image.image.url}}"><img src="{{image.image.url}}"></a>
                         </div>
                     {% endfor %}
                 </div>

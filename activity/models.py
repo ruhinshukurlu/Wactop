@@ -4,6 +4,8 @@ from tour.models import status_choices, Type, TourType
 from multiselectfield import MultiSelectField
 import smtplib
 from django.core.mail import send_mail
+from django.utils.translation import ugettext as _
+
 from Wactop.mail import *
 
 
@@ -43,6 +45,10 @@ class Activity(models.Model):
     guide = models.CharField(max_length=31, blank=True, null=True)
     availabledays = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
+
+    map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
+
+
     old_status = None
     def __init__(self, *args, **kwargs):
         super(Activity, self).__init__(*args, **kwargs)

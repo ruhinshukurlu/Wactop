@@ -151,6 +151,7 @@ header {
     justify-content: center;
     align-items: center;
     padding-top: 24px;
+    background-color: #fff;
 }
 .owl-carousel {
     width: 65%;
@@ -267,7 +268,7 @@ a {
 #partners-crsl{
     height: auto !important;
     width: 50% !important;
-    background-color: red !important;
+    /* background-color: red !important; */
     margin: auto !important;
 }
 #partners-crsl img{

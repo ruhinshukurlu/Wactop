@@ -5,15 +5,10 @@ from django.views.generic.list import ListView
 
 from .models import *
 from tour.models import *   
-# pip install psycopg2
 
 
 training_types = TourType.objects.all()
-# data = Training.objects.all()
-# country = []
-# for i in data:
-#     if i.country not in country:
-#         country.append(i.country)
+
 training_type_list = []
 
 for training_type in training_types:

@@ -402,6 +402,8 @@ box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
     height: 300px;
     object-fit: cover;
     border-radius: 15px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
 }
 
 .tour-item img{
@@ -434,7 +436,7 @@ box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
 
 .stars i{
     color:#DEDE05;
-    font-size: 25px;
+    font-size: 18px;
 }
 
 .tour-item .stars i{
@@ -459,6 +461,7 @@ box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
 }
 
 .saved-item .card-body{
+    padding: 10px 15px;
     padding-top: 35px;
 }
 
@@ -539,8 +542,8 @@ h4{
     position: absolute;
     left: 100px;
     bottom: 10px;
-    width: 170px;
-    height: 170px;
+    width: 150px;
+    height: 150px;
 }
 
 .search_btn {
@@ -775,6 +778,7 @@ h4{
     position: absolute;
     right: 10px;
     top: 10px;
+    z-index: 1;
 }
 
 .delete-edit-box .edit-btn{
@@ -806,4 +810,31 @@ h4{
 .delete-edit-box .edit-btn:hover{
     background-color: #65B5F8;
     color: #fff;
+}
+
+.help-btn i{
+    color: #47a7f7;
+    font-size: 18px;
+}
+
+
+.comment-author-profile-img,
+.reserve-author-profile-img{
+    width: 60px;
+}
+
+.comment-item{
+    margin-bottom: 40px;
+    border-bottom: 1px solid #ccc;
+}
+
+.comment-replies {
+    max-width: 80%;
+    align-self: flex-end;
+    margin-top: 20px;
+}
+
+.reply-btn{
+    color: #37a1f8;
+    font-weight: bold;
 }

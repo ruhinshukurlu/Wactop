@@ -99,3 +99,8 @@ $('.menu-btn').click(function(){
     },300);
     $('body').css("overflow","auto");
   });
+
+
+  $('.help-btn').click(function(){
+      $('.help-text').toggle()
+  })

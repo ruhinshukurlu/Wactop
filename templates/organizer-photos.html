@@ -61,18 +61,24 @@
                         </form>
                     </div>
 
-                    <div class="row">
+                    <div class="row full">
                         <h3 class="full bold border-bottom pb-2 mb-4">Your Photos</h3>
-                        <div class="row row-cols-5 company-photos">
-                            {% for photo in photos %}
-                                <div class="col">
-                                    <a href="{% url 'organizer:organizer-photo-edit' photo.pk %}">
-                                        <img src="{{photo.image.url}}" alt="">
-                                    </a>
-                                </div>
-                            {% endfor %}
-                           
-                        </div>
+                        {% if photos %}
+                            <div class="row row-cols-5 company-photos full">
+                                {% for photo in photos %}
+                                    <div class="col">
+                                        <a href="{% url 'organizer:organizer-photo-edit' photo.pk %}">
+                                            <img src="{{photo.image.url}}" alt="">
+                                        </a>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            <h3 class="full bold text-center" style="height: 200px;">
+                                No Photo added<i class="far fa-folder-open ml-2"></i>
+                            </h3>
+                        {% endif %}
+                        
                     </div>
 
                 </div>

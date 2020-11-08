@@ -37,4 +37,6 @@ urlpatterns = [
     path("activities/<int:pk>/delete", ActivityDeleteView.as_view(), name="activity-delete"),
     path("trainigs/<int:pk>/delete", TrainingDeleteView.as_view(), name="training-delete"),
 
+    path("contact/", ContactView.as_view(), name="contact")
+
 ]

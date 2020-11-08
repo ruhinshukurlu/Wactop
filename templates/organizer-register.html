@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->
+    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->  
     <link rel="stylesheet" href="{% static 'css/register.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
@@ -27,7 +27,7 @@
   {% include 'partials/header.html' %}
   {% include 'partials/main-menu.html' %}
 <main class="pt-5">
-    <div class="container custom-container mt-5 ">
+    <div class="container custom-container mt-5 mb-5 bg-white shadow">
         <div class="row">
             <div class="col-12 pt-3">
                 <form class="form-box" method="POST" enctype="multipart/form-data">
@@ -135,9 +135,9 @@
                           {{form.instagram.errors}}
                       </div>
                     </div>
-                    <div class="form-group row justify-content-end f-size">
-                        <div class="" style="width: 25%;">
-                          <input type="submit" value="Register" class="btn btn-outline-secondary">
+                    <div class="form-group row justify-content-center f-size">
+                        <div class="col-9 justify-content-end d-flex">
+                          <input type="submit" value="Register" class="btn btn-outline-success">
                         </div>
                     </div>
 
@@ -147,6 +147,8 @@
         </div>
     </div>
 </main>
+
+
 
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

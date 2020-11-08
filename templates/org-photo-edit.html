@@ -54,69 +54,81 @@
                 {% include 'partials/organizer-menu.html' %}
             </div>
             <div class="col-10">
-                <div class="custom-container mt-5">
-                    <div class="row mb-5 d-flex justify-content-end">
-                        <h3 class="full bold border-bottom pb-2 mb-4">Edit Photo</h3>
-                        <div class="row full justify-content-center mb-3 edit-photo-box">
-                            <div class="col-6">
-                                <h4 class="full bold border-bottom pb-2 mb-3">
-                                    Current Photo
-                                </h4>
-                                <img src="{{photo.image.url}}" alt="">
-                            </div>
-                            <div class="col-6 p-relative">
-                                <h4 class="full bold border-bottom pb-2 mb-3">
-                                    New Photo
-                                </h4>
-                                <img src="{% static 'images/default.png' %}" id='choosen-photo' alt="">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <form method="POST" enctype="multipart/form-data" class="d-flex">
-                                {% csrf_token %}
-                                <div class="d-flex">
-                                    <div class="d-flex add-img-box" id="add-img-box" >
-                                        {{form.image}}
-                                        <label for="id_image" class="align-center m-0 change-photo-btn">
-                                            <i class="fas fa-plus-circle mr-2"></i>
-                                            Change Photo
-                                        </label>
-                                    </div>
+                {% if request.user.organizer == photo.organizer %}
+                    <div class="custom-container mt-5">
+                        <div class="row mb-5 d-flex justify-content-end">
+                            <h3 class="full bold border-bottom pb-2 mb-4">Edit Photo</h3>
+                            <div class="row full justify-content-center mb-3 edit-photo-box">
+                                <div class="col-6">
+                                    <h4 class="full bold border-bottom pb-2 mb-3">
+                                        Current Photo
+                                    </h4>
+                                    <img src="{{photo.image.url}}" alt="">
                                 </div>
-                                <button type="button" class="btn btn-outline-danger ml-2 delete-btn" data-toggle="modal" data-target="#deletePhotoModal">
-                                    <i class="far fa-trash-alt mr-2"></i>
-                                    Delete Photo</button>
-                                <input type="submit" value="Save" class="btn btn-outline-success ml-2 save-btn">
-                            </form>
-                        </div>
-                    </div>
-
-                    <!-- Modal -->
-                    <div class="modal fade" id="deletePhotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Delete Photo</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                                <div class="col-6 p-relative">
+                                    <h4 class="full bold border-bottom pb-2 mb-3">
+                                        New Photo
+                                    </h4>
+                                    <img src="{% static 'images/default.png' %}" id='choosen-photo' alt="">
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <p>Are you sure to delete this photo?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <form action="{% url 'organizer:photo-delete' photo.pk %}" method="post">
+                            <div class="row">
+                                <form method="POST" enctype="multipart/form-data" class="d-flex">
                                     {% csrf_token %}
-                                    <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                    <div class="d-flex">
+                                        <div class="d-flex add-img-box" id="add-img-box" >
+                                            {{form.image}}
+                                            <label for="id_image" class="align-center m-0 change-photo-btn">
+                                                <i class="fas fa-plus-circle mr-2"></i>
+                                                Change Photo
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-outline-danger ml-2 delete-btn" data-toggle="modal" data-target="#deletePhotoModal">
+                                        <i class="far fa-trash-alt mr-2"></i>
+                                        Delete Photo</button>
+                                    <input type="submit" value="Save" class="btn btn-outline-success ml-2 save-btn">
                                 </form>
                             </div>
                         </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="deletePhotoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Delete Photo</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Are you sure to delete this photo?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <form action="{% url 'organizer:photo-delete' photo.pk %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                    </form>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        
+
+                    </div>
+                {% else %}
+                    <div class="custom-container mt-5">
+                        <div class="row justify-content-center">
+                            <div class="d-column">
+                                <h3 class="bold text-center">You don't have access to this page.</h3>
+                                <p class="text-center mb-5">Because you didn't register as organizer or you aren't owner this photo</p>
+                            </div>
                         </div>
                     </div>
-                    
-
-                </div>
+                {% endif %}
+                
             </div>
         </div>
     </main>

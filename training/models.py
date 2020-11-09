@@ -106,5 +106,19 @@ class TrainingSchedule(models.Model):
 class TrainingUrl(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_url')
     url = models.URLField()
+
     def __str__ (self):
         return self.training.title
+
+
+class Comment(models.Model):
+    message = models.TextField(_("Text"))
+    commented_at = models.DateField(_("Commented at"), auto_now_add=True)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True)
+
+    comment_reply = models.ForeignKey("self", verbose_name=_("Comment"), on_delete=models.CASCADE, blank=True, null = True, related_name='replies')
+    training = models.ForeignKey("training.Training", verbose_name=_("Training"), on_delete=models.CASCADE, blank=True, null=True, related_name='comment')
+    user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, blank=True, null=True, related_name='comment')
+   
+    def __str__ (self):
+        return self.message

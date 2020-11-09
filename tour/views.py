@@ -10,15 +10,15 @@ from .models import *
 tour_types = TourType.objects.all()
 tour_type_list = []
 
-for tour_type in tour_types:
-    if tour_type.title not in tour_type_list:
-        tour_type_list.append(tour_type.title)
+# for tour_type in tour_types:
+#     if tour_type.title not in tour_type_list:
+#         tour_type_list.append(tour_type.title)
 
-tours = Tour.objects.all()
-country_list = []
-for tour in tours:
-    if tour.country not in country_list:
-        country_list.append(tour.country)
+# tours = Tour.objects.all()
+# country_list = []
+# for tour in tours:
+#     if tour.country not in country_list:
+#         country_list.append(tour.country)
 
 
 class TourListView(ListView):

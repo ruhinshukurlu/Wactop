@@ -25,6 +25,11 @@ class TrainingAdmin(admin.ModelAdmin):
         model = Training
 
 
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['training','user','message', 'rating','commented_at']
+    
+
 
 admin.site.register(Training, TrainingAdmin)
 admin.site.register(TrainingDetailAZ)

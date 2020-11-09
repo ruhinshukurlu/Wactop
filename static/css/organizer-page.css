@@ -821,11 +821,16 @@ h4{
 .comment-author-profile-img,
 .reserve-author-profile-img{
     width: 60px;
+   
 }
-
+.commented-user{
+    width: 100%;
+    height: 60px;
+    object-fit: cover;
+}
 .comment-item{
     margin-bottom: 40px;
-    border-bottom: 1px solid #ccc;
+    /* border-bottom: 1px solid #ccc; */
 }
 
 .comment-replies {

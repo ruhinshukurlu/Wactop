@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.list import ListView
-
+from training.forms import CommentForm
 from .models import *
 from tour.models import *   
 
@@ -46,6 +46,7 @@ class TrainingListView(ListView):
 
 
 def TrainingList(request):
+
     data = Training.objects.all()
     country = []
     for i in data:
@@ -75,6 +76,8 @@ def TrainingList(request):
         'link': request.build_absolute_uri()
     }
     return render(request, 'training-list.html', context)
+
+
 def TrainingDetailView(request, pk):
     training = Training.objects.get(pk=pk)
     image = TrainingImage.objects.filter(training=training)
@@ -95,7 +98,32 @@ def TrainingDetailView(request, pk):
         detail = TrainingDetailEN.objects.filter(training=training)
         description = training.descriptionen
         lang = 'en'
-    
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid(): 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                    parent_obj = Comment.objects.get(id=parent_id)
+                    print(parent_obj, '==========================')
+                    replay_comment = form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    replay_comment.comment_reply = parent_obj
+                    replay_comment.active = False
+            comment = form.save(commit=False)
+            comment.training = Training.objects.get(pk=pk)
+            comment.user = request.user
+            comment.save()
+            return HttpResponseRedirect(request.path_info)
+    else:
+        form = CommentForm()
 
     context = {
         'tour': training,
@@ -104,7 +132,10 @@ def TrainingDetailView(request, pk):
         'schedule': schedule,
         'url': url,
         'description': description,
-        'lang': lang
+        'lang': lang,
+        'form' : form,
+        'comments' : training.comment.filter(comment_reply__isnull=True),
+        'comments_count': training.comment.all()
     }
     training_view = 'training_'
     training_view += str(pk)

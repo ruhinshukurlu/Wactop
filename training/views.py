@@ -124,6 +124,10 @@ def TrainingDetailView(request, pk):
             return HttpResponseRedirect(request.path_info)
     else:
         form = CommentForm()
+    
+    
+    print(training.comment)
+    # comments = training.comment.filter(comment_reply__isnull=True)
 
     context = {
         'tour': training,
@@ -137,9 +141,11 @@ def TrainingDetailView(request, pk):
         'comments' : training.comment.filter(comment_reply__isnull=True),
         'comments_count': training.comment.all()
     }
+
     training_view = 'training_'
     training_view += str(pk)
     training_view += '_viewed'
+
     if not request.COOKIES.get(training_view):
         response = render(request, 'tour-page.html', context)
         response.set_cookie(training_view, 'true', max_age=604800)
@@ -148,6 +154,8 @@ def TrainingDetailView(request, pk):
         context['tour'] = training
         return response
     return render(request, 'tour-page.html', context)
+
+
 
 
 def TrainingFilter(request):

@@ -834,9 +834,9 @@ h4{
 }
 
 .comment-replies {
-    max-width: 80%;
     align-self: flex-end;
     margin-top: 20px;
+    border-left: 1px solid #ccc;
 }
 
 .reply-btn{

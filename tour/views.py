@@ -7,8 +7,8 @@ from .models import *
 # pip install psycopg2
 
 
-tour_types = TourType.objects.all()
-tour_type_list = []
+# tour_types = TourType.objects.all()
+# tour_type_list = []
 
 # for tour_type in tour_types:
 #     if tour_type.title not in tour_type_list:

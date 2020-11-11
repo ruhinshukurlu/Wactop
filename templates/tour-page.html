@@ -338,234 +338,160 @@
                 <div class="row">
                     {% if not request.user.is_organizer and request.user.is_authenticated %}
                         <div class="col-lg-10 tour-details">
-                            <form action="" method="post" id ='myform' class="p-5 bg-light ">
-                            {% csrf_token %}
-                                <div class="col-12 d-flex align-items-center">
-                                    <ul class="rating-menu d-column full">
-                                        <li class="d-flex">
-                                            <div class="starsBox"> 
-                                                <input type="radio" id="rate-5" name="rating" value="5" > 
-                                                <label for="rate-5" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-4" name="rating" value="4"> 
-                                                <label for="rate-4" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-3" name="rating" value="3"> 
-                                                <label for="rate-3" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-2" name="rating" value="2"> 
-                                                <label for="rate-2" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-1" name="rating" value="1"> 
-                                                <label for="rate-1" class="d-flex justify-content-center align-items-center"></label> 
-                                            </div>  
-                                        </li>
-                                    </ul>
+                            <div class="row">
+                                <div class="col-4">
+                                    <img src="{% static 'images/comments.svg' %}" alt="" width="100%">
                                 </div>
-                                <div class="form-group">
-                                    {{form.message}}
+                                <div class="col-8">
+                                    <form action="" method="post" id ='myform' class="p-5 bg-light ">
+                                        {% csrf_token %}
+                                            <div class="col-12 d-flex align-items-center">
+                                                <ul class="rating-menu d-column full">
+                                                    <li class="d-flex">
+                                                        <div class="starsBox"> 
+                                                            <input type="radio" id="rate-5" name="rating" value="5" > 
+                                                            <label for="rate-5" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-4" name="rating" value="4"> 
+                                                            <label for="rate-4" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-3" name="rating" value="3"> 
+                                                            <label for="rate-3" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-2" name="rating" value="2"> 
+                                                            <label for="rate-2" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-1" name="rating" value="1"> 
+                                                            <label for="rate-1" class="d-flex justify-content-center align-items-center"></label> 
+                                                        </div>  
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                {{form.message}}
+                                            </div>
+                                            <div class="form-group text-right">
+                                                <input type="submit" class=" btn py-3 px-4 btn-primary" id="submit-comment-btn" value="Send Comment">
+                                            </div>
+                                    </form>
                                 </div>
-                                <div class="form-group text-right">
-                                    <input type="submit" class=" btn py-3 px-4 btn-primary" id="submit-comment-btn" value="Send Comment">
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     {% endif %}
-                    <div class="col-lg-10 tour-details pl-5 pt-5">
-                        <h3 class="full bold border-bottom pb-2 mb-5">What {{comments_count.count}} people say about this tour?</h3>
-                        <div class="comments-box container">
-                            <div class="row">
-                                {% for comment in comments %}
-                                    <div class="col-lg-12 comment-item d-column justify-content-end">
-                                        <div class="comment-author d-flex mb-3 justify-content-between">
-                                            <div class="d-flex">
-                                                <div class="comment-author-profile-img mr-2">
-                                                    {% if comment.user.profile_img %}
-                                                        <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
-                                                    {% else %}
-                                                        <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
-                                                    {% endif %}
-                                                </div>
-                                                <div class="d-column">
-                                                    <div class="comment-author-username bold">{{comment.user}} says</div>
-                                                    <div class="posted-date">
-                                                        <p>Commented at {{comment.commented_at}}</p>
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="stars d-flex" data-value='{{comment.rating}}'>
-                                                <div class="star"><i class="far  fa-star"></i></div>
-                                                <div class="star"><i class="far  fa-star"></i></div>
-                                                <div class="star"><i class="far  fa-star"></i></div>
-                                                <div class="star"><i class="far  fa-star"></i></div>
-                                                <div class="star"><i class="far  fa-star"></i></div>
-                                            </div>
-                                        </div>
-                                        <div class="d-column">
-                                            <div class="post-body">
-                                                <p>{{comment.message}}</p>
-                                            </div>
-                                            {% if not request.user.is_organizer and request.user.is_authenticated %}
-                                                <div class="full text-right">
-                                                    <button type="button" class="reply-btn">
-                                                        <i class="far fa-comment-dots mr-1"></i>
-                                                        Reply
-                                                    </button>
-                                                    <form class="p-5 bg-light reply-form" method="POST" >
-                                                    {% csrf_token %}   
-                                                        <div class="col-12 d-flex align-items-center">
-                                                            <ul class="rating-menu d-column full">
-                                                                <li class="d-flex">
-                                                                    <div class="starsBox"> 
-                                                                        <input type="radio" id="comment-rate-5-{{comment.id}}" name="rating" value="5" > 
-                                                                        <label for="comment-rate-5-{{comment.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                        <input type="radio" id="comment-rate-4-{{comment.id}}" name="rating" value="4"> 
-                                                                        <label for="comment-rate-4-{{comment.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                        <input type="radio" id="comment-rate-3-{{comment.id}}" name="rating" value="3"> 
-                                                                        <label for="comment-rate-3-{{comment.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                        <input type="radio" id="comment-rate-2-{{comment.id}}" name="rating" value="2"> 
-                                                                        <label for="comment-rate-2-{{comment.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                        <input type="radio" id="comment-rate-1-{{comment.id}}" name="rating" value="1"> 
-                                                                        <label for="comment-rate-1-{{comment.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                    </div>  
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            {{form.message}}
-                                                            {{form.message.errors}}
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input type="hidden" name="parent_id" value="{{comment.id }}">
-                                                            <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
-                                                        </div>
-                            
-                                                    </form>
-                                                </div>
-                                            {% endif %}
-                                        </div>
-
-                                        {% for reply in comment.replies.all %}
-                                            <div class="col-lg-8 comment-replies">
-                                                <div class="comment-item d-column">
-                                                    <div class="comment-author d-flex mb-3 justify-content-between">
-                                                        <div class="d-flex">
-                                                            <div class="comment-author-profile-img mr-2">
-                                                                {% if reply.user.profile_img %}
-                                                                    <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
-                                                                {% else %}
-                                                                    <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
-                                                                {% endif %}
-                                                            </div>
-                                                            <div class="d-column">
-                                                                <div class="comment-author-username bold">{{reply.user}} says</div>
-                                                                <div class="posted-date">
-                                                                    <p>Commented at {{reply.commented_at}}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="stars d-flex" data-value='{{reply.rating}}'>
-                                                            <div class="star"><i class="far  fa-star"></i></div>
-                                                            <div class="star"><i class="far  fa-star"></i></div>
-                                                            <div class="star"><i class="far  fa-star"></i></div>
-                                                            <div class="star"><i class="far  fa-star"></i></div>
-                                                            <div class="star"><i class="far  fa-star"></i></div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-column">
-                                                        <div class="post-body">
-                                                            <p>{{reply.message}}</p>
-                                                        </div>
-                                                        {% if not request.user.is_organizer and request.user.is_authenticated %}
-                                                            <div class="full text-right">
-                                                                <button type="button" class="reply-btn">
-                                                                    <i class="far fa-comment-dots mr-1"></i>
-                                                                    Reply
-                                                                </button>
-                                                                <form class="p-5 bg-light reply-form" method="POST" >
-                                                                {% csrf_token %}   
-                                                                    <div class="col-12 d-flex align-items-center">
-                                                                        <ul class="rating-menu d-column full">
-                                                                            <li class="d-flex">
-                                                                                <div class="starsBox"> 
-                                                                                    <input type="radio" id="reply-rate-5-{{reply.id}}" name="rating" value="5" > 
-                                                                                    <label for="reply-rate-5-{{reply.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                                    <input type="radio" id="reply-rate-4-{{reply.id}}" name="rating" value="4"> 
-                                                                                    <label for="reply-rate-4-{{reply.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                                    <input type="radio" id="reply-rate-3-{{reply.id}}" name="rating" value="3"> 
-                                                                                    <label for="reply-rate-3-{{reply.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                                    <input type="radio" id="reply-rate-2-{{reply.id}}" name="rating" value="2"> 
-                                                                                    <label for="reply-rate-2-{{reply.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                                    <input type="radio" id="reply-rate-1-{{reply.id}}" name="rating" value="1"> 
-                                                                                    <label for="reply-rate-1-{{reply.id}}" class="d-flex justify-content-center align-items-center"></label> 
-                                                                                </div>  
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        {{form.message}}
-                                                                        {{form.message.errors}}
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <input type="hidden" name="parent_id" value="{{reply.id }}">
-                                                                        <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
-                                                                    </div>
-                                        
-                                                                </form>
-                                                            </div>
+                    
+                        <div class="col-lg-10 tour-details pl-5 pt-5">
+                            <h3 class="full bold border-bottom pb-2 mb-5">What {{comments_count.count}} people say about this tour?</h3>
+                            <div class="comments-box container">
+                                <div class="row">
+                                    {% for comment in comments %}
+                                        <div class="col-lg-12 comment-item d-column justify-content-end">
+                                            <div class="comment-author d-flex mb-3 justify-content-between">
+                                                <div class="d-flex">
+                                                    <div class="comment-author-profile-img mr-2">
+                                                        {% if comment.user.profile_img %}
+                                                            <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
+                                                        {% else %}
+                                                            <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
                                                         {% endif %}
                                                     </div>
-                                                    {% for reply_of_reply in reply.replies.all %}
-                                                        <div class="col-lg-6 comment-replies">
-                                                            <div class=" d-column">
-                                                                <div class="comment-author d-flex mb-3 justify-content-between">
-                                                                    <div class="d-flex">
-                                                                        <div class="comment-author-profile-img mr-2">
-                                                                            {% if reply_of_reply.user.profile_img %}
-                                                                                <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
-                                                                            {% else %}
-                                                                                <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
-                                                                            {% endif %}
-                                                                        </div>
-                                                                        <div class="d-column">
-                                                                            <div class="comment-author-username bold">{{reply_of_reply.user}} says</div>
-                                                                            <div class="posted-date">
-                                                                                <p>Commented at {{reply_of_reply.commented_at}}</p>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                        
-                                                                    <div class="stars d-flex" data-value='{{reply_of_reply.rating}}'>
-                                                                        <div class="star"><i class="far  fa-star"></i></div>
-                                                                        <div class="star"><i class="far  fa-star"></i></div>
-                                                                        <div class="star"><i class="far  fa-star"></i></div>
-                                                                        <div class="star"><i class="far  fa-star"></i></div>
-                                                                        <div class="star"><i class="far  fa-star"></i></div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="d-column">
-                                                                    <div class="post-body">
-                                                                        <p>{{reply_of_reply.message}}</p>
-                                                                    </div>
-                                                                    <!-- <div class="full text-right">
-                                                                        <button type="button" class="reply-btn">
-                                                                            <i class="far fa-comment-dots mr-1"></i>
-                                                                            Reply
-                                                                        </button>
-                                                                        
-                                                                    </div> -->
-                                                                </div>
-                                                                
-                                                            </div>
+                                                    <div class="d-column">
+                                                        <div class="comment-author-username bold">{{comment.user}} says</div>
+                                                        <div class="posted-date">
+                                                            <p>Commented at {{comment.commented_at}}</p>
                                                         </div>
-                                                    {% endfor %}
+                                                    </div>
+                                                </div>
+
+                                                <div class="stars d-flex" data-value='{{comment.rating}}'>
+                                                    <div class="star"><i class="far  fa-star"></i></div>
+                                                    <div class="star"><i class="far  fa-star"></i></div>
+                                                    <div class="star"><i class="far  fa-star"></i></div>
+                                                    <div class="star"><i class="far  fa-star"></i></div>
+                                                    <div class="star"><i class="far  fa-star"></i></div>
                                                 </div>
                                             </div>
-                                        {% endfor %}
-                                    </div>
-                                {% endfor %}
+                                            <div class="d-column">
+                                                <div class="post-body">
+                                                    <p>{{comment.message}}</p>
+                                                </div>
+                                                {% if not request.user.is_organizer and request.user.is_authenticated %}
+                                                    <div class="full text-right">
+                                                        <button type="button" class="reply-btn">
+                                                            <i class="far fa-comment-dots mr-1"></i>
+                                                            Reply
+                                                        </button>
+                                                        <form class="p-5 bg-light reply-form" method="POST" >   
+                                                            {% csrf_token %}   
+                                                            <div class="form-group">
+                                                                {{form.message}}
+                                                                {{form.message.errors}}
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <input type="hidden" name="parent_id" value="{{comment.id }}">
+                                                                <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
+                                                            </div>
+                                
+                                                        </form>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+
+                                            {% for reply in comment.replies.all %}
+                                                <div class="col-lg-11 comment-replies">
+                                                    <div class="comment-item d-column">
+                                                        <div class="comment-author d-flex mb-3 justify-content-between">
+                                                            <div class="d-flex">
+                                                                <div class="comment-author-profile-img mr-2">
+                                                                    {% if reply.user.profile_img %}
+                                                                        <img src="{{reply.user.profile_img.url}}" class=" commented-user" alt="">
+                                                                    {% else %}
+                                                                        <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="d-column">
+                                                                    <div class="comment-author-username bold">{{reply.user}} says</div>
+                                                                    <div class="posted-date">
+                                                                        <p>Commented at {{reply.commented_at}}</p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                
+                                                        
+                                                        </div>
+                                                        <div class="d-column">
+                                                            <div class="post-body">
+                                                                <p>{{reply.message}}</p>
+                                                            </div>
+                                                            {% if request.user.is_authenticated %}
+                                                                <div class="full text-right">
+                                                                    <button type="button" class="reply-btn">
+                                                                        <i class="far fa-comment-dots mr-1"></i>
+                                                                        Reply
+                                                                    </button>
+                                                                    <form class="p-5 bg-light reply-form" method="POST" >
+                                                                    {% csrf_token %}   
+                                                                        
+                                                                        <div class="form-group">
+                                                                            {{form.message}}
+                                                                            {{form.message.errors}}
+                                                                        </div>
+                                                                        <div class="form-group">
+                                                                            <input type="hidden" name="parent_id" value="{{comment.id }}">
+                                                                            <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
+                                                                        </div>
+                                            
+                                                                    </form>
+                                                                </div>
+                                                            {% endif %}
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            
                             </div>
-                           
                         </div>
-                    </div>
+                    
                 </div>
             </div>
 

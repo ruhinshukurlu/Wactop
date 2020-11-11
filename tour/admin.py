@@ -25,7 +25,10 @@ class TourAdmin(admin.ModelAdmin):
     class Meta:
         model = Tour
 
-
+@admin.register(TourComment)
+class TourCommentAdmin(admin.ModelAdmin):
+    list_display = ['tour','user','message', 'rating','commented_at']
+    
 
 admin.site.register(Type)
 admin.site.register(TourType)

@@ -1,12 +1,12 @@
 from django import forms
 from django.forms import ModelForm
-from training.models import Comment
+from tour.models import TourComment
 
 
-class CommentForm(forms.ModelForm):
+class TourCommentForm(forms.ModelForm):
     
     class Meta:
-        model = Comment
+        model = TourComment
         fields = ('rating', 'message',)
         widgets={
             'message': forms.Textarea(attrs={

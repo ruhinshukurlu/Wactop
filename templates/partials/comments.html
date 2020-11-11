@@ -1,0 +1,202 @@
+{% load static %}
+<h3 class="full bold border-bottom pb-2 mb-5">What {{comments_count.count}} people say about this tour?</h3>
+<div class="comments-box container">
+    <div class="row">
+        {% for comment in comments %}
+            <div class="col-lg-12 comment-item d-column justify-content-end">
+                <div class="comment-author d-flex mb-3 justify-content-between">
+                    <div class="d-flex">
+                        <div class="comment-author-profile-img mr-2">
+                            {% if comment.user.profile_img %}
+                                <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
+                            {% else %}
+                                <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="d-column">
+                            <div class="comment-author-username bold">{{comment.user}} says</div>
+                            <div class="posted-date">
+                                <p>Commented at {{comment.commented_at}}</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="stars d-flex" data-value='{{comment.rating}}'>
+                        <div class="star"><i class="far  fa-star"></i></div>
+                        <div class="star"><i class="far  fa-star"></i></div>
+                        <div class="star"><i class="far  fa-star"></i></div>
+                        <div class="star"><i class="far  fa-star"></i></div>
+                        <div class="star"><i class="far  fa-star"></i></div>
+                    </div>
+                </div>
+                <div class="d-column">
+                    <div class="post-body">
+                        <p>{{comment.message}}</p>
+                    </div>
+                    {% if not request.user.is_organizer and request.user.is_authenticated %}
+                        <div class="full text-right">
+                            <button type="button" class="reply-btn">
+                                <i class="far fa-comment-dots mr-1"></i>
+                                Reply
+                            </button>
+                            <form class="p-5 bg-light reply-form" action="{% url 'tour:detail' tour.pk %}" method="POST" >
+                            {% csrf_token %}   
+                                <div class="form-group">
+                                    {{form.message}}
+                                    {{form.message.errors}}
+                                </div>
+                                <div class="form-group">
+                                    <input type="hidden" name="parent_id" value="{{comment.id }}" class='parent_id'>
+                                    <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
+                                </div>
+
+                            </form>
+                        </div>
+                    {% endif %}
+                </div>
+
+                {% for reply in comment.replies.all %}
+                    <div class="col-lg-8 comment-replies">
+                        <div class="comment-item d-column">
+                            <div class="comment-author d-flex mb-3 justify-content-between">
+                                <div class="d-flex">
+                                    <div class="comment-author-profile-img mr-2">
+                                        {% if reply.user.profile_img %}
+                                            <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
+                                        {% else %}
+                                            <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
+                                        {% endif %}
+                                    </div>
+                                    <div class="d-column">
+                                        <div class="comment-author-username bold">{{reply.user}} says</div>
+                                        <div class="posted-date">
+                                            <p>Commented at {{reply.commented_at}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-column">
+                                <div class="post-body">
+                                    <p>{{reply.message}}</p>
+                                </div>
+                                {% if not request.user.is_organizer and request.user.is_authenticated %}
+                                    <div class="full text-right">
+                                        <button type="button" class="reply-btn">
+                                            <i class="far fa-comment-dots mr-1"></i>
+                                            Reply
+                                        </button>
+                                        <form class="p-5 bg-light reply-form" method="POST" >
+                                        {% csrf_token %}   
+                                            <div class="form-group">
+                                                {{form.message}}
+                                                {{form.message.errors}}
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="hidden" name="parent_id" value="{{reply.id }}" class='parent_id'>
+                                                <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
+                                            </div>
+                
+                                        </form>
+                                    </div>
+                                {% endif %}
+                            </div>
+                            
+                        </div>
+                        {% for reply_of_reply in reply.replies.all %}
+                            <div class="col-lg-6 comment-replies">
+                                <div class=" d-column">
+                                    <div class="comment-author d-flex mb-3 justify-content-between">
+                                        <div class="d-flex">
+                                            <div class="comment-author-profile-img mr-2">
+                                                {% if reply_of_reply.user.profile_img %}
+                                                    <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
+                                                {% else %}
+                                                    <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
+                                                {% endif %}
+                                            </div>
+                                            <div class="d-column">
+                                                <div class="comment-author-username bold">{{reply_of_reply.user}} says</div>
+                                                <div class="posted-date">
+                                                    <p>Commented at {{reply_of_reply.commented_at}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-column">
+                                        <div class="post-body">
+                                            <p>{{reply_of_reply.message}}</p>
+                                        </div>
+                                        <!-- <div class="full text-right">
+                                            <button type="button" class="reply-btn">
+                                                <i class="far fa-comment-dots mr-1"></i>
+                                                Reply
+                                            </button>
+                                            
+                                        </div> -->
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+
+    </div>
+
+</div>
+
+<script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
+<script >
+
+    $(document).ready(function(){
+        $('.reply-btn').click(function(){
+            $('.reply-form').hide()
+            console.log($(this).parent().find('.reply-form'));
+
+            $(this).parent().find('.reply-form').toggle()
+            })
+        })
+    for (let star = 0; star < $('.stars').length; star++) {
+        var rating_count = parseInt($('.stars').eq(star).data('value'))
+        for (let count = 0; count < rating_count; count++) {
+            $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+            
+        }
+    }
+    $('.reply-form').on('submit', function(e){
+            e.preventDefault()  
+            form_box = $(this)
+            console.log($(this));
+            var rating = $(this).find('input[type=radio]:checked').val()
+            var textarea = $(this).find('textarea').val()
+            var parent_id =  $(this).find('.parent_id').val()
+            console.log(rating, textarea, parent_id, $(this).attr('class'));
+            $.ajax({
+                type: "POST",
+                url: $(this).attr('action'),
+                data:  {
+                    rating :rating,
+                    textarea : textarea,
+                    parent_id : parent_id,
+                    csrfmiddlewaretoken:$(this).find('input[name=csrfmiddlewaretoken]').val(),
+                    form_id : $(this).attr('class')
+                },
+                dataType: 'json',
+                success: function (data) {
+                    $('textarea').val('')
+                    $('input[type=radio]:checked').prop('checked', false);
+                    console.log(data);
+                    $('.commentBox').html('').load(
+                        "{% url 'tour:comments' tour.pk %}"
+                    );
+                    form_box.toggle()
+                },
+                error: function(data) {
+                    alert("error");
+                    console.log(data);
+                }
+            });
+        });
+</script>

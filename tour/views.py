@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+import json
 from django.views.generic.list import ListView
-
+from tour.forms import *
 from .models import *
 # pip install psycopg2
 
@@ -10,15 +11,15 @@ from .models import *
 # tour_types = TourType.objects.all()
 # tour_type_list = []
 
-# for tour_type in tour_types:
-#     if tour_type.title not in tour_type_list:
-#         tour_type_list.append(tour_type.title)
+for tour_type in tour_types:
+    if tour_type.title not in tour_type_list:
+        tour_type_list.append(tour_type.title)
 
-# tours = Tour.objects.all()
-# country_list = []
-# for tour in tours:
-#     if tour.country not in country_list:
-#         country_list.append(tour.country)
+tours = Tour.objects.all()
+country_list = []
+for tour in tours:
+    if tour.country not in country_list:
+        country_list.append(tour.country)
 
 
 class TourListView(ListView):
@@ -99,7 +100,94 @@ def TourDetailView(request, pk):
         detail = TourDetailEN.objects.filter(tour=tour)
         description = tour.descriptionen
         lang = 'en'
-    
+    if request.method == 'POST':
+        form = TourCommentForm(request.POST)
+        if request.POST.get('form_id') == 'menimformum': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                    parent_obj = TourComment.objects.get(id=parent_id)
+                    print(parent_obj, '==========================')
+                    # replay_comment = form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    # replay_comment.comment_reply = parent_obj
+            comment = TourComment.objects.create(
+                message = textarea,
+                rating = rating,
+                tour = Tour.objects.get(pk=pk),
+                user = request.user
+            )
+             
+            response_data = {
+                   
+            }
+
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+        
+        elif request.POST.get('form_id') == 'p-5 bg-light reply-form': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                parent_obj = TourComment.objects.get(id=parent_id)
+                print(parent_obj, '==========================')
+                # replay_comment = form.save(commit=False)
+                # assign parent_obj to replay comment
+                # replay_comment.comment_reply = parent_obj
+                comment = TourComment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    tour = Tour.objects.get(pk=pk),
+                    user = request.user,
+                    comment_reply = parent_obj
+
+                )
+            else:
+                comment = TourComment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    tour = Tour.objects.get(pk=pk),
+                    user = request.user,
+                )
+             
+            response_data = {
+                   
+            }
+            response_data['comments'] = TourComment.objects.filter(tour = tour)
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+
+        else:
+            return HttpResponse(
+                json.dumps({"nothing to see": "this isn't happening"}),
+                content_type="application/json"
+            )
+    else: 
+        form = TourCommentForm()
 
     context = {
         'tour': tour,
@@ -108,11 +196,18 @@ def TourDetailView(request, pk):
         'schedule': schedule,
         'url': url,
         'description': description,
-        'lang': lang
+        'lang': lang,
+        'form' : form,
+        'comments' : tour.tour_comment.filter(comment_reply__isnull=True),
+        'comments_count': tour.tour_comment.all()
+
     }
     tour_view = 'tour_'
     tour_view += str(pk)
     tour_view += '_viewed'
+
+    
+
     if not request.COOKIES.get(tour_view):
         response = render(request, 'tour-page.html', context)
         response.set_cookie(tour_view, 'true', max_age=604800)
@@ -121,6 +216,105 @@ def TourDetailView(request, pk):
         context['tour'] = tour
         return response
     return render(request, 'tour-page.html', context)
+
+
+def update_items(request, pk):
+    tour = Tour.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = TourCommentForm(request.POST)
+        if request.POST.get('form_id') == 'menimformum': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                    parent_obj = TourComment.objects.get(id=parent_id)
+                    print(parent_obj, '==========================')
+                    # replay_comment = form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    # replay_comment.comment_reply = parent_obj
+            comment = TourComment.objects.create(
+                message = textarea,
+                rating = rating,
+                tour = Tour.objects.get(pk=pk),
+                user = request.user
+            )
+             
+            response_data = {
+                   
+            }
+
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+        
+        elif request.POST.get('form_id') == 'p-5 bg-light reply-form': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                parent_obj = TourComment.objects.get(id=parent_id)
+                
+                comment = TourComment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    tour = Tour.objects.get(pk=pk),
+                    user = request.user,
+                    comment_reply = parent_obj
+
+                )
+            else:
+                comment = TourComment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    tour = Tour.objects.get(pk=pk),
+                    user = request.user,
+                )
+             
+            response_data = {
+                   
+            }
+            response_data['comments'] = TourComment.objects.filter(tour = tour)
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+
+        else:
+            return HttpResponse(
+                json.dumps({"nothing to see": "this isn't happening"}),
+                content_type="application/json"
+            )
+    else: 
+        form = TourCommentForm()
+
+    context = {
+        'form' : form,
+        'tour' : tour,
+        'comments' : tour.tour_comment.filter(comment_reply__isnull=True),
+        'comments_count': tour.tour_comment.all()
+
+    }
+    return render(request, 'partials/comments.html', context)
 
 
 def TourFilter(request):

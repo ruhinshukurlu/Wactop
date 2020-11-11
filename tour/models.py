@@ -123,3 +123,17 @@ class TourUrl(models.Model):
     url = models.URLField()
     def __str__ (self):
         return self.tour.title
+
+
+
+class TourComment(models.Model):
+    message = models.TextField(_("Text"))
+    commented_at = models.DateField(_("Commented at"), auto_now_add=True)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True)
+
+    comment_reply = models.ForeignKey("self", verbose_name=_("Comment"), on_delete=models.CASCADE, blank=True, null = True, related_name='replies')
+    tour = models.ForeignKey("tour.Tour", verbose_name=_("Tour"), on_delete=models.CASCADE, blank=True, null=True, related_name='tour_comment')
+    user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, blank=True, null=True, related_name='tour_comment')
+   
+    def __str__ (self):
+        return self.message

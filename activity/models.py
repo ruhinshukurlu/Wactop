@@ -103,3 +103,16 @@ class ActivityUrl(models.Model):
     url = models.URLField()
     def __str__ (self):
         return self.activity.title
+
+
+class ActivityComment(models.Model):
+    message = models.TextField(_("Text"))
+    commented_at = models.DateField(_("Commented at"), auto_now_add=True)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True)
+
+    comment_reply = models.ForeignKey("self", verbose_name=_("Comment"), on_delete=models.CASCADE, blank=True, null = True, related_name='replies')
+    activity = models.ForeignKey("activity.Activity", verbose_name=_("Activity"), on_delete=models.CASCADE, blank=True, null=True, related_name='activity_comment')
+    user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, blank=True, null=True, related_name='activity_comment')
+   
+    def __str__ (self):
+        return self.message

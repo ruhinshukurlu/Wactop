@@ -33,13 +33,13 @@
                     <div class="post-body">
                         <p>{{comment.message}}</p>
                     </div>
-                    {% if not request.user.is_organizer and request.user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                         <div class="full text-right">
                             <button type="button" class="reply-btn">
                                 <i class="far fa-comment-dots mr-1"></i>
                                 Reply
                             </button>
-                            <form class="p-5 bg-light reply-form" action="{% url 'tour:detail' tour.pk %}" method="POST" >
+                            <form class="p-2 reply-form" action="{% url 'activity:detail' tour.pk %}" method="POST" >
                             {% csrf_token %}   
                                 <div class="form-group">
                                     {{form.message}}
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="hidden" name="parent_id" value="{{comment.id }}" class='parent_id'>
-                                    <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
+                                    <input type="submit" value="Reply Comment" class="btn" id="submit-comment-btn">
                                 </div>
 
                             </form>
@@ -56,8 +56,8 @@
                 </div>
 
                 {% for reply in comment.replies.all %}
-                    <div class="col-lg-8 comment-replies">
-                        <div class="comment-item d-column">
+                    <div class="col-lg-11 comment-item comment-replies">
+                        <div class="d-column">
                             <div class="comment-author d-flex mb-3 justify-content-between">
                                 <div class="d-flex">
                                     <div class="comment-author-profile-img mr-2">
@@ -79,21 +79,21 @@
                                 <div class="post-body">
                                     <p>{{reply.message}}</p>
                                 </div>
-                                {% if not request.user.is_organizer and request.user.is_authenticated %}
+                                {% if request.user.is_authenticated %}
                                     <div class="full text-right">
                                         <button type="button" class="reply-btn">
                                             <i class="far fa-comment-dots mr-1"></i>
                                             Reply
                                         </button>
-                                        <form class="p-5 bg-light reply-form" method="POST" >
-                                        {% csrf_token %}   
+                                        <form class="p-2 reply-form" method="POST" >
+                                            {% csrf_token %}   
                                             <div class="form-group">
                                                 {{form.message}}
                                                 {{form.message.errors}}
                                             </div>
                                             <div class="form-group">
                                                 <input type="hidden" name="parent_id" value="{{reply.id }}" class='parent_id'>
-                                                <input type="submit" value="Reply Comment" class="btn py-3 px-4 btn-primary">
+                                                <input type="submit" value="Reply Comment" class="btn" id="submit-comment-btn">
                                             </div>
                 
                                         </form>
@@ -101,9 +101,8 @@
                                 {% endif %}
                             </div>
                             
-                        </div>
-                        {% for reply_of_reply in reply.replies.all %}
-                            <div class="col-lg-6 comment-replies">
+                            {% for reply_of_reply in reply.replies.all %}
+                            <div class="col-lg-11 comment-replies">
                                 <div class=" d-column">
                                     <div class="comment-author d-flex mb-3 justify-content-between">
                                         <div class="d-flex">
@@ -138,6 +137,8 @@
                                 </div>
                             </div>
                         {% endfor %}
+                        </div>
+                        
                     </div>
                 {% endfor %}
             </div>
@@ -158,14 +159,16 @@
             $(this).parent().find('.reply-form').toggle()
             })
         })
-    for (let star = 0; star < $('.stars').length; star++) {
-        var rating_count = parseInt($('.stars').eq(star).data('value'))
-        for (let count = 0; count < rating_count; count++) {
-            $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
-            
+
+        for (let star = 0; star < $('.stars').length; star++) {
+            var rating_count = parseInt($('.stars').eq(star).data('value'))
+            for (let count = 0; count < rating_count; count++) {
+                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+                
+            }
         }
-    }
-    $('.reply-form').on('submit', function(e){
+
+        $('.reply-form').on('submit', function(e){
             e.preventDefault()  
             form_box = $(this)
             console.log($(this));
@@ -189,7 +192,7 @@
                     $('input[type=radio]:checked').prop('checked', false);
                     console.log(data);
                     $('.commentBox').html('').load(
-                        "{% url 'tour:comments' tour.pk %}"
+                        "{% url 'activity:comments' tour.pk %}"
                     );
                     form_box.toggle()
                 },

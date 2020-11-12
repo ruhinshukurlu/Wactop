@@ -295,23 +295,21 @@ def OrganizerDetail(request, pk):
     organizer = Organizer.objects.get(pk=pk)
     images = OrganizerImage.objects.filter(organizer=organizer)
     tours = Tour.objects.filter(organizer=organizer)
-    training = Training.objects.filter(organizer=organizer)
-    activity = Activity.objects.filter(organizer=organizer)
+    trainings = Training.objects.filter(organizer=organizer)
+    activities = Activity.objects.filter(organizer=organizer)
 
     guides = Guide.objects.filter(organizer=organizer)
     instructors = Instructor.objects.filter(organizer=organizer)
 
-    # image = organizer.organizerimage_set.all()
     context = {
         'organizer': organizer,
         'images': images,
         'tours': tours,
-        'training': training,
-        'activity': activity,
+        'trainings': trainings,
+        'activities': activities,
         'guides' : guides,
         'instructors' : instructors
     }
-    # return render(request, 'organizer-detail.html', context)
     return render(request, 'company-profile.html', context)
 
 def organizer_image_list(request, pk):

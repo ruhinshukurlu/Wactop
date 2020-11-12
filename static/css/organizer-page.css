@@ -839,7 +839,56 @@ h4{
     border-left: 1px solid #ccc;
 }
 
+.comment-item{
+    border-left: 1px solid #ccc;
+
+}
+
 .reply-btn{
     color: #37a1f8;
     font-weight: bold;
+}
+
+.starsBox input:checked ~ label:after {
+    color: #DEDE05;
+}
+.starsBox input {
+    display: none;
+}
+
+.starsBox:hover input:checked ~ label:after,
+.starsBox label:after {
+    color: rgb(110, 114, 110);
+}
+.starsBox label {
+    margin: 0px 2px;
+    cursor: pointer;
+    float: right;
+}
+.starsBox label:after {
+    font-family: "FontAwesome";
+    content: "\f005";
+    font-size: 25px;
+    float: right;
+    transition: all 0.25s;
+    color: rgb(110, 114, 110);
+}
+.starsBox label:hover:after,
+.starsBox label:hover ~ label:after {
+    font-family: "FontAwesome";
+    content: "\f005";
+    color: #DEDE05 !important;
+}
+
+#submit-comment-btn{
+    background-color: #fff;
+    color: #4dabf8;
+    border: 1px solid;
+    transition: .4s;
+    font-weight: bold;
+}
+
+#submit-comment-btn:hover{
+    background-color: #4dabf8;
+    color: #fff;
 }

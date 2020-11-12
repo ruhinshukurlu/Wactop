@@ -8,8 +8,8 @@ from .models import *
 # pip install psycopg2
 
 
-# tour_types = TourType.objects.all()
-# tour_type_list = []
+tour_types = TourType.objects.all()
+tour_type_list = []
 
 for tour_type in tour_types:
     if tour_type.title not in tour_type_list:
@@ -100,9 +100,10 @@ def TourDetailView(request, pk):
         detail = TourDetailEN.objects.filter(tour=tour)
         description = tour.descriptionen
         lang = 'en'
+        
     if request.method == 'POST':
         form = TourCommentForm(request.POST)
-        if request.POST.get('form_id') == 'menimformum': 
+        if request.POST.get('form_id') == 'myform': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             print('salamsalsma', textarea) 
@@ -137,7 +138,7 @@ def TourDetailView(request, pk):
                     content_type="application/json"
                 )
         
-        elif request.POST.get('form_id') == 'p-5 bg-light reply-form': 
+        elif request.POST.get('form_id') == 'p-2 reply-form': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             print('salamsalsma', textarea) 
@@ -223,7 +224,7 @@ def update_items(request, pk):
 
     if request.method == 'POST':
         form = TourCommentForm(request.POST)
-        if request.POST.get('form_id') == 'menimformum': 
+        if request.POST.get('form_id') == 'myform': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             print('salamsalsma', textarea) 
@@ -258,7 +259,7 @@ def update_items(request, pk):
                     content_type="application/json"
                 )
         
-        elif request.POST.get('form_id') == 'p-5 bg-light reply-form': 
+        elif request.POST.get('form_id') == 'p-2 reply-form': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             print('salamsalsma', textarea) 
@@ -314,7 +315,7 @@ def update_items(request, pk):
         'comments_count': tour.tour_comment.all()
 
     }
-    return render(request, 'partials/comments.html', context)
+    return render(request, 'partials/tour-comments.html', context)
 
 
 def TourFilter(request):

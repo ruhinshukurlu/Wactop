@@ -10,6 +10,8 @@ class CommentForm(forms.ModelForm):
         fields = ('rating', 'message',)
         widgets={
             'message': forms.Textarea(attrs={
-                'class': 'form-control resize',
-                'placeholder' : 'Message'}),            
+                'class': 'form-input resize',
+                'placeholder' : 'Write Comment...',
+                'rows' : '5'    
+            }),         
         }

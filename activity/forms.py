@@ -1,17 +1,17 @@
 from django import forms
 from django.forms import ModelForm
-from tour.models import TourComment
+from activity.models import ActivityComment
 
 
-class TourCommentForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     
     class Meta:
-        model = TourComment
+        model = ActivityComment
         fields = ('rating', 'message',)
         widgets={
             'message': forms.Textarea(attrs={
                 'class': 'form-input resize',
                 'placeholder' : 'Write Comment...',
                 'rows' : '5'    
-            }),            
+            }),         
         }

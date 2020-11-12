@@ -6,5 +6,6 @@ app_name = 'training'
 urlpatterns = [
     path('', TrainingListView.as_view(), name='home'),
     path('<int:pk>', TrainingDetailView, name='detail'),
+    path('<int:pk>/comments/', update_items, name='comments'),
     path('filter/', TrainingFilter, name='filter')
 ]

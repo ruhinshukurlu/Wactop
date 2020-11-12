@@ -340,7 +340,7 @@
 
                     
                     <div class="col-lg-10 commentBox tour-details pl-5 pt-5">
-                        {% include 'partials/tour-comments.html' %}
+                        {% include 'partials/activity-comments.html' %}
                     </div>
                     
                 </div>
@@ -490,7 +490,7 @@
                     
                     })
                     $('.commentBox').html('').load(
-                        "{% url 'tour:comments' tour.pk %}"
+                        "{% url 'activity:comments' tour.pk %}"
                     );
                 },
                 error: function(data) {
@@ -523,7 +523,7 @@
                     $('input[type=radio]:checked').prop('checked', false);
                     console.log(data);
                     $('.commentBox').html('').load(
-                        "{% url 'tour:comments' tour.pk %}"
+                        "{% url 'activity:comments' tour.pk %}"
                     );
                     form_box.toggle()
                 },

@@ -71,49 +71,8 @@
         }
         /* stars style */
 
-        .starsBox {
-            float: left;
-            overflow: hidden;
-            width: 100%;
-        }
-        .starsBox input:checked ~ label:after {
-            color: #DEDE05;
-        }
-        .starsBox input {
-            display: none;
-        }
-        /* .starsBox input:first-child + label {
-        padding-right: 0;
-        } */
-        .starsBox:hover input:checked ~ label:after,
-        .starsBox label:after {
-            color: rgb(110, 114, 110);
-        }
-        .starsBox label {
-            box-sizing: border-box;
-            width: 20%;
-            height: 120px;
-            cursor: pointer;
-            float: right;
-        }
-        .starsBox label:after {
-            font-family: "FontAwesome";
-            /* display: block; */
-            content: "\f005";
-            font-size: 40px;
-            /* height: 120px;
-            width: 100%; */
-            float: right;
-            transition: all 0.25s;
-            color: rgb(110, 114, 110);
-        }
-        .starsBox label:hover:after,
-        .starsBox label:hover ~ label:after {
-            font-family: "FontAwesome";
-            /* display: block; */
-            content: "\f005";
-            color: #DEDE05 !important;
-        }
+        
+        
     </style>
 </head>
 
@@ -246,11 +205,11 @@
                 <div class="row">
                     <div class="col-lg-10 tour-details">
                         <div class="iframe-container">
-                            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=10HXu5tHjqhngcb9FYwZSTeYT1mcPh1vQ" width="640" height="480"></iframe>  
+                            <iframe src="https://www.google.com/maps/d/u/0/embed?mid=10HXu5tHjqhngcb9FYwZSTeYT1mcPh1vQ" ></iframe>  
                         </div>
                     </div>
                 </div>
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-lg-10 tour-details pl-5 d-column">
                         <h3 class="full bold border-bottom pb-2 mb-3">About company</h3>
                         
@@ -311,7 +270,7 @@
                                 </li>
                             </ul>
                             
-                            <h5 class="full bold border-bottom pb-2 mb-3">Other Links</h5>
+                            <h3 class="full bold border-bottom pb-2 mb-3">Other Links</h3>
                             <ul class="company-links">
                                 {% if url %}
                                     {% for link in url %}
@@ -335,43 +294,55 @@
                     
                 </div>
 
-                <div class="row ">
+                <div class="row">
+
                     {% if not request.user.is_organizer and request.user.is_authenticated %}
-                        <div class="col-lg-10 tour-details">
-                            <form action="{% url 'tour:detail' tour.pk %}" method="post" id ='menimformum' class="p-5 bg-light ">
-                            {% csrf_token %}
-                                <div class="col-12 d-flex align-items-center">
-                                    <ul class="rating-menu d-column full">
-                                        <li class="d-flex">
-                                            <div class="starsBox"> 
-                                                <input type="radio" id="rate-5" name="rating" value="5" > 
-                                                <label for="rate-5" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-4" name="rating" value="4"> 
-                                                <label for="rate-4" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-3" name="rating" value="3"> 
-                                                <label for="rate-3" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-2" name="rating" value="2"> 
-                                                <label for="rate-2" class="d-flex justify-content-center align-items-center"></label> 
-                                                <input type="radio" id="rate-1" name="rating" value="1"> 
-                                                <label for="rate-1" class="d-flex justify-content-center align-items-center"></label> 
-                                            </div>  
-                                        </li>
-                                    </ul>
+                        <div class="col-lg-10 tour-details pl-5">
+                            <h3 class="full bold border-bottom pb-2 mb-5">Write thoughts about "{{tour.title|capfirst}}" organized by "{{tour.organizer.organizer_name}}" </h3>
+
+                            <div class="row justify-content-center">
+                                <div class="col-2">
+                                    <img src="{% static 'images/chat.svg' %}" alt="" width="100%">
                                 </div>
-                                <div class="form-group">
-                                    {{form.message}}
+                                <div class="col-8">
+                                    <form action="" method="post" id ='myform' >
+                                        {% csrf_token %}
+                                            <div class="form-group d-column align-items-center ">
+                                                <h5 class="full bold border-bottom mb-2 pb-2">Give Your Rating</h5>
+                                                <ul class="rating-menu d-column full m-0">
+                                                    <li class="d-flex">
+                                                        <div class="starsBox"> 
+                                                            <input type="radio" id="rate-5" name="rating" value="5" > 
+                                                            <label for="rate-5" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-4" name="rating" value="4"> 
+                                                            <label for="rate-4" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-3" name="rating" value="3"> 
+                                                            <label for="rate-3" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-2" name="rating" value="2"> 
+                                                            <label for="rate-2" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <input type="radio" id="rate-1" name="rating" value="1"> 
+                                                            <label for="rate-1" class="d-flex justify-content-center align-items-center"></label> 
+                                                        </div>  
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="form-group">
+                                                {{form.message}}
+                                            </div>
+                                            <div class="form-group text-right">
+                                                <input type="submit" class="btn" id="submit-comment-btn" value="Post Comment">
+                                            </div>
+                                    </form>
                                 </div>
-                                <div class="form-group text-right">
-                                    <input type="submit" class=" btn py-3 px-4 btn-primary" id="submit-comment-btn" value="Send Comment">
-                                </div>
-                            </form>
+                            </div>
                         </div>
                     {% endif %}
-                    <div class="col-lg-10 tour-details pl-5 pt-5 commentBox">
-                        
-                        {% include 'partials/comments.html' %}
 
+                    
+                    <div class="col-lg-10 commentBox tour-details pl-5 pt-5">
+                        {% include 'partials/training-comments.html' %}
                     </div>
+                    
                 </div>
             </div>
 
@@ -492,7 +463,7 @@
                 
             }
         }
-        $('#menimformum').on('submit', function(e){
+        $('#myform').on('submit', function(e){
             e.preventDefault()  
             var rating = $('input[type=radio]:checked').val()
             var textarea = $('textarea').val()
@@ -500,13 +471,13 @@
             console.log(rating, textarea);
             $.ajax({
                 type: "POST",
-                url: $('#menimformum').attr('action'),
+                url: $('#myform').attr('action'),
                 data:  {
                     rating :rating,
                     textarea : textarea,
                     parent_id : parent_id,
-                    csrfmiddlewaretoken:$('#menimformum').find('input[name=csrfmiddlewaretoken]').val(),
-                    form_id : $('#menimformum').attr('id')
+                    csrfmiddlewaretoken:$('#myform').find('input[name=csrfmiddlewaretoken]').val(),
+                    form_id : $('#myform').attr('id')
                 },
                 dataType: 'json',
                 success: function (data) {
@@ -519,7 +490,7 @@
                     
                     })
                     $('.commentBox').html('').load(
-                        "{% url 'tour:comments' tour.pk %}"
+                        "{% url 'training:comments' tour.pk %}"
                     );
                 },
                 error: function(data) {
@@ -552,7 +523,7 @@
                     $('input[type=radio]:checked').prop('checked', false);
                     console.log(data);
                     $('.commentBox').html('').load(
-                        "{% url 'tour:comments' tour.pk %}"
+                        "{% url 'training:comments' tour.pk %}"
                     );
                     form_box.toggle()
                 },

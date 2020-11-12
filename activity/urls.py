@@ -5,8 +5,7 @@ app_name = 'activity'
 
 urlpatterns = [
     path('', ActivityListView.as_view(), name='home'),
-    # path("high/", ActivityHighFilterListView.as_view(), name="high-filter"),
-    # path("low/", ActivityLowFilterListView.as_view(), name="low-filter"),
     path('<int:pk>', ActivityDetailView, name='detail'),
+    path('<int:pk>/comments/', update_items, name='comments'),
     path('filter/', ActivityFilter, name='filter')
 ]

@@ -5,6 +5,8 @@ from django.views.generic.list import ListView
 from training.forms import CommentForm
 from .models import *
 from tour.models import *   
+from django.http import HttpResponse, JsonResponse
+import json
 
 
 training_types = TourType.objects.all()
@@ -98,9 +100,13 @@ def TrainingDetailView(request, pk):
         detail = TrainingDetailEN.objects.filter(training=training)
         description = training.descriptionen
         lang = 'en'
+
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if form.is_valid(): 
+        if request.POST.get('form_id') == 'myform': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
             parent_obj = None
             print('salam')
             # get parent comment id from hidden input
@@ -113,21 +119,76 @@ def TrainingDetailView(request, pk):
             if parent_id:
                     parent_obj = Comment.objects.get(id=parent_id)
                     print(parent_obj, '==========================')
-                    replay_comment = form.save(commit=False)
+                    # replay_comment = form.save(commit=False)
                     # assign parent_obj to replay comment
-                    replay_comment.comment_reply = parent_obj
-                    replay_comment.active = False
-            comment = form.save(commit=False)
-            comment.training = Training.objects.get(pk=pk)
-            comment.user = request.user
-            comment.save()
-            return HttpResponseRedirect(request.path_info)
-    else:
+                    # replay_comment.comment_reply = parent_obj
+            comment = Comment.objects.create(
+                message = textarea,
+                rating = rating,
+                training = Training.objects.get(pk=pk),
+                user = request.user
+            )
+             
+            response_data = {
+                   
+            }
+
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+        
+        elif request.POST.get('form_id') == 'p-2 reply-form': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                print(parent_obj, '==========================')
+                # replay_comment = form.save(commit=False)
+                # assign parent_obj to replay comment
+                # replay_comment.comment_reply = parent_obj
+                comment = Comment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    training = Training.objects.get(pk=pk),
+                    user = request.user,
+                    comment_reply = parent_obj
+
+                )
+            else:
+                comment = Comment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    training = Training.objects.get(pk=pk),
+                    user = request.user,
+                )
+             
+            response_data = {
+                   
+            }
+            response_data['comments'] = Comment.objects.filter(training = training)
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+
+        else:
+            return HttpResponse(
+                json.dumps({"nothing to see": "this isn't happening"}),
+                content_type="application/json"
+            )
+    else: 
         form = CommentForm()
-    
-    
-    print(training.comment)
-    # comments = training.comment.filter(comment_reply__isnull=True)
 
     context = {
         'tour': training,
@@ -140,21 +201,121 @@ def TrainingDetailView(request, pk):
         'form' : form,
         'comments' : training.comment.filter(comment_reply__isnull=True),
         'comments_count': training.comment.all()
+
     }
+    tour_view = 'tour_'
+    tour_view += str(pk)
+    tour_view += '_viewed'
 
-    training_view = 'training_'
-    training_view += str(pk)
-    training_view += '_viewed'
+    
 
-    if not request.COOKIES.get(training_view):
-        response = render(request, 'tour-page.html', context)
-        response.set_cookie(training_view, 'true', max_age=604800)
+    if not request.COOKIES.get(tour_view):
+        response = render(request, 'training-page.html', context)
+        response.set_cookie(tour_view, 'true', max_age=604800)
         training.viewcount += 1
         training.save()
         context['tour'] = training
         return response
-    return render(request, 'tour-page.html', context)
+    return render(request, 'training-page.html', context)
 
+
+def update_items(request, pk):
+    training = Training.objects.get(pk=pk)
+
+    if request.method == 'POST':
+        form = Comment(request.POST)
+        if request.POST.get('form_id') == 'myform': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                    parent_obj = Comment.objects.get(id=parent_id)
+                    print(parent_obj, '==========================')
+                    # replay_comment = form.save(commit=False)
+                    # assign parent_obj to replay comment
+                    # replay_comment.comment_reply = parent_obj
+            comment = Comment.objects.create(
+                message = textarea,
+                rating = rating,
+                training = Training.objects.get(pk=pk),
+                user = request.user
+            )
+             
+            response_data = {
+                   
+            }
+
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+        
+        elif request.POST.get('form_id') == 'p-2 reply-form': 
+            textarea = request.POST.get('textarea')
+            rating = request.POST.get('rating')
+            print('salamsalsma', textarea) 
+            parent_obj = None
+            print('salam')
+            # get parent comment id from hidden input
+            try:
+                # id integer e.g. 15
+                parent_id = int(request.POST.get('parent_id'))
+                print(parent_id, '-----------------------------')
+            except:
+                parent_id = None
+            if parent_id:
+                parent_obj = Comment.objects.get(id=parent_id)
+                
+                comment = Comment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    training = Training.objects.get(pk=pk),
+                    user = request.user,
+                    comment_reply = parent_obj
+
+                )
+            else:
+                comment = Comment.objects.create(
+                    message = textarea,
+                    rating = rating,
+                    training = Training.objects.get(pk=pk),
+                    user = request.user,
+                )
+             
+            response_data = {
+                   
+            }
+            response_data['comments'] = Comment.objects.filter(training = training)
+            return HttpResponse(
+                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
+                    content_type="application/json"
+                )
+
+        else:
+            return HttpResponse(
+                json.dumps({"nothing to see": "this isn't happening"}),
+                content_type="application/json"
+            )
+    else: 
+        form = CommentForm()
+
+    context = {
+        'form' : form,
+        'tour' : training,
+        'comments' : training.comment.filter(comment_reply__isnull=True),
+        'comments_count': training.comment.all()
+
+    }
+    return render(request, 'partials/training-comments.html', context)
 
 
 

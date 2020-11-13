@@ -62,7 +62,7 @@
                                 <div class="d-flex">
                                     <div class="comment-author-profile-img mr-2">
                                         {% if reply.user.profile_img %}
-                                            <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
+                                            <img src="{{reply.user.profile_img.url}}" class=" commented-user" alt="">
                                         {% else %}
                                             <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
                                         {% endif %}
@@ -108,7 +108,7 @@
                                         <div class="d-flex">
                                             <div class="comment-author-profile-img mr-2">
                                                 {% if reply_of_reply.user.profile_img %}
-                                                    <img src="{{comment.user.profile_img.url}}" class=" commented-user" alt="">
+                                                    <img src="{{reply_of_reply.user.profile_img.url}}" class=" commented-user" alt="">
                                                 {% else %}
                                                     <img src="{% static 'images/profile.png' %}" class=" commented-user" alt="">
                                                 {% endif %}

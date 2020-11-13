@@ -447,22 +447,6 @@
     <script src="{% static 'js/tour-page/main.js' %}"></script>
 
     <script >
-
-        $(document).ready(function(){
-            $('.reply-btn').click(function(){
-                $('.reply-form').hide()
-                console.log($(this).parent().find('.reply-form'));
-
-                $(this).parent().find('.reply-form').toggle()
-            })
-        })
-        for (let star = 0; star < $('.stars').length; star++) {
-            var rating_count = parseInt($('.stars').eq(star).data('value'))
-            for (let count = 0; count < rating_count; count++) {
-                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
-                
-            }
-        }
         $('#myform').on('submit', function(e){
             e.preventDefault()  
             var rating = $('input[type=radio]:checked').val()
@@ -499,40 +483,7 @@
                 }
             });
         });
-        $('.reply-form').on('submit', function(e){
-            e.preventDefault()  
-            form_box = $(this)
-            console.log($(this));
-            var rating = $(this).find('input[type=radio]:checked').val()
-            var textarea = $(this).find('textarea').val()
-            var parent_id =  $(this).find('.parent_id').val()
-            console.log(rating, textarea, parent_id, $(this).attr('class'));
-            $.ajax({
-                type: "POST",
-                url: $(this).attr('action'),
-                data:  {
-                    rating :rating,
-                    textarea : textarea,
-                    parent_id : parent_id,
-                    csrfmiddlewaretoken:$(this).find('input[name=csrfmiddlewaretoken]').val(),
-                    form_id : $(this).attr('class')
-                },
-                dataType: 'json',
-                success: function (data) {
-                    $('textarea').val('')
-                    $('input[type=radio]:checked').prop('checked', false);
-                    console.log(data);
-                    $('.commentBox').html('').load(
-                        "{% url 'training:comments' tour.pk %}"
-                    );
-                    form_box.toggle()
-                },
-                error: function(data) {
-                    alert("error");
-                    console.log(data);
-                }
-            });
-        });
+    
 
     </script>
 

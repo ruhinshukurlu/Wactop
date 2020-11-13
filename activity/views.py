@@ -21,10 +21,10 @@ for tour_type in tour_types:
 
 
 activities = Activity.objects.all()
-country_list = []
+activity_country_list = []
 for activity in activities:
-    if activity.country not in country_list:
-        country_list.append(activity.country)
+    if activity.country not in activity_country_list:
+        activity_country_list.append(activity.country)
 
 
 
@@ -32,7 +32,7 @@ class ActivityListView(ListView):
     model = Activity
     context_object_name = 'activities'
     template_name = "activity-list.html"
-    paginate_by = 1
+    paginate_by = 16
 
     def get_queryset(self):
         if self.request.method == 'GET':
@@ -46,7 +46,7 @@ class ActivityListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["countries"] = country_list
+        context["countries"] = activity_country_list
         context['tour_types'] = tour_type_list
         return context
 
@@ -79,18 +79,7 @@ def ActivityDetailView(request, pk):
         if request.POST.get('form_id') == 'myform': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
-            parent_obj = None
-            # get parent comment id from hidden input
-            try:
-                # id integer e.g. 15
-                parent_id = int(request.POST.get('parent_id'))
-            except:
-                parent_id = None
-            if parent_id:
-                    parent_obj = ActivityComment.objects.get(id=parent_id)
-                    # replay_comment = form.save(commit=False)
-                    # assign parent_obj to replay comment
-                    # replay_comment.comment_reply = parent_obj
+            
             comment = ActivityComment.objects.create(
                 message = textarea,
                 rating = rating,
@@ -187,36 +176,7 @@ def update_items(request, pk):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if request.POST.get('form_id') == 'myform': 
-            textarea = request.POST.get('textarea')
-            rating = request.POST.get('rating')
-            parent_obj = None
-            # get parent comment id from hidden input
-            try:
-                # id integer e.g. 15
-                parent_id = int(request.POST.get('parent_id'))
-            except:
-                parent_id = None
-            if parent_id:
-                    parent_obj = ActivityComment.objects.get(id=parent_id)
-
-            comment = ActivityComment.objects.create(
-                message = textarea,
-                rating = rating,
-                activity = Activity.objects.get(pk=pk),
-                user = request.user
-            )
-             
-            response_data = {
-                   
-            }
-
-            return HttpResponse(
-                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
-                    content_type="application/json"
-                )
-        
-        elif request.POST.get('form_id') == 'p-2 reply-form': 
+        if request.POST.get('form_id') == 'p-2 reply-form': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             parent_obj = None
@@ -369,7 +329,7 @@ def ActivityFilter(request):
         'activities': data,
         # 'page': page_request,
         # 'paginator': arr,
-        'countries': country_list,
+        'countries': activity_country_list,
         # 'link': request.build_absolute_uri(),
         'tour_types': tour_type_list,
         # 'haslink': haslink

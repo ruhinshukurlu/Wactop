@@ -16,10 +16,10 @@ for tour_type in tour_types:
         tour_type_list.append(tour_type.title)
 
 tours = Tour.objects.all()
-country_list = []
+tour_country_list = []
 for tour in tours:
-    if tour.country not in country_list:
-        country_list.append(tour.country)
+    if tour.country not in tour_country_list:
+        tour_country_list.append(tour.country)
 
 
 class TourListView(ListView):
@@ -41,8 +41,7 @@ class TourListView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        context["countries"] = country_list
-        print(country_list)
+        context["countries"] = tour_country_list
         context['tour_types'] = tour_type_list
         return context
     
@@ -148,15 +147,10 @@ def TourDetailView(request, pk):
             try:
                 # id integer e.g. 15
                 parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
             except:
                 parent_id = None
             if parent_id:
                 parent_obj = TourComment.objects.get(id=parent_id)
-                print(parent_obj, '==========================')
-                # replay_comment = form.save(commit=False)
-                # assign parent_obj to replay comment
-                # replay_comment.comment_reply = parent_obj
                 comment = TourComment.objects.create(
                     message = textarea,
                     rating = rating,
@@ -224,52 +218,15 @@ def update_items(request, pk):
 
     if request.method == 'POST':
         form = TourCommentForm(request.POST)
-        if request.POST.get('form_id') == 'myform': 
+               
+        if request.POST.get('form_id') == 'p-2 reply-form': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
             parent_obj = None
-            print('salam')
             # get parent comment id from hidden input
             try:
                 # id integer e.g. 15
                 parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
-            except:
-                parent_id = None
-            if parent_id:
-                    parent_obj = TourComment.objects.get(id=parent_id)
-                    print(parent_obj, '==========================')
-                    # replay_comment = form.save(commit=False)
-                    # assign parent_obj to replay comment
-                    # replay_comment.comment_reply = parent_obj
-            comment = TourComment.objects.create(
-                message = textarea,
-                rating = rating,
-                tour = Tour.objects.get(pk=pk),
-                user = request.user
-            )
-             
-            response_data = {
-                   
-            }
-
-            return HttpResponse(
-                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
-                    content_type="application/json"
-                )
-        
-        elif request.POST.get('form_id') == 'p-2 reply-form': 
-            textarea = request.POST.get('textarea')
-            rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
-            parent_obj = None
-            print('salam')
-            # get parent comment id from hidden input
-            try:
-                # id integer e.g. 15
-                parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
             except:
                 parent_id = None
             if parent_id:
@@ -380,7 +337,7 @@ def TourFilter(request):
         'tour_types' : tour_type_list,
         # 'page': page_request,
         # 'paginator': arr,
-        'countries': country_list,
+        'countries': tour_country_list,
         # 'link': request.build_absolute_uri(),
         # 'style': style,
         # 'haslink': haslink
@@ -392,3 +349,5 @@ def TourFilter(request):
     if len(data) == 0:
         context.update( {'notfound': 'No result found'} )
     return render(request, 'tour-list.html', context)
+
+

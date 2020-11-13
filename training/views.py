@@ -18,17 +18,17 @@ for training_type in training_types:
         training_type_list.append(training_type.title)
 
 trainings = Training.objects.all()
-country_list = []
+training_country_list = []
 for training in trainings:
-    if training.country not in country_list:
-        country_list.append(training.country)
+    if training.country not in training_country_list:
+        training_country_list.append(training.country)
 
 
 class TrainingListView(ListView):
     model = Training
     context_object_name = 'trainings'
     template_name = "training-list.html"
-    paginate_by = 1
+    paginate_by = 16
 
     def get_queryset(self):
         if self.request.method == 'GET':
@@ -42,7 +42,7 @@ class TrainingListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(TrainingListView, self).get_context_data(**kwargs)
 
-        context['countries'] = country_list
+        context['countries'] = training_country_list
         context['training_types'] = training_type_list
         return context
 
@@ -106,22 +106,6 @@ def TrainingDetailView(request, pk):
         if request.POST.get('form_id') == 'myform': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
-            parent_obj = None
-            print('salam')
-            # get parent comment id from hidden input
-            try:
-                # id integer e.g. 15
-                parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
-            except:
-                parent_id = None
-            if parent_id:
-                    parent_obj = Comment.objects.get(id=parent_id)
-                    print(parent_obj, '==========================')
-                    # replay_comment = form.save(commit=False)
-                    # assign parent_obj to replay comment
-                    # replay_comment.comment_reply = parent_obj
             comment = Comment.objects.create(
                 message = textarea,
                 rating = rating,
@@ -148,15 +132,10 @@ def TrainingDetailView(request, pk):
             try:
                 # id integer e.g. 15
                 parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
             except:
                 parent_id = None
             if parent_id:
                 parent_obj = Comment.objects.get(id=parent_id)
-                print(parent_obj, '==========================')
-                # replay_comment = form.save(commit=False)
-                # assign parent_obj to replay comment
-                # replay_comment.comment_reply = parent_obj
                 comment = Comment.objects.create(
                     message = textarea,
                     rating = rating,
@@ -224,52 +203,14 @@ def update_items(request, pk):
 
     if request.method == 'POST':
         form = Comment(request.POST)
-        if request.POST.get('form_id') == 'myform': 
+        if request.POST.get('form_id') == 'p-2 reply-form': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
             parent_obj = None
-            print('salam')
             # get parent comment id from hidden input
             try:
                 # id integer e.g. 15
                 parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
-            except:
-                parent_id = None
-            if parent_id:
-                    parent_obj = Comment.objects.get(id=parent_id)
-                    print(parent_obj, '==========================')
-                    # replay_comment = form.save(commit=False)
-                    # assign parent_obj to replay comment
-                    # replay_comment.comment_reply = parent_obj
-            comment = Comment.objects.create(
-                message = textarea,
-                rating = rating,
-                training = Training.objects.get(pk=pk),
-                user = request.user
-            )
-             
-            response_data = {
-                   
-            }
-
-            return HttpResponse(
-                    json.dumps(response_data, indent=4, sort_keys=True, default=str),
-                    content_type="application/json"
-                )
-        
-        elif request.POST.get('form_id') == 'p-2 reply-form': 
-            textarea = request.POST.get('textarea')
-            rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
-            parent_obj = None
-            print('salam')
-            # get parent comment id from hidden input
-            try:
-                # id integer e.g. 15
-                parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
             except:
                 parent_id = None
             if parent_id:
@@ -316,7 +257,6 @@ def update_items(request, pk):
 
     }
     return render(request, 'partials/training-comments.html', context)
-
 
 
 def TrainingFilter(request):
@@ -374,7 +314,7 @@ def TrainingFilter(request):
         # 'page': page_request,
         # 'paginator': arr,
         'training_types' : training_type_list,
-        'countries': country_list,
+        'countries': training_country_list,
         # 'link': request.build_absolute_uri(),
         # 'style': style,
         # 'haslink': haslink

@@ -90,47 +90,6 @@ def OrganizerList(request):
     return render(request, 'organizer-list.html', context)
 
 
-# def register(request):
-#     image_formset = modelformset_factory(OrganizerImage, fields=('image', ), extra=10, form=OrganizerImageRegisterForm)
-    
-#     if request.method == 'POST':
-#         user_form = UserRegisterForm(request.POST or None)
-#         organizer_form = OrganizerRegisterForm(request.POST, request.FILES)
-#         image_form = image_formset(request.POST or None, request.FILES or None)
-
-#         if user_form.is_valid() and organizer_form.is_valid() and image_form.is_valid():
-#             user = user_form.save()
-#             organizer = organizer_form.save(commit=False)
-#             organizer.user = user
-#             organizer.registered = True
-#             organizer.save()
-#             for i in image_form:
-#                 if i.cleaned_data:
-#                     image = i.save(commit=False)
-#                     image.organizer = organizer
-#                     image.save()
-#             return redirect('organizer:login')
-#         else:
-#             print("___invalid")
-#     else:
-#         user_form = UserRegisterForm()
-#         organizer_form = OrganizerRegisterForm()
-#         context = {
-#             'user_form': user_form,
-#             'organizer_form': organizer_form,
-#             'image_form': image_formset(queryset=OrganizerImage.objects.none())
-#         }
-#         return render(request, 'company-registration.html', context)
-
-
-# def logout_page(request):
-#     logout(request)
-#     return redirect('main:home')
-
-
-# class CustomLoginView(LoginView):
-#     form_class = LoginForm
-#     template_name = 'login.html'
 
 
 class OrganizerEditView(UpdateView, LoginRequiredMixin):
@@ -280,6 +239,7 @@ class OrganizerAllActions(ListView):
     context_object_name = 'tours'
 
     def get_queryset(self):
+        print(super().get_queryset().filter(organizer=self.request.user.organizer))
         return super().get_queryset().filter(organizer=self.request.user.organizer)
     
 
@@ -330,6 +290,13 @@ class TourUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('tour:detail', args = (self.kwargs['pk'],))
+
+
+class TourImageUpdateView(UpdateView):
+    model = TourImage
+    form_class = OrganizerTourImageForm
+    template_name = "tour-images-edit.html"
+
 
 class TourDeleteView(DeleteView):
     model = Tour

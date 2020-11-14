@@ -37,6 +37,8 @@ urlpatterns = [
     path("activities/<int:pk>/delete", ActivityDeleteView.as_view(), name="activity-delete"),
     path("trainigs/<int:pk>/delete", TrainingDeleteView.as_view(), name="training-delete"),
 
+    # path("tour/photos", TourImageView.as_view(), name="tour-images"),
+
     path("contact/", ContactView.as_view(), name="contact")
 
 ]

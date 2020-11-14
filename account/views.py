@@ -29,10 +29,6 @@ class ChangePasswordView(PasswordChangeView):
     success_url = reverse_lazy('main:home')
 
 
-# class UserUpdate(UpdateView):
-#     model = User
-#     form_class = UserEditForm
-#     template_name = 'user-update.html'
 
 class CustomerUpdateView(UpdateView):
     model = User

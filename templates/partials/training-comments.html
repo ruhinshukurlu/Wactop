@@ -1,4 +1,5 @@
 {% load static %}
+{% if comments %}
 <h3 class="full bold border-bottom pb-2 mb-5">What {{comments_count.count}} people say about this tour?</h3>
 <div class="comments-box container">
     <div class="row">
@@ -35,10 +36,13 @@
                     </div>
                     {% if request.user.is_authenticated %}
                         <div class="full text-right">
-                            <button type="button" class="reply-btn">
-                                <i class="far fa-comment-dots mr-1"></i>
-                                Reply
-                            </button>
+                            <div class="form-group d-flex justify-content-between mt-3">
+                                <button type="button">Show Replies</button>
+                                <button type="button" class="reply-btn">
+                                    <i class="far fa-comment-dots mr-1"></i>
+                                    Reply
+                                </button>
+                            </div>
                             <form class="p-2 reply-form" action="{% url 'training:detail' tour.pk %}" method="POST" >
                             {% csrf_token %}   
                                 <div class="form-group">
@@ -46,6 +50,7 @@
                                     {{form.message.errors}}
                                 </div>
                                 <div class="form-group">
+                                    
                                     <input type="hidden" name="parent_id" value="{{comment.id }}" class='parent_id'>
                                     <input type="submit" value="Reply Comment" class="btn" id="submit-comment-btn">
                                 </div>
@@ -56,7 +61,7 @@
                 </div>
 
                 {% for reply in comment.replies.all %}
-                    <div class="col-lg-11 comment-item comment-replies">
+                    <div class="col-lg-11 comment-item comment-replies" style="display: none;">
                         <div class="d-column">
                             <div class="comment-author d-flex mb-3 justify-content-between">
                                 <div class="d-flex">
@@ -102,7 +107,7 @@
                             </div>
                             
                             {% for reply_of_reply in reply.replies.all %}
-                            <div class="col-lg-11 comment-replies">
+                            <div class="col-lg-11 comment-replies" style="display: none;">
                                 <div class=" d-column">
                                     <div class="comment-author d-flex mb-3 justify-content-between">
                                         <div class="d-flex">
@@ -125,13 +130,7 @@
                                         <div class="post-body">
                                             <p>{{reply_of_reply.message}}</p>
                                         </div>
-                                        <!-- <div class="full text-right">
-                                            <button type="button" class="reply-btn">
-                                                <i class="far fa-comment-dots mr-1"></i>
-                                                Reply
-                                            </button>
-                                            
-                                        </div> -->
+                                        
                                     </div>
                                     
                                 </div>
@@ -147,16 +146,19 @@
     </div>
 
 </div>
+{% else %}
+    <h3 class="full bold mb-5 text-center">No comment added</h3>
+{% endif %}
 
 <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 <script >
 
     $(document).ready(function(){
         $('.reply-btn').click(function(){
-            $('.reply-form').hide()
+            // $('.reply-form').hide()
             console.log($(this).parent().find('.reply-form'));
 
-            $(this).parent().find('.reply-form').toggle()
+            $(this).parent('.full').find('.reply-form').toggle()
             })
         })
 

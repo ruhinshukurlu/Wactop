@@ -126,4 +126,14 @@ class OrganizerActivityFilterView(ListView):
             return queryset
         return Activity.objects.filter(organizer=self.organizer,status=1)
        
-        
+
+class TermsView(TemplateView):
+    template_name = "terms.html"
+  
+
+class PrivacyView(TemplateView):
+    template_name = "privacy-policy.html"
+
+
+class AboutView(TemplateView):
+    template_name = "about.html"

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add Tour</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+  
+    <main>
+        <div class="row justify-content-center">
+            <div class="col-2 p-0 bg-white " id="menu-column">
+                {% include 'partials/organizer-menu.html' %}
+            </div>
+            <div class="col-10">
+                <div class="custom-container mt-5 mb-5">
+                    <div class="">
+                        <div class="row justify-content-center">
+                            
+                            <div class="col-10">
+                                <form method="post" enctype="multipart/form-data" id="addTourForm">
+                                    {% csrf_token %}
+                                    
+                                   {% for i in form %}
+                                        {{i}}
+                                   {% endfor %}
+                                   
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
+
+    <script>
+
+        // Photo and schedule input labels were same, that is why I have to add one of them manually
+        var schedule_label_list = $('#schedule-form-box').find('label')
+        var schedule_input_list = $('#schedule-form-box').find('.schedule-input')
+
+        for(var i=0; i<schedule_label_list.length; i++){
+            $(schedule_label_list[i]).attr('for',`schedule-input-${i}`)
+            $(schedule_input_list[i]).attr('id',`schedule-input-${i}`)
+        }
+
+
+        // Function to assign selected photo to particular img tag
+        function readURL(input,place) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+                reader.onload = function (e) {
+                   $(place).attr('src', e.target.result);
+                }
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
+
+        
+        $('.photo-input').change(function(){
+            console.log('okkk-tour');
+            var photo = $(this).parents('.photo-item').find('img')
+            readURL(this,$(photo));
+        })
+
+        $('.schedule-input').change(function(){
+            console.log('okkk-schedule');
+            var schedule = $(this).parent('.add-img-box').siblings('img')
+            console.log(schedule);
+            readURL(this,$(schedule));
+        })
+
+        
+        $("#profilePhotoExample").change(function(){
+            readURL(this,$('#profilePhoto'));
+        });
+
+        $("#coverPhotoInput").change(function(){
+            readURL(this,$('#coverPhoto'));
+        });
+   </script>
+
+
+   <script>
+       $('.menu_btn').click(function(){
+            $('#menu-column').animate({
+                width : 'toggle'
+            });
+       })
+   </script>
+
+    
+
+</body>
+</html>

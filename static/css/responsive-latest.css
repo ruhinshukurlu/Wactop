@@ -15,12 +15,33 @@
         height: 170px;
     }
 
+    .saved-item .d-column{
+        font-size: 13px;
+    }
+
+    .saved-item .description{
+        font-size: 13px;
+    }
+
+    .saved-item img{
+        height: 190px;
+    }
+
+    .saved-item #org-profile-photo{
+        width: 90px;
+        height: 90px;
+    }
+
 }
 
 @media (max-width : 1500px) {
     .custom-container,
     .inner-container{
         max-width: 90%;
+    }
+
+    .saved-item .description{
+        display: none;
     }
 }
 

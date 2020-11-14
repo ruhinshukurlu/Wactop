@@ -44,6 +44,7 @@
         }
     </style>
 
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
 </head>
 
@@ -112,7 +113,7 @@
                                                         {% endif %}
                                                     </div>
                                                     <div class="description">
-                                                        {{organizer.about|truncatechars:120 }}
+                                                        {{organizer.about|truncatechars:80 }}
                                                     </div> 
                                                 </div>
 

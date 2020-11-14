@@ -1,6 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Saved Organizers & Tours</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    
 
-                
-<h1 class="text-center">Privacy Policy</h1>
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+
+</head>
+
+<body>
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+  
+    <main>
+
+        <div class="inner-container shadow bg-white mt-5 p-5">
+            <div class="asd">
+                <h1 class="text-center">Privacy Policy</h1>
 
 
 <p><strong>Effective Date: 12-11-2020</strong></p>
@@ -52,3 +79,27 @@
 <p><a href="#tableofcontents">Back to table of contents</a></p><h2 id="Credit">8. Contact Information &amp; Credit</h2><p>This privacy policy was created at <a style="color:inherit;text-decoration:none;" href="https://privacyterms.io/en/privacy-policy-generator/" title="Privacy policy generator" target="_blank">privacyterms.io privacy policy generator</a>. If you have any questions about our Privacy Policy, please contact us via <a href="mailto:wactopinfo@gmail.com">email</a> or <a href="tel:">phone</a>.</p>
 
 <p><a href="#tableofcontents">Back to table of contents</a></p>            
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+
+    
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
+
+
+   <script>
+       $('.menu_btn').click(function(){
+            $('#menu-column').slideToggle()
+       })
+   </script>
+
+    
+
+</body>
+</html>
+                

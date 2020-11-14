@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wactop</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+
+    
+</head>
+
+<body class="bg-white">
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+    <style>
+        .contact-bg{
+            width: 100%;
+            height: 100%;
+        }
+        
+        .contact-form-container{
+            position: absolute;
+            top: 50%;  /* position the top  edge of the element at the middle of the parent */
+            left: 50%; /* position the left edge of the element at the middle of the parent */
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }   
+
+        .form-box{
+            margin: 0 70px;
+        }
+
+        .about-box i{
+            color: rgb(111, 160, 252);
+            margin: 3px 5px;
+
+        }
+
+        .about-box .d-column .d-flex{
+            margin-bottom: 15px;
+        }
+
+        .about-box .d-flex a{
+            text-decoration: none;
+            color: #000;
+            transition: .4s;
+        }
+
+        .about-box .d-flex a:hover{
+            color: rgb(111, 160, 252);
+        }
+    </style>
+  
+    <main>
+        <div class="contact-bg">
+            <img src="{% static 'images/contact-bg.jpeg' %}" alt="" class="full">
+        </div>
+        <div class="custom-container contact-form-container">
+            <div class="row justify-content-center">
+                <img src="{% static 'images/wactop1.png' %}" alt="" width="50%">
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3  align-center">
+                    <img src="{% static 'images/information.svg' %}" alt=""  class="full">
+                </div>
+                <div class="col-6">
+                    <div class="form-box shadow p-4 about-box">
+                        <div class="d-column">
+                            <div class="d-flex">
+                                <i class="fas fa-info-circle"></i>
+                                <span>
+                                    Wactop, provides people with access to active lifestyles and access to active products they are interested in on a common platform.
+                                    Our mission is to provide services they need to live active lives on the online platform.
+                                </span>
+                            </div>
+                            <div class="d-flex">
+                                <i class="fas fa-globe"></i> 
+                                <a href="https://www.wactop.com/">https://www.wactop.com/</a>
+                            </div>
+                            <div class="d-flex">
+                                <i class="fas fa-envelope"></i>
+                                <span>wactopinfo@gmail.com</span>
+                            </div>
+                            <div class="d-flex">
+                                <i class="fab fa-facebook-square"></i>
+                                <a href="#">Our Facebook address</a>
+                            </div>
+                            <div class="d-flex">
+                                <i class="fab fa-instagram"></i>
+                                <a href="#">Our Instagram address</a>
+                            </div>
+                            <div class="d-flex">
+                                <i class="fab fa-linkedin"></i>
+                                <a href="#">Our Linkedin address</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+    
+</body>
+</html>

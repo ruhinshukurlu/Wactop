@@ -48,7 +48,7 @@
     {% include 'partials/main-menu.html' %}
 
   
-    <main>
+    <main class="full-h">
         <div class="row justify-content-center full-h">
             <div class="col-2 p-0 bg-white " id="menu-column">
                 {% include 'partials/organizer-menu.html' %}
@@ -133,53 +133,8 @@
         </div>
     </main>
 
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
-                    <nav class="footer-menu">
-                        <ul class="d-column">
-                            <li>
-                                <a href="#">About Us</a>
-                            </li>
-                            <li>
-                                <a href="#">Terms</a>
-                            </li>
-                            <li>
-                                <a href="#">Privacy</a>
-                            </li>
-                        </ul>
-                        <p><i class="far fa-copyright"></i> 2019</p>
-                    </nav>
-                </div>
-                <div class="col-4">
-                    <div class="d-column align-center">
-                        <span class="mb-2 mt-2">Follow Us</span>
-                        <ul class="footer-social-links" >
-                            <li>
-                                <a href="#">
-                                    <i class="fab fa-facebook-square"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-4 d-flex justify-content-end">
-                    <a href="#">Contact</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {% include 'partials/footer.html' %}
+
     
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

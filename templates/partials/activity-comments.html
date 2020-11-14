@@ -1,4 +1,6 @@
 {% load static %}
+
+{% if comments %}
 <h3 class="full bold border-bottom pb-2 mb-5">What {{comments_count.count}} people say about this tour?</h3>
 <div class="comments-box container">
     <div class="row">
@@ -147,6 +149,9 @@
     </div>
 
 </div>
+{% else %}
+    <h3 class="full bold mb-5 text-center">No comment added</h3>
+{% endif %}
 
 <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
 <script >

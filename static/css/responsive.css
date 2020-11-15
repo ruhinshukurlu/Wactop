@@ -14,6 +14,8 @@
     .modal-content{
         width: 50%;
     }
+
+    
 }
 @media (max-width : 576px){
     .form-box {
@@ -31,6 +33,9 @@
     }
     ::placeholder{
         font-size: 14px;
+    }
+    .partners-logos div{
+        height: 100%;
     }
 }
 @media (max-width : 500px){

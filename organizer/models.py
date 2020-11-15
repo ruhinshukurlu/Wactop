@@ -6,7 +6,7 @@ from account.models import *
 class Organizer(models.Model):
 
     user = models.OneToOneField("account.User", verbose_name=_("User"), on_delete=models.CASCADE, related_name = 'organizer')
-    email = models.EmailField(_("Email"), max_length=254)
+    email = models.EmailField(_("Email"), max_length=254, blank=True, null=True)
     organizer_name = models.CharField(max_length=127, unique=True)
     descriptionaz = models.TextField(blank=True, null=True)
     descriptionen = models.TextField(blank=True, null=True)
@@ -20,7 +20,7 @@ class Organizer(models.Model):
     address = models.CharField(max_length=255, blank=True, null=True)
     contact_number_1 = models.CharField(max_length=31, blank=True, null=True)
     contact_number_2 = models.CharField(max_length=31, blank=True, null=True)
-    profile_photo = models.ImageField(_("organizer/profile-photo"), upload_to=None, height_field=None, width_field=None, max_length=None)
+    profile_photo = models.ImageField( upload_to='organizer/cover/', height_field=None, width_field=None, max_length=None)
     cover = models.ImageField(upload_to='organizer/cover/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
     viewcount = models.IntegerField(default=0)
     

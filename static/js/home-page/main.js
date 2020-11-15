@@ -1,5 +1,14 @@
-$('.owl-carousel').owlCarousel({
-    loop: true,
+function checkLoop() {
+    if($('.owl-carousel .item').length > 5 ){
+        return true   
+    }
+    else{
+        return false
+    }
+}
+
+$('.partners-logos-box').owlCarousel({
+    loop: checkLoop(),
     margin: 25,
     nav: true,
     dots: false,
@@ -15,7 +24,8 @@ $('.owl-carousel').owlCarousel({
             items: 4
         },
         1000: {
-            items: 5
+            items: 5,
+             
         }
     }
 })

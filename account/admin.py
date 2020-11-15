@@ -8,7 +8,7 @@ User = get_user_model()
 
 class UserAdmin(BaseUserAdmin):
     fieldsets = (
-        (None, {'fields': ('email', 'password', 'username',)}),
+        (None, {'fields': ('email', 'password', 'username','profile_img')}),
         ('Permissions', {'fields': (
             'is_active',
             'is_staff',

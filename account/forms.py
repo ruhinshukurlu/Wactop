@@ -60,11 +60,16 @@ class OrganizerRegisterForm(UserCreationForm):
                     'class': 'form-input',
                     'placeholder' : 'Your Address'
                 }),label='Address')
-    contact_number = forms.CharField(required=True, widget=forms.TextInput(attrs={
+    contact_number1 = forms.CharField(required=True, widget=forms.TextInput(attrs={
                     'class': 'form-input',
                     'placeholder' : 'Your Contact Number'
 
-                }),label='Contact Number')
+                }),label='Contact Number 1')
+    contact_number2 = forms.CharField(required=True, widget=forms.TextInput(attrs={
+                    'class': 'form-input',
+                    'placeholder' : 'Your Contact Number'
+
+                }),label='Contact Number 2')
     website = forms.URLField(max_length=150, widget=forms.URLInput(attrs={
                     'class': 'form-input',
                     'placeholder' : 'Your Website'
@@ -90,16 +95,18 @@ class OrganizerRegisterForm(UserCreationForm):
         user = super().save(commit=False)
         user.is_organizer = True
         user.is_active = False
-        user.profile_img = self.cleaned_data.get('profile_image')
         user.username = self.cleaned_data.get('username')
         user.email = self.cleaned_data.get('email')
         user.save()
         organizer = Organizer.objects.create(user=user)
         organizer.cover = self.cleaned_data['cover_image']
+        organizer.profile_photo = self.cleaned_data.get('profile_image')
         organizer.organizer_name=self.cleaned_data['organizer_name']
         organizer.descriptionaz=self.cleaned_data['description']
         organizer.about=self.cleaned_data['about']
-        organizer.contact_number=self.cleaned_data['contact_number']
+        organizer.contact_number_1=self.cleaned_data['contact_number1']
+        organizer.contact_number_2=self.cleaned_data['contact_number2']
+        organizer.address=self.cleaned_data['address']
         organizer.website=self.cleaned_data['website']
         organizer.facebook=self.cleaned_data['facebook']
         organizer.instagram=self.cleaned_data['instagram']

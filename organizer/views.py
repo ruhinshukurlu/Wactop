@@ -20,7 +20,7 @@ import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
 from account.forms import *
-
+from organizer.decorators import user_is_organizer_author
 
 class OrganizerRegisterView(CreateView):
     model = User
@@ -59,7 +59,6 @@ class OrganizerListView(ListView):
         return super().get_queryset().all()
 
 
-
 def OrganizerList(request):
     organizer = Organizer.objects.filter(registered=False)
     if request.GET.get('search'):
@@ -88,8 +87,6 @@ def OrganizerList(request):
     if request.GET.get('search'):
         context.update(context2)
     return render(request, 'organizer-list.html', context)
-
-
 
 
 class OrganizerEditView(UpdateView, LoginRequiredMixin):
@@ -191,7 +188,6 @@ class GuideDeleteView(DeleteView):
         return reverse_lazy('organizer:guides-instructors')
 
 
-
 class InstructorCreateView(CreateView):
     model = Instructor
     form_class = InstructorForm
@@ -249,7 +245,6 @@ class OrganizerAllActions(ListView):
         context['trainings'] = Training.objects.filter(organizer=self.request.user.organizer)
         return context
     
-
 
 def OrganizerDetail(request, pk):
     organizer = Organizer.objects.get(pk=pk)

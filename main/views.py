@@ -18,10 +18,13 @@ from django.contrib import messages
 from training.views import training_type_list, training_country_list
 from tour.views import tour_country_list, tour_type_list
 from activity.views import activity_country_list
+from main.models import *
 # sendemail("kamil129@inbox.ru", "test2")
 
 
 def HomeView(request):
+    slide_images = HomeSlide.objects.all()
+    partners = Partner.objects.all()
     if request.method == 'POST':
         form = LoginForm(request.POST or None)
         username = request.POST['username']
@@ -50,7 +53,10 @@ def HomeView(request):
         'trainingcount': trainingcount,
         'organizercount': organizercount,
         # 'pk': pk,
-        'form': form
+        'form': form,
+        'slide_images': slide_images,
+        'partners': partners,
+        'social_link': SocialLink.objects.first()
     }
     return render(request, 'home-page.html', context)
 

@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
     
-
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
     <style>
         .shadow{
@@ -62,7 +62,7 @@
         </div>
 
         <div class="custom-container copmany-infos-block">
-            <div class="row mb-4">
+            <div class="row mb-4 company-infos">
                 <h2 class="full bold border-bottom pb-2 mb-5">About</h2>
                 <div class="col-lg-8">
                     
@@ -432,15 +432,15 @@
             responsive: {
                 1: {
                     items: 1,
-                    dots: false
+                    // dots: false
                 },
                 600: {
                     items: 3
                 },
-                800: {
+                1300: {
                     items: 4
                 },
-                1000: {
+                1400: {
                     items: 5
 
                 }

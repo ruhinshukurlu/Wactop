@@ -26,6 +26,7 @@ class Partner(models.Model):
     def __str__(self):
         return str(self.partner_logo)
 
+
 class SocialLink(models.Model):
     title = models.CharField(_("Title"), max_length=50, blank=True, null=True)
     instagram_link = models.URLField(_("Instagram Link"), max_length=300, blank=True, null=True)

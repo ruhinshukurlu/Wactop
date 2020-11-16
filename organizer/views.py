@@ -20,7 +20,9 @@ import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
 from account.forms import *
-from organizer.decorators import user_is_organizer_author
+# from organizer.decorators import user_is_organizer_author
+
+
 
 class OrganizerRegisterView(CreateView):
     model = User

@@ -895,3 +895,11 @@ h4{
     background-color: #4dabf8;
     color: #fff;
 }
+
+.organizer-actions .modal-body{
+    padding: 10px 30px;
+}
+
+.organizer-actions .modal-dialog {
+    max-width: 450px;
+}

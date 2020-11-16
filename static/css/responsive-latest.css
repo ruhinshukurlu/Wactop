@@ -32,6 +32,12 @@
         height: 90px;
     }
 
+    .phone-box{
+        margin: 0;
+    }
+
+
+
 }
 
 @media (max-width : 1500px) {
@@ -42,6 +48,25 @@
 
     .saved-item .description{
         display: none;
+    }
+    .cover-photo-box .company-name-box {
+        padding: 10px 260px;
+    }
+
+    .company-infos{
+        font-size: 13px;
+    }
+
+    .photo-list img {
+        height: 160px;
+    }
+
+    footer{
+        font-size: 13px;
+    }
+
+    .footer-social-links i {
+        font-size: 15px;
     }
 }
 
@@ -72,7 +97,17 @@
         max-width: 95%;
     }
 
+    .tour-search {
+        width: 55%;
+    }
+
+    .filter-menu-list{
+        width: 90%;
+    }    
+
 }
+
+
 
 
 @media ( max-width : 577px ) {
@@ -109,5 +144,54 @@
 
     .tour-search{
         width: 80%;
+    }
+
+    .filter-menu-list{
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .filter-menu-list a{
+        font-size: 12px;
+    }
+
+    .filter-menu-list li{
+        padding: 10px;
+    }
+
+    .filter-menu-list span{
+        display: none;
+    }
+
+    .saved-item img {
+        height: 270px;
+    }
+
+    .saved-item #org-profile-photo {
+        width: 140px;
+        height: 140px;
+    }
+
+    .saved-item .description{
+        display: block;
+    }
+
+    .saved-item img{
+        border-radius: unset;
+    }
+
+    .saved-item {
+        border: unset;
+        border-radius: unset;
+        margin-bottom: 40px;
+        border-bottom: 1px solid #7aa8ff;
+    }
+
+    .organizer-list .col-12{
+        padding: 0px !important;
+    }
+
+    .organizer-list{
+        margin-bottom: 0px;
     }
 }

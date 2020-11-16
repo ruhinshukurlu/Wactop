@@ -67,6 +67,8 @@
 
   .dropdown li{
     padding: 10px 50px;
+    display: flex;
+    justify-content: center;
   }
 
   .dropdown li:hover{

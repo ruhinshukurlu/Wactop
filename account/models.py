@@ -2,6 +2,10 @@ from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractUser
 from django.utils.translation import ugettext_lazy as _
 from account.managers import UserManager
+from django.core.mail import send_mail, EmailMessage
+from Wactop.settings import EMAIL_HOST_USER
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 # Create your models here.
 
 class User(AbstractUser):
@@ -28,6 +32,19 @@ class User(AbstractUser):
     def __str__(self):
         return self.username
 
+
+    # def save(self, *args, **kwargs):
+    #     if self.is_active:
+    #         send_mail('salam', 'olsun', EMAIL_HOST_USER, [self.email] )
+
+
+@receiver(post_save,sender=User)
+def send_user_data_when_created_by_admin(sender, instance, **kwargs):
+    if instance.is_active:
+        email = instance.email
+        html_content = "you Organizer is activated by admin"
+        send_mail('Hello', html_content ,  EMAIL_HOST_USER, [email])
+      
 
 class Customer(models.Model):
     

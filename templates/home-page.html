@@ -151,7 +151,7 @@
             <div class="partners-logos">
                 <div class="owl-carousel owl-theme partners-logos-box">
                     {% for partner in partners %}
-                        <div class="item" id="partners-crsl"><img src="{{partner.partner_logo.url}}" alt="" onclick="window.open('http://www.yer.az')"></div>
+                        <div class="item" id="partners-crsl"><img src="{{partner.partner_logo.url}}" alt="" onclick="window.open('{% if partner.partner_url %}{{partner.partner_url}} {% else %}{{request.path}}{% endif %}')"></div>
                     {% endfor %}
                 </div>
             </div>

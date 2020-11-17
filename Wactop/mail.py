@@ -1,5 +1,6 @@
 import smtplib
-
+from django.core.mail import send_mail, EmailMultiAlternatives
+from Wactop.settings import EMAIL_HOST_USER
 
 def sendemail(email, text):
     mail = smtplib.SMTP("smtp.gmail.com", 587)
@@ -11,3 +12,9 @@ def sendemail(email, text):
     mail.sendmail("kamilgarib@gmail.com", email, message)
     mail.quit()
 
+
+def sendMail(subject,text_content, html_content):
+    
+    msg = EmailMultiAlternatives(subject,text_content, EMAIL_HOST_USER, ['sara.axmedova98@gmail.com'])
+    msg.attach_alternative(html_content, "text/html")
+    msg.send()

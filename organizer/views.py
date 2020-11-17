@@ -17,9 +17,11 @@ from training.models import *
 from activity.models import *
 from django.contrib import messages 
 import smtplib
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from Wactop.mail import *
 from account.forms import *
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 # from organizer.decorators import user_is_organizer_author
 
 
@@ -35,6 +37,26 @@ class OrganizerRegisterView(CreateView):
 
     def form_valid(self, form):
         user = form.save()
+        subject = 'New organizer registered'
+        data =[
+            form.cleaned_data['organizer_name'],
+            form.cleaned_data['email'],
+            form.cleaned_data['description'],
+            form.cleaned_data['about'],
+            form.cleaned_data['address'],
+            form.cleaned_data['website'],
+            form.cleaned_data['facebook'],
+            form.cleaned_data['instagram'],
+            form.cleaned_data['contact_number1'],
+            form.cleaned_data['contact_number2'],
+            form.cleaned_data['cover_image'],
+            form.cleaned_data['profile_image']
+        ]
+        html_content = render_to_string('partials/mail_template.html', {'organzer_data':data}) # render with dynamic value
+        text_content = strip_tags(html_content) # Strip the html tag. So people can see the pure text at least.
+
+        # html_content = f"<p>Organizer name : {form.cleaned_data['organizer_name']}</p><p>Organizer email : {form.cleaned_data['email']}</p><p>Organizer description : {form.cleaned_data['description']}</p><p>About Organizer : {form.cleaned_data['about']}</p><p>Organizer address : {form.cleaned_data['address']}</p><p>Organizer website : {form.cleaned_data['website']}</p><p>Organizer facebook : {form.cleaned_data['facebook']}</p><p>Organizer instagram : {form.cleaned_data['instagram']}</p>"
+        sendMail(subject,text_content,html_content)
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
        
         return redirect('main:home')
@@ -335,8 +357,14 @@ class ContactView(CreateView):
     form_class = ContactForm
     template_name = "contact.html"
 
-    def get_success_url(self):
-        return reverse_lazy('main:home')
+    def form_valid(self, form):
+        form.save()
+        subject = 'New user contacted'
+        text_content = 'New user contacted'
+        html_content = f"<p>First name : {form.cleaned_data['first_name']}</p><p>Last name : {form.cleaned_data['last_name']}</p><p>Email : {form.cleaned_data['email']}</p><p>Phone number : {form.cleaned_data['phone_number']}</p><p>Message : {form.cleaned_data['message']}</p>"
+        sendMail(subject,text_content,html_content)
+       
+        return redirect('main:home')
 
 
 def OrganizerTour(request):
@@ -365,6 +393,11 @@ def OrganizerTour(request):
             tour.status = 2
             tour.save()
             
+            subject = f'New tour added by {tour.organizer.organizer_name}'
+            text_content = f'New tour added by {tour.organizer.organizer_name}'
+            html_content = f"<p>Name : {tour.title}</p><p>Location : {tour.address} , {tour.city} {tour.country}</p><p>Owner : {tour.organizer.organizer_name}</p>"
+            sendMail(subject,text_content,html_content)
+
             for i in image_form:
                 if i.cleaned_data:
                     image = i.save(commit=False)
@@ -447,6 +480,11 @@ def OrganizerActivity(request):
             tour.organizer = Organizer.objects.get(user=request.user.id)
             tour.status = 2
             tour.save()
+
+            subject = f'New activity added by {tour.organizer.organizer_name}'
+            text_content = f'New activity added by {tour.organizer.organizer_name}'
+            html_content = f"<p>Name : {tour.title}</p><p>Location : {tour.address} , {tour.city} {tour.country}</p><p>Owner : {tour.organizer.organizer_name}</p>"
+            sendMail(subject,text_content,html_content)
             for i in detail_form_en:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
@@ -527,6 +565,11 @@ def OrganizerTraining(request):
 
             tour.status = 2
             tour.save()
+
+            subject = f'New training added by {tour.organizer.organizer_name}'
+            text_content = f'New training added by {tour.organizer.organizer_name}'
+            html_content = f"<p>Name : {tour.title}</p><p>Location : {tour.address} , {tour.city} {tour.country}</p><p>Owner : {tour.organizer.organizer_name}</p>"
+            sendMail(subject,text_content,html_content)
 
             for i in detail_form_en:
                 if i.cleaned_data:

@@ -16,7 +16,7 @@ class HomeSlide(models.Model):
 
 
 class Partner(models.Model):
-
+    partner_url = models.URLField(_("Partner Link"), max_length=300, blank=True, null=True)
     partner_logo = models.ImageField(_("Partner Logo"), upload_to='partner-images', height_field=None, width_field=None, max_length=None)
 
     class Meta:

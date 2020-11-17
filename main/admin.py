@@ -9,7 +9,7 @@ class HomeSlideAdmin(admin.ModelAdmin):
     
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-    list_display = ['partner_logo']
+    list_display = ['partner_url' ,'partner_logo']
 
 
 @admin.register(SocialLink)

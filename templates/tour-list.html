@@ -69,6 +69,16 @@
                                     </form>
                                   </ul>
                               </li>
+                              <li><a href="#" class="align-center">Rating
+                                <i class="fas fa-angle-down ml-2"></i>
+                                </a>
+                                <ul class="dropdown">
+                                    <form action="{% url 'tour:filter' %}">
+                                        <li><a href=""><button type="submit" name="rating"  value="high">High</button></a></li>
+                                        <li><a href=""><button type="submit" name="rating"  value="low">Low</button></a></li>
+                                    </form>
+                                  </ul>
+                              </li>
                               <li><a href="#" class="align-center">Country
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
@@ -132,14 +142,14 @@
                                                 </div>
                                                 <div class="d-column">
                                                     <div class="d-flex mb-2 align-center">
-                                                        <div class="stars d-flex mr-2">
-                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-active"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-deactive"></i></div>
-                                                            <div class="star"><i class="fas fa-star star-deactive"></i></div>
+                                                        <div class="stars d-flex mr-2" data-value='{{tour.rating}}'>
+                                                            <div class="star"><i class="far fa-star star-active"></i></div>
+                                                            <div class="star"><i class="far fa-star star-active"></i></div>
+                                                            <div class="star"><i class="far fa-star star-active"></i></div>
+                                                            <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                            <div class="star"><i class="far fa-star star-deactive"></i></div>
                                                         </div> 
-                                                        <span>15 reviews</span>
+                                                        <span>{{tour.tour_comment.count}} reviews</span>
                                                     </div>
                                                     <div class="d-flex">
                                                         <span class="bold mr-2">Location : </span>
@@ -257,6 +267,14 @@
        $('.menu_btn').click(function(){
             $('#menu-column').slideToggle()
        })
+
+       for (let star = 0; star < $('.stars').length; star++) {
+            var rating_count = parseInt($('.stars').eq(star).data('value'))
+            for (let count = 0; count < rating_count; count++) {
+                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+                
+            }
+        }
    </script>
 
     

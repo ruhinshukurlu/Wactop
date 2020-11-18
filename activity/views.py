@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
 from django.views.generic.list import ListView
+from django.db.models import Avg
 
 from .models import *
 from tour.models import *
@@ -22,6 +23,7 @@ for tour_type in tour_types:
 
 activities = Activity.objects.all()
 activity_country_list = []
+
 for activity in activities:
     if activity.country not in activity_country_list:
         activity_country_list.append(activity.country)
@@ -78,11 +80,12 @@ def ActivityDetailView(request, pk):
         form = CommentForm(request.POST)
         if request.POST.get('form_id') == 'myform': 
             textarea = request.POST.get('textarea')
+            
             rating = request.POST.get('rating')
             
             comment = ActivityComment.objects.create(
                 message = textarea,
-                rating = rating,
+                rating = rating if rating else 0,
                 activity = Activity.objects.get(pk=pk),
                 user = request.user
             )
@@ -159,7 +162,11 @@ def ActivityDetailView(request, pk):
     tour_view += str(pk)
     tour_view += '_viewed'
 
-    
+    print(activity.activity_comment.aggregate(Avg('rating')).get('rating__avg', 0))
+    if activity.activity_comment.all():
+        total_activity_comment = int(activity.activity_comment.aggregate(Avg('rating')).get('rating__avg', 0))
+        activity.rating = total_activity_comment
+        activity.save()
 
     if not request.COOKIES.get(tour_view):
         response = render(request, 'activity-page.html', context)
@@ -245,6 +252,14 @@ def ActivityFilter(request):
         elif price_query == 'low':
             context2['price2'] = 'low'
             data = Activity.objects.filter(status=1).order_by('price')
+    rating_query = request.GET.get('rating')
+    if rating_query:
+        if rating_query == 'high':
+            context2['rating2'] = 'high'
+            data = Activity.objects.filter(status=1).order_by('-rating')
+        elif rating_query == 'low':
+            context2['rating2'] = 'low'
+            data = Activity.objects.filter(status=1).order_by('rating')
 
     duration_query = request.GET.get('duration')
     if duration_query:

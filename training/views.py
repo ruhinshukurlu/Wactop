@@ -7,6 +7,7 @@ from .models import *
 from tour.models import *   
 from django.http import HttpResponse, JsonResponse
 import json
+from django.db.models import Avg
 
 
 training_types = TourType.objects.all()
@@ -108,7 +109,7 @@ def TrainingDetailView(request, pk):
             rating = request.POST.get('rating')
             comment = Comment.objects.create(
                 message = textarea,
-                rating = rating,
+                rating = rating if rating else 0,
                 training = Training.objects.get(pk=pk),
                 user = request.user
             )
@@ -186,7 +187,10 @@ def TrainingDetailView(request, pk):
     tour_view += str(pk)
     tour_view += '_viewed'
 
-    
+    if training.comment.all():
+        total_training_comment = int(training.comment.aggregate(Avg('rating')).get('rating__avg', 0))
+        training.rating = total_training_comment
+        training.save()
 
     if not request.COOKIES.get(tour_view):
         response = render(request, 'training-page.html', context)
@@ -270,6 +274,14 @@ def TrainingFilter(request):
         elif price_query == 'low':
             data = Training.objects.filter(status=1).order_by('price')
             context2['price'] = 'low'
+    rating_query = request.GET.get('rating')
+    if rating_query:
+        if rating_query == 'high':
+            context2['rating2'] = 'high'
+            data = Training.objects.filter(status=1).order_by('-rating')
+        elif rating_query == 'low':
+            context2['rating2'] = 'low'
+            data = Training.objects.filter(status=1).order_by('rating')
     duration_query = request.GET.get('duration')
     if duration_query:
         if duration_query == 'long':

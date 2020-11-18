@@ -45,6 +45,7 @@ class Activity(models.Model):
     guide = models.CharField(max_length=31, blank=True, null=True)
     availabledays = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True)
 
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
 

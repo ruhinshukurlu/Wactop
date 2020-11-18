@@ -47,6 +47,7 @@ class Training(models.Model):
     trainer = models.CharField(max_length=31, blank=True, null=True)
     availabledays = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True)
 
     start_hour = models.TimeField(_("Start Hour"))
     finish_hour = models.TimeField(_("Finish Hour"))

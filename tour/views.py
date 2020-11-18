@@ -3,6 +3,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 import json
 from django.views.generic.list import ListView
+from django.db.models import Avg
+
 from tour.forms import *
 from .models import *
 # pip install psycopg2
@@ -123,7 +125,7 @@ def TourDetailView(request, pk):
                     # replay_comment.comment_reply = parent_obj
             comment = TourComment.objects.create(
                 message = textarea,
-                rating = rating,
+                rating = rating if rating else 0,
                 tour = Tour.objects.get(pk=pk),
                 user = request.user
             )
@@ -201,6 +203,10 @@ def TourDetailView(request, pk):
     tour_view += str(pk)
     tour_view += '_viewed'
 
+    if tour.tour_comment.all():
+        total_tour_comment = int(tour.tour_comment.aggregate(Avg('rating')).get('rating__avg', 0))
+        tour.rating = total_tour_comment
+        tour.save()
     
 
     if not request.COOKIES.get(tour_view):
@@ -288,6 +294,14 @@ def TourFilter(request):
         elif price_query == 'low':
             context2['price2'] = 'low'
             data = Tour.objects.filter(status=1).order_by('price')
+    rating_query = request.GET.get('rating')
+    if rating_query:
+        if rating_query == 'high':
+            context2['rating2'] = 'high'
+            data = Tour.objects.filter(status=1).order_by('-rating')
+        elif rating_query == 'low':
+            context2['rating2'] = 'low'
+            data = Tour.objects.filter(status=1).order_by('rating')
     duration_query = request.GET.get('duration')
     if duration_query:
         if duration_query == 'long':

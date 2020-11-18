@@ -131,7 +131,8 @@ class OrganizerTourForm(forms.ModelForm):
             }),
             'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',
-                'placeholder' : 'Add Map link here'
+                'placeholder' : 'Add Map link here',
+                'disabled':'true'
             })
         }
 
@@ -241,7 +242,8 @@ class OrganizerActivityForm(forms.ModelForm):
             }),
              'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',
-                'placeholder' : 'Add Map link here'
+                'placeholder' : 'Add Map link here',
+                'disabled':'true'
             })
         }
     
@@ -363,7 +365,8 @@ class OrganizerTrainingForm(forms.ModelForm):
             }),
              'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',
-                'placeholder' : 'Add Map link here'
+                'placeholder' : 'Add Map link here',
+                'disabled':'true'
             })
         }
 

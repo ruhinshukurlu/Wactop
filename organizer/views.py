@@ -386,7 +386,6 @@ def OrganizerTour(request):
 
         # print(tour_form.errors, image_form.errors, schedule_form.errors)
         if tour_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
-            print('oookkkkk')
             
             tour = tour_form.save(commit=False)
             tour.organizer = request.user.organizer

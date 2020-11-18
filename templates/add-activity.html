@@ -210,10 +210,17 @@
                                                         <button type="button" class="help-btn mr-2">
                                                             <i class="far fa-question-circle"></i>
                                                         </button>
-                                                        {{tour_form.map_link}}
+                                                        <div class="d-column full">
+                                                            <input type="text" name="map-iframe"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" > 
+                                                            <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
+                                                                <span>We got the link successfully</span>
+                                                                {{tour_form.map_link}}
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                     <div class="help-text mt-1" style="display: none;">
-                                                        This field will make your activity more clear for users, you have to include embeded link from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>
+                                                        This field will make your activity address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>. 
+                                                        We automatically will get main link of iframe for presenting address in Google map.
                                                     </div>
                                                 </div>
                                             </div>

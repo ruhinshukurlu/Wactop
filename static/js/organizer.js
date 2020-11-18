@@ -104,3 +104,16 @@ $('.menu-btn').click(function(){
   $('.help-btn').click(function(){
       $('.help-text').toggle()
   })
+
+
+  $('#id_map_link').change(function(){
+    var iframe_src = $($(this).val()).attr('src')
+    if (iframe_src){
+        $('input[name="map_link"]').val(iframe_src)
+        $('#iframe-link-box').slideDown(200)
+    }else{
+        $('input[name="map_link"]').val('')
+        alert("We couldn't get link, please enter correct item.")
+    }
+    
+})

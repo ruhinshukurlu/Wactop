@@ -7,6 +7,7 @@ import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
 from django.utils.translation import ugettext as _
+from notifications.signals import notify
 
 
 status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past')]
@@ -78,6 +79,10 @@ class Tour(models.Model):
     #                     Visit https://www.wactop.com"""
     #                 sendemail(self.organizer.email, message)
     #     super(Tour, self).save(*args, **kwargs)
+
+
+
+
 
 
 class TourDetailAZ(models.Model):

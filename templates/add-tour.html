@@ -72,6 +72,13 @@
                                     {{image_form.management_form}}
                                     {{schedule_form.management_form}}
 
+                                    {{tour_form.non_field_errors}}
+                                    {{detail_form_en.non_field_errors }}
+                                    {{detail_form_az.non_field_errors }}
+                                    {{detail_form_ru.non_field_errors }}
+                                    {{url_form.non_field_errors}}
+                                    {{image_form.non_field_errors}}
+                                    {{schedule_form.non_field_errors}}
 
                                     <div id="tourBasics">
                                         <div class="d-column border-bottom pb-2 mb-4">
@@ -87,6 +94,7 @@
                                                 <div class="d-flex add-img-box cover-img-box"> 
                                                     <label for="coverPhotoInput"><i class="fas fa-camera mr-2"></i>Cover Photo</label>
                                                     {{tour_form.avatar}}
+                                                    {{tour_form.avatar.errors}}
                                                 </div>
                                                 <img id="coverPhoto" class="cover-photo" src="{% static 'images/default-tour-photo.jpg' %}" alt="your image" />
                                                 
@@ -98,6 +106,7 @@
                                                                 <i class="fas fa-camera"></i>
                                                             </label>
                                                             {{tour_form.cover}}
+                                                            {{tour_form.cover.errors}}
                                                         </div>
                                                         <img id="profilePhoto" class="profile-photo" src="{% static 'images/default-tour-photo.jpg' %}" alt="your image" />
                                                     </div>
@@ -119,6 +128,7 @@
                                                 </div>
                                                 <div class='col-9'>
                                                     {{tour_form.country}}
+                                                    {{tour_form.country.errors}}
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -127,6 +137,7 @@
                                                 </div>
                                                 <div class='col-9'>
                                                     {{tour_form.city}}
+                                                    {{tour_form.city.errors}}
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -135,6 +146,7 @@
                                                 </div>
                                                 <div class='col-9'>
                                                     {{tour_form.address}}
+                                                    {{tour_form.address.errors}}
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -143,6 +155,7 @@
                                                 </div>
                                                 <div class='col-9'>
                                                     {{tour_form.tour_type}}
+                                                    {{tour_form.tour_type.errors}}
                                                 </div>
                                                 
                                             </div>
@@ -152,6 +165,7 @@
                                                 </div>
                                                 <div class='col-9'>
                                                     {{tour_form.pricefor}}
+                                                    {{tour_form.pricefor.errors}}
                                                 </div>
                                                 
                                             </div>
@@ -161,9 +175,11 @@
                                                     <div class="full row">
                                                         <div class="col-6 pl-0">
                                                             {{tour_form.price}}
+                                                            {{tour_form.price.errors}}
                                                         </div>
                                                         <div class="col-6 pr-0">
                                                             {{tour_form.currency}}
+                                                            {{tour_form.currency.errors}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -174,9 +190,11 @@
                                                     <div class="full row">
                                                         <div class="col-6 pl-0">
                                                             {{tour_form.durationday}}
+                                                            {{tour_form.durationday.errors}}
                                                         </div>
                                                         <div class="col-6 pr-0">
                                                             {{tour_form.durationnight}}
+                                                            {{tour_form.durationnight.errors}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -187,9 +205,11 @@
                                                     <div class="full row">
                                                         <div class="col-6 pl-0">
                                                             {{tour_form.datefrom}}
+                                                            {{tour_form.datefrom.errors}}
                                                         </div>
                                                         <div class="col-6 pr-0">
                                                             {{tour_form.dateto}}
+                                                            {{tour_form.dateto.errors}}
                                                         </div>
                                                     </div>
                                                 </div>
@@ -200,6 +220,7 @@
                                                 </div>
                                                 <div class='col-9'>
                                                     {{tour_form.guide}}
+                                                    {{tour_form.guide.errors}}
                                                 </div>
                                             </div>
                                             <div class="form-group row">
@@ -216,6 +237,7 @@
                                                             <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
                                                                 <span>We got the link successfully</span>
                                                                 {{tour_form.map_link}}
+                                                                {{tour_form.map_link.errors}}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -249,6 +271,7 @@
                                                 </div>
                                                 <div class='col-12'>
                                                     {{tour_form.descriptionen}}
+                                                    {{tour_form.descriptionen}.errors}
                                                 </div>
                                             </div>
                                             
@@ -260,9 +283,11 @@
                                                         </div>
                                                         <div class='col-12'>
                                                             {{form.title}}
+                                                            {{form.title.errors}}
                                                         </div>
                                                         <div class='col-12'>
                                                             {{form.text}}
+                                                            {{form.text.errors}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -283,6 +308,7 @@
                                                 </div>
                                                 <div class='col-12'>
                                                     {{tour_form.descriptionaz}}
+                                                    {{tour_form.descriptionaz.errors}}
                                                 </div>
                                             </div>
 
@@ -294,9 +320,11 @@
                                                         </div>
                                                         <div class='col-12'>
                                                             {{form.title}}
+                                                            {{form.title.errors}}
                                                         </div>
                                                         <div class='col-12'>
                                                             {{form.text}}
+                                                            {{form.text.errors}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -317,6 +345,7 @@
                                                 </div>
                                                 <div class='col-12'>
                                                     {{tour_form.descriptionru}}
+                                                    {{tour_form.descriptionru.errors}}
                                                 </div>
                                             </div>
 
@@ -328,9 +357,11 @@
                                                         </div>
                                                         <div class='col-12'>
                                                             {{form.title}}
+                                                            {{form.title.errors}}
                                                         </div>
                                                         <div class='col-12'>
                                                             {{form.text}}
+                                                            {{form.text.errors}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -367,6 +398,7 @@
                                                 <div class="form-group row">
                                                     <div class="col-12">
                                                         {{form.url}}
+                                                        {{form.url.errors}}
                                                     </div>
                                                 </div>
                                             {% endfor %}
@@ -402,6 +434,7 @@
                                                         <div class="d-flex add-img-box"> 
                                                             {{form.image.label_tag}}
                                                             {{form.image}}
+                                                            {{form.image.errors}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -436,6 +469,7 @@
                                                         <div class="d-flex add-img-box"> 
                                                             {{form.image.label_tag}}
                                                             {{form.image}}
+                                                            {{form.image.errors}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}

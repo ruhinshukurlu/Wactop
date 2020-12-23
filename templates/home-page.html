@@ -117,7 +117,9 @@
                 <div class="row text-center">
                     <a class="inner" href="{% url 'tour:home' %}">
                       <div >
-                          <p class="suggestions">Tours</p>
+                          <p class="suggestions">Tours
+                          {{notifications_tags}}
+                          </p>
                           <p>{{tourcount}}</p>
                       </div>
                     </a>
@@ -129,11 +131,12 @@
                     </a>
                     <a class="inner" href="{% url 'training:home' %}" >
                       <div >
-                          <p class="suggestions">Tranings</p>
+                          <p class="suggestions">Tranings
+                          </p>
                           <p>{{trainingcount}}</p>
                       </div>
                     </a>
-                    <a class="inner" href="{% url 'organizer:home' %}"">
+                    <a class="inner" href="{% url 'organizer:home' %}">
                       <div >
                           <p class="suggestions">Organizer</p>
                           <p>{{organizercount}}</p>
@@ -210,7 +213,6 @@
             </div>
         </div>
     </footer>
-
     <script src="{% static 'js/home-page/jquery-latest.js' %}"></script>
     <script src="{% static 'js/home-page/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/home-page/owl.carousel.js' %}"></script>
@@ -220,6 +222,17 @@
         $('.carousel-inner').children().eq(0).addClass('active')
         console.log($('.carousel-inner').children().eq(0));
     </script>
+    {% if request.user.is_authenticated %}
+        <script>
+            function initFreshChat() {
+                window.fcWidget.init({
+                token: "6f1304aa-68c4-40ad-b613-d9e1eb723097",
+                host: "https://wchat.freshchat.com"
+                });
+            }
+            function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
+        </script>
+    {% endif %}
 </body>
 
 </html>

@@ -13,16 +13,18 @@ from django.db.models import Avg
 training_types = TourType.objects.all()
 
 training_type_list = []
-
-for training_type in training_types:
-    if training_type.title not in training_type_list:
-        training_type_list.append(training_type.title)
+if training_types:
+    for training_type in training_types:
+        if training_type.title not in training_type_list:
+            training_type_list.append(training_type.title)
 
 trainings = Training.objects.all()
 training_country_list = []
-for training in trainings:
-    if training.country not in training_country_list:
-        training_country_list.append(training.country)
+if trainings:
+    for training in trainings:
+        if training.country not in training_country_list:
+            training_country_list.append(training.country)
+
 
 
 class TrainingListView(ListView):

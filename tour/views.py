@@ -107,19 +107,15 @@ def TourDetailView(request, pk):
         if request.POST.get('form_id') == 'myform': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
             parent_obj = None
-            print('salam')
             # get parent comment id from hidden input
             try:
                 # id integer e.g. 15
                 parent_id = int(request.POST.get('parent_id'))
-                print(parent_id, '-----------------------------')
             except:
                 parent_id = None
             if parent_id:
                     parent_obj = TourComment.objects.get(id=parent_id)
-                    print(parent_obj, '==========================')
                     # replay_comment = form.save(commit=False)
                     # assign parent_obj to replay comment
                     # replay_comment.comment_reply = parent_obj
@@ -142,9 +138,7 @@ def TourDetailView(request, pk):
         elif request.POST.get('form_id') == 'p-2 reply-form': 
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
-            print('salamsalsma', textarea) 
             parent_obj = None
-            print('salam')
             # get parent comment id from hidden input
             try:
                 # id integer e.g. 15

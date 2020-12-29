@@ -11,7 +11,6 @@ from django.db.models import Avg
 
 
 training_types = TourType.objects.all()
-
 training_type_list = []
 
 for training_type in training_types:
@@ -189,6 +188,7 @@ def TrainingDetailView(request, pk):
 
     if training.comment.all():
         total_training_comment = int(training.comment.aggregate(Avg('rating')).get('rating__avg', 0))
+        print(total_training_comment)
         training.rating = total_training_comment
         training.save()
 

@@ -36,13 +36,10 @@
                     </div>
                     {% if request.user.is_authenticated %}
                         <div class="full text-right">
-                            <div class="form-group d-flex justify-content-between mt-3">
-                                <button type="button">Show Replies</button>
-                                <button type="button" class="reply-btn">
-                                    <i class="far fa-comment-dots mr-1"></i>
-                                    Reply
-                                </button>
-                            </div>
+                            <button type="button" class="reply-btn">
+                                <i class="far fa-comment-dots mr-1"></i>
+                                Reply
+                            </button>
                             <form class="p-2 reply-form" action="{% url 'training:detail' tour.pk %}" method="POST" >
                             {% csrf_token %}   
                                 <div class="form-group">
@@ -61,7 +58,7 @@
                 </div>
 
                 {% for reply in comment.replies.all %}
-                    <div class="col-lg-11 comment-item comment-replies" style="display: none;">
+                    <div class="col-lg-11 comment-item comment-replies">
                         <div class="d-column">
                             <div class="comment-author d-flex mb-3 justify-content-between">
                                 <div class="d-flex">
@@ -107,7 +104,7 @@
                             </div>
                             
                             {% for reply_of_reply in reply.replies.all %}
-                            <div class="col-lg-11 comment-replies" style="display: none;">
+                            <div class="col-lg-11 comment-replies">
                                 <div class=" d-column">
                                     <div class="comment-author d-flex mb-3 justify-content-between">
                                         <div class="d-flex">

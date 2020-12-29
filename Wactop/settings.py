@@ -44,12 +44,13 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'notifications',
     'account',
     'main',
     'organizer',
-    'tour',
-    'activity',
-    'training',
+    'tour.apps.TourConfig',
+    'activity.apps.ActivityConfig',
+    'training.apps.TrainingConfig',
     'api',
     'multiselectfield',
     'rest_framework',
@@ -226,6 +227,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'wactopproject@gmail.com'
 EMAIL_HOST_PASSWORD = 'wactop123'
 
+
+DJANGO_NOTIFICATIONS_CONFIG = {
+      'USE_JSONFIELD': True,
+}
 
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587

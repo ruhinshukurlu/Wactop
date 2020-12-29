@@ -15,18 +15,18 @@ import json
 
 tour_types = TourType.objects.all()
 tour_type_list = []
-
-for tour_type in tour_types:
-    if tour_type.title not in tour_type_list:
-        tour_type_list.append(tour_type.title)
+if tour_types:
+    for tour_type in tour_types:
+        if tour_type.title not in tour_type_list:
+            tour_type_list.append(tour_type.title)
 
 
 activities = Activity.objects.all()
 activity_country_list = []
-
-for activity in activities:
-    if activity.country not in activity_country_list:
-        activity_country_list.append(activity.country)
+if activities:
+    for activity in activities:
+        if activity.country not in activity_country_list:
+            activity_country_list.append(activity.country)
 
 
 

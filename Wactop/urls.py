@@ -4,10 +4,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views 
 from django.urls import reverse_lazy
+import notifications.urls
 
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
+    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
     path('', include('main.urls', namespace='main')),
     path('account/', include('account.urls', namespace='account')),
     path('organizer/', include('organizer.urls', namespace='organizer')),

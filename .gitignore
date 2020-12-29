@@ -8,3 +8,5 @@ docker-compose copy.yml
 _development
 pgdb
 redisdb
+
+=3.2

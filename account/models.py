@@ -6,6 +6,9 @@ from django.core.mail import send_mail, EmailMessage
 from Wactop.settings import EMAIL_HOST_USER
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import re
+
+from django.http import JsonResponse
 # Create your models here.
 
 class User(AbstractUser):
@@ -44,7 +47,6 @@ def send_user_data_when_created_by_admin(sender, instance, **kwargs):
         email = instance.email
         html_content = "you Organizer is activated by admin"
         send_mail('Hello', html_content ,  EMAIL_HOST_USER, [email])
-      
 
 class Customer(models.Model):
     

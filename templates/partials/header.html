@@ -1,5 +1,6 @@
 
 {% load static custom-tags %}
+{% load notifications_tags %} 
 <style>
     .loginBtn, .registerBtn,.logout{
         color: #febd69;
@@ -75,7 +76,11 @@
                         </div>
                         <div class="header-menu" >
                             <nav>
-                                <ul class="d-column mb-0">   
+                                <ul class="d-column mb-0"> 
+                                    <li>
+                                        
+                                       <a href="{% url 'notifications:unread' %}"> You have <strong> {% live_notify_badge %}</strong> Notifications</a>
+                                    </li>  
                                     {% if request.user.is_organizer %}
                                         <li>
                                             <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name}}</a>
@@ -178,4 +183,5 @@
         </div>
     </div>
 </header>
-
+<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
+{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}

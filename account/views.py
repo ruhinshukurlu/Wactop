@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, TemplateView
 from django.contrib.auth.views import LoginView,PasswordChangeView,PasswordChangeDoneView,PasswordResetView, PasswordResetConfirmView
 from account.forms import *
 from account.models import *
@@ -40,3 +40,7 @@ class CustomerUpdateView(UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('main:home')
+
+
+class HomeView(TemplateView):
+    template_name = "test.html"

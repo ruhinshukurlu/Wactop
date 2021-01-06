@@ -50,6 +50,8 @@
         background-color: #fff;
         box-shadow: 0 2px 8px rgba(153,153,153,.4);
         right: 5px;
+        flex-direction: column;
+
     }
 
     .user-profile span{
@@ -72,7 +74,7 @@
     }
 
     .user-profile:hover .header-menu{
-        display: block;
+        display: flex;
     }
 
     .menu-btn{
@@ -208,7 +210,7 @@
                     </ul>
                 </div>
                 <div class="col">
-                    <a class="contact-link" href="{% url 'organizer:contact' %}">Contact Us</a>
+                    <a class="contact-link" href="{% url 'main:contact' %}">Contact Us</a>
                 </div>
             </div>
         </div>
@@ -222,17 +224,7 @@
         $('.carousel-inner').children().eq(0).addClass('active')
         console.log($('.carousel-inner').children().eq(0));
     </script>
-    {% if request.user.is_authenticated %}
-        <script>
-            function initFreshChat() {
-                window.fcWidget.init({
-                token: "6f1304aa-68c4-40ad-b613-d9e1eb723097",
-                host: "https://wchat.freshchat.com"
-                });
-            }
-            function initialize(i,t){var e;i.getElementById(t)?initFreshChat():((e=i.createElement("script")).id=t,e.async=!0,e.src="https://wchat.freshchat.com/js/widget.js",e.onload=initFreshChat,i.head.appendChild(e))}function initiateCall(){initialize(document,"freshchat-js-sdk")}window.addEventListener?window.addEventListener("load",initiateCall,!1):window.attachEvent("load",initiateCall,!1);
-        </script>
-    {% endif %}
+   
 </body>
 
 </html>

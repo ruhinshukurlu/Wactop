@@ -59,6 +59,7 @@ class Tour(models.Model):
     guide = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
     rating = models.IntegerField(_("Rating"), blank=True, null=True)
+    activated = models.BooleanField(_("Activated"), default  = False)
 
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
 
@@ -87,29 +88,29 @@ class Tour(models.Model):
 
 class TourDetailAZ(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_az')
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_az = models.CharField(max_length=31)
+    text_az = models.TextField()
 
     def __str__ (self):
-        return "AZ" + self.tour.title + ": " + self.title
+        return "AZ" + self.tour.title + ": " + self.title_az
 
 
 class TourDetailEN(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_en')
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_en = models.CharField(max_length=31, blank=True, null=True)
+    text_en = models.TextField(blank=True, null=True)
 
     def __str__ (self):
-        return "EN" + self.tour.title + ": " + self.title
+        return "EN" + self.tour.title + ": " + self.title_en
 
 
 class TourDetailRU(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_ru')
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_ru = models.CharField(max_length=31)
+    text_ru = models.TextField()
     
     def __str__ (self):
-        return "RU" + self.tour.title + ": " + self.title
+        return "RU" + self.tour.title + ": " + self.title_ru
 
 
 class TourImage(models.Model):
@@ -120,7 +121,7 @@ class TourImage(models.Model):
 
 class TourSchedule(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_schedule')
-    image = models.ImageField(upload_to='tour/schedule/', height_field=None, width_field=None, max_length=None)
+    schedule_image = models.ImageField(upload_to='tour/schedule/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.tour.title
 

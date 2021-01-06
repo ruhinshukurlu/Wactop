@@ -10,5 +10,7 @@ urlpatterns = [
     path("<organizer_name>/activities", OrganizerActivityFilterView.as_view(), name="organizer-activities"),
     path("privacies/", PrivacyView.as_view(), name="privacies"),
     path("terms/", TermsView.as_view(), name="terms"),
-    path("about/", AboutView.as_view(), name="about")
+    path("about/", AboutView.as_view(), name="about"),
+    path("contact/", ContactView.as_view(), name="contact")
+
 ]

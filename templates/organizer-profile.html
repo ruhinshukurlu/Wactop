@@ -13,6 +13,16 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+
+    <style>
+        .company-admin-container img{
+            width: 60px;
+            margin-right: 10px;
+        }
+        .link-box{
+            box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+        }
+    </style>
     
 </head>
 
@@ -29,7 +39,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:detail' request.user.organizer.pk %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-home"></i>
+                                <!-- <i class="fas fa-home"></i> -->
+                                <img src="{% static 'images/home.svg' %}"  alt="">
                                 <span>{{request.user.organizer.organizer_name}}</span>
                             </div>
                         </a>
@@ -37,7 +48,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:add_tour' %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-directions"></i>
+                                <!-- <i class="fas fa-directions"></i> -->
+                                <img src="{% static 'images/destination.svg' %}"  alt="">
                                 <span>Add Tour</span>
                             </div>
                         </a>
@@ -45,7 +57,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:add_training' %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-chalkboard-teacher"></i>
+                                <!-- <i class="fas fa-chalkboard-teacher"></i> -->
+                                <img src="{% static 'images/online-learning.svg' %}"  alt="">
                                 <span>Add Training</span>
                             </div>
                         </a>
@@ -53,7 +66,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:add_activity' %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-hiking"></i>
+                                <!-- <i class="fas fa-hiking"></i> -->
+                                <img src="{% static 'images/work-time.svg' %}"  alt="">
                                 <span>Add Activity</span>
                             </div>
                         </a>
@@ -61,7 +75,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:organizer_edit' request.user.organizer.pk %}" class="link-box">
                             <div class="align-center"> 
-                                <i class="fas fa-edit"></i>
+                                <!-- <i class="fas fa-edit"></i> -->
+                                <img src="{% static 'images/edit.svg' %}"  alt="">
                                 <span>Edit Informations</span>
                             </div>
                         </a>
@@ -69,7 +84,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:organizer-photos' %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-camera-retro"></i>
+                                <!-- <i class="fas fa-camera-retro"></i> -->
+                                <img src="{% static 'images/gallery.svg' %}"  alt="">
                                 <span>Photos</span>
                             </div>
                         </a>
@@ -77,7 +93,9 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:guides-instructors' %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-users"></i>
+                                <!-- <i class="fas fa-users"></i> -->
+                                <img src="{% static 'images/instructor.svg' %}"  alt="">
+
                                 <div class="d-column">
                                     <span>Guides &</span>
                                     <span>Instructors</span>
@@ -88,7 +106,8 @@
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:organizer-actions' %}" class="link-box">
                             <div class="align-center">
-                                <i class="fas fa-history"></i>
+                                <!-- <i class="fas fa-history"></i> -->
+                                <img src="{% static 'images/history.svg' %}"  alt="">
                                 <div class="d-column">
                                     <span>Tours</span>
                                     <span>Activities</span>
@@ -130,7 +149,7 @@
                     })
             }, function(){
                 $(this).animate({
-                    borderRadius : '0px',
+                    borderRadius : '10px',
                     width : width
                     })
             })

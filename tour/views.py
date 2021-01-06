@@ -36,7 +36,7 @@ class TourListView(ListView):
             queryset1 = Tour.objects.filter(status=1)
             title_name = self.request.GET.get('q', None)
             if title_name is not None:
-                queryset1 = queryset1.filter(title__icontains=title_name)
+                queryset1 = queryset1.filter(title__icontains=title_name, status=1)
                 return queryset1
         
         return super().get_queryset().filter(status=1)
@@ -181,7 +181,9 @@ def TourDetailView(request, pk):
     else: 
         form = TourCommentForm()
 
+    top_tours = Tour.objects.filter(status=1).order_by('rating')[:5]
     context = {
+        'top_tours': top_tours,
         'tour': tour,
         'detail': detail,
         'image': image,

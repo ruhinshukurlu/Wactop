@@ -35,6 +35,7 @@ var paragraph_count_ru = 1
 
 
 for(let i=1; i<paragraph_box_en.length; i++){
+
     $(paragraph_box_en[i]).css('display','none')
     $(paragraph_box_az[i]).css('display','none')
     $(paragraph_box_ru[i]).css('display','none')
@@ -70,6 +71,8 @@ function addurl(){
 
 $('#formControlMenu li').click(function(){
     // console.log($(this).data('target'));
+    $('#formControlMenu li').removeClass('active')
+    $(this).addClass('active')
     $('#addTourForm').children().hide()
     $('#addTourForm').children(`#${$(this).data('target')}`).show()          
 

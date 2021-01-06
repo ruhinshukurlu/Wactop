@@ -6,20 +6,27 @@ from activity.models import Activity
 from training.models import Training
 from organizer.models import Organizer
 from django.shortcuts import get_object_or_404
-import smtplib
 from Wactop.mail import *
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, CreateView
 from django.views.generic.list import ListView
 from django.views.generic.edit import FormMixin, FormView
 from django.contrib.auth import authenticate, login
-import smtplib
 from django.views import View
 from django.contrib import messages
 from training.views import training_type_list, training_country_list
 from tour.views import tour_country_list, tour_type_list
 from activity.views import activity_country_list
 from main.models import *
-# sendemail("kamil129@inbox.ru", "test2")
+from organizer.forms import *
+
+from django.contrib import messages 
+import smtplib
+from django.core.mail import send_mail, EmailMultiAlternatives
+from Wactop.mail import *
+from account.forms import *
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 
 
 def HomeView(request):
@@ -143,3 +150,17 @@ class PrivacyView(TemplateView):
 
 class AboutView(TemplateView):
     template_name = "about.html"
+
+class ContactView(CreateView):
+    model = Contact
+    form_class = ContactForm
+    template_name = "contact.html"
+
+    def form_valid(self, form):
+        form.save()
+        subject = 'New user contacted'
+        text_content = 'New user contacted'
+        html_content = f"<p>First name : {form.cleaned_data['first_name']}</p><p>Last name : {form.cleaned_data['last_name']}</p><p>Email : {form.cleaned_data['email']}</p><p>Phone number : {form.cleaned_data['phone_number']}</p><p>Message : {form.cleaned_data['message']}</p>"
+        sendMail(subject,text_content,html_content)
+       
+        return redirect('main:home')

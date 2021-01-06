@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.views.generic import CreateView, UpdateView, TemplateView, DeleteView
 from django.views.generic import CreateView, UpdateView
 from django.views.generic.edit import FormMixin, FormView
@@ -23,6 +23,8 @@ from account.forms import *
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 # from organizer.decorators import user_is_organizer_author
+from organizer.mixin import FormsetMixin
+from django.http import HttpResponse, HttpResponseRedirect
 
 
 
@@ -273,9 +275,9 @@ class OrganizerAllActions(ListView):
 def OrganizerDetail(request, pk):
     organizer = Organizer.objects.get(pk=pk)
     images = OrganizerImage.objects.filter(organizer=organizer)
-    tours = Tour.objects.filter(organizer=organizer)
-    trainings = Training.objects.filter(organizer=organizer)
-    activities = Activity.objects.filter(organizer=organizer)
+    tours = Tour.objects.filter(organizer=organizer, status=1)
+    trainings = Training.objects.filter(organizer=organizer, status=1)
+    activities = Activity.objects.filter(organizer=organizer, status=1)
 
     guides = Guide.objects.filter(organizer=organizer)
     instructors = Instructor.objects.filter(organizer=organizer)
@@ -302,10 +304,26 @@ def organizer_image_list(request, pk):
     return render(request, 'image-list.html', context)
 
 
-class TourUpdateView(UpdateView):
-    model = Tour
-    form_class = OrganizerTourForm
-    template_name = "tour-edit.html"
+# class TourUpdateView(UpdateView):
+#     model = Tour
+#     form_class = OrganizerTourForm
+#     template_name = "tour-edit.html"
+
+#     def get_success_url(self):
+#         return reverse_lazy('tour:detail', args = (self.kwargs['pk'],))
+
+# class TourUpdateView(FormsetMixin, UpdateView):
+#     model = Tour
+#     is_update_view = True
+#     form_class = TourForm
+#     formset_class = TourInlineFormSet
+#     template_name = 'touredit-test.html'
+
+
+class TourDetailENUpdate(UpdateView):
+    model = TourDetailEN
+    form_class = OrganizerTourDetailEnForm
+    template_name = "tour-detail-en-edit.html"
 
     def get_success_url(self):
         return reverse_lazy('tour:detail', args = (self.kwargs['pk'],))
@@ -346,34 +364,171 @@ class TrainingUpdateView(UpdateView):
     def get_success_url(self):
         return reverse_lazy('training:detail', args = (self.kwargs['pk'],))
 
+
 class TrainingDeleteView(DeleteView):
     model = Training
 
     def get_success_url(self):
         return reverse_lazy('organizer:organizer-actions')
 
-class ContactView(CreateView):
-    model = Contact
-    form_class = ContactForm
-    template_name = "contact.html"
 
-    def form_valid(self, form):
-        form.save()
-        subject = 'New user contacted'
-        text_content = 'New user contacted'
-        html_content = f"<p>First name : {form.cleaned_data['first_name']}</p><p>Last name : {form.cleaned_data['last_name']}</p><p>Email : {form.cleaned_data['email']}</p><p>Phone number : {form.cleaned_data['phone_number']}</p><p>Message : {form.cleaned_data['message']}</p>"
-        sendMail(subject,text_content,html_content)
+def TourUpdate(request, pk):
+
+    tour = Tour.objects.get(id=pk)
        
-        return redirect('main:home')
+    TourImageFormSet = inlineformset_factory(Tour, TourImage, form=OrganizerTourImageForm, fields=('image',), extra=5)
+    TourScheduleFormSet = inlineformset_factory(Tour, TourSchedule, form=OrganizerTourScheduleForm, fields=('schedule_image',), extra=5)
+    TourUrlFormSet = inlineformset_factory(Tour, TourUrl, form=OrganizerTourURLForm, fields=('url',), extra=5)
+
+    TourDetailENFormSet = inlineformset_factory(Tour, TourDetailEN, form=OrganizerTourDetailEnForm, fields=('title_en', 'text_en', ), extra=5)
+    TourDetailAZFormSet = inlineformset_factory(Tour, TourDetailAZ, form=OrganizerTourDetailAzForm, fields=('title_az', 'text_az', ), extra=5)
+    TourDetailRUFormSet = inlineformset_factory(Tour, TourDetailRU, form=OrganizerTourDetailRuForm, fields=('title_ru', 'text_ru', ), extra=5)
+    
+  
+    if request.method == 'POST':
+
+        tour_form = OrganizerTourForm(request.POST or None, request.FILES or None, instance=tour)
+        detail_form_en = TourDetailENFormSet(request.POST or None, instance=tour)
+        detail_form_az = TourDetailAZFormSet(request.POST or None, instance=tour)
+        detail_form_ru = TourDetailRUFormSet(request.POST or None, instance=tour)
+        url_form = TourUrlFormSet(request.POST or None, instance=tour)
+        image_form = TourImageFormSet(request.POST or None, request.FILES or None, instance=tour)
+        schedule_form = TourScheduleFormSet(request.POST or None, request.FILES or None, instance=tour)
+
+        if tour_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
+        
+            tour_form.save()
+            detail_form_en.save()
+            detail_form_az.save()
+            detail_form_ru.save()
+            url_form.save()
+            image_form.save()
+            schedule_form.save()
+
+            return HttpResponseRedirect(reverse_lazy('tour:home'))
+        
+        
+    else:
+        context = {
+            'tour_form': OrganizerTourForm(instance=tour),
+            'detail_form_en': TourDetailENFormSet(instance=tour),
+            'detail_form_az': TourDetailAZFormSet(instance=tour),
+            'detail_form_ru': TourDetailRUFormSet(instance=tour),
+            'url_form': TourUrlFormSet(instance=tour),
+            'image_form':TourImageFormSet(instance=tour),
+            'schedule_form': TourScheduleFormSet(instance=tour),
+        }
+        return render(request, 'tour-edit.html', context)
+
+
+
+def ActivityUpdate(request, pk):
+
+    activity = Activity.objects.get(id=pk)
+       
+    ActivityImageFormSet = inlineformset_factory(Activity, ActivityImage, form=OrganizerActivityImageForm, fields=('image',), extra=5)
+    ActivityScheduleFormSet = inlineformset_factory(Activity, ActivitySchedule, form=OrganizerActivityScheduleForm, fields=('schedule_image',), extra=5)
+    ActivityUrlFormSet = inlineformset_factory(Activity, ActivityUrl, form=OrganizerActivityURLForm, fields=('url',), extra=5)
+
+    ActivityDetailENFormSet = inlineformset_factory(Activity, ActivityDetailEN, form=OrganizerActivityDetailEnForm, fields=('title_en', 'text_en', ), extra=5)
+    ActivityDetailAZFormSet = inlineformset_factory(Activity, ActivityDetailAZ, form=OrganizerActivityDetailAzForm, fields=('title_az', 'text_az', ), extra=5)
+    ActivityDetailRUFormSet = inlineformset_factory(Activity, ActivityDetailRU, form=OrganizerActivityDetailRuForm, fields=('title_ru', 'text_ru', ), extra=5)
+    
+  
+    if request.method == 'POST':
+
+        activity_form = OrganizerActivityForm(request.POST or None, request.FILES or None, instance=activity)
+        detail_form_en = ActivityDetailENFormSet(request.POST or None, instance=activity)
+        detail_form_az = ActivityDetailAZFormSet(request.POST or None, instance=activity)
+        detail_form_ru = ActivityDetailRUFormSet(request.POST or None, instance=activity)
+        url_form = ActivityUrlFormSet(request.POST or None, instance=activity)
+
+        image_form = ActivityImageFormSet(request.POST or None, request.FILES or None, instance=activity)
+        schedule_form = ActivityScheduleFormSet(request.POST or None, request.FILES or None, instance=activity)
+
+        if activity_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
+        
+            activity_form.save()
+            detail_form_en.save()
+            detail_form_az.save()
+            detail_form_ru.save()
+            url_form.save()
+            image_form.save()
+            schedule_form.save()
+
+            return HttpResponseRedirect(reverse_lazy('tour:home'))
+        
+        
+    else:
+        context = {
+            'tour_form': OrganizerActivityForm(instance=activity),
+            'detail_form_en': ActivityDetailENFormSet(instance=activity),
+            'detail_form_az': ActivityDetailAZFormSet(instance=activity),
+            'detail_form_ru': ActivityDetailRUFormSet(instance=activity),
+            'url_form': ActivityUrlFormSet(instance=activity),
+            'image_form':ActivityImageFormSet(instance=activity),
+            'schedule_form': ActivityScheduleFormSet(instance=activity),
+        }
+        return render(request, 'activity-edit.html', context)
+
+
+def TrainingUpdate(request, pk):
+
+    training = Training.objects.get(id=pk)
+       
+    TrainingImageFormSet = inlineformset_factory(Training, TrainingImage, form=OrganizerTrainingImageForm, fields=('image',), extra=5)
+    TrainingScheduleFormSet = inlineformset_factory(Training, TrainingSchedule, form=OrganizerTrainingScheduleForm, fields=('schedule_image',), extra=5)
+    TrainingUrlFormSet = inlineformset_factory(Training, TrainingUrl, form=OrganizerTrainingURLForm, fields=('url',), extra=5)
+
+    TrainingDetailENFormSet = inlineformset_factory(Training, TrainingDetailEN, form=OrganizerTrainingDetailEnForm, fields=('title_en', 'text_en', ), extra=5)
+    TrainingDetailAZFormSet = inlineformset_factory(Training, TrainingDetailAZ, form=OrganizerTrainingDetailAzForm, fields=('title_az', 'text_az', ), extra=5)
+    TrainingDetailRUFormSet = inlineformset_factory(Training, TrainingDetailRU, form=OrganizerTrainingDetailRuForm, fields=('title_ru', 'text_ru', ), extra=5)
+    
+  
+    if request.method == 'POST':
+
+        training_form = OrganizerTrainingForm(request.POST or None, request.FILES or None, instance=training)
+        detail_form_en = TrainingDetailENFormSet(request.POST or None, instance=training)
+        detail_form_az = TrainingDetailAZFormSet(request.POST or None, instance=training)
+        detail_form_ru = TrainingDetailRUFormSet(request.POST or None, instance=training)
+        url_form = TrainingUrlFormSet(request.POST or None, instance=training)
+
+        image_form = TrainingImageFormSet(request.POST or None, request.FILES or None, instance=training)
+        schedule_form = TrainingScheduleFormSet(request.POST or None, request.FILES or None, instance=training)
+
+        if training_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
+        
+            training_form.save()
+            detail_form_en.save()
+            detail_form_az.save()
+            detail_form_ru.save()
+            url_form.save()
+            image_form.save()
+            schedule_form.save()
+
+            return HttpResponseRedirect(reverse_lazy('tour:home'))
+        
+        
+    else:
+        context = {
+            'tour_form': OrganizerTrainingForm(instance=training),
+            'detail_form_en': TrainingDetailENFormSet(instance=training),
+            'detail_form_az': TrainingDetailAZFormSet(instance=training),
+            'detail_form_ru': TrainingDetailRUFormSet(instance=training),
+            'url_form': TrainingUrlFormSet(instance=training),
+            'image_form':TrainingImageFormSet(instance=training),
+            'schedule_form': TrainingScheduleFormSet(instance=training),
+        }
+        return render(request, 'training-edit.html', context)
 
 
 def OrganizerTour(request):
     image_formset = modelformset_factory(TourImage, fields=('image', ), extra=10, form=OrganizerTourImageForm, validate_max=2)
-    schedule_formset = modelformset_factory(TourSchedule, fields=('image', ), extra=10, form=OrganizerTourScheduleForm)
+    schedule_formset = modelformset_factory(TourSchedule, fields=('schedule_image', ), extra=10, form=OrganizerTourScheduleForm)
     url_formset = modelformset_factory(TourUrl, fields = ('url',), extra=10, form = OrganizerTourURLForm)
-    detail_formset_en = modelformset_factory(TourDetailEN, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
-    detail_formset_az = modelformset_factory(TourDetailAZ, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
-    detail_formset_ru = modelformset_factory(TourDetailRU, fields=('title', 'text', ), extra=10, form=OrganizerTourDetailForm)
+    detail_formset_en = modelformset_factory(TourDetailEN, fields=('title_en', 'text_en', ), extra=10, form=OrganizerTourDetailEnForm)
+    detail_formset_az = modelformset_factory(TourDetailAZ, fields=('title_az', 'text_az', ), extra=10, form=OrganizerTourDetailAzForm)
+    detail_formset_ru = modelformset_factory(TourDetailRU, fields=('title_ru', 'text_ru', ), extra=10, form=OrganizerTourDetailRuForm)
 
     if request.method == 'POST':
         tour_form = OrganizerTourForm(request.POST or None, request.FILES or None)
@@ -386,12 +541,12 @@ def OrganizerTour(request):
 
         # print(tour_form.errors, image_form.errors, schedule_form.errors)
         if tour_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
-            
             tour = tour_form.save(commit=False)
             tour.organizer = request.user.organizer
             tour.status = 2
             tour.save()
             
+            # print(request.POST)
             subject = f'New tour added by {tour.organizer.organizer_name}'
             text_content = f'New tour added by {tour.organizer.organizer_name}'
             html_content = f"<p>Name : {tour.title}</p><p>Location : {tour.address} , {tour.city} {tour.country}</p><p>Owner : {tour.organizer.organizer_name}</p>"
@@ -404,18 +559,24 @@ def OrganizerTour(request):
                     image.save()
 
             for i in detail_form_en:
+                print('en',i.cleaned_data)
+
                 if i.cleaned_data:
                     detail = i.save(commit=False)
                     detail.tour = tour
                     detail.save()
 
             for i in detail_form_az:
+                print('az',i.cleaned_data)
+
                 if i.cleaned_data:
                     detail = i.save(commit=False)
                     detail.tour = tour
                     detail.save()
 
             for i in detail_form_ru:
+                print('ru',i.cleaned_data)
+
                 if i.cleaned_data:
                     detail = i.save(commit=False)
                     detail.tour = tour
@@ -456,12 +617,12 @@ def OrganizerTour(request):
 
 def OrganizerActivity(request):
     image_formset = modelformset_factory(ActivityImage, fields=('image', ), extra=10, form=OrganizerActivityImageForm)
-    detail_formset_en = modelformset_factory(ActivityDetailEN, fields=('title', 'text', ), extra=10, form=OrganizerActivityDetailForm)
-    detail_formset_az = modelformset_factory(ActivityDetailAZ, fields=('title', 'text', ), extra=10, form=OrganizerActivityDetailForm)
-    detail_formset_ru = modelformset_factory(ActivityDetailRU, fields=('title', 'text', ), extra=10, form=OrganizerActivityDetailForm)
+    detail_formset_en = modelformset_factory(ActivityDetailEN, fields=('title_en', 'text_en', ), extra=10, form=OrganizerActivityDetailEnForm)
+    detail_formset_az = modelformset_factory(ActivityDetailAZ, fields=('title_az', 'text_az', ), extra=10, form=OrganizerActivityDetailAzForm)
+    detail_formset_ru = modelformset_factory(ActivityDetailRU, fields=('title_ru', 'text_ru', ), extra=10, form=OrganizerActivityDetailRuForm)
     url_formset = modelformset_factory(ActivityUrl, fields = ('url',), extra=10, form = OrganizerActivityURLForm)
 
-    schedule_formset = modelformset_factory(ActivitySchedule, fields=('image', ), extra=10, form=OrganizerActivityScheduleForm)
+    schedule_formset = modelformset_factory(ActivitySchedule, fields=('schedule_image', ), extra=10, form=OrganizerActivityScheduleForm)
 
     if request.method == 'POST':
         tour_form = OrganizerActivityForm(request.POST or None, request.FILES or None)
@@ -487,25 +648,25 @@ def OrganizerActivity(request):
             for i in detail_form_en:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
-                    detail.tour = tour
+                    detail.activity = tour
                     detail.save()
 
             for i in detail_form_az:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
-                    detail.tour = tour
+                    detail.activity = tour
                     detail.save()
 
             for i in detail_form_ru:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
-                    detail.tour = tour
+                    detail.activity = tour
                     detail.save()
             
             for i in url_form:
                 if i.cleaned_data:
                     url = i.save(commit=False)
-                    url.tour = tour
+                    url.activity = tour
                     url.save()
 
             for i in image_form:
@@ -541,22 +702,21 @@ def OrganizerActivity(request):
 
 def OrganizerTraining(request):
     image_formset = modelformset_factory(TrainingImage, fields=('image', ), extra=10, form=OrganizerTrainingImageForm)
-    detail_formset_en = modelformset_factory(TrainingDetailEN, fields=('title', 'text', ), extra=10, form=OrganizerTrainingDetailForm)
-    detail_formset_az = modelformset_factory(TrainingDetailAZ, fields=('title', 'text', ), extra=10, form=OrganizerTrainingDetailForm)
-    detail_formset_ru = modelformset_factory(TrainingDetailRU, fields=('title', 'text', ), extra=10, form=OrganizerTrainingDetailForm)
+    detail_formset_en = modelformset_factory(TrainingDetailEN, fields=('title_en', 'text_en', ), extra=10, form=OrganizerTrainingDetailEnForm)
+    detail_formset_az = modelformset_factory(TrainingDetailAZ, fields=('title_az', 'text_az', ), extra=10, form=OrganizerTrainingDetailAzForm)
+    detail_formset_ru = modelformset_factory(TrainingDetailRU, fields=('title_ru', 'text_ru', ), extra=10, form=OrganizerTrainingDetailRuForm)
     url_formset = modelformset_factory(TrainingUrl, fields = ('url',), extra=10, form = OrganizerTrainingURLForm)
-    schedule_formset = modelformset_factory(TrainingSchedule, fields=('image', ), extra=10, form=OrganizerTrainingScheduleForm)
+    schedule_formset = modelformset_factory(TrainingSchedule, fields=('schedule_image', ), extra=10, form=OrganizerTrainingScheduleForm)
 
     if request.method == 'POST':
         tour_form = OrganizerTrainingForm(request.POST or None, request.FILES or None)
-
         detail_form_en = detail_formset_en(request.POST or None)
         detail_form_az = detail_formset_az(request.POST or None)
         detail_form_ru = detail_formset_ru(request.POST or None)
         url_form = url_formset(request.POST or None)
-
         image_form = image_formset(request.POST or None, request.FILES or None)
         schedule_form = schedule_formset(request.POST or None, request.FILES or None)
+        
         if tour_form.is_valid() and detail_form_en.is_valid() and detail_form_az.is_valid() and detail_form_ru.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
            
             tour = tour_form.save(commit=False)
@@ -571,27 +731,28 @@ def OrganizerTraining(request):
             sendMail(subject,text_content,html_content)
 
             for i in detail_form_en:
+                # print(i.cleaned_data, tour)
                 if i.cleaned_data:
                     detail = i.save(commit=False)
-                    detail.tour = tour
+                    detail.training = tour
                     detail.save()
 
             for i in detail_form_az:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
-                    detail.tour = tour
+                    detail.training = tour
                     detail.save()
 
             for i in detail_form_ru:
                 if i.cleaned_data:
                     detail = i.save(commit=False)
-                    detail.tour = tour
+                    detail.training = tour
                     detail.save()
             
             for i in url_form:
                 if i.cleaned_data:
                     url = i.save(commit=False)
-                    url.tour = tour
+                    url.training = tour
                     url.save()
 
             for i in image_form:
@@ -599,17 +760,14 @@ def OrganizerTraining(request):
                     image = i.save(commit=False)
                     image.training = tour
                     image.save()
+
             for i in schedule_form:
                 if i.cleaned_data:
                     schedule = i.save(commit=False)
                     schedule.training = tour
                     schedule.save()
-            # if tour.organizer.email:
-            #     message = """
-            #         Post saved, you will be notify by email when the post is published
-            #         https://www.wactop.com"""
-            #     sendemail(tour.organizer.email, message)
-            return redirect('training:home')
+            
+            return reverse('training:detail', kwargs = {'pk' : tour.pk})
         else:
             messages.error(request, "Error")
     else:

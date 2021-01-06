@@ -53,6 +53,8 @@ class Training(models.Model):
     finish_hour = models.TimeField(_("Finish Hour"))
 
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
+
+    activated = models.BooleanField(_("Activated"), default  = False)
     
     old_status = None
 
@@ -71,26 +73,34 @@ class Training(models.Model):
     def __str__ (self):
         return self.title
 
+  
+
 class TrainingDetailAZ(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail_az')
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_az = models.CharField(max_length=31)
+    text_az = models.TextField()
+
     def __str__ (self):
-        return "AZ" + self.training.title + ": " + self.title
+        return "AZ" + self.training.title + ": " + self.title_az
+
 
 class TrainingDetailEN(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail_en')
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_en = models.CharField(max_length=31)
+    text_en = models.TextField()
+
     def __str__ (self):
-        return "EN" + self.training.title + ": " + self.title
+        return "EN" + self.training.title + ": " + self.title_en
+
 
 class TrainingDetailRU(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail_ru')
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_ru = models.CharField(max_length=31)
+    text_ru = models.TextField()
+
     def __str__ (self):
-        return "RU" + self.training.title + ": " + self.title
+        return "RU" + self.training.title + ": " + self.title_ru
+
 
 class TrainingImage(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_image')
@@ -100,7 +110,7 @@ class TrainingImage(models.Model):
 
 class TrainingSchedule(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_schedule')
-    image = models.ImageField(upload_to='training/schedule/', height_field=None, width_field=None, max_length=None)
+    schedule_image = models.ImageField(upload_to='training/schedule/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.training.title
 

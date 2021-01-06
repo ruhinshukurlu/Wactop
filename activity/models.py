@@ -48,7 +48,7 @@ class Activity(models.Model):
     rating = models.IntegerField(_("Rating"), blank=True, null=True)
 
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
-
+    activated = models.BooleanField(_("Activated"), default  = False)
 
     old_status = None
     def __init__(self, *args, **kwargs):
@@ -68,24 +68,24 @@ class Activity(models.Model):
 
 class ActivityDetailAZ(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_az = models.CharField(max_length=31)
+    text_az = models.TextField()
     def __str__ (self):
-        return "AZ" + self.activity.title + ": " + self.title
+        return "AZ" + self.activity.title + ": " + self.title_az
 
 class ActivityDetailEN(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_en = models.CharField(max_length=31)
+    text_en = models.TextField()
     def __str__ (self):
-        return "EN" + self.activity.title + ": " + self.title
+        return "EN" + self.activity.title + ": " + self.title_en
 
 class ActivityDetailRU(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    title = models.CharField(max_length=31)
-    text = models.TextField()
+    title_ru = models.CharField(max_length=31)
+    text_ru = models.TextField()
     def __str__ (self):
-        return "RU" + self.activity.title + ": " + self.title
+        return "RU" + self.activity.title + ": " + self.title_ru
 
 class ActivityImage(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
@@ -95,7 +95,7 @@ class ActivityImage(models.Model):
 
 class ActivitySchedule(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to='activity/schedule/', height_field=None, width_field=None, max_length=None)
+    schedule_image = models.ImageField(upload_to='activity/schedule/', height_field=None, width_field=None, max_length=None)
     def __str__ (self):
         return self.activity.title
 

@@ -428,6 +428,7 @@ button:hover{
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(153,153,153,.4);
     right: 5px;
+    flex-direction: column;
 }
 
 .header-menu li{
@@ -449,3 +450,22 @@ button:hover{
     display: block;
 }
 
+footer a{
+    text-decoration: none !important;
+    color: #fff;
+}
+
+footer a:hover{
+    color: #D2D3D3;
+}
+
+footer{
+    background: linear-gradient(to bottom, rgba(56,59,68,1) 0%,rgba(46,47,52,1) 100%);
+    color: #fff;
+    padding-top: 10px;
+}
+
+.footer-social-links i{
+    font-size: 20px;
+    margin: 5px;    
+}

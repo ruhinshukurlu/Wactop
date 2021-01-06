@@ -22,6 +22,13 @@
     <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-responsive.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/reset.css' %}" />
 
+     <!-- FancyBox -->
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+ 
+
     <style>
         .info-list,
         .info-list li{
@@ -71,7 +78,33 @@
         }
         /* stars style */
 
-        
+        .owl-theme .owl-controls .owl-page {
+        display: inline-block;
+    }
+    .owl-theme .owl-controls .owl-page span {
+        background: none repeat scroll 0 0 #869791;
+        border-radius: 20px;
+        display: block;
+        height: 12px;
+        margin: 5px 7px;
+        opacity: 0.5;
+        width: 12px;
+    }
+
+    .edit-delete-box{
+        position: fixed;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        /* width: 300px;
+        height: 100px; */
+        display: flex;
+        /* top: 50px; */
+        right: 50px;
+        margin-top: 20px;
+        flex-direction: column;
+        padding: 10px;
+    }
         
     </style>
 </head>
@@ -79,8 +112,48 @@
 <body>
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
+
+    {% if tour.organizer == request.user.organizer %}
+    <div class="edit-delete-box shadow">
+        <a href="{% url 'organizer:tour-edit' tour.pk %}" class="btn btn-outline-primary mb-2 pr-5 pl-5">
+            <i class="fas fa-edit"></i> 
+            Edit Tour
+        </a>
+        <button style="outline: none;" class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#tourDeleteModal">
+            <i class="fas fa-trash-alt"></i>
+            Delete Tour
+        </button>
+        
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="tourDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Delete Tour</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="bold text-center">Are you sure to delete tour?</p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <form action="{% url 'organizer:tour-delete' tour.pk %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Delete" class="btn btn-outline-danger">
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    {% endif %}
+
     <div class="">
             <div class="head-bottom head-bottom-img">
+                
                 <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%}" alt="" class="back-img" />
             </div>
 
@@ -123,7 +196,7 @@
 
     <main id="main">
         <div class="cover-menu">
-            <div class="container main-tour-container">
+            <div class="container main-tour-container shadow">
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="left">
@@ -133,8 +206,8 @@
                             <nav class="details">
                                 {% for i in detail %}
                                 <div class="visible">
-                                    <p><b>{{i.title|capfirst}}:</b></p>
-                                    <p>{{i.text|capfirst}}</p>
+                                    <p><b>{{i.title_en|capfirst}}:</b></p>
+                                    <p>{{i.text_en|capfirst}}</p>
                                 </div>
                                 {% endfor %} {% if detail %}
                                 <span onclick="readmore()" style="color: #63a3eb;" class="readmore"><strong>Read more</strong></span> {%endif%}
@@ -180,10 +253,11 @@
                 <div class="row">
                     <div class="col-lg-10 tour-details pt-3">
                         <div class="images">
+                            <h3 class="bold full border-bottom pb-2 mb-3">Tour Photos</h3>
                             <div class="owl-carousel owl-theme">
-                                 {% for i in image %}
+                                {% for i in image %}
                                 <div class="item">
-                                    <img src="{{ i.image.url }}" alt="2" />
+                                    <a data-fancybox="gallery" class="full" href="{{ i.image.url }}"><img src="{{ i.image.url }}"></a>
                                 </div>
                                 {% endfor %} 
                             </div>
@@ -195,10 +269,11 @@
                 <div class="row">
                     <div class="col-lg-10 tour-details pt-3">
                         <div class="images">
+                            <h3 class="bold full border-bottom pb-2 mb-3">Tour Schedules</h3>
                             <div class="owl-carousel owl-theme">
                                  {% for i in schedule %}
                                 <div class="item">
-                                    <img src="{{ i.image.url }}" alt="2" />
+                                    <a data-fancybox="gallery" class="full" href="{{ i.schedule_image.url }}"><img src="{{ i.schedule_image.url }}"></a>
                                 </div>
                                 {% endfor %} 
                             </div>
@@ -348,13 +423,77 @@
                     </div>
                     
                 </div>
+
+                <section class="full p-4">
+                    {% if top_tours %}
+                    <div class="row">
+                        <h2 class="full bold border-bottom pb-2 mb-3">Top Tours</h2>
+                            <div class="owl-carousel owl-theme">
+                                {% for tour in top_tours %}
+                                    <div class="item">
+                                        <div class="tour-item">
+                                            <a href="{% url 'tour:detail' tour.pk %}" class="full">
+                                                <div class="d-column full">
+                                                    {% if tour.avatar %}
+                                                        <img src="{{tour.avatar.url}}" alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                    {% endif %}
+                                                    <div class="card-body">
+                                                        <div class="title border-bottom mb-3">
+                                                            {{tour.title|capfirst|truncatechars:25 }}
+                                                        </div>
+                                                        <div class="d-column">
+                                                            <div class="d-flex mb-2 align-center">
+                                                                <div class="stars d-flex mr-2" data-value='{{tour.rating}}'>
+                                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                                </div> 
+                                                                <span>{{tour.tour_comment.count}} reviews</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Location : </span>
+                                                                <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Company : </span>
+                                                                <span>{{tour.organizer.organizer_name}}</span>
+                                                            </div>
+                                                            <div class="d-flex full justify-content-between mt-3">
+                                                                <div class="price">
+                                                                    {{tour.price}} {{tour.currency}}
+                                                                </div>
+                                                                <div class="duration align-center">
+                                                                    <i class="far fa-clock mr-1"></i>
+                                                                    {{tour.durationday}} days
+                                                                </div>
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex full justify-content-end">
+                                <a href="{% url 'tour:home' %}">Show all</a>
+                            </div>
+                    </div>
+                {% endif %}
+            
+                </section>
             </div>
 
-            <div class="top-to-box">
-                <button  type="button" onclick="topFunction();">Back to top </button>
-            </div>
+            
         </div>
     </main>
+
+    
 
     {% include 'partials/footer.html' %}
 

@@ -22,6 +22,14 @@
     <link rel="stylesheet" href="{% static 'css/tour-page/tour-page-responsive.css' %}" />
     <link rel="stylesheet" href="{% static 'css/tour-page/reset.css' %}" />
 
+     <!-- FancyBox -->
+     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+
+     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+ 
+
+
     <style>
         .info-list,
         .info-list li{
@@ -123,7 +131,7 @@
 
     <main id="main">
         <div class="cover-menu">
-            <div class="container main-tour-container">
+            <div class="container main-tour-container shadow">
                 <div class="row">
                     <div class="col-lg-7">
                         <div class="left">
@@ -180,10 +188,11 @@
                 <div class="row">
                     <div class="col-lg-10 tour-details pt-3">
                         <div class="images">
+                            <h3 class="bold full border-bottom pb-2 mb-3">Activity Images</h3>
                             <div class="owl-carousel owl-theme">
                                  {% for i in image %}
                                 <div class="item">
-                                    <img src="{{ i.image.url }}" alt="2" />
+                                    <a data-fancybox="gallery" class="full" href="{{ i.image.url }}"><img src="{{ i.image.url }}"></a>
                                 </div>
                                 {% endfor %} 
                             </div>
@@ -195,10 +204,11 @@
                 <div class="row">
                     <div class="col-lg-10 tour-details pt-3">
                         <div class="images">
+                            <h3 class="bold full border-bottom pb-2 mb-3">Activity Schedules</h3>
                             <div class="owl-carousel owl-theme">
                                  {% for i in schedule %}
                                 <div class="item">
-                                    <img src="{{ i.image.url }}" alt="2" />
+                                    <a data-fancybox="gallery" class="full" href="{{ i.schedule_image.url }}"><img src="{{ i.schedule_image.url }}"></a>
                                 </div>
                                 {% endfor %} 
                             </div>
@@ -348,10 +358,69 @@
                     </div>
                     
                 </div>
-            </div>
-
-            <div class="top-to-box">
-                <button  type="button" onclick="topFunction();">Back to top </button>
+                <section class="full p-4">
+                    {% if top_activities %}
+                    <div class="row">
+                        <h2 class="full bold border-bottom pb-2 mb-3">Top Tours</h2>
+                            <div class="owl-carousel owl-theme">
+                                {% for tour in top_activities %}
+                                    <div class="item">
+                                        <div class="tour-item">
+                                            <a href="{% url 'tour:detail' tour.pk %}" class="full">
+                                                <div class="d-column full">
+                                                    {% if tour.avatar %}
+                                                        <img src="{{tour.avatar.url}}" alt="">
+                                                    {% else %}
+                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                    {% endif %}
+                                                    <div class="card-body">
+                                                        <div class="title border-bottom mb-3">
+                                                            {{tour.title|capfirst|truncatechars:25 }}
+                                                        </div>
+                                                        <div class="d-column">
+                                                            <div class="d-flex mb-2 align-center">
+                                                                <div class="stars d-flex mr-2" data-value='{{tour.rating}}'>
+                                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                                </div> 
+                                                                <span>{{tour.tour_comment.count}} reviews</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Location : </span>
+                                                                <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                            </div>
+                                                            <div class="d-flex">
+                                                                <span class="bold mr-2">Company : </span>
+                                                                <span>{{tour.organizer.organizer_name}}</span>
+                                                            </div>
+                                                            <div class="d-flex full justify-content-between mt-3">
+                                                                <div class="price">
+                                                                    {{tour.price}} {{tour.currency}}
+                                                                </div>
+                                                                <div class="duration align-center">
+                                                                    <i class="far fa-clock mr-1"></i>
+                                                                    {{tour.durationday}} days
+                                                                </div>
+                                                            </div>
+                                                        </div>
+        
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex full justify-content-end">
+                                <a href="{% url 'tour:home' %}">Show all</a>
+                            </div>
+                    </div>
+                {% endif %}
+            
+                </section>
             </div>
         </div>
     </main>

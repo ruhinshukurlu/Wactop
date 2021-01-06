@@ -1,10 +1,32 @@
-$('.owl-carousel').owlCarousel({
-    loop: true,
-    nav: true,
-    dots: false,
-    items : 1
+// $('.owl-carousel').owlCarousel({
+//     loop: true,
+//     nav: true,
+//     dots: true,
+//     items : 3
     
-})
+// })
+$('.owl-carousel').owlCarousel({
+  dots:true,
+  nav: true,
+  margin: 25,
+  responsive: {
+      1: {
+          items: 1,
+      },
+      600: {
+          items: 3
+      },
+      1300: {
+          items: 4,
+
+      },
+      1400: {
+          items: 5,
+      }
+  }
+});
+
+
 var count=0;
 function change()
 {

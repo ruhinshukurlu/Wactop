@@ -10,7 +10,10 @@ User = get_user_model()
 @receiver(post_save,sender=Training)
 def send_user_data_when_created_by_admin(sender, instance, **kwargs):
     recipient = User.objects.get(username=instance.organizer.user.username)
-    if instance.status == 1:
+    if instance.status == 1 and not instance.activated:
         recipient = User.objects.get(username=instance.organizer.user.username)
         print(recipient)
         notify.send(sender, recipient=recipient, verb=f'Your <i>"{instance.title}"</i> Training was activated by Admin <br> <a href="/training/{instance.pk}" class="full">Go to {instance.title} Training</a>')
+        instance.activated = True
+        instance.save()
+

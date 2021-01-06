@@ -15,6 +15,6 @@ def sendemail(email, text):
 
 def sendMail(subject,text_content, html_content):
     
-    msg = EmailMultiAlternatives(subject,text_content, EMAIL_HOST_USER, ['sara.axmedova98@gmail.com'])
+    msg = EmailMultiAlternatives(subject,text_content, EMAIL_HOST_USER, ['ruhinshukurlu@gmail.com'])
     msg.attach_alternative(html_content, "text/html")
     msg.send()

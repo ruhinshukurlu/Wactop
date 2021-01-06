@@ -49,12 +49,21 @@
                                     <div class="col-12 col-lg-3 col-md-4 col-sm-6">
                                         <div class="tour-item p-relative">
                                             <div class="delete-edit-box d-flex">
-                                                <a href="{% url 'organizer:tour-edit' tour.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#tourDeleteModal{{tour.pk}}">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                {% if tour.status == 1 %}
+                                                    <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                {% elif tour.status == 2 %}
+                                                    <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                {% elif tour.status == 3 %}
+                                                    <span class="btn btn-outline-danger align-center mr-2" style="background-color: #fff; color: #000;">Past</span>
+                                                {% endif %}
+                                                <div class="d-flex">
+                                                    <a href="{% url 'organizer:tour-edit' tour.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#tourDeleteModal{{tour.pk}}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                             
                                             <!-- Modal -->
@@ -170,12 +179,21 @@
                                     <div class="col-12 col-lg-3 col-md-4 col-sm-6">
                                         <div class="tour-item p-relative">
                                             <div class="delete-edit-box d-flex">
-                                                <a href="{% url 'organizer:activity-edit' activity.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#activityDeleteModal{{activity.pk}}">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                {% if activity.status == 1 %}
+                                                    <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                {% elif activity.status == 2 %}
+                                                    <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                {% elif activity.status == 3 %}
+                                                    <span class="btn btn-outline-danger align-center mr-2" style="background-color: #fff; color: #000;">Past</span>
+                                                {% endif %}
+                                                <div class="d-flex">
+                                                    <a href="{% url 'organizer:activity-edit' activity.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#activityDeleteModal{{activity.pk}}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                             
                                             <!-- Modal -->
@@ -291,12 +309,21 @@
                                     <div class="col-12 col-lg-3 col-md-4 col-sm-6">
                                         <div class="tour-item p-relative">
                                             <div class="delete-edit-box d-flex">
-                                                <a href="{% url 'organizer:training-edit' training.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#trainingDeleteModal{{training.pk}}">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
+                                                {% if training.status == 1 %}
+                                                    <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                {% elif training.status == 2 %}
+                                                    <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                {% elif training.status == 3 %}
+                                                    <span class="btn btn-outline-danger align-center mr-2" style="background-color: #fff; color: #000;">Past</span>
+                                                {% endif %}
+                                                <div class="d-flex">
+                                                    <a href="{% url 'organizer:training-edit' training.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#trainingDeleteModal{{training.pk}}">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </div>
                                             </div>
                                             
                                             <!-- Modal -->

@@ -145,7 +145,10 @@ def ActivityDetailView(request, pk):
     else: 
         form = CommentForm()
 
+    top_activities = Activity.objects.filter(status=1).order_by('rating')[:5]
+
     context = {
+        'top_activities':top_activities,
         'tour': activity,
         'detail': detail,
         'image': image,

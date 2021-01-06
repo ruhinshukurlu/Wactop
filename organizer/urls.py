@@ -29,16 +29,16 @@ urlpatterns = [
 
     path("actions", OrganizerAllActions.as_view(), name="organizer-actions"),
 
-    path("tours/<int:pk>/edit", TourUpdateView.as_view(), name="tour-edit"),
-    path("activities/<int:pk>/edit", ActivityUpdateView.as_view(), name="activity-edit"),
-    path("trainigs/<int:pk>/edit", TrainingUpdateView.as_view(), name="training-edit"),
+    path("tours/<int:pk>/edit", TourUpdate, name="tour-edit"),
+    path("activities/<int:pk>/edit", ActivityUpdate, name="activity-edit"),
+    path("trainigs/<int:pk>/edit", TrainingUpdate, name="training-edit"),
 
     path("tours/<int:pk>/delete", TourDeleteView.as_view(), name="tour-delete"),
     path("activities/<int:pk>/delete", ActivityDeleteView.as_view(), name="activity-delete"),
     path("trainigs/<int:pk>/delete", TrainingDeleteView.as_view(), name="training-delete"),
 
+    path('tours/<int:pk>/detail-en/update', TourDetailENUpdate.as_view(), name='tour-detail-en-update'),
     # path("tour/photos", TourImageView.as_view(), name="tour-images"),
 
-    path("contact/", ContactView.as_view(), name="contact")
 
 ]

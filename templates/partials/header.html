@@ -51,6 +51,24 @@
         justify-content: center;
         align-items: center;
       }
+      #notification-bell{
+          width: 50%;
+          height: auto;
+
+      }
+      #notification-box{
+        width: 300px;
+      }
+      .user-profile .fa-bell{
+            margin-left: 15px;
+            border-left: 1px solid;
+            padding-left: 10px;
+            font-size: 18px;
+        }
+        .user-profile:hover .header-menu{
+            display: flex;
+            flex-direction: column;
+        }
 </style>
 <header id="header">
     <div class="container-fluid">
@@ -68,19 +86,16 @@
                     <div class="user-profile">
                         <div class="d-flex justify-content-center align-center">
                             {% if request.user.profile_img %}
-                                <img src="{{request.user.profile_img.url}}" width="50px" alt="">
+                                <img src="{{request.user.profile_img.url}}"  alt="">
                             {% else %}
-                                <img src="{% static 'images/profile.png' %}" width="50px" alt="">
+                                <img src="{% static 'images/profile.png' %}"  alt="">
                             {% endif %}
                             <span class="ml-2">{{request.user.username}} <i class="fas fa-angle-down"></i></span>
                         </div>
                         <div class="header-menu" >
                             <nav>
                                 <ul class="d-column mb-0"> 
-                                    <li>
-                                        
-                                       <a href="{% url 'notifications:unread' %}"> You have <strong> {% live_notify_badge %}</strong> Notifications</a>
-                                    </li>  
+                                     
                                     {% if request.user.is_organizer %}
                                         <li>
                                             <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name}}</a>
@@ -102,6 +117,21 @@
                             </nav>
                         </div>
                     </div>
+                    {% if request.user.is_organizer %}
+                        <div class="user-profile">
+                            <div class="d-flex justify-content-center align-center">
+                                <i class="far fa-bell"></i>
+                            </div>
+                            <div class="header-menu" id="notification-box">
+                                {% if user.notifications.unread.exists %}
+                                    <a href="{% url 'notifications:unread' %}"> You have <strong> {% live_notify_badge %}</strong> Notifications</a>
+                                {% else %}
+                                    <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
+                                    <p class="bold text-center" style="color: #000;" >Nothing to see here, you’re all caught up!</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
                 {% else %}
                 {% login_form as login %}
                 <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

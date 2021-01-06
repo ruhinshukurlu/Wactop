@@ -171,7 +171,10 @@ def TrainingDetailView(request, pk):
     else: 
         form = CommentForm()
 
+    top_tainings = Training.objects.filter(status=1).order_by('rating')[:5]
+
     context = {
+        'top_tainings':top_tainings,
         'tour': training,
         'detail': detail,
         'image': image,

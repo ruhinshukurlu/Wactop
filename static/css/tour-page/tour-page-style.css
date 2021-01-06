@@ -318,47 +318,42 @@ body {
 }
 
 .images {
-    width: 500px;
+    width: 100%;
     margin-bottom: 30px;
     padding-left: 25px;
-    height: 300px;
 }
 .owl-carousel, .owl-stage-outer, .owl-stage, .owl-item, .item{
     height: 100%;
 }
 .item img{
-    height: 100%;
+    height: 200px;
     object-fit: cover;
 }
+.owl-nav {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .owl-nav button {
     width: 40px;
     height: 40px;
     transition: all .4s ease-in-out;
-    position: absolute;
-    top: 35%;
-    transform: translateY(-50%);
     color: rgb(117, 112, 112) !important;
+    background-color: #fff !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.owl-nav button:hover {
-    color: #fff !important;
+.owl-nav button span{
+    font-size: 25px;
+    color: #000;
+    font-weight: bold;
 }
 
-.owl-nav {
-    margin-top: 0;
-}
-
-.owl-nav .owl-next {
-    right: -17px
-}
-
-.owl-nav .owl-prev {
-    left: -17px;
-}
-
-.owl-nav span {
-    font-size: 55px;
-}
 
 .iframe-container {
     margin-bottom: 40px;

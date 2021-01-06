@@ -54,6 +54,10 @@
                                             <div class="number">5</div>
                                             <span>Training Schedules</span>
                                         </li>
+                                        <li data-target="tourSave">
+                                            <div class="number">6</div>
+                                            <span>Save Training</span>
+                                        </li>
                                     </ul>
                                     
                                 </nav>
@@ -69,6 +73,22 @@
                                     {{url_form.management_form}}
                                     {{image_form.management_form}}
                                     {{schedule_form.management_form}}
+                                    
+                                    {% if tour_form.errors %}
+                                        salam
+                                        {% for field in tour_form %}
+                                            {% for error in field.errors %}
+                                                <div class="alert alert-danger">
+                                                    <strong>{{ error|escape }}</strong>
+                                                </div>
+                                            {% endfor %}
+                                        {% endfor %}
+                                        {% for error in form.non_field_errors %}
+                                            <div class="alert alert-danger">
+                                                <strong>{{ error|escape }}</strong>
+                                            </div>
+                                        {% endfor %}
+                                    {% endif %}
 
                                     <div id="tourBasics">
                                         <div class="d-column border-bottom pb-2 mb-4">
@@ -225,6 +245,8 @@
                                                             <input type="text" name="map-iframe"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" > 
                                                             <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
                                                                 <span>We got the link successfully</span>
+                                                            </div>
+                                                            <div style="display: none;">
                                                                 {{tour_form.map_link}}
                                                             </div>
                                                         </div>
@@ -266,13 +288,13 @@
                                                 {% for form in detail_form_en %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
-                                                            {{form.title.label_tag}}
+                                                            {{form.title_en.label_tag}}
                                                         </div>
                                                         <div class='col-12'>
-                                                            {{form.title}}
+                                                            {{form.title_en}}
                                                         </div>
                                                         <div class='col-12'>
-                                                            {{form.text}}
+                                                            {{form.text_en}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -300,13 +322,13 @@
                                                 {% for form in detail_form_az %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
-                                                            {{form.title.label_tag}}
+                                                            {{form.title_az.label_tag}}
                                                         </div>
                                                         <div class='col-12'>
-                                                            {{form.title}}
+                                                            {{form.title_az}}
                                                         </div>
                                                         <div class='col-12'>
-                                                            {{form.text}}
+                                                            {{form.text_az}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -334,13 +356,13 @@
                                                 {% for form in detail_form_ru %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
-                                                            {{form.title.label_tag}}
+                                                            {{form.title_ru.label_tag}}
                                                         </div>
                                                         <div class='col-12'>
-                                                            {{form.title}}
+                                                            {{form.title_ru}}
                                                         </div>
                                                         <div class='col-12'>
-                                                            {{form.text}}
+                                                            {{form.text_ru}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -352,15 +374,17 @@
                                                     Add new Paragraph
                                                 </button>
                                             </div>
-                                        </div>
 
-                                            
                                             <div class="d-flex full justify-content-end">
                                                 <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourURL">
                                                     Next
                                                     <i class="fas fa-angle-double-right ml-1"></i>
                                                 </button>
                                             </div>
+                                        </div>
+
+                                            
+                                            
                                     
                                     </div>
 
@@ -386,14 +410,15 @@
                                                     Add new URL
                                                 </button>
                                             </div>
+                                            <div class="d-flex full justify-content-end">
+                                                <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourPhotos">
+                                                    Next
+                                                    <i class="fas fa-angle-double-right ml-1"></i>
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        <div class="d-flex full justify-content-end">
-                                            <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourPhotos">
-                                                Next
-                                                <i class="fas fa-angle-double-right ml-1"></i>
-                                            </button>
-                                        </div>
+                                       
                                     </div>
         
                                     <div id="tourPhotos" style="display: none;">
@@ -445,8 +470,8 @@
                                                     <div class="photo-item col-3">
                                                         <img src="{% static 'images/default.png' %}" alt="">
                                                         <div class="d-flex add-img-box"> 
-                                                            {{form.image.label_tag}}
-                                                            {{form.image}}
+                                                            {{form.schedule_image.label_tag}}
+                                                            {{form.schedule_image}}
                                                         </div>
                                                     </div>
                                                 {% endfor %}
@@ -457,12 +482,35 @@
                                                     Add another Schedule 
                                                 </button>
                                             </div>
-
                                             <div class="d-flex full justify-content-end">
-                                                <input type="submit" value="Save Tour" class="btn btn-success">
+                                                <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourSave">
+                                                    Next
+                                                    <i class="fas fa-angle-double-right ml-1"></i>
+                                                </button>
                                             </div>
+                                           
                                         </div>
                                     </div>
+
+                                    <div id="tourSave" style="display: none;">
+                                        <div class="form-box shadow align-center" style="min-height: 300px;">
+                                             <img src="{% static 'images/note.svg' %}" alt="" class="tour-complete-icon">
+                                             <div class="d-column full justify-content-center">
+                                                 <h3 class="full border-bottom pb-2 mb-3 bold">
+                                                    Save Training
+                                                 </h3>
+                                                 <p>
+                                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis suscipit quidem quo ducimus 
+                                                     autem non, quia molestiae accusamus laudantium 
+                                                     soluta ipsam ea fuga itaque! Quia repellat eos corrupti. Cum, facilis.
+                                                     Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis suscipit quidem quo ducimus 
+                                                     autem non, quia molestiae accusamus laudantium 
+                                                     soluta ipsam ea fuga itaque! Quia repellat eos corrupti. Cum, facilis.
+                                                 </p>
+                                                 <input type="submit" value="Save Training" class="btn btn-outline-success pl-5 pr-5">
+                                             </div>
+                                        </div> 
+                                     </div>
                                     
                                 </form>
                             </div>

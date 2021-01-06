@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, UsernameField
 from django.contrib.admin.widgets import AdminDateWidget
 from django.forms.fields import DateField
-from django.forms import CharField, ModelMultipleChoiceField, ModelChoiceField
+from django.forms import CharField, ModelMultipleChoiceField, ModelChoiceField, inlineformset_factory
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm,AuthenticationForm, PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.db import transaction
 from .models import *
@@ -71,6 +71,14 @@ class OrganizerPhotoEditForm(forms.ModelForm):
         model = TrainingImage
         fields = ('image', )
 
+class TourForm(forms.ModelForm):
+
+    class Meta:
+        model = Tour
+        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
+
+TourInlineFormSet = inlineformset_factory(Tour, TourDetailEN, extra=1, fields = ('title_en', 'text_en'), can_delete=True)
+
 
 class OrganizerTourForm(forms.ModelForm):
     title = forms.CharField(label='Tour Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
@@ -132,20 +140,38 @@ class OrganizerTourForm(forms.ModelForm):
             'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',
                 'placeholder' : 'Add Map link here',
-                'disabled':'true'
             })
         }
 
 
 
-class OrganizerTourDetailForm(forms.ModelForm):
+class OrganizerTourDetailEnForm(forms.ModelForm):
 
-    title = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
-    text = forms.CharField(widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    title_en = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_en = forms.CharField(label='Text in English', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
     
     class Meta:
         model = TourDetailEN
-        fields = ('title', 'text', )
+        fields = ('title_en', 'text_en', )
+
+class OrganizerTourDetailAzForm(forms.ModelForm):
+
+    title_az = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_az = forms.CharField(label='Text in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    
+    class Meta:
+        model = TourDetailAZ
+        fields = ('title_az', 'text_az', )
+
+
+class OrganizerTourDetailRuForm(forms.ModelForm):
+
+    title_ru = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_ru = forms.CharField(label='Text in Russian',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    
+    class Meta:
+        model = TourDetailRU
+        fields = ('title_ru', 'text_ru', )
 
 
 
@@ -161,13 +187,13 @@ class OrganizerTourImageForm(forms.ModelForm):
 
 class OrganizerTourScheduleForm(forms.ModelForm):
 
-    image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
+    schedule_image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
         'class' : 'schedule-input'
     }))
 
     class Meta:
         model = TourSchedule
-        fields = ('image', )
+        fields = ('schedule_image', )
 
 class OrganizerTourURLForm(forms.ModelForm):
 
@@ -242,20 +268,38 @@ class OrganizerActivityForm(forms.ModelForm):
             }),
              'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',
-                'placeholder' : 'Add Map link here',
-                'disabled':'true'
+                'placeholder' : 'Add Map link here'
             })
         }
     
 
-class OrganizerActivityDetailForm(forms.ModelForm):
+class OrganizerActivityDetailEnForm(forms.ModelForm):
 
-    title = forms.CharField(label='Activity Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
-    text = forms.CharField(widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    title_en = forms.CharField(label='Activity Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_en = forms.CharField(label='Text in English',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
 
     class Meta:
         model = ActivityDetailEN
-        fields = ('title', 'text', )
+        fields = ('title_en', 'text_en', )
+
+class OrganizerActivityDetailAzForm(forms.ModelForm):
+
+    title_az = forms.CharField(label='Activity Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_az = forms.CharField(label='Text in Azerbaijan',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+
+    class Meta:
+        model = ActivityDetailEN
+        fields = ('title_az', 'text_az', )
+
+
+class OrganizerActivityDetailRuForm(forms.ModelForm):
+
+    title_ru = forms.CharField(label='Activity Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_ru = forms.CharField(label='Text in Russian',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+
+    class Meta:
+        model = ActivityDetailEN
+        fields = ('title_ru', 'text_ru', )
 
 class OrganizerActivityURLForm(forms.ModelForm):
 
@@ -283,13 +327,13 @@ class OrganizerActivityImageForm(forms.ModelForm):
 
 class OrganizerActivityScheduleForm(forms.ModelForm):
 
-    image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
+    schedule_image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
         'class' : 'schedule-input'
     }))
 
     class Meta:
         model = ActivitySchedule
-        fields = ('image', )
+        fields = ('schedule_image', )
 
 
 class OrganizerTrainingForm(forms.ModelForm):
@@ -365,19 +409,36 @@ class OrganizerTrainingForm(forms.ModelForm):
             }),
              'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',
-                'placeholder' : 'Add Map link here',
-                'disabled':'true'
+                'placeholder' : 'Add Map link here'
             })
         }
 
 
-class OrganizerTrainingDetailForm(forms.ModelForm):
-    title = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
-    text = forms.CharField(widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+class OrganizerTrainingDetailEnForm(forms.ModelForm):
+    title_en = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_en = forms.CharField(label='Text in English',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
     
     class Meta:
         model = TrainingDetailEN
-        fields = ('title', 'text', )
+        fields = ('title_en', 'text_en', )
+
+
+class OrganizerTrainingDetailAzForm(forms.ModelForm):
+    title_az = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_az = forms.CharField(label='Text in Azerbaijan',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    
+    class Meta:
+        model = TrainingDetailEN
+        fields = ('title_az', 'text_az', )
+
+
+class OrganizerTrainingDetailRuForm(forms.ModelForm):
+    title_ru = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+    text_ru = forms.CharField(label='Text in Russian',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    
+    class Meta:
+        model = TrainingDetailEN
+        fields = ('title_ru', 'text_ru', )
 
 class OrganizerTrainingURLForm(forms.ModelForm):
 
@@ -406,13 +467,13 @@ class OrganizerTrainingImageForm(forms.ModelForm):
 
 class OrganizerTrainingScheduleForm(forms.ModelForm):
 
-    image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
+    schedule_image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
         'class' : 'schedule-input'
     }))
 
     class Meta:
         model = TrainingSchedule
-        fields = ('image', )
+        fields = ('schedule_image', )
 
 
 class OrganizerEditForm(forms.ModelForm):

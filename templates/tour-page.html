@@ -569,6 +569,17 @@
        
 
     </script>
+   <script>
+
+
+       for (let star = 0; star < $('.stars').length; star++) {
+            var rating_count = parseInt($('.stars').eq(star).data('value'))
+            for (let count = 0; count < rating_count; count++) {
+                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+
+            }
+        }
+   </script>
 
 </body>
 

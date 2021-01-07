@@ -7,6 +7,7 @@ from .models import *
 from tour.models import *   
 from django.http import HttpResponse, JsonResponse
 import json
+import random
 from django.db.models import Avg
 
 
@@ -171,7 +172,7 @@ def TrainingDetailView(request, pk):
     else: 
         form = CommentForm()
 
-    top_tainings = Training.objects.filter(status=1).order_by('rating')[:5]
+    top_tainings = sorted(Training.objects.filter(status=1).order_by('rating')[:5], key=lambda x: random.random())
 
     context = {
         'top_tainings':top_tainings,

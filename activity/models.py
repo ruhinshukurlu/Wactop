@@ -66,6 +66,10 @@ class Activity(models.Model):
     def __str__ (self):
         return self.title
 
+    def discount_price(self):
+        new_price = self.price - (self.price * self.discount) // 100
+        return new_price
+
 class ActivityDetailAZ(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
     title_az = models.CharField(max_length=31)

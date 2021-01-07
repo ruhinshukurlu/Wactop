@@ -63,60 +63,51 @@
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <form action="{% url 'tour:filter' %}">
-                                        <li><a href=""><button type="submit" name="price"  value="high">High</button></a></li>
-                                        <li><a href=""><button type="submit" name="price"  value="low">Low</button></a></li>
-                                    </form>
+<!--                                    <form action="">-->
+                                        <li><a href="?price=high"><button type="submit" name="price"  value="high">High</button></a></li>
+                                        <li><a href="?price=low"><button type="submit" name="price"  value="low">Low</button></a></li>
+<!--                                    </form>-->
                                   </ul>
                               </li>
                               <li><a href="#" class="align-center">Rating
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <form action="{% url 'tour:filter' %}">
-                                        <li><a href=""><button type="submit" name="rating"  value="high">High</button></a></li>
-                                        <li><a href=""><button type="submit" name="rating"  value="low">Low</button></a></li>
-                                    </form>
-                                  </ul>
+                                        <li><a href="?rating=high"><button type="submit" name="rating"  value="high">High</button></a></li>
+                                        <li><a href="?rating=low"><button type="submit" name="rating"  value="low">Low</button></a></li>
+                                </ul>
                               </li>
                               <li><a href="#" class="align-center">Country
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <form action="{% url 'tour:filter' %}">
                                         {% for country in countries %}
-                                            <li><a href=""><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
+                                            <li><a href="?country={{country}}"><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
                                         {% endfor %}
-                                    </form>
                                 </ul>
                               </li>
                               <li><a href="#" class="align-center">Travel style
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <form action="{% url 'tour:filter' %}">
                                         {% for tour_type in tour_types %}
-                                            <li><a href=""><button type="submit" name="style"  value="{{tour_type}}">{{tour_type|capfirst}}</button></a></li>
+                                            <li><a href="?style={{tour_type}}"><button type="submit" name="style"  value="{{tour_type}}">{{tour_type|capfirst}}</button></a></li>
                                         {% endfor %}
-                                    </form>
                                 </ul>
                               </li>
                               <li><a href="#" class="align-center">Duration
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <form action="{% url 'tour:filter' %}">
-                                        <li><a href=""><button type="submit" name="duration"  value="long">Long</button></a></li>
-                                        <li><a href=""><button type="submit" name="duration"  value="short">Short</button></a></li>
-                                    </form>
+                                        <li><a href="?duration=long"><button type="submit" name="duration"  value="long">Long</button></a></li>
+                                        <li><a href="?duration=short"><button type="submit" name="duration"  value="short">Short</button></a></li>
                                 </ul>
                               </li>
                               <li><a href="#" class="align-center">Discount
                                 <i class="fas fa-angle-down ml-2"></i>
                                 </a>
                                 <ul class="dropdown">
-                                    <li><a href="#">Azerbaijan</a></li>
-                                    <li><a href="#">Turkey</a></li>
+                                    <li><a href="?discount=True">Discount</a></li>
                                 </ul>
                               </li>
                             </ul>
@@ -162,6 +153,7 @@
                                                     <div class="d-flex full justify-content-between mt-3">
                                                         <div class="price">
                                                             {{tour.price}} {{tour.currency}}
+                                                            {% if tour.discount %} {{tour.discount_price}} {{tour.currency}} {% endif %}
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>

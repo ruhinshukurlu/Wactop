@@ -158,6 +158,7 @@
                                                     <div class="d-flex full justify-content-between mt-3">
                                                         <div class="price">
                                                             {{activity.price}} {{activity.currency}}
+                                                            {% if tour.discount %} {{tour.discount_price}} {{tour.currency}} {% endif %}
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>

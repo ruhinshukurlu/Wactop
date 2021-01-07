@@ -1,3 +1,5 @@
+import random
+
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
@@ -145,7 +147,7 @@ def ActivityDetailView(request, pk):
     else: 
         form = CommentForm()
 
-    top_activities = Activity.objects.filter(status=1).order_by('rating')[:5]
+    top_activities = sorted(Activity.objects.filter(status=1).order_by('rating')[:5], key=lambda x: random.random())
 
     context = {
         'top_activities':top_activities,

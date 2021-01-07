@@ -71,6 +71,9 @@ class Tour(models.Model):
         super(Tour, self).__init__(*args, **kwargs)
         self.old_status = self.status
 
+    def discount_price(self):
+        new_price = self.price - (self.price * self.discount) // 100
+        return new_price
     # def save(self, *args, **kwargs):
     #     if self.old_status != self.status:
     #         if self.status == 1:

@@ -1,7 +1,9 @@
+import random
+import json
 from django.shortcuts import render
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
-import json
+
 from django.views.generic.list import ListView
 from django.db.models import Avg
 
@@ -36,14 +38,54 @@ class TourListView(ListView):
             queryset1 = Tour.objects.filter(status=1)
             title_name = self.request.GET.get('q', None)
             if title_name is not None:
-                queryset1 = queryset1.filter(title__icontains=title_name, status=1)
-                return queryset1
+                queryset = queryset1.filter(title__icontains=title_name, status=1)
+                return queryset
+
+            price_query = self.request.GET.get('price')
+            if price_query:
+                if price_query == 'high':
+                    queryset = Tour.objects.filter(status=1).order_by('-price')
+                elif price_query == 'low':
+                    queryset = Tour.objects.filter(status=1).order_by('price')
+                return queryset
+
+            rating_query = self.request.GET.get('rating')
+            if rating_query:
+                if rating_query == 'high':
+                    queryset = Tour.objects.filter(status=1).order_by('-rating')
+                elif rating_query == 'low':
+                    queryset = Tour.objects.filter(status=1).order_by('rating')
+                return queryset
+
+            duration_query = self.request.GET.get('duration')
+            if duration_query:
+                if duration_query == 'long':
+                    # context2['duration2'] = 'long'
+                    queryset = Tour.objects.filter(status=1).order_by('-durationday')
+                elif duration_query == 'short':
+                    queryset = Tour.objects.filter(status=1).order_by('durationday')
+                return queryset
+
+            country_query = self.request.GET.get('country')
+            if country_query:
+                queryset = Tour.objects.filter(country__icontains=country_query, status=1)
+                return queryset
+            
+            style_query = self.request.GET.get('style')
+            if style_query:
+                queryset = Tour.objects.filter(tour_type=TourType.objects.filter(title=style_query).first().id,status=1)
+                return queryset
+
+            discount_query = self.request.GET.get('discount')
+            if discount_query:
+                queryset = Tour.objects.filter(discount__gte=1)
+                return queryset
         
         return super().get_queryset().filter(status=1)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        
+
         context["countries"] = tour_country_list
         context['tour_types'] = tour_type_list
         return context
@@ -181,7 +223,8 @@ def TourDetailView(request, pk):
     else: 
         form = TourCommentForm()
 
-    top_tours = Tour.objects.filter(status=1).order_by('rating')[:5]
+    top_tours = sorted(Tour.objects.filter(status=1).order_by('rating')[:5], key=lambda x: random.random())
+
     context = {
         'top_tours': top_tours,
         'tour': tour,

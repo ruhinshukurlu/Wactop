@@ -74,7 +74,9 @@ $('#formControlMenu li').click(function(){
     $('#formControlMenu li').removeClass('active')
     $(this).addClass('active')
     $('#addTourForm').children().hide()
-    $('#addTourForm').children(`#${$(this).data('target')}`).show()          
+    $('#addTourForm').children(`#${$(this).data('target')}`).show()
+    $('#organizerActions').children().hide()
+    $('#organizerActions').children(`#${$(this).data('target')}`).show()         
 
 })
 

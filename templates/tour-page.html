@@ -96,14 +96,12 @@
         background-color: #fff;
         border: 1px solid #ccc;
         border-radius: 5px;
-        /* width: 300px;
-        height: 100px; */
         display: flex;
-        /* top: 50px; */
         right: 50px;
         margin-top: 20px;
         flex-direction: column;
         padding: 10px;
+        width: 200px;
     }
         
     </style>
@@ -114,8 +112,16 @@
     {% include 'partials/main-menu.html' %}
 
     {% if tour.organizer == request.user.organizer %}
-    <div class="edit-delete-box shadow">
-        <a href="{% url 'organizer:tour-edit' tour.pk %}" class="btn btn-outline-primary mb-2 pr-5 pl-5">
+    <div class="edit-delete-box shadow" >
+        {% if tour.status == 3 %}
+            <button type="button" class="btn btn-outline-success full mb-2" disabled>Finished</button> 
+        {% else %}
+        <form action="{% url 'organizer:finish-tour' tour.pk %}" method="post" class="mb-2">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-success full">Finish Tour</button>
+        </form>
+        {% endif %}
+        <a href="{% url 'organizer:tour-edit' tour.pk %}" class="btn btn-outline-primary mb-2">
             <i class="fas fa-edit"></i> 
             Edit Tour
         </a>
@@ -392,15 +398,25 @@
                                                     <li class="d-flex">
                                                         <div class="starsBox"> 
                                                             <input type="radio" id="rate-5" name="rating" value="5" > 
-                                                            <label for="rate-5" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <label for="rate-5" class="d-flex justify-content-center align-items-center">
+                                                                <i class="fas fa-star"></i>
+                                                            </label> 
                                                             <input type="radio" id="rate-4" name="rating" value="4"> 
-                                                            <label for="rate-4" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <label for="rate-4" class="d-flex justify-content-center align-items-center">
+                                                                <i class="fas fa-star"></i>
+                                                            </label> 
                                                             <input type="radio" id="rate-3" name="rating" value="3"> 
-                                                            <label for="rate-3" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <label for="rate-3" class="d-flex justify-content-center align-items-center">
+                                                                <i class="fas fa-star"></i>
+                                                            </label> 
                                                             <input type="radio" id="rate-2" name="rating" value="2"> 
-                                                            <label for="rate-2" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <label for="rate-2" class="d-flex justify-content-center align-items-center">
+                                                                <i class="fas fa-star"></i>
+                                                            </label> 
                                                             <input type="radio" id="rate-1" name="rating" value="1"> 
-                                                            <label for="rate-1" class="d-flex justify-content-center align-items-center"></label> 
+                                                            <label for="rate-1" class="d-flex justify-content-center align-items-center">
+                                                                <i class="fas fa-star"></i>
+                                                            </label> 
                                                         </div>  
                                                     </li>
                                                 </ul>

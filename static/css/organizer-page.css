@@ -156,6 +156,7 @@ body{
     height: 300px;
     object-fit: cover;
     border-radius: 5px;
+    border: 1px solid #4dabf8;
 }
 
 .profile-photo{
@@ -187,9 +188,16 @@ body{
 
 .profile-img-box{
     position: absolute;
-    top: 50%;  /* position the top  edge of the element at the middle of the parent */
-    left: 50%; /* position the left edge of the element at the middle of the parent */
+    top: 50%;  
+    left: 50%;
     transform: translate(-50%, -50%);
+    
+}
+
+.bg-black-custom{
+    background-color: rgba(0,0,0,0.6);
+    padding: 15px;
+    border-radius: 50%;
 }
 
 .tour-profile-photo{
@@ -777,10 +785,12 @@ h4{
 .delete-edit-box{
     position: absolute;
     right: 10px;
-    left: 10px;
-    top: 10px;
+    top: 15px;
     z-index: 1;
     justify-content: space-between;
+    /* width: 250px; */
+    background-color: #fff;
+    
 }
 
 .delete-edit-box .edit-btn{
@@ -868,18 +878,12 @@ h4{
     cursor: pointer;
     float: right;
 }
-.starsBox label:after {
-    font-family: "FontAwesome";
-    content: "\f005";
-    font-size: 25px;
-    float: right;
+.starsBox label i{
     transition: all 0.25s;
     color: rgb(110, 114, 110);
 }
-.starsBox label:hover:after,
-.starsBox label:hover ~ label:after {
-    font-family: "FontAwesome";
-    content: "\f005";
+.starsBox label:hover,
+.starsBox label:hover ~ label i {
     color: #DEDE05 !important;
 }
 

@@ -13,9 +13,6 @@ from django.views.generic.edit import FormMixin, FormView
 from django.contrib.auth import authenticate, login
 from django.views import View
 from django.contrib import messages
-from training.views import training_type_list, training_country_list
-from tour.views import tour_country_list, tour_type_list
-from activity.views import activity_country_list
 from main.models import *
 from organizer.forms import *
 
@@ -71,15 +68,8 @@ def HomeView(request):
 class OrganizerTourFilterView(ListView):
     model = Tour
     context_object_name = 'tours'
-    template_name = "tour-list.html"
+    template_name = "tour-list-no-filter.html"
     paginate_by = 16
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        
-        context["countries"] = tour_country_list
-        context['tour_types'] = tour_type_list
-        return context
 
     def get_queryset(self):
         self.organizer = get_object_or_404(Organizer, organizer_name=self.kwargs['organizer_name'])
@@ -94,16 +84,10 @@ class OrganizerTourFilterView(ListView):
 
 class OrganizerTrainingFilterView(ListView):
     model = Training
-    context_object_name = 'trainings'
-    template_name = "training-list.html"
+    context_object_name = 'tours'
+    template_name = "tour-list-no-filter.html"
     paginate_by = 16
 
-    def get_context_data(self, **kwargs):
-        context = super(OrganizerTrainingFilterView, self).get_context_data(**kwargs)
-
-        context['countries'] = training_country_list
-        context['training_types'] = training_type_list
-        return context
 
     def get_queryset(self):
         self.organizer = get_object_or_404(Organizer, organizer_name=self.kwargs['organizer_name'])
@@ -118,15 +102,9 @@ class OrganizerTrainingFilterView(ListView):
 
 class OrganizerActivityFilterView(ListView):
     model = Activity
-    context_object_name = 'activities'
-    template_name = "activity-list.html"
+    context_object_name = 'tours'
+    template_name = "tour-list-no-filter.html"
     paginate_by = 16
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["countries"] = activity_country_list
-        context['tour_types'] = tour_type_list
-        return context
 
 
     def get_queryset(self):

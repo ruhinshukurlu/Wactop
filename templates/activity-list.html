@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tours</title>
+    <title>Activities</title>
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
@@ -56,66 +56,55 @@
                                 <i class="fas fa-sort-amount-down-alt mr-1"></i>
                                 Filter
                             </span>
-                            <li><a href="#" class="align-center">Price
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                    <form action="{% url 'activity:filter' %}">
-                                        <li><a href=""><button type="submit" name="price"  value="high">High</button></a></li>
-                                        <li><a href=""><button type="submit" name="price"  value="low">Low</button></a></li>
-                                    </form>
-                                </ul>
-                            </li>
-                            <li><a href="#" class="align-center">Rating
-                                <i class="fas fa-angle-down ml-2"></i>
-                                </a>
-                                <ul class="dropdown">
-                                    <form action="{% url 'activity:filter' %}">
-                                        <li><a href=""><button type="submit" name="rating"  value="high">High</button></a></li>
-                                        <li><a href=""><button type="submit" name="rating"  value="low">Low</button></a></li>
-                                    </form>
-                                </ul>
-                            </li>
-                            <li><a href="#" class="align-center">Country
+                          <li><a href="#" class="align-center">Price
                             <i class="fas fa-angle-down ml-2"></i>
                             </a>
                             <ul class="dropdown">
-                                <form action="{% url 'activity:filter' %}">
+                                    <li><a href="?price=high"><button type="submit" name="price"  value="high">High</button></a></li>
+                                    <li><a href="?price=low"><button type="submit" name="price"  value="low">Low</button></a></li>
+                              </ul>
+                          </li>
+                          <li><a href="#" class="align-center">Rating
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
+                                    <li><a href="?rating=high"><button type="submit" name="rating"  value="high">High</button></a></li>
+                                    <li><a href="?rating=low"><button type="submit" name="rating"  value="low">Low</button></a></li>
+                            </ul>
+                          </li>
+                          <li><a href="#" class="align-center">Country
+                            <i class="fas fa-angle-down ml-2"></i>
+                            </a>
+                            <ul class="dropdown">
                                     {% for country in countries %}
-                                        <li><a href=""><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
+                                        <li><a href="?country={{country}}"><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
                                     {% endfor %}
-                                </form>
                             </ul>
-                            </li>
-                            <li><a href="#" class="align-center">Travel style
+                          </li>
+                          <li><a href="#" class="align-center">Travel style
                             <i class="fas fa-angle-down ml-2"></i>
                             </a>
                             <ul class="dropdown">
-                                <form action="{% url 'activity:filter' %}">
-                                    {% for tour_type in tour_types %}
-                                        <li><a href=""><button type="submit" name="style"  value="{{tour_type}}">{{tour_type|capfirst}}</button></a></li>
+                                    {% for activity_type in activity_types %}
+                                        <li><a href="?style={{activity_type}}"><button type="submit" name="style"  value="{{activity_type}}">{{activity_type|capfirst}}</button></a></li>
                                     {% endfor %}
-                                </form>
                             </ul>
-                            </li>
-                            <li><a href="#" class="align-center">Duration
+                          </li>
+                          <li><a href="#" class="align-center">Duration
                             <i class="fas fa-angle-down ml-2"></i>
                             </a>
                             <ul class="dropdown">
-                                <form action="{% url 'activity:filter' %}">
-                                    <li><a href=""><button type="submit" name="duration"  value="long">Long</button></a></li>
-                                    <li><a href=""><button type="submit" name="duration"  value="short">Short</button></a></li>
-                                </form>
+                                    <li><a href="?duration=long"><button type="submit" name="duration"  value="long">Long</button></a></li>
+                                    <li><a href="?duration=short"><button type="submit" name="duration"  value="short">Short</button></a></li>
                             </ul>
-                            </li>
-                            <li><a href="#" class="align-center">Discount
-                                <i class="fas fa-angle-down ml-2"></i>
+                          </li>
+                          <li><a href="#" class="align-center">Discount
+                            <i class="fas fa-angle-down ml-2"></i>
                             </a>
                             <ul class="dropdown">
-                                <li><a href="#">Azerbaijan</a></li>
-                                <li><a href="#">Turkey</a></li>
+                                <li><a href="?discount=True">Discount</a></li>
                             </ul>
-                            </li>
+                          </li>
                         </ul>
                     </nav>
                 </div>
@@ -157,8 +146,12 @@
                                                     </div>
                                                     <div class="d-flex full justify-content-between mt-3">
                                                         <div class="price">
-                                                            {{activity.price}} {{activity.currency}}
-                                                            {% if tour.discount %} {{tour.discount_price}} {{tour.currency}} {% endif %}
+                                                            {% if activity.discount %}
+                                                                {{activity.discount_price}} {{activity.currency}}
+                                                                <span style="text-decoration: line-through; font-weight: bold;">{{activity.price}} {{activity.currency}}</span>
+                                                            {% else %}
+                                                                {{activity.price}} {{activity.currency}}
+                                                            {% endif %}
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>
@@ -175,7 +168,7 @@
                         {% endfor %} 
                     {% else %}
                         <h3 class="full bold text-center" style="height: 400px;">
-                            No Activities added<i class="far fa-folder-open ml-2"></i>
+                            No Activities found<i class="far fa-folder-open ml-2"></i>
                         </h3>
                     {% endif %}
                 </div>

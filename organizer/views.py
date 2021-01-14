@@ -372,6 +372,28 @@ class TrainingDeleteView(DeleteView):
         return reverse_lazy('organizer:organizer-actions')
 
 
+def finishTour(request, pk):
+    tour = Tour.objects.get(pk=pk)
+    tour.status = 3
+    tour.save()
+    return redirect('tour:detail', pk=pk)
+
+
+def finishActivity(request, pk):
+    activity = Activity.objects.get(pk=pk)
+    activity.status = 3
+    activity.save()
+    return redirect('activity:detail', pk=pk)
+
+
+def finishTraining(request, pk):
+    training = Training.objects.get(pk=pk)
+    training.status = 3
+    training.save()
+    return redirect('training:detail', pk=pk)
+
+
+
 def TourUpdate(request, pk):
 
     tour = Tour.objects.get(id=pk)
@@ -405,7 +427,7 @@ def TourUpdate(request, pk):
             image_form.save()
             schedule_form.save()
 
-            return HttpResponseRedirect(reverse_lazy('tour:home'))
+            return redirect('tour:detail', pk=pk)
         
         
     else:
@@ -456,7 +478,7 @@ def ActivityUpdate(request, pk):
             image_form.save()
             schedule_form.save()
 
-            return HttpResponseRedirect(reverse_lazy('tour:home'))
+            return redirect('activity:detail', pk=pk)
         
         
     else:
@@ -506,7 +528,7 @@ def TrainingUpdate(request, pk):
             image_form.save()
             schedule_form.save()
 
-            return HttpResponseRedirect(reverse_lazy('tour:home'))
+            return redirect('training:detail', pk=pk)
         
         
     else:

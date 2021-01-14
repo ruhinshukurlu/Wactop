@@ -35,9 +35,11 @@ urlpatterns = [
 
     path("tours/<int:pk>/delete", TourDeleteView.as_view(), name="tour-delete"),
     path("activities/<int:pk>/delete", ActivityDeleteView.as_view(), name="activity-delete"),
-    path("trainigs/<int:pk>/delete", TrainingDeleteView.as_view(), name="training-delete"),
+    path("trainigs/<int:pk>/delete", TrainingDeleteView.as_view(), name="training-delete"), 
 
-    path('tours/<int:pk>/detail-en/update', TourDetailENUpdate.as_view(), name='tour-detail-en-update'),
+    path("tour/<int:pk>/finish", finishTour, name="finish-tour"),
+    path("activity/<int:pk>/finish", finishActivity, name="finish-activity"),
+    path("training/<int:pk>/finish", finishTraining, name="finish-training"),
     # path("tour/photos", TourImageView.as_view(), name="tour-images"),
 
 

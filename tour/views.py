@@ -1,6 +1,6 @@
 import random
 import json
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
 
@@ -9,22 +9,7 @@ from django.db.models import Avg
 
 from tour.forms import *
 from .models import *
-# pip install psycopg2
 
-
-tour_types = TourType.objects.all()
-tour_type_list = []
-if tour_types:
-    for tour_type in tour_types:
-        if tour_type.title not in tour_type_list:
-            tour_type_list.append(tour_type.title)
-
-tours = Tour.objects.all()
-tour_country_list = []
-if tours:
-    for tour in tours:
-        if tour.country not in tour_country_list:
-            tour_country_list.append(tour.country)
 
 
 class TourListView(ListView):
@@ -52,9 +37,10 @@ class TourListView(ListView):
             rating_query = self.request.GET.get('rating')
             if rating_query:
                 if rating_query == 'high':
-                    queryset = Tour.objects.filter(status=1).order_by('-rating')
-                elif rating_query == 'low':
                     queryset = Tour.objects.filter(status=1).order_by('rating')
+                    print(queryset)
+                elif rating_query == 'low':
+                    queryset = Tour.objects.filter(status=1).order_by('-rating')
                 return queryset
 
             duration_query = self.request.GET.get('duration')
@@ -78,13 +64,26 @@ class TourListView(ListView):
 
             discount_query = self.request.GET.get('discount')
             if discount_query:
-                queryset = Tour.objects.filter(discount__gte=1)
+                queryset = Tour.objects.filter(discount__gte=1, status=1)
                 return queryset
         
         return super().get_queryset().filter(status=1)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        tour_types = TourType.objects.all()
+        tour_type_list = []
+        if tour_types:
+            for tour_type in tour_types:
+                if tour_type.title not in tour_type_list:
+                    tour_type_list.append(tour_type.title)
+
+        tours = Tour.objects.all()
+        tour_country_list = []
+        if tours:
+            for tour in tours:
+                if tour.country not in tour_country_list:
+                    tour_country_list.append(tour.country)
 
         context["countries"] = tour_country_list
         context['tour_types'] = tour_type_list

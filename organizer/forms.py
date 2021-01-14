@@ -101,7 +101,7 @@ class OrganizerTourForm(forms.ModelForm):
     
     class Meta:
         model = Tour
-        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
+        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor','discount', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
 
         widgets = {
 
@@ -136,6 +136,10 @@ class OrganizerTourForm(forms.ModelForm):
             'address' : forms.TextInput(attrs={
                 'class' : 'form-input',
                 'placeholder' : 'Address'
+            }),
+            'discount' : forms.NumberInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Discount'
             }),
             'map_link' : forms.URLInput(attrs={
                 'class' : 'form-input',

@@ -11,19 +11,7 @@ import random
 from django.db.models import Avg
 
 
-training_types = TourType.objects.all()
-training_type_list = []
-if training_types:
-    for training_type in training_types:
-        if training_type.title not in training_type_list:
-            training_type_list.append(training_type.title)
 
-trainings = Training.objects.all()
-training_country_list = []
-if trainings:
-    for training in trainings:
-        if training.country not in training_country_list:
-            training_country_list.append(training.country)
 
 
 
@@ -38,12 +26,69 @@ class TrainingListView(ListView):
             queryset1 = Training.objects.filter(status=1)
             title_name = self.request.GET.get('q', None)
             if title_name is not None:
-                queryset1 = queryset1.filter(title__icontains=title_name)
-                return queryset1
+                queryset = queryset1.filter(title__icontains=title_name, status=1)
+                return queryset
+
+            price_query = self.request.GET.get('price')
+            if price_query:
+                if price_query == 'high':
+                    queryset = Training.objects.filter(status=1).order_by('-price')
+                elif price_query == 'low':
+                    queryset = Training.objects.filter(status=1).order_by('price')
+                return queryset
+
+            rating_query = self.request.GET.get('rating')
+            if rating_query:
+                if rating_query == 'high':
+                    queryset = Training.objects.filter(status=1).order_by('rating')
+                    print(queryset)
+                elif rating_query == 'low':
+                    queryset = Training.objects.filter(status=1).order_by('-rating')
+                return queryset
+
+            duration_query = self.request.GET.get('duration')
+            if duration_query:
+                if duration_query == 'long':
+                    # context2['duration2'] = 'long'
+                    queryset = Training.objects.filter(status=1).order_by('-durationday')
+                elif duration_query == 'short':
+                    queryset = Training.objects.filter(status=1).order_by('durationday')
+                return queryset
+
+            country_query = self.request.GET.get('country')
+            if country_query:
+                queryset = Training.objects.filter(country__icontains=country_query, status=1)
+                return queryset
+            
+            style_query = self.request.GET.get('style')
+            if style_query:
+                queryset = Training.objects.filter(training_type=TourType.objects.filter(title=style_query).first().id,status=1)
+                return queryset
+
+            discount_query = self.request.GET.get('discount')
+            if discount_query:
+                queryset = Training.objects.filter(discount__gte=1, status=1)
+                return queryset
+        
         return super().get_queryset().filter(status=1)
+
 
     def get_context_data(self, **kwargs):
         context = super(TrainingListView, self).get_context_data(**kwargs)
+
+        training_types = TourType.objects.all()
+        training_type_list = []
+        if training_types:
+            for training_type in training_types:
+                if training_type.title not in training_type_list:
+                    training_type_list.append(training_type.title)
+
+        trainings = Training.objects.all()
+        training_country_list = []
+        if trainings:
+            for training in trainings:
+                if training.country not in training_country_list:
+                    training_country_list.append(training.country)
 
         context['countries'] = training_country_list
         context['training_types'] = training_type_list

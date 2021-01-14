@@ -16,8 +16,24 @@
     
     <style>
         .tour-item{
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             border-color: #5cc3ff;
+            padding: 15px;
+        }
+        .tour-item img{
+            height: 250px;
+        }
+        .tour-item .card-body{
+            display: flex;
+            justify-content: space-around;
+            flex-direction: column;
+        }
+        .active{
+            color: #0093E9;
+            border-bottom: 1px solid #0093E9 !important;
+        }
+        .tour-menu-list li{
+            margin-right: 20px;
         }
     </style>
 
@@ -38,396 +54,459 @@
             
             <div class="col-10">
                 
-                <div class="custom-container mt-5">
-                    <div class="row">
-                        <div class="full bg-white org-actions shadow">
-                            <h3 class="bold m-3">Your Tours</h3>
-                        </div>
-                        <div class="row tour-list bg-white pt-3 shadow full">
-                            {% if tours %}
-                                {% for tour in tours %}
-                                    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="tour-item p-relative">
-                                            <div class="delete-edit-box d-flex">
-                                                {% if tour.status == 1 %}
-                                                    <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
-                                                {% elif tour.status == 2 %}
-                                                    <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
-                                                {% elif tour.status == 3 %}
-                                                    <span class="btn btn-outline-danger align-center mr-2" style="background-color: #fff; color: #000;">Past</span>
-                                                {% endif %}
-                                                <div class="d-flex">
-                                                    <a href="{% url 'organizer:tour-edit' tour.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#tourDeleteModal{{tour.pk}}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="tourDeleteModal{{tour.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Tour</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="bold text-center">Are you sure to delete this tour?</p>
-                                                        <div class="d-column">
-                                                            {% if tour.avatar %}
-                                                                <img src="{{tour.avatar.url}}" alt="">
-                                                            {% else %}
-                                                                <img src="{% static 'images/default.png' %}" alt="">
-                                                            {% endif %}
-                                                            <div class="card-body">
-                                                                <div class="title border-bottom mb-3">
-                                                                    {{tour.title|capfirst|truncatechars:25 }}
-                                                                </div>
-                                                                <div class="d-column">
-                                                                    
-                                                                    <div class="d-flex">
-                                                                        <span class="bold mr-2">Location : </span>
-                                                                        <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
-                                                                    </div>
-                                                                    <div class="d-flex">
-                                                                        <span class="bold mr-2">Company : </span>
-                                                                        <span>{{tour.organizer.organizer_name}}</span>
-                                                                    </div>
-                                                                    <div class="d-flex full justify-content-between mt-3">
-                                                                        <div class="price">
-                                                                            {{tour.price}} {{tour.currency}}
-                                                                        </div>
-                                                                        <div class="duration align-center">
-                                                                            <i class="far fa-clock mr-1"></i>
-                                                                            {{tour.durationday}} days
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                    
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <form action="{% url 'organizer:tour-delete' tour.pk %}" method="post">
-                                                            {% csrf_token %}
-                                                            <input type="submit" value="Delete" class="btn btn-outline-danger">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-                                            
-                                            <a href="{% url 'tour:detail' tour.pk %}" class="full">
-                                                <div class="d-column full">
-                                                    {% if tour.avatar %}
-                                                        <img src="{{tour.avatar.url}}" alt="">
-                                                    {% else %}
-                                                        <img src="{% static 'images/default.png' %}" alt="">
-                                                    {% endif %}
-                                                    <div class="card-body">
-                                                        <div class="title border-bottom mb-3">
-                                                            {{tour.title|capfirst|truncatechars:25 }}
-                                                        </div>
-                                                        <div class="d-column">
-                                                            
-                                                            <div class="d-flex">
-                                                                <span class="bold mr-2">Location : </span>
-                                                                <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <span class="bold mr-2">Company : </span>
-                                                                <span>{{tour.organizer.organizer_name}}</span>
-                                                            </div>
-                                                            <div class="d-flex full justify-content-between mt-3">
-                                                                <div class="price">
-                                                                    {{tour.price}} {{tour.currency}}
-                                                                </div>
-                                                                <div class="duration align-center">
-                                                                    <i class="far fa-clock mr-1"></i>
-                                                                    {{tour.durationday}} days
-                                                                </div>
-                                                            </div>
-                                                        </div>
-            
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                <div class="custom-container mt-5" >
+                    <nav class="full">
+                        <ul class="full tour-menu-list d-flex" id="formControlMenu">
+                            <li data-target="tours" class="active">
+                                <span>Your Tours</span>
+                            </li>
+                            <li data-target="activities">
+                                <span>Your Activities</span>
+                            </li>
+                            <li data-target="trainings">
+                                <span>Your Trainings</span>
+                            </li>
+                        </ul>
+                    </nav>
+                    <div id="organizerActions" class=" bg-white shadow">
+                        <div id="tours">
+                            <div class="inner-container">
+                                <div class="row">
+                                    <div class="full bg-white org-actions border-bottom">
+                                        <h3 class="bold m-3">Your Tours</h3>
                                     </div>
-                                {% endfor %} 
-                            {% else %}
-                                <h3 class="full bold text-center" style="height: 200px;">
-                                    No Tours added<i class="far fa-folder-open ml-2"></i>
-                                </h3>
-                            {% endif %}
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="full bg-white org-actions shadow">
-                            <h3 class="bold m-3">Your Activities</h3>
-                        </div>
-                        <div class="row tour-list bg-white pt-3 shadow full">
-                            {% if activities %}
-                                {% for activity in activities %}
-                                    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="tour-item p-relative">
-                                            <div class="delete-edit-box d-flex">
-                                                {% if activity.status == 1 %}
-                                                    <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
-                                                {% elif activity.status == 2 %}
-                                                    <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
-                                                {% elif activity.status == 3 %}
-                                                    <span class="btn btn-outline-danger align-center mr-2" style="background-color: #fff; color: #000;">Past</span>
-                                                {% endif %}
-                                                <div class="d-flex">
-                                                    <a href="{% url 'organizer:activity-edit' activity.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#activityDeleteModal{{activity.pk}}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="activityDeleteModal{{activity.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Activity</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="bold text-center">Are you sure to delete activity?</p>
-                                                        <div class="d-column">
-                                                            {% if activity.avatar %}
-                                                                <img src="{{activity.avatar.url}}" alt="">
-                                                            {% else %}
-                                                                <img src="{% static 'images/default.png' %}" alt="">
+                                    <div class="row tour-list bg-white pt-3 full">
+                                        {% if tours %}
+                                            {% for tour in tours %}
+                                                <div class="col-12">
+                                                    <div class="tour-item p-relative">
+                                                        <div class="delete-edit-box d-flex">
+                                                            <div class="mr-2 d-flex">
+                                                                {% if tour.status == 3 %}
+                                                                    <button type="button" class="btn btn-outline-success full" disabled>Finished</button> 
+                                                                {% else %}
+                                                                    <form action="{% url 'organizer:finish-tour' tour.pk %}" method="post" class="d-flex    ">
+                                                                        {% csrf_token %}
+                                                                        <button type="submit" class="btn btn-outline-success full">Finish Tour</button>
+                                                                    </form>
+                                                                {% endif %}
+                                                            </div>
+                                                            {% if tour.status == 1 %}
+                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                            {% elif tour.status == 2 %}
+                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
                                                             {% endif %}
-                                                            <div class="card-body">
-                                                                <div class="title border-bottom mb-3">
-                                                                    {{activity.title|capfirst|truncatechars:25 }}
-                                                                </div>
-                                                                <div class="d-column">
-                                                                    
-                                                                    <div class="d-flex">
-                                                                        <span class="bold mr-2">Location : </span>
-                                                                        <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
-                                                                    </div>
-                                                                    <div class="d-flex">
-                                                                        <span class="bold mr-2">Company : </span>
-                                                                        <span>{{activity.organizer.organizer_name}}</span>
-                                                                    </div>
-                                                                    <div class="d-flex full justify-content-between mt-3">
-                                                                        <div class="price">
-                                                                            {{activity.price}} {{activity.currency}}
-                                                                        </div>
-                                                                        <div class="duration align-center">
-                                                                            <i class="far fa-clock mr-1"></i>
-                                                                            {{activity.durationday}} days
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                
+                                                            <div class="d-flex">
+                                                                <a href="{% url 'organizer:tour-edit' tour.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#tourDeleteModal{{tour.pk}}">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <form action="{% url 'organizer:activity-delete' activity.pk %}" method="post">
-                                                            {% csrf_token %}
-                                                            <input type="submit" value="Delete" class="btn btn-outline-danger">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-
-                                            <a href="{% url 'activity:detail' activity.pk %}" class="full">
-                                                <div class="d-column full"> 
-                                                    {% if activity.avatar %}
-                                                        <img src="{{activity.avatar.url}}" alt="">
-                                                    {% else %}
-                                                        <img src="{% static 'images/default.png' %}" alt="">
-                                                    {% endif %}
-                                                    <div class="card-body">
-                                                        <div class="title border-bottom mb-3">
-                                                            {{activity.title|capfirst|truncatechars:25 }}
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="tourDeleteModal{{tour.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Tour</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="bold text-center">Are you sure to delete this tour?</p>
+                                                                    <div class="d-column">
+                                                                        {% if tour.avatar %}
+                                                                            <img src="{{tour.avatar.url}}" alt="">
+                                                                        {% else %}
+                                                                            <img src="{% static 'images/default.png' %}" alt="">
+                                                                        {% endif %}
+                                                                        <div class="card-body">
+                                                                            <div class="title border-bottom mb-3">
+                                                                                {{tour.title|capfirst|truncatechars:25 }}
+                                                                            </div>
+                                                                            <div class="d-column">
+                                                                                
+                                                                                <div class="d-flex">
+                                                                                    <span class="bold mr-2">Location : </span>
+                                                                                    <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                                                </div>
+                                                                                <div class="d-flex">
+                                                                                    <span class="bold mr-2">Company : </span>
+                                                                                    <span>{{tour.organizer.organizer_name}}</span>
+                                                                                </div>
+                                                                                <div class="d-flex full justify-content-between mt-3">
+                                                                                    <div class="price">
+                                                                                        {{tour.price}} {{tour.currency}}
+                                                                                    </div>
+                                                                                    <div class="duration align-center">
+                                                                                        <i class="far fa-clock mr-1"></i>
+                                                                                        {{tour.durationday}} days
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <form action="{% url 'organizer:tour-delete' tour.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                            </div>
                                                         </div>
-                                                        <div class="d-column">
-                                                            
-                                                            <div class="d-flex">
-                                                                <span class="bold mr-2">Location : </span>
-                                                                <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <span class="bold mr-2">Company : </span>
-                                                                <span>{{activity.organizer.organizer_name}}</span>
-                                                            </div>
-                                                            <div class="d-flex full justify-content-between mt-3">
-                                                                <div class="price">
-                                                                    {{activity.price}} {{activity.currency}}
+                                                        
+                                                        <a href="{% url 'tour:detail' tour.pk %}" class="full">
+                                                            <div class="row full">
+                                                                <div class="col-4 p-0">
+                                                                    {% if tour.avatar %}
+                                                                        <img src="{{tour.avatar.url}}" alt="">
+                                                                    {% else %}
+                                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                                    {% endif %}
                                                                 </div>
-                                                                <div class="duration align-center">
-                                                                    <i class="far fa-clock mr-1"></i>
-                                                                    {{activity.durationday}} days
+                                                                <div class="col-8 p-0">
+                                                                    <div class="card-body full-h ml-2">
+                                                                        <div class="title border-bottom mb-3">
+                                                                            {{tour.title|capfirst|truncatechars:25 }}
+                                                                        </div>
+                                                                        <div class="d-column">
+                                                                            
+                                                                            <div class="d-flex">
+                                                                                <span class="bold mr-2">Location : </span>
+                                                                                <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                                            </div>
+                                                                            <div class="d-flex">
+                                                                                <span class="bold mr-2">Company : </span>
+                                                                                <span>{{tour.organizer.organizer_name}}</span>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                        <div class="d-flex full justify-content-between mt-3">
+                                                                            <div class="price">
+                                                                                {{tour.price}} {{tour.currency}}
+                                                                            </div>
+                                                                            <div class="duration align-center">
+                                                                                <i class="far fa-clock mr-1"></i>
+                                                                                {{tour.durationday}} days
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            {% endfor %} 
+                                        {% else %}
+                                            <h3 class="full bold text-center" style="height: 200px;">
+                                                No Tours added<i class="far fa-folder-open ml-2"></i>
+                                            </h3>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <div id="activities" class="bg-white shadow" style="display: none;">
+                            <div class="inner-container">
+                                <div class="row">
+                                    <div class="full bg-white org-actions border-bottom">
+                                        <h3 class="bold m-3">Your Activities</h3>
+                                    </div>
+                                    <div class="row tour-list bg-white pt-3 full">
+                                        {% if activities %}
+                                            {% for activity in activities %}
+                                                <div class="col-12">
+                                                    <div class="tour-item p-relative">
+                                                        <div class="delete-edit-box d-flex">
+                                                            <div class="mr-2 d-flex">
+                                                                {% if tour.status == 3 %}
+                                                                    <button type="button" class="btn btn-outline-success full" disabled>Finished</button> 
+                                                                {% else %}
+                                                                    <form action="{% url 'organizer:finish-activity' activity.pk %}" method="post" class="d-flex    ">
+                                                                        {% csrf_token %}
+                                                                        <button type="submit" class="btn btn-outline-success full">Finish Activity</button>
+                                                                    </form>
+                                                                {% endif %}
+                                                            </div>
+                                                            {% if activity.status == 1 %}
+                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                            {% elif activity.status == 2 %}
+                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                           {% endif %}
+                                                            <div class="d-flex">
+                                                                <a href="{% url 'organizer:activity-edit' activity.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#activityDeleteModal{{activity.pk}}">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="activityDeleteModal{{activity.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Activity</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <p class="bold text-center">Are you sure to delete activity?</p>
+                                                                    <div class="d-column">
+                                                                        {% if activity.avatar %}
+                                                                            <img src="{{activity.avatar.url}}" alt="">
+                                                                        {% else %}
+                                                                            <img src="{% static 'images/default.png' %}" alt="">
+                                                                        {% endif %}
+                                                                        <div class="card-body">
+                                                                            <div class="title border-bottom mb-3">
+                                                                                {{activity.title|capfirst|truncatechars:25 }}
+                                                                            </div>
+                                                                            <div class="d-column">
+                                                                                
+                                                                                <div class="d-flex">
+                                                                                    <span class="bold mr-2">Location : </span>
+                                                                                    <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
+                                                                                </div>
+                                                                                <div class="d-flex">
+                                                                                    <span class="bold mr-2">Company : </span>
+                                                                                    <span>{{activity.organizer.organizer_name}}</span>
+                                                                                </div>
+                                                                                <div class="d-flex full justify-content-between mt-3">
+                                                                                    <div class="price">
+                                                                                        {{activity.price}} {{activity.currency}}
+                                                                                    </div>
+                                                                                    <div class="duration align-center">
+                                                                                        <i class="far fa-clock mr-1"></i>
+                                                                                        {{activity.durationday}} days
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                            
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <form action="{% url 'organizer:activity-delete' activity.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                                                    </form>
+                                                                </div>
+                                                            </div>
                                                             </div>
                                                         </div>
         
+                                                        <a href="{% url 'activity:detail' activity.pk %}" class="full">
+                                                            <div class="row full"> 
+                                                                <div class="col-4 p-0">
+                                                                    {% if activity.avatar %}
+                                                                        <img src="{{activity.avatar.url}}" alt="">
+                                                                    {% else %}
+                                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="col-8 p-0">
+                                                                    <div class="card-body full-h ml-2">
+                                                                        <div class="title border-bottom mb-3">
+                                                                            {{activity.title|capfirst|truncatechars:25 }}
+                                                                        </div>
+                                                                        <div class="d-column">
+                                                                            
+                                                                            <div class="d-flex">
+                                                                                <span class="bold mr-2">Location : </span>
+                                                                                <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
+                                                                            </div>
+                                                                            <div class="d-flex">
+                                                                                <span class="bold mr-2">Company : </span>
+                                                                                <span>{{activity.organizer.organizer_name}}</span>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                        <div class="d-flex full justify-content-between mt-3">
+                                                                            <div class="price">
+                                                                                {{activity.price}} {{activity.currency}}
+                                                                            </div>
+                                                                            <div class="duration align-center">
+                                                                                <i class="far fa-clock mr-1"></i>
+                                                                                {{activity.durationday}} days
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </a>
-                                        </div>
+                                            {% endfor %} 
+                                        {% else %}
+                                            <h3 class="full bold text-center" style="height: 200px;">
+                                                No Activities added<i class="far fa-folder-open ml-2"></i>
+                                            </h3>
+                                        {% endif %}
                                     </div>
-                                {% endfor %} 
-                            {% else %}
-                                <h3 class="full bold text-center" style="height: 200px;">
-                                    No Activities added<i class="far fa-folder-open ml-2"></i>
-                                </h3>
-                            {% endif %}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="full bg-white org-actions shadow">
-                            <h3 class="bold m-3">Your Trainings</h3>
-                        </div>
-                        <div class="row tour-list bg-white pt-3 shadow full">
-                            {% if trainings %}
-                                {% for training in trainings %}
-                                    <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-                                        <div class="tour-item p-relative">
-                                            <div class="delete-edit-box d-flex">
-                                                {% if training.status == 1 %}
-                                                    <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
-                                                {% elif training.status == 2 %}
-                                                    <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
-                                                {% elif training.status == 3 %}
-                                                    <span class="btn btn-outline-danger align-center mr-2" style="background-color: #fff; color: #000;">Past</span>
-                                                {% endif %}
-                                                <div class="d-flex">
-                                                    <a href="{% url 'organizer:training-edit' training.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                        <i class="fas fa-edit"></i>
-                                                    </a>
-                                                    <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#trainingDeleteModal{{training.pk}}">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="trainingDeleteModal{{training.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                                <div class="modal-dialog" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Training</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <p class="bold text-center">
-                                                            Are you sure to delete this training?
-                                                        </p>
-                                                        <div class="d-column">
-                                                            {% if training.avatar %}
-                                                                <img src="{{training.avatar.url}}" alt="">
-                                                            {% else %}
-                                                                <img src="{% static 'images/default.png' %}" alt="">
+    
+                        <div id="trainings" class="bg-white shadow" style="display: none;">
+                            <div class="inner-container">
+                                <div class="row">
+                                    <div class="full bg-white org-actions border-bottom">
+                                        <h3 class="bold m-3">Your Trainings</h3>
+                                    </div>
+                                    <div class="row tour-list bg-white pt-3 full">
+                                        {% if trainings %}
+                                            {% for training in trainings %}
+                                                <div class="col-12">
+                                                    <div class="tour-item p-relative">
+                                                        <div class="delete-edit-box d-flex">
+                                                            <div class="mr-2 d-flex">
+                                                                {% if tour.status == 3 %}
+                                                                    <button type="button" class="btn btn-outline-success full" disabled>Finished</button> 
+                                                                {% else %}
+                                                                    <form action="{% url 'organizer:finish-training' training.pk %}" method="post" class="d-flex">
+                                                                        {% csrf_token %}
+                                                                        <button type="submit" class="btn btn-outline-success full">Finish Training</button>
+                                                                    </form>
+                                                                {% endif %}
+                                                            </div>
+                                                            {% if training.status == 1 %}
+                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                            {% elif training.status == 2 %}
+                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
                                                             {% endif %}
-                                                            <div class="card-body">
-                                                                <div class="title border-bottom mb-3">
-                                                                    {{training.title|capfirst|truncatechars:25 }}
-                                                                </div>
-                                                                <div class="d-column">
-                                                                    
-                                                                    <div class="d-flex">
-                                                                        <span class="bold mr-2">Location : </span>
-                                                                        <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
-                                                                    </div>
-                                                                    <div class="d-flex">
-                                                                        <span class="bold mr-2">Company : </span>
-                                                                        <span>{{training.organizer.organizer_name}}</span>
-                                                                    </div>
-                                                                    <div class="d-flex full justify-content-between mt-3">
-                                                                        <div class="price">
-                                                                            {{training.price}} {{training.currency}}
-                                                                        </div>
-                                                                        <div class="duration align-center">
-                                                                            <i class="far fa-clock mr-1"></i>
-                                                                            {{training.durationday}} days
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                
+                                                            <div class="d-flex">
+                                                                <a href="{% url 'organizer:training-edit' training.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                                    <i class="fas fa-edit"></i>
+                                                                </a>
+                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#trainingDeleteModal{{training.pk}}">
+                                                                    <i class="fas fa-trash-alt"></i>
+                                                                </button>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                        <form action="{% url 'organizer:training-delete' training.pk %}" method="post">
-                                                            {% csrf_token %}
-                                                            <input type="submit" value="Delete" class="btn btn-outline-danger">
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                                </div>
-                                            </div>
-
-                                            <a href="{% url 'training:detail' training.pk %}" class="full">
-                                                <div class="d-column full">
-                                                    {% if training.avatar %}
-                                                        <img src="{{training.avatar.url}}" alt="">
-                                                    {% else %}
-                                                        <img src="{% static 'images/default.png' %}" alt="">
-                                                    {% endif %}
-                                                    <div class="card-body">
-                                                        <div class="title border-bottom mb-3">
-                                                            {{training.title|capfirst|truncatechars:25 }}
-                                                        </div>
-                                                        <div class="d-column">
-                                                            
-                                                            <div class="d-flex">
-                                                                <span class="bold mr-2">Location : </span>
-                                                                <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
-                                                            </div>
-                                                            <div class="d-flex">
-                                                                <span class="bold mr-2">Company : </span>
-                                                                <span>{{training.organizer.organizer_name}}</span>
-                                                            </div>
-                                                            <div class="d-flex full justify-content-between mt-3">
-                                                                <div class="price">
-                                                                    {{training.price}} {{training.currency}}
+                                                        
+                                                        <!-- Modal -->
+                                                        <div class="modal fade" id="trainingDeleteModal{{training.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                            <div class="modal-dialog" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="exampleModalLabel">Delete Training</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
                                                                 </div>
-                                                                <div class="duration align-center">
-                                                                    <i class="far fa-clock mr-1"></i>
-                                                                    {{training.durationday}} days
+                                                                <div class="modal-body">
+                                                                    <p class="bold text-center">
+                                                                        Are you sure to delete this training?
+                                                                    </p>
+                                                                    <div class="d-column">
+                                                                        {% if training.avatar %}
+                                                                            <img src="{{training.avatar.url}}" alt="">
+                                                                        {% else %}
+                                                                            <img src="{% static 'images/default.png' %}" alt="">
+                                                                        {% endif %}
+                                                                        <div class="card-body">
+                                                                            <div class="title border-bottom mb-3">
+                                                                                {{training.title|capfirst|truncatechars:25 }}
+                                                                            </div>
+                                                                            <div class="d-column">
+                                                                                
+                                                                                <div class="d-flex">
+                                                                                    <span class="bold mr-2">Location : </span>
+                                                                                    <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
+                                                                                </div>
+                                                                                <div class="d-flex">
+                                                                                    <span class="bold mr-2">Company : </span>
+                                                                                    <span>{{training.organizer.organizer_name}}</span>
+                                                                                </div>
+                                                                                <div class="d-flex full justify-content-between mt-3">
+                                                                                    <div class="price">
+                                                                                        {{training.price}} {{training.currency}}
+                                                                                    </div>
+                                                                                    <div class="duration align-center">
+                                                                                        <i class="far fa-clock mr-1"></i>
+                                                                                        {{training.durationday}} days
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                            
+                                                                        </div>
+                                                                    </div>
                                                                 </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <form action="{% url 'organizer:training-delete' training.pk %}" method="post">
+                                                                        {% csrf_token %}
+                                                                        <input type="submit" value="Delete" class="btn btn-outline-danger">
+                                                                    </form>
+                                                                </div>
+                                                            </div>
                                                             </div>
                                                         </div>
         
+                                                        <a href="{% url 'training:detail' training.pk %}" class="full">
+                                                            <div class="row">
+                                                                <div class="col-4 p-0">
+                                                                    {% if training.avatar %}
+                                                                        <img src="{{training.avatar.url}}" alt="">
+                                                                    {% else %}
+                                                                        <img src="{% static 'images/default.png' %}" alt="">
+                                                                    {% endif %}
+                                                                </div>
+                                                                <div class="col-8 p-0">
+                                                                    <div class="card-body full-h ml-2">
+                                                                        <div class="title border-bottom mb-3">
+                                                                            {{training.title|capfirst|truncatechars:25 }}
+                                                                        </div>
+                                                                        <div class="d-column">
+                                                                            
+                                                                            <div class="d-flex">
+                                                                                <span class="bold mr-2">Location : </span>
+                                                                                <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
+                                                                            </div>
+                                                                            <div class="d-flex">
+                                                                                <span class="bold mr-2">Company : </span>
+                                                                                <span>{{training.organizer.organizer_name}}</span>
+                                                                            </div>
+                                                                            <div class="d-flex full justify-content-between mt-3">
+                                                                                <div class="price">
+                                                                                    {{training.price}} {{training.currency}}
+                                                                                </div>
+                                                                                <div class="duration align-center">
+                                                                                    <i class="far fa-clock mr-1"></i>
+                                                                                    {{training.durationday}} days
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                        
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
                                                     </div>
                                                 </div>
-                                            </a>
-                                        </div>
+                                            {% endfor %} 
+                                        {% else %}
+                                            <h3 class="full bold text-center" style="height: 200px;">
+                                                No Trainings added<i class="far fa-folder-open ml-2"></i>
+                                            </h3>
+                                        {% endif %}
                                     </div>
-                                {% endfor %} 
-                            {% else %}
-                                <h3 class="full bold text-center" style="height: 200px;">
-                                    No Trainings added<i class="far fa-folder-open ml-2"></i>
-                                </h3>
-                            {% endif %}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

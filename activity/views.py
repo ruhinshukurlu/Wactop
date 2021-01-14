@@ -15,20 +15,10 @@ from django.http import HttpResponse, JsonResponse
 import json
 
 
-tour_types = TourType.objects.all()
-tour_type_list = []
-if tour_types:
-    for tour_type in tour_types:
-        if tour_type.title not in tour_type_list:
-            tour_type_list.append(tour_type.title)
 
 
-activities = Activity.objects.all()
-activity_country_list = []
-if activities:
-    for activity in activities:
-        if activity.country not in activity_country_list:
-            activity_country_list.append(activity.country)
+
+
 
 
 
@@ -43,15 +33,73 @@ class ActivityListView(ListView):
             queryset1 = Activity.objects.filter(status=1)
             title_name = self.request.GET.get('q', None)
             if title_name is not None:
-                queryset1 = queryset1.filter(title__icontains=title_name)
-                return queryset1
+                queryset = queryset1.filter(title__icontains=title_name, status=1)
+                return queryset
+
+            price_query = self.request.GET.get('price')
+            if price_query:
+                if price_query == 'high':
+                    queryset = Activity.objects.filter(status=1).order_by('-price')
+                elif price_query == 'low':
+                    queryset = Activity.objects.filter(status=1).order_by('price')
+                return queryset
+
+            rating_query = self.request.GET.get('rating')
+            if rating_query:
+                if rating_query == 'high':
+                    queryset = Activity.objects.filter(status=1).order_by('rating')
+                    print(queryset)
+                elif rating_query == 'low':
+                    queryset = Activity.objects.filter(status=1).order_by('-rating')
+                return queryset
+
+            duration_query = self.request.GET.get('duration')
+            if duration_query:
+                if duration_query == 'long':
+                    # context2['duration2'] = 'long'
+                    queryset = Activity.objects.filter(status=1).order_by('-durationday')
+                elif duration_query == 'short':
+                    queryset = Activity.objects.filter(status=1).order_by('durationday')
+                return queryset
+
+            country_query = self.request.GET.get('country')
+            if country_query:
+                queryset = Activity.objects.filter(country__icontains=country_query, status=1)
+                return queryset
+            
+            style_query = self.request.GET.get('style')
+            if style_query:
+                queryset = Activity.objects.filter(activity_type=TourType.objects.filter(title=style_query).first().id,status=1)
+                return queryset
+
+            discount_query = self.request.GET.get('discount')
+            if discount_query:
+                queryset = Activity.objects.filter(discount__gte=1, status=1)
+                return queryset
         
         return super().get_queryset().filter(status=1)
 
+
     def get_context_data(self, **kwargs):
+
+        activities = Activity.objects.all()
+        activity_country_list = []
+
+        if activities:
+            for activity in activities:
+                if activity.country not in activity_country_list:
+                    activity_country_list.append(activity.country)
+        
+        tour_types = TourType.objects.all()
+        tour_type_list = []
+        if tour_types:
+            for tour_type in tour_types:
+                if tour_type.title not in tour_type_list:
+                    tour_type_list.append(tour_type.title)
+
         context = super().get_context_data(**kwargs)
         context["countries"] = activity_country_list
-        context['tour_types'] = tour_type_list
+        context['activity_types'] = tour_type_list
         return context
 
 

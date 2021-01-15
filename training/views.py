@@ -1,17 +1,16 @@
-from django.shortcuts import render,get_object_or_404
+from django.shortcuts import render,get_object_or_404 , redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.list import ListView
-from training.forms import CommentForm
+from django.views.generic import CreateView
+from training.forms import CommentForm, TrainingDenyForm
 from .models import *
 from tour.models import *   
 from django.http import HttpResponse, JsonResponse
 import json
 import random
 from django.db.models import Avg
-
-
-
+from django.core.mail import send_mail
 
 
 
@@ -315,6 +314,7 @@ def update_items(request, pk):
 
 
 def TrainingFilter(request):
+
     context2 = {}
     data = Training.objects.all()
     price_query = request.GET.get('price')
@@ -385,3 +385,30 @@ def TrainingFilter(request):
     if len(data) == 0:
         context.update( {'notfound' : 'No result found'} )
     return render(request, 'training-list.html', context)
+
+
+class TrainingDenyView(CreateView):
+    model = TrainingDeny
+    form_class = TrainingDenyForm
+    template_name = 'deny-message.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        training = Training.objects.filter(pk = self.kwargs['pk']).first()
+        context['object'] = training
+        return context
+   
+    def form_valid(self, form):
+        training = Training.objects.filter(pk = self.kwargs['pk']).first()
+        deny_training = form.save(commit=False)
+        deny_training.training = training
+        deny_training.save()
+        send_mail(
+            'Subject here',
+            deny_training.message,
+            'sara.axmedova98@gmail.com',
+            [training.organizer.user.email],
+            fail_silently=False,
+        )   
+
+        return redirect('main:home')

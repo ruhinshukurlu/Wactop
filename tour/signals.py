@@ -15,3 +15,4 @@ def send_organizer_notify_when_tour_is_published(sender, instance, created, **kw
         notify.send(sender, recipient=recipient, verb=f'Your <i>"{instance.title}"</i> Tour was activated by Admin <br> <a href="/tour/{instance.pk}" class="full">Go to {instance.title} Tour</a>' )
         instance.activated = True
         instance.save()
+    

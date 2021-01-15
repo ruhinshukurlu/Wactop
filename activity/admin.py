@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from .models import *
 
 class ImageTabularInline(admin.TabularInline):
@@ -24,6 +26,14 @@ class ActivityAdmin(admin.ModelAdmin):
     class Meta:
         model = Activity
 
+    def response_change(self, request, obj):
+        if obj.status == 4:
+            print(obj.status)
+            return redirect('activity:activity-deny', pk = obj.pk)
+        else:
+            return HttpResponseRedirect('/admin/activity/activity/')
+
+
 
 
 admin.site.register(Activity, ActivityAdmin)
@@ -34,3 +44,5 @@ admin.site.register(ActivityImage)
 admin.site.register(ActivityUrl)
 admin.site.register(ActivitySchedule)
 admin.site.register(ActivityComment)
+admin.site.register([ActivityDeny])
+

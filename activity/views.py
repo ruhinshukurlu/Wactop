@@ -1,8 +1,9 @@
 import random
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse
+from django.views.generic import CreateView
 from django.views.generic.list import ListView
 from django.db.models import Avg
 
@@ -101,7 +102,6 @@ class ActivityListView(ListView):
         context["countries"] = activity_country_list
         context['activity_types'] = tour_type_list
         return context
-
 
 
 def ActivityDetailView(request, pk):
@@ -292,7 +292,6 @@ def update_items(request, pk):
     return render(request, 'partials/activity-comments.html', context)
 
 
-
 def ActivityFilter(request):
     context2 = {}
     data = Activity.objects.all()
@@ -406,3 +405,31 @@ def ActivityFilter(request):
     if len(data) == 0:
         context.update( {'notfound' : 'No result found'} )
     return render(request, 'activity-list.html', context)
+
+
+class ActivityDenyView(CreateView):
+    model = ActivityDeny
+    form_class = ActivityDenyForm
+    template_name = 'deny-message.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        activity = Activity.objects.filter(pk = self.kwargs['pk']).first()
+        context['object'] = activity
+        return context
+   
+    def form_valid(self, form):
+        activity = Activity.objects.filter(pk = self.kwargs['pk']).first()
+        deny_activity = form.save(commit=False)
+        deny_activity.activity = activity
+        deny_activity.save()
+        send_mail(
+            'Subject here',
+            deny_activity.message,
+            'sara.axmedova98@gmail.com',
+            [activity.organizer.user.email],
+            fail_silently=False,
+        )   
+
+        return redirect('main:home')
+

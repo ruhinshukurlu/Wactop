@@ -10,7 +10,7 @@ from django.utils.translation import ugettext as _
 from notifications.signals import notify
 
 
-status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past')]
+status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past'), (4, 'deny')]
 
 
 class TourType(models.Model):
@@ -147,3 +147,25 @@ class TourComment(models.Model):
    
     def __str__ (self):
         return self.message
+
+
+class TourDeny(models.Model):
+    # informations
+    message = models.TextField(_("Text"))
+
+    # relations
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='deny')
+
+    # moderations
+    created_at = models.DateField(_("Commented at"), auto_now_add=True)
+    updated_at = models.DateField(_("Commented at"), auto_now=True)
+
+
+    class Meta:
+        verbose_name = _("TourDeny")
+        verbose_name_plural = _("TourDenies")
+
+    def __str__(self):
+        return str(self.tour)
+
+  

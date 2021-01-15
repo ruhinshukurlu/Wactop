@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from activity.models import ActivityComment
+from activity.models import ActivityComment, ActivityDeny
 
 
 class CommentForm(forms.ModelForm):
@@ -15,3 +15,18 @@ class CommentForm(forms.ModelForm):
                 'rows' : '5'    
             }),         
         }
+
+
+class ActivityDenyForm(forms.ModelForm):
+    
+    class Meta:
+        model = ActivityDeny
+        fields = ("message",)
+        widgets={
+            'message': forms.Textarea(attrs={
+                'class': 'form-input resize',
+                'placeholder' : 'Write Comment...',
+                'rows' : '5'    
+            }),            
+        }
+

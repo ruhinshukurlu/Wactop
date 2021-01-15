@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wactop</title>
+    <!-- Bootstrap Css -->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
+    <!-- Css files -->
+
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+
+    
+</head>
+
+<body class="bg-white">
+    
+    {% include 'partials/header.html' %}
+    {% include 'partials/main-menu.html' %}
+
+    <style>
+        .contact-bg{
+            width: 100%;
+            height: 100%;
+        }
+        
+        .contact-form-container{
+            position: absolute;
+            top: 50%;  /* position the top  edge of the element at the middle of the parent */
+            left: 50%; /* position the left edge of the element at the middle of the parent */
+            transform: translate(-50%, -50%);
+            width: 100%;
+        }   
+
+        .form-box{
+            margin: 0 70px;
+        }
+
+        .contact-btn{
+            background-color: #fff;
+            color: #4CAEFF;
+            border: 1px solid;
+            transition: .4s;
+            font-weight: bold;
+        }
+
+        .contact-btn:hover{
+            background-color: #4CAEFF;
+            color: #fff;
+        }
+
+        .iti{
+            width: 100%;
+        }
+
+        h1{
+            font-family: 'Font Awesome 5 Brands';
+        }
+
+    </style>
+  
+    <main>
+        <div class="contact-bg">
+            <img src="{% static 'images/contact-bg.jpeg' %}" alt="" class="full">
+        </div>
+        <div class="custom-container contact-form-container">
+            <div class="row justify-content-center mb-5">
+                <h1 class="full text-center bold mb-2">Write message to '{{object}}'s Organizer</h1>
+                <!-- <span class="bold">We are ready to answer</span> -->
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-3  align-center">
+                    <img src="{% static 'images/letter.svg' %}" alt="" class="full">
+                </div>
+                <div class="col-6">
+                    <div class="form-box shadow">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="form-group row">
+                                {{form.message}}
+                                {{form.messgae.errors}}
+                            </div>
+                            <div class="form-group row justify-content-end">
+                                <input type="submit" value="Send Message" class="btn contact-btn">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    {% include 'partials/footer.html' %}
+    
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+    <script src="{% static 'js/intlTelInput.js' %}"></script>
+
+
+    <script>
+
+        var input = document.querySelector("#phone");
+            window.intlTelInput(input, {
+            // allowDropdown: false,
+            // autoHideDialCode: false,
+            // autoPlaceholder: "on",
+            // dropdownContainer: document.body,
+            // excludeCountries: ["us"],
+            // formatOnDisplay: true,
+            // geoIpLookup: function(callback) {
+            //   $.get("http://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+            //     var countryCode = (resp && resp.country) ? resp.country : "";
+            //     callback(countryCode);
+            //   });
+            // },
+            // hiddenInput: "full_number",
+            // initialCountry: "auto",
+            // localizedCountries: { 'de': 'Deutschland' },
+            // nationalMode: false,
+            // onlyCountries: ['us', 'gb', 'ch', 'ca', 'do'],
+            // placeholderNumberType: "MOBILE",
+            // preferredCountries: ['cn', 'jp'],
+            // separateDialCode: true,
+            utilsScript: "{% static 'js/utils.js' %}",
+        });
+
+       
+    </script>
+
+</body>
+</html>

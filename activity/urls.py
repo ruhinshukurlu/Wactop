@@ -7,5 +7,7 @@ urlpatterns = [
     path('', ActivityListView.as_view(), name='home'),
     path('<int:pk>', ActivityDetailView, name='detail'),
     path('<int:pk>/comments/', update_items, name='comments'),
-    path('filter/', ActivityFilter, name='filter')
+    path('filter/', ActivityFilter, name='filter'),
+    path('<int:pk>/deny/', ActivityDenyView.as_view(), name='activity-deny'),
+
 ]

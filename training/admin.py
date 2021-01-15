@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.shortcuts import redirect
+from django.http import HttpResponseRedirect
 from .models import *
 
 class ImageTabularInline(admin.TabularInline):
@@ -24,6 +26,13 @@ class TrainingAdmin(admin.ModelAdmin):
     class Meta:
         model = Training
 
+    def response_change(self, request, obj):
+        if obj.status == 4:
+            print(obj.status)
+            return redirect('training:training-deny', pk = obj.pk)
+        else:
+            return HttpResponseRedirect('/admin/training/training/')
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
@@ -38,3 +47,5 @@ admin.site.register(TrainingDetailRU)
 admin.site.register(TrainingImage)
 admin.site.register(TrainingUrl)
 admin.site.register(TrainingSchedule)
+
+admin.site.register([TrainingDeny])

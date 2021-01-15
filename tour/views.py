@@ -3,9 +3,10 @@ import json
 from django.shortcuts import render, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.http import HttpResponse, JsonResponse
-
+from django.views.generic import CreateView
 from django.views.generic.list import ListView
 from django.db.models import Avg
+from django.core.mail import send_mail
 
 from tour.forms import *
 from .models import *
@@ -404,3 +405,28 @@ def TourFilter(request):
     return render(request, 'tour-list.html', context)
 
 
+class TourDenyView(CreateView):
+    model = TourDeny
+    form_class = TourDenyForm
+    template_name = 'deny-message.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(CreateView, self).get_context_data(**kwargs)
+        tour = Tour.objects.filter(pk = self.kwargs['pk']).first()
+        context['object'] = tour
+        return context
+   
+    def form_valid(self, form):
+        tour = Tour.objects.filter(pk = self.kwargs['pk']).first()
+        deny_tour = form.save(commit=False)
+        deny_tour.tour = tour
+        deny_tour.save()
+        send_mail(
+            'Subject here',
+            deny_tour.message,
+            'sara.axmedova98@gmail.com',
+            [tour.organizer.user.email],
+            fail_silently=False,
+        )   
+
+        return redirect('main:home')

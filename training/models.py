@@ -138,3 +138,26 @@ class Comment(models.Model):
    
     def __str__ (self):
         return self.message
+
+
+
+class TrainingDeny(models.Model):
+    # informations
+    message = models.TextField(_("Text"))
+
+    # relations
+    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='deny')
+
+    # moderations
+    created_at = models.DateField(_("Commented at"), auto_now_add=True)
+    updated_at = models.DateField(_("Commented at"), auto_now=True)
+
+
+    class Meta:
+        verbose_name = _("TrainingDeny")
+        verbose_name_plural = _("TrainingDenies")
+
+    def __str__(self):
+        return str(self.training)
+
+   

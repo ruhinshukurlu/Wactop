@@ -121,3 +121,23 @@ class ActivityComment(models.Model):
    
     def __str__ (self):
         return self.message
+
+
+class ActivityDeny(models.Model):
+    # informations
+    message = models.TextField(_("Text"))
+
+    # relations
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='deny')
+
+    # moderations
+    created_at = models.DateField(_("Commented at"), auto_now_add=True)
+    updated_at = models.DateField(_("Commented at"), auto_now=True)
+
+
+    class Meta:
+        verbose_name = _("ActivityDeny")
+        verbose_name_plural = _("ActivityDenies")
+
+    def __str__(self):
+        return str(self.activity)

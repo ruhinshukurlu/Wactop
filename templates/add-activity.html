@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Add Activity</title>
+
+    <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
+
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
@@ -13,26 +16,33 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
     
 </head>
 
 <body>
     
     {% include 'partials/header.html' %}
-    {% include 'partials/mobile-main-menu.html' %}
 
   
     <main>
-        <div class="row justify-content-center">
-            <div class="col-2 p-0 bg-white " id="menu-column">
+        <div class="row justify-content-center p-relative">
+            <div class="col-xl-3 p-0" id="menu-column" >
                 {% include 'partials/organizer-menu.html' %}
+                <button type="button" id="organizer-menu-btn">
+                    <i class="fas fa-angle-right"></i>
+                </button>
             </div>
-            <div class="col-10">
+            <div class="col-xl-11">
                 <div class="custom-container mt-5 mb-5">
                     <div class="">
                         <div class="row">
-                            <div class="col-3">
-                                <nav class="full">
+                            <div class="col-12 col-xl-3">
+                                <button type="button" class="mb-3 full form-steps-btn">
+                                    All Steps of Form
+                                    <i class="fas fa-chevron-down ml-1"></i>
+                                </button>
+                                <nav class="full tour-menu-list-nav">
                                     <ul class="full tour-menu-list d-column" id="formControlMenu">
                                         <li data-target="tourBasics">
                                             <div class="number">1</div>
@@ -62,7 +72,7 @@
 
                                 </nav>
                             </div>
-                            <div class="col-9">
+                            <div class="col-12 col-xl-9">
                                 <form method="post" enctype="multipart/form-data" id="addTourForm">
                                     {% csrf_token %}
                                     
@@ -403,7 +413,7 @@
                                         <div class="form-box">
                                             <div class="photos-box row" id="photo-form-box">
                                                 {% for form in image_form %}
-                                                    <div class="photo-item col-3">
+                                                    <div class="photo-item col-6 col-sm-4 col-lg-3">
                                                         <img src="{% static 'images/default.png' %}" alt="">
                                                         <div class="d-flex add-img-box"> 
                                                             {{form.image.label_tag}}
@@ -437,7 +447,7 @@
                                         <div class="form-box">
                                             <div class="photos-box row" id="schedule-form-box">
                                                 {% for form in schedule_form %}
-                                                    <div class="photo-item col-3">
+                                                    <div class="photo-item col-6 col-sm-4 col-lg-3">
                                                         <img src="{% static 'images/default.png' %}" alt="">
                                                         <div class="d-flex add-img-box"> 
                                                             {{form.schedule_image.label_tag}}
@@ -542,16 +552,6 @@
         });
    </script>
 
-
-   <script>
-       $('.menu_btn').click(function(){
-            $('#menu-column').animate({
-                width : 'toggle'
-            });
-       })
-   </script>
-
-    
 
 </body>
 </html>

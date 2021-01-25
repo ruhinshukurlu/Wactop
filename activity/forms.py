@@ -17,16 +17,12 @@ class CommentForm(forms.ModelForm):
         }
 
 
-class ActivityDenyForm(forms.ModelForm):
-    
-    class Meta:
-        model = ActivityDeny
-        fields = ("message",)
-        widgets={
-            'message': forms.Textarea(attrs={
+class ActivityDenyForm(forms.Form):
+    message = forms.CharField(widget = forms.Textarea(attrs={
                 'class': 'form-input resize',
                 'placeholder' : 'Write Comment...',
                 'rows' : '5'    
-            }),            
-        }
+            }), required=True) 
 
+
+    

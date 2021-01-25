@@ -122,3 +122,63 @@ $('.menu-btn').click(function(){
     }
     
 })
+
+$('#trip_date').change(function(e){
+    if(e.target.value == 'all_year'){
+        var answer = confirm('All Year Availability. This will hide dates from your tour.')
+        if(answer){
+            $('#start-end-date-box').hide(200)
+        }else{
+            $($('#trip_date').children()[0]).removeAttr('selected');
+            $($('#trip_date').children()[0]).attr('selected','true');
+        }
+        
+    }
+    else if(e.target.value == 'one_time'){
+        $('#start-end-date-box').show(200)
+    }
+})
+
+var btn_right_position = $('#organizer-menu-btn').css('right') 
+console.log(btn_right_position);
+$('#organizer-menu-btn').click(function(){
+    if ($(window).width() < 972) {
+        console.log('okk');
+        $('#org-menu-nav').toggle()
+        $('#org-menu-nav').find('span').toggle(100)
+    }
+    else{
+        $('#org-menu-nav').find('span').toggle(100)
+    }
+   
+   
+//    $('#organizer-menu-btn').find('i').css({
+//         transform: 'rotate(180deg)'
+//     });
+})
+
+var org_menu_a_list = $('#org-menu-nav').find('li')
+// $(org_menu_a_list).hover(function(){
+//     $('#org-menu-nav').find('span').show(100)
+// }, function(){
+//     $('#org-menu-nav').find('span').hide(100)
+// })
+
+var degree = 180
+$('.form-steps-btn').click(function(){
+    $('.tour-menu-list-nav').slideToggle(200)
+    
+    if(degree == 180){
+        $('.fa-chevron-down').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 0
+    }
+    else{
+        $('.fa-chevron-down').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 180
+    }
+    
+})

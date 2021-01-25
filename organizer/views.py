@@ -85,35 +85,6 @@ class OrganizerListView(ListView):
         return super().get_queryset().all()
 
 
-def OrganizerList(request):
-    organizer = Organizer.objects.filter(registered=False)
-    if request.GET.get('search'):
-        context2 = {}
-        context2['search'] = request.GET.get('search')
-        organizer = Organizer.objects.filter(name__icontains=request.GET.get('search'), registered=False)
-        # organizer = Organizer.objects.filter(keyword__icontains=request.GET.get('search'))
-    paginator = Paginator(organizer, 2)
-    page_request = 'page'
-    page = request.GET.get(page_request)
-    try:
-        eachpage = paginator.page(page)
-    except PageNotAnInteger:
-        eachpage = paginator.page(1)
-    except EmptyPage:
-        eachpage = paginator.page(paginator.num_pages)
-    
-    arr = []
-    for i in range(0, eachpage.paginator.num_pages):
-        arr.append(i+1)
-    context = {
-        'organizer': eachpage,
-        'page': page_request,
-        'paginator': arr,
-    }
-    if request.GET.get('search'):
-        context.update(context2)
-    return render(request, 'organizer-list.html', context)
-
 
 class OrganizerEditView(UpdateView, LoginRequiredMixin):
     model = Organizer
@@ -293,6 +264,7 @@ def OrganizerDetail(request, pk):
     }
     return render(request, 'company-profile.html', context)
 
+
 def organizer_image_list(request, pk):
     organizer = Organizer.objects.get(pk=pk)
     image = OrganizerImage.objects.filter(organizer=organizer)
@@ -303,21 +275,6 @@ def organizer_image_list(request, pk):
     }
     return render(request, 'image-list.html', context)
 
-
-# class TourUpdateView(UpdateView):
-#     model = Tour
-#     form_class = OrganizerTourForm
-#     template_name = "tour-edit.html"
-
-#     def get_success_url(self):
-#         return reverse_lazy('tour:detail', args = (self.kwargs['pk'],))
-
-# class TourUpdateView(FormsetMixin, UpdateView):
-#     model = Tour
-#     is_update_view = True
-#     form_class = TourForm
-#     formset_class = TourInlineFormSet
-#     template_name = 'touredit-test.html'
 
 
 class TourDetailENUpdate(UpdateView):

@@ -23,6 +23,8 @@ class ScheduleTabularInline(admin.TabularInline):
 
 class TrainingAdmin(admin.ModelAdmin):
     inlines = [ImageTabularInline, DetailAZTabularInline, DetailENTabularInline, DetailRUTabularInline, UrlTabularInline, ScheduleTabularInline]
+    list_display = ['title','organizer','training_type','datefrom','dateto']
+    list_filter = ('status', )
     class Meta:
         model = Training
 

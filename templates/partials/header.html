@@ -1,6 +1,8 @@
 
 {% load static custom-tags %}
-{% load notifications_tags %} 
+{% load notifications_tags %}
+
+
 <style>
     .loginBtn, .registerBtn,.logout{
         color: #febd69;
@@ -78,7 +80,7 @@
                     <i class="fas fa-bars"></i>
                 </button>
                 <a href="{% url 'main:home' %}">
-                    <img src="{% static 'images/wactop.png' %}" width="180px" class="mb-2" alt="">
+                    <img src="{% static 'images/wactop.png' %}" width="180px" class="wactop-logo" alt="">
                 </a>
             </div>
             <div class="align-center">

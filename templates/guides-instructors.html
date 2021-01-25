@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Guides & Instructors</title>
+
+    <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
+
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="assets/css/fontawesome.min.css">
@@ -13,6 +16,8 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+
     
     <style>
         
@@ -25,12 +30,15 @@
     {% include 'partials/main-menu.html' %}
 
   
-    <main class="full-h">
-        <div class="row justify-content-center full-h">
-            <div class="col-2 p-0 bg-white " id="menu-column">
+    <main>
+        <div class="row justify-content-center p-relative">
+            <div class="col-xl-3 p-0" id="menu-column" >
                 {% include 'partials/organizer-menu.html' %}
+                <button type="button" id="organizer-menu-btn">
+                    <i class="fas fa-angle-right"></i>
+                </button>
             </div>
-            <div class="col-10">
+            <div class="col-xl-11">
                 <div class="custom-container mt-5 mb-5">
                     <div class="row d-flex justify-content-end mb-5">
                         <h3 class="full bold border-bottom pb-2 mb-4">
@@ -230,6 +238,8 @@
     
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
 
     <script>
         function readURL(input,place) {
@@ -255,11 +265,6 @@
    </script>
 
 
-   <script>
-       $('.menu_btn').click(function(){
-            $('#menu-column').slideToggle()
-       })
-   </script>
 
     
 

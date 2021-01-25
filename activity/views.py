@@ -418,18 +418,16 @@ class ActivityDenyView(CreateView):
         context['object'] = activity
         return context
    
-    def form_valid(self, form):
-        activity = Activity.objects.filter(pk = self.kwargs['pk']).first()
-        deny_activity = form.save(commit=False)
-        deny_activity.activity = activity
-        deny_activity.save()
-        send_mail(
-            'Subject here',
-            deny_activity.message,
-            'sara.axmedova98@gmail.com',
-            [activity.organizer.user.email],
-            fail_silently=False,
-        )   
+    
+    # def form_valid(self, form):
+    #     activity = Activity.objects.filter(pk = self.kwargs['pk']).first()
+    #     send_mail(
+    #         'Subject here',
+    #         deny_activity.message,
+    #         'sara.axmedova98@gmail.com',
+    #         [activity.organizer.user.email],
+    #         fail_silently=False,
+    #     )   
 
         return redirect('main:home')
 

@@ -24,6 +24,7 @@ class ScheduleTabularInline(admin.TabularInline):
 class TourAdmin(admin.ModelAdmin):
     inlines = [ImageTabularInline, DetailAZTabularInline, DetailENTabularInline, DetailRUTabularInline, UrlTabularInline, ScheduleTabularInline]
     list_filter = ('status', )
+    list_display = ['title','organizer','tour_type','datefrom','dateto']
     class Meta:
         model = Tour
 

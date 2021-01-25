@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Tour</title>
+    <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
+
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
@@ -277,11 +279,25 @@
                                                 <div class='col-3 align-center'>
                                                     {{tour_form.map_link.label_tag}}
                                                 </div>
-                                                <div class='col-9'>
-                                                    {% if tour_form.map_link.value %}
-                                                        Current : <a href="{{tour_form.map_link.value}}">{{tour_form.map_link.value}}</a>
-                                                    {% endif %}
-                                                    {{tour_form.map_link}}
+                                                <div class='col-9 d-column'>
+                                                    <div class="d-flex">
+                                                        <button type="button" class="help-btn mr-2">
+                                                            <i class="far fa-question-circle"></i>
+                                                        </button>
+                                                        <div class="d-column full">
+                                                            <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" > 
+                                                            <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
+                                                                <span>We got the link successfully</span>
+                                                            </div>
+                                                            <div style="display: none;">
+                                                                {{tour_form.map_link}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="help-text mt-1" style="display: none;">
+                                                        This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>. 
+                                                        We automatically will get main link of iframe for presenting address in Google map.
+                                                    </div>
                                                 </div>
                                             </div>
 
@@ -640,3 +656,4 @@
 
 </body>
 </html>
+

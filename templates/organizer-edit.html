@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Edit Profile</title>
+    <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
+
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
@@ -13,6 +15,8 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+
     
 </head>
 
@@ -23,152 +27,156 @@
 
   
     <main>
-        <div class="row justify-content-center">
-            <div class="bg-white col-2 p-0" id="menu-column">
+        <div class="row justify-content-center p-relative">
+            <div class="col-xl-3 p-0" id="menu-column" >
                 {% include 'partials/organizer-menu.html' %}
+                <button type="button" id="organizer-menu-btn">
+                    <i class="fas fa-angle-right"></i>
+                </button>
             </div>
-            
-            <div class="col-10">
+            <div class="col-xl-11">
                 <div class="custom-container mt-5">
                     <form action="" method="POST" enctype="multipart/form-data" class="organizer-edit-form">
                         {% csrf_token %}
                         <div class="form-box mb-5">
-                            <div class="row">
-                                <div class="col-9">
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            {{form.organizer_name.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            {{form.organizer_name}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            {{form.email.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            {{form.email}}
-                                        </div>
-                                    </div>
-                                    <div class="cover-photo-box mt-5 mb-3">
-                                        <div class="p-relative">
-                                            {% if organizer.cover %}
-                                                <img src="{{organizer.cover.url}}" class="org-cover-photo" id='default-cover-photo' alt="">
-                                            {% else %}
-                                                <img src="{% static 'images/default.png' %}" class="org-cover-photo" id='default-cover-photo' alt="">
-                                            {% endif %}
-                                            <div class="d-flex add-img-box profile-img-box d-column">
-                                                {{form.cover}}
-                                                <label for="coverPhoto" class="align-center change-photo-btn">
-                                                    <i class="fas fa-camera"></i>
-                                                    Change Cover Photo
-                                                </label>
+                            <div class="inner-container">
+                                <div class="row">
+                                    <div class="col-12 col-xl-9">
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.organizer_name.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.organizer_name}}
                                             </div>
                                         </div>
-                                        
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            {{form.descriptionen.label_tag}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.descriptionen}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-12">
-                                            {{form.about.label_tag}}
-                                        </div>
-                                        <div class="col-12">
-                                            {{form.about}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            {{form.organizer_type.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            {{form.organizer_type}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            {{form.address.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            {{form.address}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            {{form.contact_number_1.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            {{form.contact_number_1}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3">
-                                            {{form.contact_number_2.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            {{form.contact_number_2}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3 align-center">
-                                            {{form.website.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="d-flex">
-                                                Current : 
-                                                <a href="{{form.website.value}}" target="blank">{{form.website.value}}</a>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.email.label_tag}}
                                             </div>
-                                            {{form.website}}
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3 align-center">
-                                            {{form.facebook.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="d-flex">
-                                                Current : 
-                                                <a href="{{form.facebook.value}}" target="blank">{{form.facebook.value}}</a>
+                                            <div class="col-9">
+                                                {{form.email}}
                                             </div>
-                                            {{form.facebook}}
                                         </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="col-3 align-center">
-                                            {{form.instagram.label_tag}}
-                                        </div>
-                                        <div class="col-9">
-                                            <div class="d-flex">
-                                                Current : 
-                                                <a href="{{form.instagram.value}}" target="blank">{{form.instagram.value}}</a>
+                                        <div class="cover-photo-box mt-5 mb-3">
+                                            <div class="p-relative">
+                                                {% if organizer.cover %}
+                                                    <img src="{{organizer.cover.url}}" class="org-cover-photo" id='default-cover-photo' alt="">
+                                                {% else %}
+                                                    <img src="{% static 'images/default.png' %}" class="org-cover-photo" id='default-cover-photo' alt="">
+                                                {% endif %}
+                                                <div class="d-flex add-img-box profile-img-box d-column">
+                                                    {{form.cover}}
+                                                    <label for="coverPhoto" class="align-center change-photo-btn">
+                                                        <i class="fas fa-camera"></i>
+                                                        Change Cover Photo
+                                                    </label>
+                                                </div>
                                             </div>
-                                            {{form.instagram}}
+                                            
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                {{form.descriptionen.label_tag}}
+                                            </div>
+                                            <div class="col-12">
+                                                {{form.descriptionen}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-12">
+                                                {{form.about.label_tag}}
+                                            </div>
+                                            <div class="col-12">
+                                                {{form.about}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.organizer_type.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.organizer_type}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.address.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.address}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.contact_number_1.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.contact_number_1}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3">
+                                                {{form.contact_number_2.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                {{form.contact_number_2}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3 align-center">
+                                                {{form.website.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="d-flex">
+                                                    Current : 
+                                                    <a href="{{form.website.value}}" target="blank">{{form.website.value}}</a>
+                                                </div>
+                                                {{form.website}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3 align-center">
+                                                {{form.facebook.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="d-flex">
+                                                    Current : 
+                                                    <a href="{{form.facebook.value}}" target="blank">{{form.facebook.value}}</a>
+                                                </div>
+                                                {{form.facebook}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-3 align-center">
+                                                {{form.instagram.label_tag}}
+                                            </div>
+                                            <div class="col-9">
+                                                <div class="d-flex">
+                                                    Current : 
+                                                    <a href="{{form.instagram.value}}" target="blank">{{form.instagram.value}}</a>
+                                                </div>
+                                                {{form.instagram}}
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <input type="submit" value="Save Changes" class="btn btn-outline-success">
                                         </div>
                                     </div>
-                                    <div class="form-group row">
-                                        <input type="submit" value="Save Changes" class="btn btn-outline-success">
-                                    </div>
-                                </div>
-                                <div class="col-3">
-                                    <div class="profile-photo-box mt-5 mb-3">
-                                        <div class="d-column justify-content-center align-center ">
-                                            {% if organizer.profile_photo %}
-                                                <img src="{{organizer.profile_photo.url}}" class="org-profile-photo" id='default-profile-photo' alt="">
-                                            {% else %}
-                                                <img src="{% static 'images/default.png' %}" class="org-profile-photo" id='default-profile-photo' alt="">
-                                            {% endif %}
-                                            <div class="d-flex add-img-box mt-3 d-column" >
-                                                {{form.profile_photo}}
-                                                <label for="profilePhoto" class="align-center m-0 change-photo-btn">
-                                                    Change Profile Photo
-                                                </label>
+                                    <div class="col-12 col-xl-3 org-edit-profile">
+                                        <div class="profile-photo-box mt-5 mb-3">
+                                            <div class="d-column justify-content-center align-center ">
+                                                {% if organizer.profile_photo %}
+                                                    <img src="{{organizer.profile_photo.url}}" class="org-profile-photo" id='default-profile-photo' alt="">
+                                                {% else %}
+                                                    <img src="{% static 'images/default.png' %}" class="org-profile-photo" id='default-profile-photo' alt="">
+                                                {% endif %}
+                                                <div class="d-flex add-img-box mt-3 d-column" >
+                                                    {{form.profile_photo}}
+                                                    <label for="profilePhoto" class="align-center m-0 change-photo-btn">
+                                                        Change Profile Photo
+                                                    </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

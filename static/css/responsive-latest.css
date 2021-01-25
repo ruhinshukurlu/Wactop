@@ -36,8 +36,86 @@
         margin: 0;
     }
 
+    .tour-menu-list{
+        font-size: 13px;
+    }
 
+    .number{
+        width: 20px;
+        height: 20px;
+    }
 
+    .cover-photo{
+        height: 230px;
+    }
+    .profile-photo {
+        width: 110px;
+        height: 110px;
+    }
+
+    .profile-img-box i {
+        font-size: 20px;
+    }
+    .cover-img-box label{
+        font-size: 15px;
+    }
+    #addTourForm label,
+    .organizer-edit-form label{
+        font-size: 13px;
+    }
+
+    #addTourForm h3{
+        font-size: 20px;
+    }
+    #addTourForm span{
+        font-size: 13px;
+    }
+    #addTourForm button{
+        font-size: 14px;
+    }
+
+    .form-input:not(textarea), 
+    .custom-select,
+    .organizer-edit-form input{
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .organizer-edit-form textarea{
+        font-size: 13px;
+    }
+
+    .form-input::placeholder,
+    .organizer-edit-form input::placeholder{
+        font-size: 15px;
+    }
+
+    .photos-box img {
+        height: 110px;
+    }
+    .tour-complete-icon {
+        width: 250px;
+    }
+    .organizer-menu a {
+        padding: 20px;
+    }
+    .organizer-menu i{
+        font-size: 15px;
+    }
+    .organizer-menu span{
+        font-size: 13px;
+    }
+    .org-cover-photo{
+        height: 200px;
+    }
+
+    .org-profile-photo {
+        width: 170px;
+        height: 170px;
+    }
+    .add-img-box{
+        font-size: 13px;
+    }
 }
 
 @media (max-width : 1500px) {
@@ -68,9 +146,43 @@
     .footer-social-links i {
         font-size: 15px;
     }
+   
+    .organizer-edit-form{
+        font-size: 13px;
+    }
+
+    .edit-photo-box img {
+        height: 320px;
+    }
+    .company-admin-container a {
+        height: 220px;
+    }
+
+    .company-admin-container img {
+        width: 45px !important;
+    }
+
+    .company-admin-container a {
+        height: 200px;
+    }
+
+    .company-admin-container span{
+        font-size: 16px;
+    }
+    .about-box{
+        font-size: 13px;
+        margin: 0;
+    }
+
+    .about-page-logo{
+        width: 40%;
+    }
+
 }
 
 @media (max-width : 1200px) {
+    
+
     .tour-item .title,
     .tour-item .price{
         font-size: 15px;
@@ -104,11 +216,123 @@
     .filter-menu-list{
         width: 90%;
     }    
+    .tour-menu-list{
+        flex-direction: row !important;
+    }
 
+    .tour-menu-list li{
+        flex-grow: 1;
+        margin-right: 10px;
+        padding: 10px 0;
+        justify-content: center;
+    }
+    .org-edit-profile{
+        order: -1;
+        margin-bottom: 10px;
+    }
+
+    .org-edit-profile .profile-photo-box{
+        margin-top: 0px !important;
+    }
+
+    .org-profile-photo {
+        width: 200px;
+        height: 200px;
+    }
+    .edit-photo-box img {
+        height: 240px;
+    }
+
+    .saved-item img {
+        height: 150px;
+        border-radius: 10px;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .saved-item #org-profile-photo {
+        width: 70px;
+        height: 70px;
+    }
+
+    .saved-item .org-name {
+        font-size: 15px;
+        margin-bottom: 5px !important;
+    }
+
+    .saved-item .d-column {
+        font-size: 11px;
+    }
+
+    .saved-item {
+        border-radius: 10px;
+    }
 }
 
+@media (max-width : 972px){
+    #addTourForm h3{
+        font-size: 17px;
+        margin-left: 10px;
+    }
+    #addTourForm span{
+        font-size: 12px;
+        margin-left: 10px;
+    }
+    #org-menu-nav{
+        display: none;
+    }
 
+    .custom-container{
+        max-width: 95%;
+    }
 
+    .organizer-actions .tour-item img{
+        height: 180px;
+    }
+
+    #tourSave{
+        margin-bottom: 100px;
+    }
+}
+
+@media ( max-width : 768px ){
+    .user-profile{
+        font-size: 13px;
+    }
+    .user-profile img {
+        width: 30px;
+        height: 30px;
+    }
+    .wactop-logo{
+        width: 150px !important;
+    }
+
+    .change-photo-btn {
+        padding: 5px 30px;
+    }
+
+    .save-btn{
+        padding: 0px 30px;
+    }
+
+    .saved-item img {
+        height: 180px;
+    }
+
+    .saved-item #org-profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .about-icon-box{
+        display: none;
+    }
+    .about-page-logo {
+        width: 60%;
+        margin-bottom: 20px;
+    }
+
+}
 
 @media ( max-width : 577px ) {
     .custom-container, .inner-container{
@@ -194,4 +418,101 @@
     .organizer-list{
         margin-bottom: 0px;
     }
+
+    .tour-menu-list{
+        flex-direction: column !important;
+    }
+
+    .tour-menu-list li{
+        justify-content: start;
+    }
+
+    .cover-photo {
+        height: 200px;
+    }
+
+    .profile-photo {
+        width: 90px;
+        height: 90px;
+    }
+
+    .tour-profile-photo {
+        bottom: -40px;
+        left: 20px;
+    }
+    .form-input:not(textarea), .custom-select {
+        height: 35px;
+        font-size: 13px;
+    }  
+    
+    .form-input::placeholder{
+        font-size: 13px;
+    }
+    #start-end-date-box{
+        margin-bottom: 10px !important;
+    }
+
+    .col-xl-11{
+        padding: 0 !important;
+    }
+
+    .tour-complete-icon{
+        display: none;
+    }
+
+    .photos-box img {
+        height: 130px;
+    }
+
+    .organizer-edit-form .col-12{
+        padding: 0;
+    }
+    .company-photos img{
+        height: 150px;
+    }
+
+    .company-admin-container a {
+        height: 250px;
+    }
+
+    .photo-list img {
+        height: 250px;
+    }
+
+    .cover-photo-box .cover-photo {
+        height: 350px;
+    }
+
+    .cover-photo-box .profile-photo {
+        left: 20px;
+    }
+
+    .cover-photo-box .company-name-box {
+        padding: 10px;
+        padding-left: 35%;
+    }
+
+    .info-list{
+        flex-direction: column;
+    }
+
+    .info-list li {
+        margin-right: 0;
+        margin-bottom: 10px;
+    }
+
+    .form-steps-btn{
+        display: block;
+    }
+    .tour-menu-list-nav{
+        display: none;
+    }
+}
+
+
+@media (max-width: 450px){
+    .photos-box img {
+        height: 100px;
+    }
+
 }

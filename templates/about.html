@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Wactop</title>
+
+    <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
+
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
@@ -16,6 +19,9 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
 
     <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+
 
     
 </head>
@@ -39,10 +45,7 @@
             width: 100%;
         }   
 
-        .form-box{
-            margin: 0 70px;
-        }
-
+       
         .about-box i{
             color: rgb(111, 160, 252);
             margin-right:5px;
@@ -70,13 +73,13 @@
         </div>
         <div class="custom-container contact-form-container">
             <div class="row justify-content-center">
-                <img src="{% static 'images/wactop1.png' %}" alt="" width="50%">
+                <img src="{% static 'images/wactop1.png' %}" alt="" class="about-page-logo">
             </div>
             <div class="row justify-content-center">
-                <div class="col-3  align-center">
+                <div class="col-md-3  align-center about-icon-box">
                     <img src="{% static 'images/icon-about.svg' %}" alt=""  class="full">
                 </div>
-                <div class="col-6 align-center">
+                <div class="col-12 col-md-6 align-center">
                     <div class="form-box shadow p-4 about-box">
                         <div class="d-column">
                             <div class="align-center">

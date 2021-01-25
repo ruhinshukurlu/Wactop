@@ -22,6 +22,10 @@ body{
     color: #fff;
 }
 
+a:not([href]):hover {
+    color: #000;
+    text-decoration: none;
+}
 
 .custom-container{
     max-width: 85%;
@@ -33,6 +37,22 @@ body{
     margin: auto;  
 }
 
+#tourSave{
+    margin-bottom: 300px;
+}
+
+.form-steps-btn{
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #4CAEFF;
+    border-radius: 5px;
+    display: none;
+}
+
+.form-steps-btn i{
+    font-size: 13px;
+    color: #4CAEFF;
+}
 
 .company-admin-container .col-12{
     display: flex;
@@ -68,6 +88,7 @@ body{
     border-bottom: 1px solid #ccc;
     cursor: pointer;
     transition: .4s;
+    align-items: center;
 }
 
 .tour-menu-list li:hover{
@@ -288,6 +309,47 @@ input[type="date"]{
 .photos-box label:hover .fa-camera{
     color: #4CAEFF;
 }
+#organizer-menu-btn{
+    width: 50px;
+    height: 40px;
+    cursor: pointer;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-left: none;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 1px;
+    z-index: 1;
+}
+
+.organizer-menu span{
+    display: none;
+    transition: .4s;
+}
+#menu-column{
+    display: flex;
+    width: 330px;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: absolute;
+}
+
+.org-menu-bg{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(0,0,0,.6);
+}
+
+#org-menu-nav{
+    z-index: 1;
+}
+.mob-org-menu{
+    display: none;
+}
 
 .organizer-menu a{
     text-decoration: none;
@@ -304,7 +366,10 @@ input[type="date"]{
 
 .organizer-menu i{
     font-size: 20px;
-    margin-right: 10px;
+}
+
+.organizer-menu span{
+    margin-left: 10px;
 }
 
 .org-cover-photo{
@@ -546,6 +611,7 @@ h4{
     height: 450px;
     object-fit: cover;
     border-radius: 0px;
+    border: none;
 }
 
 .cover-photo-box .profile-photo{
@@ -910,4 +976,12 @@ h4{
 
 .tour-complete-icon{
     width: 300px;
+}
+
+.about-page-logo{
+    width: 50%;
+}
+
+.about-box{
+    margin: 0 70px;
 }

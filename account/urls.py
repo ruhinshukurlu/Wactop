@@ -2,6 +2,7 @@ from django.urls import path, include, re_path
 from account.views import *
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth import views as auth_views 
+from django.views.generic import TemplateView
 from django.urls import reverse_lazy
 
 
@@ -9,6 +10,8 @@ app_name = 'account'
 
 urlpatterns = [
     path('register/', UserRegisterView.as_view(), name='user-register'),
+    re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
+        activate, name='activate'),
     path('logout', LogoutView.as_view(), name = 'logout'),
     path('change_password/',ChangePasswordView.as_view(), name = 'change-password'),
     path("user/<int:pk>/update", CustomerUpdateView.as_view(), name="user-update"),

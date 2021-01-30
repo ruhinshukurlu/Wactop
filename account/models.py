@@ -43,7 +43,7 @@ class User(AbstractUser):
 
 @receiver(post_save,sender=User)
 def send_user_data_when_created_by_admin(sender, instance, **kwargs):
-    if instance.is_active:
+    if instance.is_active and instance.is_organizer:
         email = instance.email
         html_content = "you Organizer is activated by admin"
         send_mail('Hello', html_content ,  EMAIL_HOST_USER, [email])

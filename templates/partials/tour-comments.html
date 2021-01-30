@@ -5,7 +5,7 @@
     <div class="comments-box container">
         <div class="row">
             {% for comment in comments %}
-                <div class="col-lg-12 comment-item d-column justify-content-end">
+                <div class="col-md-12 comment-item d-column justify-content-end">
                     <div class="comment-author d-flex mb-3 justify-content-between">
                         <div class="d-flex">
                             <div class="comment-author-profile-img mr-2">
@@ -58,7 +58,7 @@
                     </div>
     
                     {% for reply in comment.replies.all %}
-                        <div class="col-lg-11 comment-item comment-replies">
+                        <div class="col-md-11 comment-item comment-replies">
                             <div class="d-column">
                                 <div class="comment-author d-flex mb-3 justify-content-between">
                                     <div class="d-flex">
@@ -104,7 +104,7 @@
                                 </div>
                                 
                                 {% for reply_of_reply in reply.replies.all %}
-                                <div class="col-lg-11 comment-replies">
+                                <div class="col-md-11 comment-replies">
                                     <div class=" d-column">
                                         <div class="comment-author d-flex mb-3 justify-content-between">
                                             <div class="d-flex">

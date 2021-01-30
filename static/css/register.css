@@ -33,7 +33,7 @@ button {
 header {
     width: 100%;
     background-color: #3e3c3d;
-    float: left;
+    /* float: left; */
 }
 /* menu design */
 body{

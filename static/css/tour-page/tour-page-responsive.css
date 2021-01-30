@@ -14,6 +14,7 @@
     .right-list span {
         font-size: 19px;
     }
+
 }
 
 @media (max-width: 800px) {
@@ -21,6 +22,9 @@
         height: 590px;
         /* padding-top: 40px; */
     }
+    .head-bottom-img {
+        height: 365px;
+    }   
     .center {
         padding-left: 0;
         padding-top: 10px;
@@ -104,7 +108,7 @@
     }
     .middle-container {
         width: 100%;
-        padding: 0 25px;
+        padding: 30px 25px 0px 25px;
     }
     .about-company {
         padding-left: 0;
@@ -144,11 +148,17 @@
         height: 270px;
     }
 }
-
-@media (max-width: 524px) {
-    .company-image {
-        top: 47%;
+@media (max-width: 767px) {
+    .messgae-icon{
+        width: 60px;
+        height: 60px;
+        margin-bottom: 30px;
     }
+}
+@media (max-width: 524px) {
+    /* .company-image {
+        top: 47%;
+    } */
     .menu-box-in-head {
         height: 47px;
     }

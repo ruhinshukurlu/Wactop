@@ -1,21 +1,18 @@
 @media (max-width: 1300px){
     #footer{
-        position: static;
+        /* position: static; */
     }
 }
 
 @media (max-width: 1024px) {
     .container{
         padding:20px 55px;
-        /* padding-left: 55px; */
     }
 }
 @media (max-width : 768px){
     .modal-content{
         width: 50%;
     }
-
-    
 }
 @media (max-width : 576px){
     .form-box {
@@ -34,11 +31,12 @@
     ::placeholder{
         font-size: 14px;
     }
-    .partners-logos div{
-        height: 100%;
-    }
+
 }
 @media (max-width : 500px){
+    #footer{
+        position: static;
+    }
     .menu-box-in-head{
         height: 47px;
     }
@@ -58,7 +56,7 @@
         width: 80%;
     }
     #main{
-        min-height: 400px;
+        min-height: 510px;
     }
     .inner{
         width: 100%;
@@ -72,9 +70,6 @@
     .foot-list{
         margin: 0;
     }
-    #footer{
-        min-height: 0;
-    }
     #footer a{
         font-size: 13px;
     }
@@ -85,7 +80,7 @@
         margin: 0 20px;
     }
 }
-@media (max-width: 420px)
+@media (max-width: 425px)
 {
     .inner {
         padding: 7px 20px;
@@ -98,23 +93,11 @@
     .menu-box-in-head img {
         left: 40px;
     }
+    #main{
+        min-height: 400px;
+    }
     
   }
-@media (max-width: 380px)
-{
-    .inner {
-        padding: 7px 20px;
-}
-}
-@media (max-width: 360px)
-{
-    #main{
-        min-height: 350px;
-    }
-    .inner {
-        padding: 1px 20px;
-}
-}
 
 @media (max-width: 340px) {
     .social-media svg {
@@ -128,19 +111,3 @@
     }
 }
 
-
-@media (max-width: 320px)
-{
-    .inner {
-        padding: 0px 20px;
-}
-}
-@media(max-width:320px)
-{
-    .partners-logos {
-        height: 155px;
-    }
-    #main { 
-        height: calc(100vh - (45px + 296px));
-}
-}

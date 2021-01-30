@@ -76,15 +76,14 @@ header {
     text-align: center;
     line-height: 2.1rem;
     color: #fff;
-    position: absolute;
-    z-index: 1000;
+    /* position: absolute; */
+    /* z-index: 1000; */
 }
 
 #main {
     position: relative;
     width: 100%;
-    float: left;
-    height: calc(100vh - (60px + 326px));
+    height: calc(100vh - 414px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,7 +149,7 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 24px;
+    /* padding-top: 24px; */
     background-color: #fff;
 }
 .owl-carousel {
@@ -218,8 +217,7 @@ a {
     color: rgb(205, 203, 204);
 }
 #footer p {
-    color: #c4c2c3;
-    font-size: 15px;
+    color: #fff;
     margin: 0;
 }
 #footer .fa-copyright{

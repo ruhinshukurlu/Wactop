@@ -31,13 +31,8 @@
  
 
     <style>
-        .info-list,
         .info-list li{
             display: flex;
-        }
-
-        .info-list li{
-            margin-right: 50px;
         }
 
         .info-list i,
@@ -159,16 +154,19 @@
     {% endif %}
 
     <div class="">
-            <div class="head-bottom head-bottom-img">
+            <div class="head-bottom head-bottom-img position-relative ">
                 
                 <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%}" alt="" class="back-img" />
+                <div class="d-md-none company-mobile-image position-absolute d-flex justify-content-center align-items-center ">
+                    <img src="{%if tour.avatar%}{{tour.avatar.url}}{%else%}{% static 'images/default.png' %}{%endif%}" alt="">
+                </div>
             </div>
 
             <div class="full-width">
                 <div class="container custom-container">
                     <div class="header-content">
                         <div class="header-bottom-left">
-                            <div class="company-image">
+                            <div class="company-image d-md-block d-none ">
                                 <img src="{%if tour.avatar%}{{tour.avatar.url}}{%else%}{% static 'images/default.png' %}{%endif%}" alt="">
                             </div>
                             <div class="image-right">
@@ -245,7 +243,7 @@
                         <div class="right">
                             <p>{{tour.datefrom}} - {% if tour.dateto %}{{tour.dateto}}{%endif%}</p>
                             <div class="right-list pt-2">
-                                <span><i class="fas fa-clock"></i></span>
+                                <span class="d-flex justify-content-center align-items-center " ><i class="fas fa-clock"></i></span>
                                 <nav>
                                     <ul class="day-count-list mb-0">
                                         <li class='day'>{%if tour.durationday%} {{tour.durationday}} day {%endif%}</li>
@@ -296,7 +294,7 @@
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="col-lg-10 tour-details pl-5 d-column">
+                    <div class="col-lg-10 tour-details pl-md-5 pl-3 d-column">
                         <h3 class="full bold border-bottom pb-2 mb-3">About company</h3>
                         
                         <div class="mb-5 d-flex">
@@ -317,22 +315,30 @@
                         </div>
 
                         <div class="d-column"> 
-                            <ul class="info-list border-bottom pb-2 mb-4">
-                                <li>
+                            <ul class="info-list border-bottom pb-2 mb-4 d-flex flex-wrap justify-content-between ">
+                                <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="fas fa-map-marker-alt"></i>
                                         Address : 
                                     </div>
+                                    {% if tour.organizer.address %}
                                     <span>{{tour.organizer.address}}</span>
+                                    {% else %}
+                                    ...
+                                    {% endif %}
                                 </li>
-                                <li>
+                                <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="far fa-envelope"></i>
                                         Email : 
                                     </div>
+                                    {% if tour.organizer.user.email %}
                                     <span>{{tour.organizer.user.email}}</span>
+                                    {% else %}
+                                    ...
+                                    {% endif %}
                                 </li>
-                                <li>
+                                <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="fas fa-phone-alt"></i>
                                         Number 1 : 
@@ -343,7 +349,7 @@
                                         <span class="phone">xxx xxx xx xx</span>
                                     {% endif %}
                                 </li>
-                                <li>
+                                <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="fas fa-phone-alt"></i>
                                         Number 2 : 
@@ -383,14 +389,14 @@
                 <div class="row">
 
                     {% if not request.user.is_organizer and request.user.is_authenticated %}
-                        <div class="col-lg-10 tour-details pl-5 pb-3">
+                        <div class="col-lg-10 tour-details pl-md-5 pl-3 pb-3">
                             <h3 class="full bold border-bottom pb-2 mb-5">Write thoughts about "{{tour.title|capfirst}}" organized by "{{tour.organizer.organizer_name}}" </h3>
 
                             <div class="row justify-content-center">
-                                <div class="col-2">
-                                    <img src="{% static 'images/chat.svg' %}" alt="" width="100%">
+                                <div class="col-md-2 col-12 d-flex justify-content-center align-items-center">
+                                    <img src="{% static 'images/chat.svg' %}" alt="" class="messgae-icon">
                                 </div>
-                                <div class="col-8">
+                                <div class="col-md-8 col-12 ">
                                     <form action="" method="post" id ='myform' >
                                         {% csrf_token %}
                                             <div class="form-group d-column align-items-center ">
@@ -435,7 +441,7 @@
                     {% endif %}
 
                     
-                    <div class="col-lg-10 commentBox tour-details pl-5">
+                    <div class="col-lg-10 commentBox tour-details pl-md-5 pl-3">
                         {% include 'partials/tour-comments.html' %}
                     </div>
                     

@@ -25,6 +25,7 @@ from django.utils.html import strip_tags
 # from organizer.decorators import user_is_organizer_author
 from organizer.mixin import FormsetMixin
 from django.http import HttpResponse, HttpResponseRedirect
+from datetime import datetime
 
 
 
@@ -61,7 +62,10 @@ class OrganizerRegisterView(CreateView):
         sendMail(subject,text_content,html_content)
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
        
-        return redirect('main:home')
+        return redirect('organizer:register-complete')
+
+class OrgRegisterComplete(TemplateView):
+    template_name = "org-register-complete.html"
 
 
 class OrganizerProfile(TemplateView):
@@ -322,6 +326,14 @@ class TrainingUpdateView(UpdateView):
         return reverse_lazy('training:detail', args = (self.kwargs['pk'],))
 
 
+class DeleteAccessMixin:
+
+    def dispatch(self, request, *args, **kwargs):
+        if Training.objects.filter(pk=self.pk):
+            return super().dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
 class TrainingDeleteView(DeleteView):
     model = Training
 
@@ -525,7 +537,10 @@ def OrganizerTour(request):
             tour.status = 2
             tour.save()
             
-            # print(request.POST)
+            start_date = datetime.strptime(request.POST.get('datefrom'), "%Y-%m-%d")
+            end_date = datetime.strptime(request.POST.get('dateto'), "%Y-%m-%d")
+            print((end_date-start_date).days, 'days')
+            
             subject = f'New tour added by {tour.organizer.organizer_name}'
             text_content = f'New tour added by {tour.organizer.organizer_name}'
             html_content = f"<p>Name : {tour.title}</p><p>Location : {tour.address} , {tour.city} {tour.country}</p><p>Owner : {tour.organizer.organizer_name}</p>"

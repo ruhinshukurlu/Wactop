@@ -159,7 +159,11 @@
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>
-                                                            {{training.durationday}} days
+                                                            {% if training.get_duration_day %}
+                                                                {{training.get_duration_day}} days
+                                                            {% else %}
+                                                                Always
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

@@ -1,10 +1,15 @@
 {% load static %}
 {% if comments %}
+<script>
+    $('.show-reply-btn').click(function(){
+        $(this).parents('.comment-parent').find('.comment-item').slideToggle(200)
+    })
+</script>
 <h3 class="full bold border-bottom pb-2 mb-5">What {{comments_count.count}} people say about this tour?</h3>
 <div class="comments-box container">
     <div class="row">
         {% for comment in comments %}
-            <div class="col-lg-12 comment-item d-column justify-content-end">
+            <div class="col-lg-12 comment-item comment-parent d-column justify-content-end">
                 <div class="comment-author d-flex mb-3 justify-content-between">
                     <div class="d-flex">
                         <div class="comment-author-profile-img mr-2">
@@ -49,14 +54,21 @@
                                 <div class="form-group">
                                     
                                     <input type="hidden" name="parent_id" value="{{comment.id }}" class='parent_id'>
-                                    <input type="submit" value="Reply Comment" class="btn" id="submit-comment-btn">
+                                    <input type="submit" value="Reply Comment" class="btn btn-mob" id="submit-comment-btn">
                                 </div>
 
                             </form>
                         </div>
                     {% endif %}
                 </div>
-
+                {% if comment.replies.all %}
+                    <div class="d-flex full justify-content-end">
+                        <button class="show-reply-btn btn-mob">
+                            <i class="far fa-eye mr-1"></i>
+                            Show reply
+                        </button>
+                    </div>
+                    {% endif %}
                 {% for reply in comment.replies.all %}
                     <div class="col-lg-11 comment-item comment-replies">
                         <div class="d-column">
@@ -95,7 +107,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <input type="hidden" name="parent_id" value="{{reply.id }}" class='parent_id'>
-                                                <input type="submit" value="Reply Comment" class="btn" id="submit-comment-btn">
+                                                <input type="submit" value="Reply Comment" class="btn btn-mob" id="submit-comment-btn">
                                             </div>
                 
                                         </form>

@@ -302,10 +302,6 @@ body {
     display: none;
 }
 
-.fa {
-    font-size: 13px;
-    color: #B2B2B2;
-}
 
 .checked {
     color: #ffff00;
@@ -499,4 +495,45 @@ a {
 
 .social-media li a:hover path {
     color: rgb(205, 203, 204);
+}
+
+.comment-parent .comment-item{
+    display: none;
+}
+
+.show-reply-btn{
+    color: #37a1f8;
+    border: 1px solid #37a1f8;
+    border-radius: 5px;
+    padding: 2px 5px;
+    transition: .4s;
+    margin-top: 10px;
+}
+
+.show-reply-btn:hover{
+    color: #fff;
+    background-color: #37a1f8;
+}
+
+.star-rating {
+    direction: rtl;
+    display: inline-block;
+}
+
+.star-rating input[type=radio] {
+    display: none
+}
+
+.star-rating label {
+    color: #bbb;
+    font-size: 18px;
+    padding: 0;
+    cursor: pointer;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out
+}
+
+.star-rating label:hover ~ label,
+.star-rating input[type=radio]:checked ~ label {
+    color: #f2b600
 }

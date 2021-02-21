@@ -31,7 +31,7 @@ class UserRegisterView(CreateView):
         user.is_active = False
         user.save()
         current_site = get_current_site(self.request)
-        mail_subject = 'Activate your account.'
+        mail_subject = 'Activate yLoginour account.'
         message = render_to_string('email/account_activate_email.html', {
             'user': user,
             'domain': current_site.domain,

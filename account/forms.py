@@ -44,7 +44,7 @@ class OrganizerRegisterForm(UserCreationForm):
                 }),label='Email')
     description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={
                     'class': 'form-input',
-                    'placeholder' : 'Description',
+                    'placeholder' : 'Enter short description about Company...',
                     'cols': "10",
                     'rows' : "5"
 
@@ -102,7 +102,7 @@ class OrganizerRegisterForm(UserCreationForm):
         organizer.cover = self.cleaned_data['cover_image']
         organizer.profile_photo = self.cleaned_data.get('profile_image')
         organizer.organizer_name=self.cleaned_data['organizer_name']
-        organizer.descriptionaz=self.cleaned_data['description']
+        organizer.description=self.cleaned_data['description']
         organizer.about=self.cleaned_data['about']
         organizer.contact_number_1=self.cleaned_data['contact_number1']
         organizer.contact_number_2=self.cleaned_data['contact_number2']
@@ -187,16 +187,9 @@ class ChangePasswordForm(PasswordChangeForm):
     }), required=True)
     
 
-# class UserEditForm(forms.ModelForm):
-
-#     class Meta:
-#         model = User
-#         fields = []
-
 
 class UserEditForm(forms.ModelForm):
-    # profile_img = forms.ImageField(widget=forms.FileInput())
-
+    
     class Meta:
         model = User
         fields = ['username','email','profile_img']

@@ -115,7 +115,11 @@
                                                         {% endif %}
                                                     </div>
                                                     <div class="description">
-                                                        {{organizer.about|truncatechars:80 }}
+                                                        <div class="mr-2" style="display: contents;">
+                                                            <i class="fas fa-pencil-alt mr-1"></i>
+                                                            <span class="bold">Description :</span> 
+                                                        </div>
+                                                        {{organizer.description }}
                                                     </div> 
                                                 </div>
 

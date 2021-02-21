@@ -132,21 +132,16 @@ def TrainingDetailView(request, pk):
     image = TrainingImage.objects.filter(training=training)
     schedule = TrainingSchedule.objects.filter(training=training)
     url = TrainingUrl.objects.filter(training=training)
-    lang = request.GET.get('lang')
-    if lang:
-        if lang == 'az':
-            detail = TrainingDetailAZ.objects.filter(training=training)
-            description = training.descriptionaz
-        elif lang == 'ru':
-            detail = TrainingDetailRU.objects.filter(training=training)
-            description = training.descriptionru
-        elif lang == 'en':
-            detail = TrainingDetailEN.objects.filter(training=training)
-            description = training.descriptionen
-    else:
-        detail = TrainingDetailEN.objects.filter(training=training)
-        description = training.descriptionen
-        lang = 'en'
+
+    description = {
+        'detail_az' : TrainingDetailAZ.objects.filter(training=training),
+        'description_az' : training.descriptionaz,
+        'detail_ru' : TrainingDetailRU.objects.filter(training=training),
+        'description_ru' : training.descriptionru,
+        'detail_en' : TrainingDetailEN.objects.filter(training=training),
+        'description_en' : training.descriptionen
+    }
+
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -221,12 +216,10 @@ def TrainingDetailView(request, pk):
     context = {
         'top_tainings':top_tainings,
         'tour': training,
-        'detail': detail,
         'image': image,
         'schedule': schedule,
         'url': url,
         'description': description,
-        'lang': lang,
         'form' : form,
         'comments' : training.comment.filter(comment_reply__isnull=True),
         'comments_count': training.comment.all()

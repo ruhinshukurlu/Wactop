@@ -15,7 +15,7 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+    
 
     
     <style>
@@ -41,6 +41,8 @@
         }
     </style>
 
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+
 
 </head>
 
@@ -60,7 +62,7 @@
             </div>
             <div class="col-xl-11">
                 
-                <div class="custom-container mt-5" >
+                <div class="custom-container mt-5 min-full-height" >
                     <nav class="full">
                         <ul class="full tour-menu-list d-flex" id="formControlMenu">
                             <li data-target="tours" class="active">
@@ -86,31 +88,7 @@
                                             {% for tour in tours %}
                                                 <div class="col-12">
                                                     <div class="tour-item p-relative">
-                                                        <div class="delete-edit-box d-flex">
-                                                            <div class="mr-2 d-flex">
-                                                                {% if tour.status == 3 %}
-                                                                    <button type="button" class="btn btn-outline-success full" disabled>Finished</button> 
-                                                                {% else %}
-                                                                    <form action="{% url 'organizer:finish-tour' tour.pk %}" method="post" class="d-flex    ">
-                                                                        {% csrf_token %}
-                                                                        <button type="submit" class="btn btn-outline-success full">Finish Tour</button>
-                                                                    </form>
-                                                                {% endif %}
-                                                            </div>
-                                                            {% if tour.status == 1 %}
-                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
-                                                            {% elif tour.status == 2 %}
-                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
-                                                            {% endif %}
-                                                            <div class="d-flex">
-                                                                <a href="{% url 'organizer:tour-edit' tour.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#tourDeleteModal{{tour.pk}}">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                       
                                                         
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="tourDeleteModal{{tour.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -169,45 +147,85 @@
                                                             </div>
                                                         </div>
                                                         
-                                                        <a href="{% url 'tour:detail' tour.pk %}" class="full">
-                                                            <div class="row full">
-                                                                <div class="col-4 p-0">
-                                                                    {% if tour.avatar %}
-                                                                        <img src="{{tour.avatar.url}}" alt="">
-                                                                    {% else %}
-                                                                        <img src="{% static 'images/default.png' %}" alt="">
-                                                                    {% endif %}
-                                                                </div>
-                                                                <div class="col-8 p-0">
-                                                                    <div class="card-body full-h ml-2">
-                                                                        <div class="title border-bottom mb-3">
+                                                        <div class="row full">
+                                                            <div class="col-12 col-md-4 p-0">
+                                                                {% if tour.avatar %}
+                                                                    <img src="{{tour.avatar.url}}" alt="">
+                                                                {% else %}
+                                                                    <img src="{% static 'images/default.png' %}" alt="">
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-12 col-md-8 p-0">
+                                                                <div class="card-body full-h ml-2">
+                                                                    <div class="title border-bottom mb-3 d-flex justify-content-between">
+                                                                        <a class="d-flex align-center" href="{% url 'tour:detail' tour.pk %}">
                                                                             {{tour.title|capfirst|truncatechars:25 }}
-                                                                        </div>
-                                                                        <div class="d-column">
-                                                                            
-                                                                            <div class="d-flex">
-                                                                                <span class="bold mr-2">Location : </span>
-                                                                                <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                                        </a>
+                                                                        <div class="delete-edit-box d-flex mb-2" style="position: static !important;">
+                                                                            <div class="mr-2 d-flex">
+                                                                                {% if tour.status == 3 %}
+                                                                                    <button type="button" class="btn  btn-mob btn-outline-success full" disabled>Finished</button> 
+                                                                                {% else %}
+                                                                                    <form action="{% url 'organizer:finish-tour' tour.pk %}" method="post" class="d-flex    ">
+                                                                                        {% csrf_token %}
+                                                                                        <button type="submit" class="btn btn-mob btn-outline-success full">Finish Tour</button>
+                                                                                    </form>
+                                                                                {% endif %}
                                                                             </div>
+                                                                            {% if tour.status == 1 %}
+                                                                                <span class="btn btn-mob btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                                            {% elif tour.status == 2 %}
+                                                                                <span class="btn btn-mob btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                                            {% endif %}
                                                                             <div class="d-flex">
-                                                                                <span class="bold mr-2">Company : </span>
-                                                                                <span>{{tour.organizer.organizer_name}}</span>
+                                                                                <a href="{% url 'organizer:tour-edit' tour.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                                                    <i class="fas fa-edit"></i>
+                                                                                </a>
+                                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#tourDeleteModal{{tour.pk}}">
+                                                                                    <i class="fas fa-trash-alt"></i>
+                                                                                </button>
                                                                             </div>
-                                                                            
                                                                         </div>
-                                                                        <div class="d-flex full justify-content-between mt-3">
-                                                                            <div class="price">
+                                                                    </div>
+                                                                    <div class="d-column">
+                                                                        
+                                                                        <div class="d-flex">
+                                                                            <span class="bold mr-2">Location : </span>
+                                                                            <span>{{tour.city|capfirst}}, {{tour.country|capfirst}}</span>
+                                                                        </div>
+                                                                        <div class="d-flex">
+                                                                            <span class="bold mr-2">Company : </span>
+                                                                            <span>{{tour.organizer.organizer_name}}</span>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                    <div class="d-flex full justify-content-between mt-3">
+                                                                        <div class="price">
+                                                                            {% if tour.discount %}
+                                                                                {{tour.discount_price}} {{tour.currency}}
+                                                                                <span style="text-decoration: line-through; font-weight: bold;">{{tour.price}} {{tour.currency}}</span>
+                                                                            {% else %}
                                                                                 {{tour.price}} {{tour.currency}}
-                                                                            </div>
-                                                                            <div class="duration align-center">
+                                                                            {% endif %}
+                                                                            
+                                                                        </div>
+                                                                        <div class="d-flex">
+                                                                            <div class="duration align-center mr-3">
                                                                                 <i class="far fa-clock mr-1"></i>
-                                                                                {{tour.durationday}} days
+                                                                                {% if tour.get_duration_day %}
+                                                                                    {{tour.get_duration_day}} days
+                                                                                {% else %}
+                                                                                    Always
+                                                                                {% endif %}
                                                                             </div>
+                                                                            <a class="d-flex align-center detail-btn btn-mob" href="{% url 'tour:detail' tour.pk %}">
+                                                                                See Detail
+                                                                            </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             {% endfor %} 
@@ -221,7 +239,7 @@
                             </div>
                         </div>
     
-                        <div id="activities" class="bg-white shadow" style="display: none;">
+                        <div id="activities" class="bg-white" style="display: none;">
                             <div class="inner-container">
                                 <div class="row">
                                     <div class="full bg-white org-actions border-bottom">
@@ -232,31 +250,7 @@
                                             {% for activity in activities %}
                                                 <div class="col-12">
                                                     <div class="tour-item p-relative">
-                                                        <div class="delete-edit-box d-flex">
-                                                            <div class="mr-2 d-flex">
-                                                                {% if tour.status == 3 %}
-                                                                    <button type="button" class="btn btn-outline-success full" disabled>Finished</button> 
-                                                                {% else %}
-                                                                    <form action="{% url 'organizer:finish-activity' activity.pk %}" method="post" class="d-flex    ">
-                                                                        {% csrf_token %}
-                                                                        <button type="submit" class="btn btn-outline-success full">Finish Activity</button>
-                                                                    </form>
-                                                                {% endif %}
-                                                            </div>
-                                                            {% if activity.status == 1 %}
-                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
-                                                            {% elif activity.status == 2 %}
-                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
-                                                           {% endif %}
-                                                            <div class="d-flex">
-                                                                <a href="{% url 'organizer:activity-edit' activity.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#activityDeleteModal{{activity.pk}}">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
+                                                        
                                                         
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="activityDeleteModal{{activity.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -315,45 +309,85 @@
                                                             </div>
                                                         </div>
         
-                                                        <a href="{% url 'activity:detail' activity.pk %}" class="full">
-                                                            <div class="row full"> 
-                                                                <div class="col-4 p-0">
-                                                                    {% if activity.avatar %}
-                                                                        <img src="{{activity.avatar.url}}" alt="">
-                                                                    {% else %}
-                                                                        <img src="{% static 'images/default.png' %}" alt="">
-                                                                    {% endif %}
-                                                                </div>
-                                                                <div class="col-8 p-0">
-                                                                    <div class="card-body full-h ml-2">
-                                                                        <div class="title border-bottom mb-3">
+                                                        <div class="row full"> 
+                                                            <div class="col-12 col-md-4 p-0">
+                                                                {% if activity.avatar %}
+                                                                    <img src="{{activity.avatar.url}}" alt="">
+                                                                {% else %}
+                                                                    <img src="{% static 'images/default.png' %}" alt="">
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-12 col-md-8 p-0">
+                                                                <div class="card-body full-h ml-2">
+                                                                    <div class="title border-bottom mb-3 d-flex justify-content-between">
+                                                                        <a href="{% url 'activity:detail' activity.pk %}" class="d-flex align-center">
                                                                             {{activity.title|capfirst|truncatechars:25 }}
-                                                                        </div>
-                                                                        <div class="d-column">
-                                                                            
-                                                                            <div class="d-flex">
-                                                                                <span class="bold mr-2">Location : </span>
-                                                                                <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
+                                                                        </a>
+                                                                        <div class="delete-edit-box d-flex mb-2" style="position: static;">
+                                                                            <div class="mr-2 d-flex">
+                                                                                {% if tour.status == 3 %}
+                                                                                    <button type="button" class="btn btn-mob btn-outline-success full" disabled>Finished</button> 
+                                                                                {% else %}
+                                                                                    <form action="{% url 'organizer:finish-activity' activity.pk %}" method="post" class="d-flex    ">
+                                                                                        {% csrf_token %}
+                                                                                        <button type="submit" class="btn btn-mob btn-outline-success full">Finish Activity</button>
+                                                                                    </form>
+                                                                                {% endif %}
                                                                             </div>
+                                                                            {% if activity.status == 1 %}
+                                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                                            {% elif activity.status == 2 %}
+                                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                                           {% endif %}
                                                                             <div class="d-flex">
-                                                                                <span class="bold mr-2">Company : </span>
-                                                                                <span>{{activity.organizer.organizer_name}}</span>
+                                                                                <a href="{% url 'organizer:activity-edit' activity.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                                                    <i class="fas fa-edit"></i>
+                                                                                </a>
+                                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#activityDeleteModal{{activity.pk}}">
+                                                                                    <i class="fas fa-trash-alt"></i>
+                                                                                </button>
                                                                             </div>
-                                                                            
                                                                         </div>
-                                                                        <div class="d-flex full justify-content-between mt-3">
-                                                                            <div class="price">
+                                                                    </div>
+                                                                    <div class="d-column">
+                                                                        
+                                                                        <div class="d-flex">
+                                                                            <span class="bold mr-2">Location : </span>
+                                                                            <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
+                                                                        </div>
+                                                                        <div class="d-flex">
+                                                                            <span class="bold mr-2">Company : </span>
+                                                                            <span>{{activity.organizer.organizer_name}}</span>
+                                                                        </div>
+                                                                        
+                                                                    </div>
+                                                                    <div class="d-flex full justify-content-between mt-3">
+                                                                        <div class="price">
+                                                                            {% if activity.discount %}
+                                                                                {{activity.discount_price}} {{activity.currency}}
+                                                                                <span style="text-decoration: line-through; font-weight: bold;">{{activity.price}} {{activity.currency}}</span>
+                                                                            {% else %}
                                                                                 {{activity.price}} {{activity.currency}}
-                                                                            </div>
-                                                                            <div class="duration align-center">
+                                                                            {% endif %}
+                                                                            
+                                                                        </div>
+                                                                        <div class="d-flex">
+                                                                            <div class="duration align-center mr-3">
                                                                                 <i class="far fa-clock mr-1"></i>
-                                                                                {{activity.durationday}} days
+                                                                                {% if activity.get_duration_day %}
+                                                                                    {{activity.get_duration_day}} days
+                                                                                {% else %}
+                                                                                    Always
+                                                                                {% endif %}
                                                                             </div>
+                                                                            <a class="d-flex align-center detail-btn btn-mob" href="{% url 'activity:detail' activity.pk %}">
+                                                                                See Detail
+                                                                            </a>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             {% endfor %} 
@@ -367,7 +401,7 @@
                             </div>
                         </div>
     
-                        <div id="trainings" class="bg-white shadow" style="display: none;">
+                        <div id="trainings" class="bg-white" style="display: none;">
                             <div class="inner-container">
                                 <div class="row">
                                     <div class="full bg-white org-actions border-bottom">
@@ -378,32 +412,7 @@
                                             {% for training in trainings %}
                                                 <div class="col-12">
                                                     <div class="tour-item p-relative">
-                                                        <div class="delete-edit-box d-flex">
-                                                            <div class="mr-2 d-flex">
-                                                                {% if tour.status == 3 %}
-                                                                    <button type="button" class="btn btn-outline-success full" disabled>Finished</button> 
-                                                                {% else %}
-                                                                    <form action="{% url 'organizer:finish-training' training.pk %}" method="post" class="d-flex">
-                                                                        {% csrf_token %}
-                                                                        <button type="submit" class="btn btn-outline-success full">Finish Training</button>
-                                                                    </form>
-                                                                {% endif %}
-                                                            </div>
-                                                            {% if training.status == 1 %}
-                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
-                                                            {% elif training.status == 2 %}
-                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
-                                                            {% endif %}
-                                                            <div class="d-flex">
-                                                                <a href="{% url 'organizer:training-edit' training.pk %}" class="edit-btn d-flex align-center justify-content-center">
-                                                                    <i class="fas fa-edit"></i>
-                                                                </a>
-                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#trainingDeleteModal{{training.pk}}">
-                                                                    <i class="fas fa-trash-alt"></i>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                        
+
                                                         <!-- Modal -->
                                                         <div class="modal fade" id="trainingDeleteModal{{training.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div class="modal-dialog" role="document">
@@ -462,46 +471,92 @@
                                                             </div>
                                                             </div>
                                                         </div>
-        
-                                                        <a href="{% url 'training:detail' training.pk %}" class="full">
-                                                            <div class="row">
-                                                                <div class="col-4 p-0">
-                                                                    {% if training.avatar %}
-                                                                        <img src="{{training.avatar.url}}" alt="">
-                                                                    {% else %}
-                                                                        <img src="{% static 'images/default.png' %}" alt="">
-                                                                    {% endif %}
-                                                                </div>
-                                                                <div class="col-8 p-0">
-                                                                    <div class="card-body full-h ml-2">
-                                                                        <div class="title border-bottom mb-3">
+
+                                                        <div class="row full">
+                                                            <div class="col-12 col-md-4 p-0">
+                                                                {% if training.avatar %}
+                                                                    <img src="{{training.avatar.url}}" alt="">
+                                                                {% else %}
+                                                                    <img src="{% static 'images/default.png' %}" alt="">
+                                                                {% endif %}
+                                                            </div>
+                                                            <div class="col-12 col-md-8 p-0">
+                                                                <div class="card-body full-h ml-2">
+                                                                    <div class="title border-bottom mb-3 d-flex justify-content-between">
+                                                                        <a class="d-flex align-center" href="{% url 'training:detail' training.pk %}">
                                                                             {{training.title|capfirst|truncatechars:25 }}
-                                                                        </div>
-                                                                        <div class="d-column">
-                                                                            
+                                                                        </a>
+                                                                        
+                                                                        <div class="delete-edit-box d-flex mb-2" style="position: static !important;">
+                                                                            <div class="mr-2 d-flex">
+                                                                                {% if tour.status == 3 %}
+                                                                                    <button type="button" class="btn btn-mob btn-outline-success full" disabled>Finished</button> 
+                                                                                {% else %}
+                                                                                    <form action="{% url 'organizer:finish-training' training.pk %}" method="post" class="d-flex">
+                                                                                        {% csrf_token %}
+                                                                                        <button type="submit" class="btn btn-mob btn-outline-success full">Finish Training</button>
+                                                                                    </form>
+                                                                                {% endif %}
+                                                                            </div>
+                                                                            {% if training.status == 1 %}
+                                                                                <span class="btn btn-outline-success align-center mr-2" style="background-color: #fff; color: #000;">Publish</span>
+                                                                            {% elif training.status == 2 %}
+                                                                                <span class="btn btn-outline-primary align-center mr-2" style="background-color: #fff; color: #000;">Not Publish</span>
+                                                                            {% endif %}
                                                                             <div class="d-flex">
-                                                                                <span class="bold mr-2">Location : </span>
-                                                                                <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
-                                                                            </div>
-                                                                            <div class="d-flex">
-                                                                                <span class="bold mr-2">Company : </span>
-                                                                                <span>{{training.organizer.organizer_name}}</span>
-                                                                            </div>
-                                                                            <div class="d-flex full justify-content-between mt-3">
-                                                                                <div class="price">
-                                                                                    {{training.price}} {{training.currency}}
-                                                                                </div>
-                                                                                <div class="duration align-center">
-                                                                                    <i class="far fa-clock mr-1"></i>
-                                                                                    {{training.durationday}} days
-                                                                                </div>
+                                                                                <a href="{% url 'organizer:training-edit' training.pk %}" class="edit-btn d-flex align-center justify-content-center">
+                                                                                    <i class="fas fa-edit"></i>
+                                                                                </a>
+                                                                                <button style="outline: none;" class="delete-btn" type="button" data-toggle="modal" data-target="#trainingDeleteModal{{training.pk}}">
+                                                                                    <i class="fas fa-trash-alt"></i>
+                                                                                </button>
                                                                             </div>
                                                                         </div>
-                        
                                                                     </div>
+                                                                    <div class="d-column">
+                                                                        
+                                                                        <div class="d-flex">
+                                                                            <span class="bold mr-2">Location : </span>
+                                                                            <span>{{training.city|capfirst}}, {{training.country|capfirst}}</span>
+                                                                        </div>
+                                                                        <div class="d-flex">
+                                                                            <span class="bold mr-2">Company : </span>
+                                                                            <span>{{training.organizer.organizer_name}}</span>
+                                                                        </div>
+                                                                        <div class="d-flex full justify-content-between mt-3">
+                                                                            <div class="price">
+                                                                                {% if training.discount %}
+                                                                                    {{training.discount_price}} {{training.currency}}
+                                                                                    <span style="text-decoration: line-through; font-weight: bold;">{{training.price}} {{training.currency}}</span>
+                                                                                {% else %}
+                                                                                    {{training.price}} {{training.currency}}
+                                                                                {% endif %}
+                                                                                
+                                                                            </div>
+
+                                                                            <div class="d-flex">
+                                                                                <div class="duration align-center mr-3">
+                                                                                    <i class="far fa-clock mr-1"></i>
+                                                                                    {% if training.get_duration_day %}
+                                                                                        {{training.get_duration_day}} days
+                                                                                    {% else %}
+                                                                                        Always
+                                                                                    {% endif %}
+                                                                                </div>
+                                                                                <a class="d-flex align-center detail-btn btn-mob" href="{% url 'training:detail' training.pk %}">
+                                                                                    See Detail
+                                                                                </a>
+                                                                            </div>
+                                                                            
+                                                                        </div>
+                                                                    </div>
+                    
                                                                 </div>
                                                             </div>
-                                                        </a>
+                                                        </div>
+                                                       
+                                                        
+                 
                                                     </div>
                                                 </div>
                                             {% endfor %} 

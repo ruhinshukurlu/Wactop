@@ -1,6 +1,7 @@
-@media (max-width: 1300px){
-    #footer{
-        /* position: static; */
+@media (max-width: 1200px){
+    .user-profile img {
+        width: 30px;
+        height: 30px;
     }
 }
 
@@ -30,6 +31,26 @@
     }
     ::placeholder{
         font-size: 14px;
+    }
+
+    .wactop-logo {
+        width: 140px !important;
+        margin: 6px 0px;
+    }
+
+    .footer-bottom{
+        font-size: 13px;
+    }
+    .footer-social-links i{
+        font-size: 15px;
+    }
+
+    #partners-crsl {
+        width: 65% !important;
+    }
+
+    #partners-crsl img {
+        height: 105px !important;
     }
 
 }

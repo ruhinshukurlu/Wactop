@@ -66,13 +66,13 @@
 
         <div class="custom-container copmany-infos-block">
             <div class="row mb-4 company-infos">
-                <h2 class="full bold border-bottom pb-2 mb-5">About</h2>
+                
                 <div class="col-lg-8">
                     
                     <div class="mb-5 pl-3">
                         <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
                         <p class="description">
-                            {{organizer.about}}
+                            {{organizer.description}}
                         </p>
                     </div>
                     
@@ -245,11 +245,20 @@
                                                         </div>
                                                         <div class="d-flex full justify-content-between mt-3">
                                                             <div class="price">
-                                                                {{tour.price}} {{tour.currency}}
+                                                                {% if tour.discount %}
+                                                                    {{tour.discount_price}} {{tour.currency}}
+                                                                    <span style="text-decoration: line-through; font-weight: bold;">{{tour.price}} {{tour.currency}}</span>
+                                                                {% else %}
+                                                                    {{tour.price}} {{tour.currency}}
+                                                                {% endif %}
                                                             </div>
                                                             <div class="duration align-center">
                                                                 <i class="far fa-clock mr-1"></i>
-                                                                {{tour.durationday}} days
+                                                                {% if tour.get_duration_day %}
+                                                                    {{tour.get_duration_day}} days
+                                                                {% else %}
+                                                                    Always
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -297,11 +306,20 @@
                                                         </div>
                                                         <div class="d-flex full justify-content-between mt-3">
                                                             <div class="price">
-                                                                {{tour.price}} {{tour.currency}}
+                                                                {% if tour.discount %}
+                                                                    {{tour.discount_price}} {{tour.currency}}
+                                                                    <span style="text-decoration: line-through; font-weight: bold;">{{tour.price}} {{tour.currency}}</span>
+                                                                {% else %}
+                                                                    {{tour.price}} {{tour.currency}}
+                                                                {% endif %}
                                                             </div>
                                                             <div class="duration align-center">
                                                                 <i class="far fa-clock mr-1"></i>
-                                                                {{tour.durationday}} days
+                                                                {% if tour.get_duration_day %}
+                                                                    {{tour.get_duration_day}} days
+                                                                {% else %}
+                                                                    Always
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>
@@ -349,11 +367,20 @@
                                                         </div>
                                                         <div class="d-flex full justify-content-between mt-3">
                                                             <div class="price">
-                                                                {{tour.price}} {{tour.currency}}
+                                                                {% if tour.discount %}
+                                                                    {{tour.discount_price}} {{tour.currency}}
+                                                                    <span style="text-decoration: line-through; font-weight: bold;">{{tour.price}} {{tour.currency}}</span>
+                                                                {% else %}
+                                                                    {{tour.price}} {{tour.currency}}
+                                                                {% endif %}
                                                             </div>
                                                             <div class="duration align-center">
                                                                 <i class="far fa-clock mr-1"></i>
-                                                                {{tour.durationday}} days
+                                                                {% if tour.get_duration_day %}
+                                                                    {{tour.get_duration_day}} days
+                                                                {% else %}
+                                                                    Always
+                                                                {% endif %}
                                                             </div>
                                                         </div>
                                                     </div>

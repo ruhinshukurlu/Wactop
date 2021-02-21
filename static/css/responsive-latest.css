@@ -178,6 +178,10 @@
         width: 40%;
     }
 
+    #organizerActions .tour-item img{
+        height: 200px;
+    }
+
 }
 
 @media (max-width : 1200px) {
@@ -186,6 +190,14 @@
     .tour-item .title,
     .tour-item .price{
         font-size: 15px;
+    }
+
+    .tour-item .title{
+        margin-bottom: 5px !important;
+    }
+
+    .tour-item .card-body{
+        padding-bottom: 5px;
     }
 
     .tour-item .duration{
@@ -215,6 +227,7 @@
 
     .filter-menu-list{
         width: 90%;
+        font-size: 11px;
     }    
     .tour-menu-list{
         flex-direction: row !important;
@@ -267,9 +280,54 @@
     .saved-item {
         border-radius: 10px;
     }
+
+    .search-block .search-input {
+        height: 30px;
+    }
+    .company-admin-container img {
+        width: 40px !important;
+    }
+    .company-admin-container a {
+        height: 150px;
+    }
+    .company-admin-container span {
+        font-size: 13px;
+    }
+
+    .user-profile img {
+        width: 35px;
+        height: 35px;
+    }
+    .phone-box {
+        padding: 25px 25px;
+    }
+    .company-photos img {
+        height: 150px;
+    }
+    .change-photo-btn, .save-btn, .delete-btn{
+        padding: 5px 25px;
+        font-size: 13px;
+    }
+    .change-photo-btn i{
+        font-size: 14px;
+    }
+    .user-profile{
+        font-size: 13px;
+    }
+    .user-profile img {
+        width: 30px;
+        height: 30px;
+    }
+    .wactop-logo{
+        width: 150px !important;
+    }
+
+    .tour-edit-photos img{
+        height: 140px;
+    }
 }
 
-@media (max-width : 972px){
+@media (max-width : 992px){
     #addTourForm h3{
         font-size: 17px;
         margin-left: 10px;
@@ -293,19 +351,26 @@
     #tourSave{
         margin-bottom: 100px;
     }
+
+    .company-photos img {
+        height: 200px;
+    }
+
+    .tour-prof-edit{
+        flex-direction: row !important;
+    }
+
+    .tour-prof-edit img{
+        margin-right: 10px;
+    }
+
+    .tour-edit-photos img{
+        height: 160px;
+    }
 }
 
 @media ( max-width : 768px ){
-    .user-profile{
-        font-size: 13px;
-    }
-    .user-profile img {
-        width: 30px;
-        height: 30px;
-    }
-    .wactop-logo{
-        width: 150px !important;
-    }
+    
 
     .change-photo-btn {
         padding: 5px 30px;
@@ -332,6 +397,25 @@
         margin-bottom: 20px;
     }
 
+    .contact-letter-box{
+        display: none;
+    }
+
+    .tour-edit-photos .form-group:not(:last-child){
+        font-size: 13px;
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid #727272;
+        padding-bottom: 5px;
+    }
+
+    #organizerActions .tour-item img {
+        height: 250px;
+    }
+
+    .tour-edit-photos img{
+        height: 130px;
+    }
 }
 
 @media ( max-width : 577px ) {
@@ -360,10 +444,12 @@
 
     .tour-item img {
         height: 300px;
+        border-radius: unset;
     }
 
     .tour-item{
         border-radius: 0px;
+        border: unset;
     }
 
     .tour-search{
@@ -428,12 +514,7 @@
     }
 
     .cover-photo {
-        height: 200px;
-    }
-
-    .profile-photo {
-        width: 90px;
-        height: 90px;
+        height: 170px;
     }
 
     .tour-profile-photo {
@@ -480,11 +561,13 @@
     }
 
     .cover-photo-box .cover-photo {
-        height: 350px;
+        height: 250px;
     }
 
     .cover-photo-box .profile-photo {
         left: 20px;
+        width: 90px;
+        height: 90px;
     }
 
     .cover-photo-box .company-name-box {
@@ -507,7 +590,164 @@
     .tour-menu-list-nav{
         display: none;
     }
+
+    .company-admin-container img {
+        width: 75px !important;
+    }
+    
+    .company-admin-container span {
+        font-size: 16px;
+    }
+
+    .guides-instructors h3,
+    .guides-instructors h4{
+        margin-left: 10px;
+        padding-left: 10px;
+    }
+
+    .guides-instructors{
+        margin-top: 100px !important;
+    }
+
+    .add-guide-form label{
+        margin: 0px;
+        font-size: 13px;
+    }
+
+    .add-guide-form .col-3{
+        display: flex;
+        align-items: center;
+    }
+
+    .add-guide-form input[type='submit'] { 
+        font-size: 13px;
+        padding: 5px 10px;
+    }
+
+    .table{
+        font-size: 13px;
+    }
+
+    .change-pass-form label{
+        font-size: 13px;
+    }
+
+    .edit-user-form .col-sm-7{
+        padding: 0px;
+    }
+
+    .edit-user-form label{
+        margin: 0;
+        font-weight: bold;
+        color: #727272;
+    }
+    .btn-mob{
+        font-size: 13px;
+    }
+   
+    .edit-delete-box{
+        right: 25px;
+    }
+
+    .tour-prof-img-box .col-12{
+        padding: 0px !important;
+    }
+
+    .add-img-box{
+        flex-direction: column;
+    }
+    #tourBasics .col-3{
+        padding-left: 0px;
+    }
+    #tourBasics .col-9{
+        padding-right: 0px;
+    }
+
+    .form-input{
+        font-size: 13px;
+    }
+  
+    .tour-prof-edit{
+        flex-direction: column !important;
+    }
+
+    .org-profile-photo {
+        width: 230px;
+        height: 230px;
+    }
+
+    .copmany-infos-block {
+        padding: 25px 10px;
+    }
+
+    .copmany-infos-block .tour-item img{
+        height: 220px;
+    }
+
+    #organizerActions .tour-item .stars i, 
+    #organizerActions .tour-item span,
+    #organizerActions .tour-item i {
+        font-size: 12px;
+    }
+    #organizerActions .tour-item .price, 
+    #organizerActions .tour-item .duration {
+        font-size: 15px;
+    }
+
+    #organizerActions .tour-item .delete-edit-box button,
+    #organizerActions .tour-item .delete-edit-box span{
+        height: 50px;
+    }
+
+    #organizerActions .tour-item .title{
+        flex-direction: column !important;
+    }
+
+    #organizerActions .tour-item .title a{
+        margin-bottom: 10px;
+    }
+    .edit-photo-box img {
+        height: 300px;
+    }
+
+    .mob-column{
+        flex-direction: column;
+    }
+
+    #tourDescription .col-12{
+        padding: 0px;
+    }
+    .header-menu{
+        margin-top: 10px;
+    }
+
+    .table td, .table th {
+        padding: 5px !important;
+    }
+    .menu_btn{
+        padding: 5px 7px;
+        margin: 12px 0px;
+        width: 38px;
+        height: 33px;
+    }
+
+    .wactop-logo {
+        width: 140px !important;
+    }
+
+    .tour-edit-photos img{
+        height: 250px;
+    }
+
+    .current-maplink{
+        display: none;
+    }
+
+    .org-register-form label{
+        font-size: 13px;
+    }
 }
+
 
 
 @media (max-width: 450px){
@@ -515,4 +755,19 @@
         height: 100px;
     }
 
+    .profile-photo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .username{
+        display: none;
+    }
+
+    .tour-edit-photos img{
+        height: 230px;
+    }
+    .company-admin-container a {
+        height: 190px;
+    }
 }

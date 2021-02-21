@@ -129,21 +129,16 @@ def TourDetailView(request, pk):
     image = TourImage.objects.filter(tour=tour)
     schedule = TourSchedule.objects.filter(tour=tour)
     url = TourUrl.objects.filter(tour=tour)
-    lang = request.GET.get('lang')
-    if lang:
-        if lang == 'az':
-            detail = TourDetailAZ.objects.filter(tour=tour)
-            description = tour.descriptionaz
-        elif lang == 'ru':
-            detail = TourDetailRU.objects.filter(tour=tour)
-            description = tour.descriptionru
-        elif lang == 'en':
-            detail = TourDetailEN.objects.filter(tour=tour)
-            description = tour.descriptionen
-    else:
-        detail = TourDetailEN.objects.filter(tour=tour)
-        description = tour.descriptionen
-        lang = 'en'
+
+    description = {
+        'detail_az' : TourDetailAZ.objects.filter(tour=tour),
+        'description_az' : tour.descriptionaz,
+        'detail_ru' : TourDetailRU.objects.filter(tour=tour),
+        'description_ru' : tour.descriptionru,
+        'detail_en' : TourDetailEN.objects.filter(tour=tour),
+        'description_en' : tour.descriptionen
+    }
+    
         
     if request.method == 'POST':
         form = TourCommentForm(request.POST)
@@ -228,12 +223,10 @@ def TourDetailView(request, pk):
     context = {
         'top_tours': top_tours,
         'tour': tour,
-        'detail': detail,
         'image': image,
         'schedule': schedule,
         'url': url,
         'description': description,
-        'lang': lang,
         'form' : form,
         'comments' : tour.tour_comment.filter(comment_reply__isnull=True),
         'comments_count': tour.tour_comment.all()

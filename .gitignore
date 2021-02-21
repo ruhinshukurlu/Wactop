@@ -1,12 +1,12 @@
 .venv
 .vscode
 edit.txt
-.postgresdb
+.postgresdb/
 *.pyc
 __pycache__/
 docker-compose copy.yml
-_development
-pgdb
-redisdb
+_development/
+pgdb/
+redisdb/
 
 =3.2

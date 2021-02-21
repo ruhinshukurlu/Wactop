@@ -54,13 +54,12 @@
         align-items: center;
       }
       #notification-bell{
-          width: 50%;
+          width: 150px;
+          height: 150px;
           height: auto;
 
       }
-      #notification-box{
-        width: 300px;
-      }
+      
       .user-profile .fa-bell{
             margin-left: 15px;
             border-left: 1px solid;
@@ -70,18 +69,45 @@
         .user-profile:hover .header-menu{
             display: flex;
             flex-direction: column;
+            z-index: 1100;
         }
+
+    .live_notify_badge{
+        color: black !important;
+    }
+
+    .not-point{
+        position: absolute;
+        top: 0;
+        right: 0px;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: rgb(83, 151, 253);
+    }
+
+    .close{
+        padding: 5px 10px !important;
+        border-radius: 5px;
+    }
+    .close:hover {
+        color: #000;
+        background-color: #ccc;
+        text-decoration: none;
+    }
 </style>
 <header id="header">
     <div class="container-fluid">
         <div class="row justify-content-between mr-0 ml-0">
             <div class="left">
-                <button type="button" class="menu_btn menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <a href="{% url 'main:home' %}">
-                    <img src="{% static 'images/wactop.png' %}" width="180px" class="wactop-logo" alt="">
-                </a>
+                <div class="d-flex align-center">
+                    <button type="button" class="menu_btn menu-btn">
+                        <img src="{% static 'images/menu.svg' %}" width="100%" alt="">
+                    </button>
+                    <a href="{% url 'main:home' %}">
+                        <img src="{% static 'images/wactop.png' %}" width="180px" class="wactop-logo" alt="">
+                    </a>
+                </div>
             </div>
             <div class="align-center">
                 {% if request.user.is_authenticated %}
@@ -92,7 +118,10 @@
                             {% else %}
                                 <img src="{% static 'images/profile.png' %}"  alt="">
                             {% endif %}
-                            <span class="ml-2">{{request.user.username}} <i class="fas fa-angle-down"></i></span>
+                            <span class="ml-2">
+                                <span class="username">{{request.user.username}}</span> 
+                                <i class="fas fa-angle-down"></i>
+                            </span>
                         </div>
                         <div class="header-menu" >
                             <nav>
@@ -121,13 +150,22 @@
                     </div>
                     {% if request.user.is_organizer %}
                         <div class="user-profile">
-                            <div class="d-flex justify-content-center align-center">
+                            <div class="d-flex justify-content-center align-center p-relative">
                                 <i class="far fa-bell"></i>
-                            </div>
-                            <div class="header-menu" id="notification-box">
                                 {% if user.notifications.unread.exists %}
-                                    <a href="{% url 'notifications:unread' %}"> You have <strong> {% live_notify_badge %}</strong> Notifications</a>
-                                {% else %}
+                                    <div class="not-point"></div>
+                                {% endif %}
+                            </div>
+                            <div class="header-menu p-2" id="notification-box">
+                                {% if user.notifications.unread.exists %}
+                                    <div class="d-flex">
+                                        <img src="{% static 'images/bell-ring.svg' %}" alt="" style="width: 120px; height: 120px; border-radius: 0; margin: 10px;">
+                                        <div class="d-column justify-content-around ml-2">
+                                            <a href="{% url 'notifications:unread' %}"> You have <strong>{% live_notify_badge %}</strong> new notifications</a>
+                                            <a href="{% url 'notifications:unread' %}" class="btn btn-mob btn-outline-primary">Go To Notifications</a>
+                                        </div>
+                                    </div>
+                                    {% else %}
                                     <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
                                     <p class="bold text-center" style="color: #000;" >Nothing to see here, you’re all caught up!</p>
                                 {% endif %}
@@ -139,34 +177,45 @@
                 <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog login-modal" >
                         <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
-                        <form class="" method="post" action="{% url 'main:home' %}">
-                            {% csrf_token %}
-                            <div class="login-container">
-                                <h4 class="text-center mb-3" style="color: rgb(112, 111, 111);">Sing-In</h4>
-                                <hr>
-                                <div class="form-group row">
-                                    <div class="col-sm-12  d-flex justify-content-center">
-                                        {{login.username}}
-                                        {{login.username.errors}}
+                            
+                            <form class="" method="post" action="{% url 'main:home' %}">
+                                {% csrf_token %}
+                                <div class="login-container">
+                                    <div class="row">
+                                        <div class="col-2"></div>
+                                        <div class="col-8">
+                                            <h4 class="text-center mb-3" style="color: rgb(112, 111, 111);">Sing-In</h4>
+                                        </div>
+                                        <div class="col-2">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row" >
-                                    <div class="col-sm-12 d-flex justify-content-center">
-                                        {{login.password}}
-                                        {{login.password.errors}}
+                                    <hr>
+                                    <div class="form-group row">
+                                        <div class="col-sm-12  d-flex justify-content-center">
+                                            {{login.username}}
+                                            {{login.username.errors}}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group row mt-3">
-                                    <div class="col-sm-12 d-flex justify-content-center">
-                                    <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
+                                    <div class="form-group row" >
+                                        <div class="col-sm-12 d-flex justify-content-center">
+                                            {{login.password}}
+                                            {{login.password.errors}}
+                                        </div>
                                     </div>
-                                </div>
+                                    <div class="form-group row mt-3">
+                                        <div class="col-sm-12 d-flex justify-content-center">
+                                        <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
+                                        </div>
+                                    </div>
 
-                                <div class="form-group row justify-content-end d-flex">
-                                <a href="{% url 'account:password_reset' %}" class="float-right mr-3">Forgot password?</a>
+                                    <div class="form-group row justify-content-end d-flex">
+                                    <a href="{% url 'account:password_reset' %}" class="float-right mr-3">Forgot password?</a>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
                         <div class="row">
                             <form class="full p-2">
                             <div class="form-group d-column social-login">
@@ -193,7 +242,17 @@
                     <div class="modal-dialog register-modal" role="document">
                         <div class="modal-content" style="background-color: #ebebeb;">
                             <div class="modal-body d-column">
-                                <h4 class="full text-center mb-3 pb-2 border-bottom">Register</h4>
+                                <div class="row  mb-3 pb-2 border-bottom">
+                                    <div class="col-2"></div>
+                                    <div class="col-8">
+                                        <h4 class="full text-center">Register</h4>
+                                    </div>
+                                    <div class="col-2">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                </div>
                                 <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
                                 Register as Organizer
                                 </a>
@@ -206,8 +265,8 @@
                     </div>
                     <nav class="header-left-bottom">
                         <ul class='mb-0'>
-                            <li class='mr-2'><button type="button" class="loginBtn" data-toggle="modal" data-target="#loginModal">Login</a></li>
-                            <li><button type="button" class="registerBtn" data-toggle="modal" data-target="#registerModal">Register</a></li>
+                            <li class='mr-2'><button type="button" class="loginBtn f-size-sm-13" data-toggle="modal" data-target="#loginModal">Login</a></li>
+                            <li><button type="button" class="registerBtn f-size-sm-13" data-toggle="modal" data-target="#registerModal">Register</a></li>
                         </ul>
                     </nav>
                 {% endif %}

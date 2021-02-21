@@ -13,11 +13,12 @@
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- <link rel="stylesheet" href="assets/css/style.css"> -->  
 
-    <link rel="stylesheet" href="{% static 'css/register.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'css/register.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
     <style>
       input, textarea{
@@ -30,130 +31,172 @@
   {% include 'partials/header.html' %}
   {% include 'partials/main-menu.html' %}
 <main class="pt-5">
-    <div class="container custom-container mt-5 mb-5 bg-white shadow">
-        <div class="row">
+    <div class="container custom-container mt-5 mb-5">
+        <div class="inner-container bg-white shadow">
+          <div class="row">
             <div class="col-12 pt-3">
-                <form class="form-box" method="POST" enctype="multipart/form-data">
-                {% csrf_token %}
-                    <div class="form-group p-relative">
-                        <div class="cover-img-box">
-                            <div class="d-flex p-absolute add-cover-img-box">
-                                <label for="coverimgInp" class="add-img-label bold"><i class="fas fa-camera"></i></i></label>
-                                {{form.cover_image}}
-                                {{form.cover_image.errors}}
-                            </div>
-                            <img id="cover" src="{% static 'images/default-organizer.jpg' %}" alt="Your cover image" style="width: 100%;height: 100%; object-fit: cover;" />
-                        </div>
-                        <div class="profile-img-box">
-                            <div class="d-flex p-absolute add-img-box">
-                                <label for="profileimgInp" class="add-img-label bold"><i class="fas fa-camera"></i></i></label>
+                <form method="POST" class="org-register-form" enctype="multipart/form-data">
+                  {% csrf_token %}
+                  <div class="form-group row p-relative" style="margin-bottom: 80px;">
+                    <!-- Tour Cover Photo -->
+                    <div class="d-flex add-img-box cover-img-box"> 
+                        <label for="coverimgInp"><i class="fas fa-camera mr-2"></i>Cover Photo</label>
+                        {{form.cover_image}}
+                        {{form.cover_image.errors}}
+                    </div>
+                    <img id="coverPhoto" class="cover-photo" src="{% static 'images/org-cover-4.jpg' %}" alt="your image" />
+                    
+                    <!-- Tour Profile Photo -->
+                    <div class="tour-profile-photo">
+                        <div class="p-relative org-logo-bg">
+                            <div class="d-flex add-img-box org-logo-box label-bg">
+                                <label for="profileimgInp">
+                                    <i class="fas fa-camera"></i>
+                                </label>
                                 {{form.profile_image}}
                                 {{form.profile_image.errors}}
+                                
                             </div>
-                            <!-- <img class="default-img" src="./assets/images/profile2.png" alt="" style="width: 100%;height: 100%; object-fit: cover;" > -->
-                            <img id="profile" src="{% static 'images/profile2.png' %}" alt="your image" />
+                            <img id="profilePhoto" class="profile-photo" src="{% static 'images/org-logo-1.png' %}" alt="your image" />
                         </div>
                     </div>
-                    <div class="form-group row justify-content-center f-size mt-4">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.organizer_name.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.organizer_name}}
-                          {{form.organizer_name.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.username.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.username}}
-                          {{form.username.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.email.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.email}}
-                          {{form.email.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.password1.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.password1}}
-                          {{form.password1.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.password2.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.password2}}
-                          {{form.password2.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.description.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.description}} 
-                          {{form.description.errors}}  
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="inputPassword" class="col-sm-2 col-form-label pl-0 pr-0">{{form.about.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.about}}
-                          {{form.about.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.address.label_tag}}</label>
-                      <div class="col-sm-7">
-                        {{form.address}}
-                        {{form.address.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.contact_number1.label_tag}}</label>
-                      <div class="col-sm-7">
-                        {{form.contact_number1}}
-                        {{form.contact_number1.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.contact_number2.label_tag}}</label>
-                      <div class="col-sm-7">
-                        {{form.contact_number2}}
-                        {{form.contact_number2.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.website.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.website}}
-                          {{form.website.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.facebook.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.facebook}}
-                          {{form.facebook.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                      <label for="staticEmail" class="col-sm-2 col-form-label pl-0 pr-0">{{form.instagram.label_tag}}</label>
-                      <div class="col-sm-7">
-                          {{form.instagram}}
-                          {{form.instagram.errors}}
-                      </div>
-                    </div>
-                    <div class="form-group row justify-content-center f-size">
-                        <div class="col-9 justify-content-end d-flex">
-                          <input type="submit" value="Register" class="btn btn-outline-success">
-                        </div>
-                    </div>
+                </div>
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.organizer_name.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.organizer_name}}
+                      {{form.organizer_name.errors}}
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.username.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.username}}
+                      {{form.username.errors}}
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.email.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.email}}
+                      {{form.email.errors}}
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.password1.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.password1}}
+                      {{form.password1.errors}}
+                  </div>
+                </div>
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.password2.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.password2}}
+                      {{form.password2.errors}}
+                  </div>
+                </div>
+                
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.description.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.description}}
+                      {{form.description.errors}}
+                  </div>
+                </div>
+
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.about.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.about}}
+                      {{form.about.errors}}
+                  </div>
+                </div>
+
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.address.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.address}}
+                      {{form.address.errors}}
+                  </div>
+                </div>
+
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.contact_number1.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.contact_number1}}
+                      {{form.contact_number1.errors}}
+                  </div>
+                </div>
+               
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.contact_number2.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.contact_number2}}
+                      {{form.contact_number2.errors}}
+                  </div>
+                </div>
+                
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.website.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.website}}
+                      {{form.website.errors}}
+                  </div>
+                </div>
+                
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.facebook.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.facebook}}
+                      {{form.facebook.errors}}
+                  </div>
+                </div>
+                
+                <div class="form-group row justify-content-center f-size mt-3">
+                  <div class="col-12 col-sm-3">
+                      {{form.instagram.label_tag}}
+                  </div>
+                  <div class="col-12 col-sm-9">
+                      {{form.instagram}}
+                      {{form.instagram.errors}}
+                  </div>
+                </div>
+                   
+                <div class="form-group row  f-size">
+                  <div class="col-12 d-flex justify-content-end">
+                    <input type="submit" value="Register" class="btn btn-outline-success btn-mob">
+                  </div>
+                </div>
 
                  
                 </form>
             </div>
+        </div>
         </div>
     </div>
 </main>
@@ -166,6 +209,27 @@
     <script src="{% static 'js/owl.carousel.js' %}"></script>
     <script src="{% static 'js/owl.carousel.min.js' %}"></script>
     <script src="{% static 'js/main.js' %}"></script>
+
+    <script>
+        function readURL(input,place) {
+           if (input.files && input.files[0]) {
+               var reader = new FileReader();
+
+                reader.onload = function (e) {
+                   $(place).attr('src', e.target.result);
+                }
+               reader.readAsDataURL(input.files[0]);
+           }
+       }
+
+        $("#profileimgInp").change(function(){
+            readURL(this,$('#profilePhoto'));
+        });
+
+        $("#coverimgInp").change(function(){
+            readURL(this,$('#coverPhoto'));
+        });
+    </script>
 </body>
 
 </html>

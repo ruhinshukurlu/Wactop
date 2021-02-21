@@ -126,6 +126,7 @@
                                             <div class="card-body">
                                                 <div class="title border-bottom mb-3">
                                                     {{activity.title|capfirst|truncatechars:25 }}
+                                                    
                                                 </div>
                                                 <div class="d-column">
                                                     <div class="d-flex mb-2 align-center">
@@ -157,7 +158,11 @@
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>
-                                                            {{activity.durationday}} days
+                                                            {% if activity.get_duration_day %}
+                                                                {{activity.get_duration_day}} days
+                                                            {% else %}
+                                                                Always
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

@@ -7,6 +7,8 @@ urlpatterns = [
     path('edit/<int:pk>', OrganizerEditView.as_view(), name='organizer_edit'),
 
     path('register/', OrganizerRegisterView.as_view(), name='organizer-register'),
+    path("register/complete/", OrgRegisterComplete.as_view(), name="register-complete"),
+
     path('profile', OrganizerProfile.as_view(), name='organizer-profile'),
     path('add/tour', OrganizerTour, name='add_tour'),
     path('add/training', OrganizerTraining, name='add_training'),

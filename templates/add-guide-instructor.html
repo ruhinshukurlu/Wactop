@@ -5,7 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Add Guides & Instructors</title>
+    <title>
+        {% if worker %}
+            Add Guides & Instructors
+        {% else %}
+            Edit Informations
+        {% endif %}
+        
+    </title>
 
     <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
 
@@ -16,6 +23,8 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+
     
 </head>
 
@@ -25,22 +34,30 @@
     {% include 'partials/main-menu.html' %}
 
   
-    <main class="full-h">
-        <div class="row justify-content-center full-h">
-            <div class="col-2 p-0 bg-white " id="menu-column">
+    <main>
+        <div class="row justify-content-center p-relative">
+            <div class="col-xl-3 p-0" id="menu-column" >
                 {% include 'partials/organizer-menu.html' %}
+                <button type="button" id="organizer-menu-btn">
+                    <i class="fas fa-angle-right"></i>
+                </button>
             </div>
-            <div class="col-10">
-                <div class="custom-container mt-5 mb-5">
+            <div class="col-12 col-sm-10 col-lg-8">
+                <div class="custom-container mt-5 mb-5 guides-instructors min-full-height">
                     <h3 class="full bold border-bottom pb-2 mb-4">
-                        Add New {{worker}}
+                        {% if worker %}
+                            Add New {{worker}}
+                        {% else %}
+                            Edit Informations
+                        {% endif %}
+                        
                     </h3>
                     
                     <div class="inner-container">
                         <div class="row d-flex justify-content-end mb-5">
-                            <div class="row full">
+                            <div class="row full mb-5">
                                 <div class="form-box full mt-5 pt-5 shadow">
-                                    <form method="POST" class="full">
+                                    <form method="POST" class="full add-guide-form">
                                         {% csrf_token %}
                                         <div class="form-group row">
                                             <div class="col-3">
@@ -96,6 +113,8 @@
     
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/organizer.js' %}"></script>
+
 
     <script>
         function readURL(input,place) {

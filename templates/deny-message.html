@@ -17,7 +17,7 @@
 
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
-
+    <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
     <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
 
     
@@ -29,23 +29,27 @@
     {% include 'partials/main-menu.html' %}
 
     <style>
-        .contact-bg{
+         .contact-bg{
             width: 100%;
             height: 100%;
         }
         
-        .contact-form-container{
-            position: absolute;
-            top: 50%;  /* position the top  edge of the element at the middle of the parent */
-            left: 50%; /* position the left edge of the element at the middle of the parent */
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }   
 
         .form-box{
             margin: 0 70px;
         }
 
+        @media (max-width: 1200px) {
+            .form-box{
+                margin: 0 10px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .form-box{
+                margin: 0;
+            }
+        }
         .contact-btn{
             background-color: #fff;
             color: #4CAEFF;
@@ -67,40 +71,49 @@
             font-family: 'Font Awesome 5 Brands';
         }
 
+        main{
+            background-image: url("{% static 'images/contact-bg.jpeg' %}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 70px 0px;
+        }
+
     </style>
   
     <main>
-        <div class="contact-bg">
-            <img src="{% static 'images/contact-bg.jpeg' %}" alt="" class="full">
-        </div>
-        <div class="custom-container contact-form-container">
-            <div class="row justify-content-center mb-5">
-                <h1 class="full text-center bold mb-2">Write message to {{object.organizer.organizer_name}}</h1>
-                <span class="bold">about {{object}}. This message will be sent to email address of organizer</span>
-            </div>
-            <div class="row justify-content-center">
-                <div class="col-3  align-center">
-                    <img src="{% static 'images/letter.svg' %}" alt="" class="full">
+            <div class="custom-container contact-form-container">
+                {% if request.user.is_superuser %}
+                <div class="row justify-content-center mb-5">
+                    <h1 class="full text-center bold mb-2">Write message to {{object.organizer.organizer_name}}</h1>
+                    <span class="bold">about {{object}}. This message will be sent to email address of organizer</span>
                 </div>
-                <div class="col-6">
-                    <div class="form-box shadow">
-                        <form method="POST">
-                            {% csrf_token %}
-                            <div class="form-group row">
-                                {{form.message}}
-                                {{form.messgae.errors}}
-                            </div>
-                            <div class="form-group row justify-content-end">
-                                <input type="submit" value="Send Message" class="btn contact-btn">
-                            </div>
-                        </form>
+                <div class="row justify-content-center">
+                    <div class="col-3  align-center contact-letter-box">
+                        <img src="{% static 'images/letter.svg' %}" alt="" class="full">
+                    </div>
+                    <div class="col-lg-6 col-12 col-sm-9">
+                        <div class="form-box shadow">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="form-group row">
+                                    {{form.message}}
+                                    {{form.messgae.errors}}
+                                </div>
+                                <div class="form-group row justify-content-end">
+                                    <input type="submit" value="Send Message" class="btn contact-btn">
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
+                {% else %}
+                    <h4 class="full text-center" style="min-height: 500px;">You don't have access to this action!!!</h4>
+                {% endif %}
             </div>
-        </div>
+        
     </main>
 
-    {% include 'partials/footer.html' %}
     
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

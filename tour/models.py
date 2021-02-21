@@ -51,7 +51,7 @@ class Tour(models.Model):
     distance = models.CharField(max_length=31, blank=True, null=True)
     durationday = models.IntegerField(blank=True, null=True)
     durationnight = models.IntegerField(blank=True, null=True)
-    datefrom = models.DateField()
+    datefrom = models.DateField(blank=True, null=True)
     dateto = models.DateField(blank=True, null=True)
     viewcount = models.IntegerField(default=0, blank=True, null=True)
     avatar = models.ImageField(upload_to='tour/avatar/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
@@ -74,6 +74,16 @@ class Tour(models.Model):
     def discount_price(self):
         new_price = self.price - (self.price * self.discount) // 100
         return new_price
+
+    def get_duration_day(self):
+        if self.datefrom and self.dateto:
+            start_date = self.datefrom
+            end_date = self.dateto
+            return (end_date-start_date).days
+        else:
+            return False
+        
+
     # def save(self, *args, **kwargs):
     #     if self.old_status != self.status:
     #         if self.status == 1:

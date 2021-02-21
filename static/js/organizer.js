@@ -1,3 +1,6 @@
+  
+
+
 var photo_box = $('#photo-form-box').children('.photo-item')
 var photo_count = 1
 // console.log(photo_box);
@@ -76,8 +79,11 @@ $('#formControlMenu li').click(function(){
     $('#addTourForm').children().hide()
     $('#addTourForm').children(`#${$(this).data('target')}`).show()
     $('#organizerActions').children().hide()
-    $('#organizerActions').children(`#${$(this).data('target')}`).show()         
-
+    $('#organizerActions').children(`#${$(this).data('target')}`).show()
+    console.log('okkk');         
+    if($(window).width() < 577){
+        $('.form-steps-btn').trigger('click')
+    }
 })
 
 $('.next_btn').click(function(){
@@ -128,6 +134,8 @@ $('#trip_date').change(function(e){
         var answer = confirm('All Year Availability. This will hide dates from your tour.')
         if(answer){
             $('#start-end-date-box').hide(200)
+            $('#id_datefrom').removeAttr('required')
+            $('#id_dateto').removeAttr('required')
         }else{
             $($('#trip_date').children()[0]).removeAttr('selected');
             $($('#trip_date').children()[0]).attr('selected','true');
@@ -136,12 +144,15 @@ $('#trip_date').change(function(e){
     }
     else if(e.target.value == 'one_time'){
         $('#start-end-date-box').show(200)
+        $('#id_datefrom').attr('required','true')
+        $('#id_dateto').attr('required','true')
     }
 })
 
 var btn_right_position = $('#organizer-menu-btn').css('right') 
 console.log(btn_right_position);
 $('#organizer-menu-btn').click(function(){
+    $('.org-menu-box').show(100)
     if ($(window).width() < 972) {
         console.log('okk');
         $('#org-menu-nav').toggle()
@@ -150,11 +161,44 @@ $('#organizer-menu-btn').click(function(){
     else{
         $('#org-menu-nav').find('span').toggle(100)
     }
-   
-   
-//    $('#organizer-menu-btn').find('i').css({
-//         transform: 'rotate(180deg)'
-//     });
+
+    if(degree == 180){
+        $('.fa-angle-right').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 0
+    }
+    else{
+        $('.fa-angle-right').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 180
+    }
+
+})
+
+$('.org-menu-box').click(function(){
+    if ($(window).width() < 972) {
+        console.log('okk');
+        $('#org-menu-nav').toggle()
+        $('#org-menu-nav').find('span').toggle(100)
+    }
+    else{
+        $('#org-menu-nav').find('span').toggle(100)
+    }
+    if(degree == 180){
+        $('.fa-angle-right').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 0
+    }
+    else{
+        $('.fa-angle-right').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 180
+    }
+    $(this).fadeOut(100)
 })
 
 var org_menu_a_list = $('#org-menu-nav').find('li')
@@ -182,3 +226,5 @@ $('.form-steps-btn').click(function(){
     }
     
 })
+
+

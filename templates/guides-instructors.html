@@ -39,17 +39,17 @@
                 </button>
             </div>
             <div class="col-xl-11">
-                <div class="custom-container mt-5 mb-5">
+                <div class="custom-container mt-5 mb-5 guides-instructors min-full-height">
                     <div class="row d-flex justify-content-end mb-5">
                         <h3 class="full bold border-bottom pb-2 mb-4">
                             Instructors & Guides
                         </h3>
                         <div class="d-flex link-box">
-                            <a href="{% url 'organizer:add-instructor' %}">
+                            <a href="{% url 'organizer:add-instructor' %}" class="btn-mob">
                                 <i class="fas fa-plus-circle mr-1"></i>
                                 Add Instructor
                             </a>
-                            <a href="{% url 'organizer:add-guide' %}">
+                            <a href="{% url 'organizer:add-guide' %}"  class="btn-mob">
                                 <i class="fas fa-plus-circle mr-1"></i>
                                 Add Guide
                             </a>
@@ -78,11 +78,11 @@
                                             <td>{{instructor.surname}}</td>
                                             <td>{{instructor.experience}}</td>
                                             <td>{{instructor.certification}}</td>
-                                            <td>
-                                                <a href="{% url 'organizer:instructor-edit' instructor.pk %}" class="btn btn-outline-success mr-2">
+                                            <td >
+                                                <a href="{% url 'organizer:instructor-edit' instructor.pk %}" class="btn btn-outline-success mr-2 btn-mob">
                                                     <i class="far fa-edit"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target='#instructor_id_{{instructor.pk}}'>
+                                                <button type="button" class="btn btn-outline-danger btn-mob" data-toggle="modal" data-target='#instructor_id_{{instructor.pk}}'>
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                                 <div class="modal fade" id="instructor_id_{{instructor.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -144,10 +144,10 @@
                                             <td>{{guide.experience}}</td>
                                             <td>{{guide.certification}}</td>
                                             <td>
-                                                <a href="{% url 'organizer:guide-edit' guide.pk %}" class="btn btn-outline-success mr-2">
+                                                <a href="{% url 'organizer:guide-edit' guide.pk %}" class="btn btn-outline-success mr-2 btn-mob">
                                                     <i class="far fa-edit"></i>
                                                 </a>
-                                                <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target='#guide_id_{{guide.pk}}'>
+                                                <button type="button" class="btn btn-outline-danger btn-mob" data-toggle="modal" data-target='#guide_id_{{guide.pk}}'>
                                                     <i class="far fa-trash-alt"></i>
                                                 </button>
                                                 <div class="modal fade" id="guide_id_{{guide.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -188,53 +188,7 @@
         </div>
     </main>
 
-    <footer>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-4">
-                    <nav class="footer-menu">
-                        <ul class="d-column">
-                            <li>
-                                <a href="#">About Us</a>
-                            </li>
-                            <li>
-                                <a href="#">Terms</a>
-                            </li>
-                            <li>
-                                <a href="#">Privacy</a>
-                            </li>
-                        </ul>
-                        <p><i class="far fa-copyright"></i> 2019</p>
-                    </nav>
-                </div>
-                <div class="col-4">
-                    <div class="d-column align-center">
-                        <span class="mb-2 mt-2">Follow Us</span>
-                        <ul class="footer-social-links" >
-                            <li>
-                                <a href="#">
-                                    <i class="fab fa-facebook-square"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="#">
-                                    <i class="fab fa-linkedin"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-4 d-flex justify-content-end">
-                    <a href="#">Contact</a>
-                </div>
-            </div>
-        </div>
-    </footer>
+    {% include 'partials/footer.html' %}
     
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>

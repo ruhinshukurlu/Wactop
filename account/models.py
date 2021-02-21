@@ -22,6 +22,7 @@ class User(AbstractUser):
     
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+    activated = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'username'    
     REQUIRED_FIELDS = []
@@ -43,10 +44,12 @@ class User(AbstractUser):
 
 @receiver(post_save,sender=User)
 def send_user_data_when_created_by_admin(sender, instance, **kwargs):
-    if instance.is_active and instance.is_organizer:
+    if instance.is_active and instance.is_organizer and not instance.activated:
         email = instance.email
         html_content = "you Organizer is activated by admin"
         send_mail('Hello', html_content ,  EMAIL_HOST_USER, [email])
+        instance.activated = True
+        instance.save()
 
 class Customer(models.Model):
     

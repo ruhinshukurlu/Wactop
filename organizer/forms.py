@@ -71,15 +71,8 @@ class OrganizerPhotoEditForm(forms.ModelForm):
         model = TrainingImage
         fields = ('image', )
 
-class TourForm(forms.ModelForm):
 
-    class Meta:
-        model = Tour
-        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
-
-TourInlineFormSet = inlineformset_factory(Tour, TourDetailEN, extra=1, fields = ('title_en', 'text_en'), can_delete=True)
-
-
+# Tour app
 class OrganizerTourForm(forms.ModelForm):
     title = forms.CharField(label='Tour Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
     country = forms.CharField(label='Country', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Country...'}))
@@ -148,7 +141,6 @@ class OrganizerTourForm(forms.ModelForm):
         }
 
 
-
 class OrganizerTourDetailEnForm(forms.ModelForm):
 
     title_en = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
@@ -157,6 +149,7 @@ class OrganizerTourDetailEnForm(forms.ModelForm):
     class Meta:
         model = TourDetailEN
         fields = ('title_en', 'text_en', )
+
 
 class OrganizerTourDetailAzForm(forms.ModelForm):
 
@@ -178,7 +171,6 @@ class OrganizerTourDetailRuForm(forms.ModelForm):
         fields = ('title_ru', 'text_ru', )
 
 
-
 class OrganizerTourImageForm(forms.ModelForm):
 
     image = forms.FileField(label = 'Select Photo', widget = forms.ClearableFileInput(attrs={
@@ -189,6 +181,7 @@ class OrganizerTourImageForm(forms.ModelForm):
         model = TourImage
         fields = ('image', )
 
+
 class OrganizerTourScheduleForm(forms.ModelForm):
 
     schedule_image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
@@ -198,6 +191,7 @@ class OrganizerTourScheduleForm(forms.ModelForm):
     class Meta:
         model = TourSchedule
         fields = ('schedule_image', )
+
 
 class OrganizerTourURLForm(forms.ModelForm):
 
@@ -213,6 +207,7 @@ class OrganizerTourURLForm(forms.ModelForm):
         }
 
 
+#Activity app
 class OrganizerActivityForm(forms.ModelForm):
     title = forms.CharField(label='Activity Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
     country = forms.CharField(label='Country', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Country...'}))
@@ -234,7 +229,7 @@ class OrganizerActivityForm(forms.ModelForm):
     
     class Meta:
         model = Activity
-        fields = [ 'title','city','country','address','guide','descriptionen','descriptionaz','descriptionru', 'activity_type', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
+        fields = [ 'title','city','country','address','guide','descriptionen','descriptionaz','descriptionru', 'activity_type', 'price', 'pricefor', 'currency','discount', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
 
         widgets = {
 
@@ -254,6 +249,10 @@ class OrganizerActivityForm(forms.ModelForm):
             }),
             'currency' : forms.Select(attrs={
                 'class' : 'custom-select',
+            }),
+            'discount' : forms.NumberInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Discount'
             }),
             'activity_type' : forms.Select(attrs={
                 'class' : 'custom-select',
@@ -286,6 +285,7 @@ class OrganizerActivityDetailEnForm(forms.ModelForm):
         model = ActivityDetailEN
         fields = ('title_en', 'text_en', )
 
+
 class OrganizerActivityDetailAzForm(forms.ModelForm):
 
     title_az = forms.CharField(label='Activity Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
@@ -304,6 +304,7 @@ class OrganizerActivityDetailRuForm(forms.ModelForm):
     class Meta:
         model = ActivityDetailEN
         fields = ('title_ru', 'text_ru', )
+
 
 class OrganizerActivityURLForm(forms.ModelForm):
 
@@ -329,6 +330,7 @@ class OrganizerActivityImageForm(forms.ModelForm):
         model = ActivityImage
         fields = ('image', )
 
+
 class OrganizerActivityScheduleForm(forms.ModelForm):
 
     schedule_image = forms.FileField(label = 'Select Schedule', widget = forms.ClearableFileInput(attrs={
@@ -339,7 +341,7 @@ class OrganizerActivityScheduleForm(forms.ModelForm):
         model = ActivitySchedule
         fields = ('schedule_image', )
 
-
+#Training app
 class OrganizerTrainingForm(forms.ModelForm):
     title = forms.CharField(label='Tour Title', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Enter Title'}))
     country = forms.CharField(label='Country', widget=forms.TextInput(attrs={'class': 'form-input','placeholder' : 'Country...'}))
@@ -371,7 +373,7 @@ class OrganizerTrainingForm(forms.ModelForm):
     
     class Meta:
         model = Training
-        fields = ['title', 'descriptionen','descriptionaz','descriptionru', 'training_type', 'country', 'city','address', 'price', 'pricefor', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'start_hour', 'finish_hour', 'avatar', 'cover', 'trainer','map_link']
+        fields = ['title', 'descriptionen','descriptionaz','descriptionru', 'training_type', 'country', 'city','address', 'price', 'pricefor','discount', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'start_hour', 'finish_hour', 'avatar', 'cover', 'trainer','map_link']
 
         widgets = {
 
@@ -391,6 +393,10 @@ class OrganizerTrainingForm(forms.ModelForm):
             }),
             'currency' : forms.Select(attrs={
                 'class' : 'custom-select',
+            }),
+            'discount' : forms.NumberInput(attrs={
+                'class' : 'form-input',
+                'placeholder' : 'Discount'
             }),
             'training_type' : forms.Select(attrs={
                 'class' : 'custom-select',
@@ -444,6 +450,7 @@ class OrganizerTrainingDetailRuForm(forms.ModelForm):
         model = TrainingDetailEN
         fields = ('title_ru', 'text_ru', )
 
+
 class OrganizerTrainingURLForm(forms.ModelForm):
 
     class Meta:
@@ -482,19 +489,19 @@ class OrganizerTrainingScheduleForm(forms.ModelForm):
 
 class OrganizerEditForm(forms.ModelForm):
 
-    descriptionen = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
-    # descriptionaz = forms.CharField(label = 'Description in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
-    # descriptionru = forms.CharField(label = 'Description in Russia', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
-    
+   # description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
+     
     class Meta:
         model = Organizer
-        fields = ['organizer_name', 'email', 'descriptionen', 'organizer_type', 'about', 'website', 'facebook', 'instagram', 'address', 'contact_number_1', 'contact_number_2', 'profile_photo', 'cover']
+        fields = ['organizer_name', 'email', 'description', 'organizer_type', 'about', 'website', 'facebook', 'instagram', 'address', 'contact_number_1', 'contact_number_2', 'profile_photo', 'cover']
 
         widgets = {
             'organizer_type' : forms.Select(attrs={
                 'class' : 'custom-select'
             }),
-            'descriptionen' : forms.Textarea(attrs={
+            'description' : forms.Textarea(attrs={
+                'class': 'form-input', 
+                'placeholder' : 'Enter short description about organizer...',
                 'rows' : '5'
             }),
             'about' : forms.Textarea(attrs={

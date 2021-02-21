@@ -17,12 +17,6 @@ import json
 
 
 
-
-
-
-
-
-
 class ActivityListView(ListView):
     model = Activity
     context_object_name = 'activities'
@@ -109,21 +103,16 @@ def ActivityDetailView(request, pk):
     image = ActivityImage.objects.filter(activity=activity)
     schedule = ActivitySchedule.objects.filter(activity=activity)
     url = ActivityUrl.objects.filter(activity=activity)
-    lang = request.GET.get('lang')
-    if lang:
-        if lang == 'az':
-            detail = ActivityDetailAZ.objects.filter(activity=activity)
-            description = activity.descriptionaz
-        elif lang == 'ru':
-            detail = ActivityDetailRU.objects.filter(activity=activity)
-            description = activity.descriptionru
-        elif lang == 'en':
-            detail = ActivityDetailEN.objects.filter(activity=activity)
-            description = activity.descriptionen
-    else:
-        detail = ActivityDetailEN.objects.filter(activity=activity)
-        description = activity.descriptionen
-        lang = 'en'
+
+    description = {
+        'detail_az' : ActivityDetailAZ.objects.filter(activity=activity),
+        'description_az' : activity.descriptionaz,
+        'detail_ru' : ActivityDetailRU.objects.filter(activity=activity),
+        'description_ru' : activity.descriptionru,
+        'detail_en' : ActivityDetailEN.objects.filter(activity=activity),
+        'description_en' : activity.descriptionen
+    }
+
     
 
     if request.method == 'POST':
@@ -200,12 +189,10 @@ def ActivityDetailView(request, pk):
     context = {
         'top_activities':top_activities,
         'tour': activity,
-        'detail': detail,
         'image': image,
         'schedule': schedule,
         'url': url,
         'description': description,
-        'lang': lang,
         'form' : form,
         'comments' : activity.activity_comment.filter(comment_reply__isnull=True),
         'comments_count': activity.activity_comment.all()

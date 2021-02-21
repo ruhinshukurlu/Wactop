@@ -54,21 +54,23 @@ class Activity(models.Model):
     def __init__(self, *args, **kwargs):
         super(Activity, self).__init__(*args, **kwargs)
         self.old_status = self.status
-    # def save(self, *args, **kwargs):
-    #     if self.old_status != self.status:
-    #         if self.status == 1:
-    #             if self.organizer.email:
-    #                 message = """
-    #                     Your post has been verificiated
-    #                     Visit https://www.wactop.com"""
-    #                 sendemail(self.organizer.email, message)
-    #     super(Activity, self).save(*args, **kwargs)
-    def __str__ (self):
-        return self.title
+
+    def get_duration_day(self):
+        if self.datefrom and self.dateto:
+            start_date = self.datefrom
+            end_date = self.dateto
+            return (end_date-start_date).days
+        else:
+            return False
 
     def discount_price(self):
         new_price = self.price - (self.price * self.discount) // 100
         return new_price
+    
+    def __str__ (self):
+        return self.title
+
+        
 
 class ActivityDetailAZ(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)

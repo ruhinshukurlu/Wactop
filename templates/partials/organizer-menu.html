@@ -1,7 +1,7 @@
 
 {% load static %}
 <nav class="organizer-menu bg-white full-h shadow" id="org-menu-nav">
-    <ul class="d-column">
+    <ul class="d-column bg-white ">
         <li>
             <a href="{% url 'organizer:detail' request.user.organizer.pk %}">
                 <div class="align-center">
@@ -77,4 +77,5 @@
         
     </ul>
 </nav>
+<div class="org-menu-box" style="display: none;"></div>
 

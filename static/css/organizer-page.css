@@ -1,5 +1,5 @@
 body{
-    background-color: #F2F2F2;
+    background-color: #F2F6F7;
 }
 
 
@@ -8,9 +8,18 @@ body{
 }
 .menu_btn{
     border: 1px solid #f7F9F9;
-    border-radius: 5px;
-    width: 40px;
+    border-radius: 3px;
+    width: 45px;
     height: 40px;
+    padding: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .4s;
+}
+
+.menu_btn:hover{
+    border: 1px solid #f7F9F9;
 }
 
 .menu_btn i{
@@ -345,7 +354,7 @@ input[type="date"]{
 }
 
 #org-menu-nav{
-    z-index: 1;
+    z-index: 3;
 }
 .mob-org-menu{
     display: none;
@@ -521,6 +530,11 @@ box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
 .saved-item .description{
     font-size: 18px;
     color: #565656;
+}
+
+.organizer-list .saved-item .description{
+    height: 70px;
+    overflow: hidden;
 }
 
 .saved-item .price{
@@ -762,7 +776,8 @@ h4{
 
 /* main menu css */
 
-.menu-box{
+.menu-box,
+.org-menu-box{
     position: fixed;
     width: 100%;
     height: 100%;
@@ -772,6 +787,9 @@ h4{
     left: 0;
 }
 
+.org-menu-box{
+    background-color: rgba(0,0,0,.4);
+}
 
 .menu-box-in{
     position: fixed;
@@ -878,6 +896,9 @@ h4{
     color: #f73f3f;
     border: 1px solid #f73f3f;
     transition: .4s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .delete-edit-box .delete-btn:hover{
@@ -984,4 +1005,65 @@ h4{
 
 .about-box{
     margin: 0 70px;
+}
+
+.detail-btn{
+    color: #febd69 !important;
+    background-color: #fff;
+    border: 1px solid #febd69;
+    padding: 5px 10px;
+    border-radius: 5px;
+    transition: .4s;
+    font-weight: bold;
+}
+
+.detail-btn:hover{
+    background-color: #febd69;
+    color: #fff !important;
+}
+
+#addTourForm{
+    min-height: 100vh;
+}
+
+.edit-photo-box a{
+    display: none;
+}
+
+.edit-photo-label label{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #4CAEFF;
+    padding: 3px 0;
+    border-radius: 5px;
+    margin: 0;
+}
+
+
+.org-logo-bg{
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 50%;
+    border: 1px solid #47a7f7;
+}
+
+.org-logo-box{
+    position: absolute;
+    bottom: 5px;
+    right: 0px;
+}
+
+.org-logo-box label{
+    margin: 0px;
+    cursor: pointer;
+}
+
+.label-bg{
+    background-color: rgba(0,0,0,0.6);
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
 }

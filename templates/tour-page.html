@@ -98,8 +98,15 @@
         flex-direction: column;
         padding: 10px;
         width: 200px;
+        z-index: 10;
     }
         
+    @media (max-width : 577px) {
+        .edit-delete-box{
+            right: 25px;
+            width: 160px;
+        }
+    }
     </style>
 </head>
 
@@ -110,18 +117,18 @@
     {% if tour.organizer == request.user.organizer %}
     <div class="edit-delete-box shadow" >
         {% if tour.status == 3 %}
-            <button type="button" class="btn btn-outline-success full mb-2" disabled>Finished</button> 
+            <button type="button" class="btn-mob btn btn-outline-success full mb-2" disabled>Finished</button> 
         {% else %}
         <form action="{% url 'organizer:finish-tour' tour.pk %}" method="post" class="mb-2">
             {% csrf_token %}
-            <button type="submit" class="btn btn-outline-success full">Finish Tour</button>
+            <button type="submit" class="btn-mob btn btn-outline-success full">Finish Tour</button>
         </form>
         {% endif %}
-        <a href="{% url 'organizer:tour-edit' tour.pk %}" class="btn btn-outline-primary mb-2">
+        <a href="{% url 'organizer:tour-edit' tour.pk %}" class="btn-mob btn btn-outline-primary mb-2">
             <i class="fas fa-edit"></i> 
             Edit Tour
         </a>
-        <button style="outline: none;" class="btn btn-outline-danger" type="button" data-toggle="modal" data-target="#tourDeleteModal">
+        <button style="outline: none;" class="btn-mob btn btn-outline-danger" type="button" data-toggle="modal" data-target="#tourDeleteModal">
             <i class="fas fa-trash-alt"></i>
             Delete Tour
         </button>
@@ -132,13 +139,13 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Delete Tour</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Delete Training</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <p class="bold text-center">Are you sure to delete tour?</p>
+                <p class="bold text-center">Are you sure to delete this tour?</p>
 
             </div>
             <div class="modal-footer">
@@ -156,7 +163,7 @@
     <div class="">
             <div class="head-bottom head-bottom-img position-relative ">
                 
-                <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/organizer/image2.jpg' %}{%endif%}" alt="" class="back-img" />
+                <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/image2.jpg' %}{%endif%}" alt="" class="back-img" />
                 <div class="d-md-none company-mobile-image position-absolute d-flex justify-content-center align-items-center ">
                     <img src="{%if tour.avatar%}{{tour.avatar.url}}{%else%}{% static 'images/default.png' %}{%endif%}" alt="">
                 </div>
@@ -180,14 +187,12 @@
                                     <div class="bottom-right">
                                         <div class="location">{% if tour.address %} {{tour.address}}{% else %}...{% endif %} </div>
                                         <div class="select-langs">
-                                            <form action="{% url 'tour:detail' tour.id %}">
-                                                <select class="select-style" name='lang' onchange="this.form.submit()">
-                                                  <option value="" selected hidden disabled>{{lang|capfirst}}</option>
-                                                  <option value="en">En</option>
-                                                  <option value="az">Az</option>
-                                                  <option value="ru">Ru</option>
-                                                </select>
-                                            </form>
+                                            <select class="select-style" name='lang' id="langSelect">
+                                                <option value="" selected hidden disabled>En</option>
+                                                <option value="en">En</option>
+                                                <option value="az">Az</option>
+                                                <option value="ru">Ru</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -204,20 +209,62 @@
             <div class="container main-tour-container shadow">
                 <div class="row">
                     <div class="col-lg-7">
-                        <div class="left">
-                            <p class="pt-4 word">
-                                {{description|capfirst|safe}}
-                            </p>
-                            <nav class="details">
-                                {% for i in detail %}
-                                <div class="visible">
-                                    <p><b>{{i.title_en|capfirst}}:</b></p>
-                                    <p>{{i.text_en|capfirst}}</p>
-                                </div>
-                                {% endfor %} {% if detail %}
-                                <span onclick="readmore()" style="color: #63a3eb;" class="readmore"><strong>Read more</strong></span> {%endif%}
-                            </nav>
+                        <div class="left" id="detailBox">
+                            <div class="d-column" data-target="en">
+                                <p class="pt-4 word">
+                                    {{description.description_en|capfirst|safe}}
+                                </p>
+                                {% if description.detail_en %}
+                                    <nav class="details">
+                                        {% for i in description.detail_en %}
+                                        <div class="visible">
+                                            <p><b>{{i.title_en|capfirst}}:</b></p>
+                                            <p>{{i.text_en|capfirst}}</p>
+                                        </div>
+                                        {% endfor %} 
+                                    </nav>
+                                {% else %}
+                                    <p class="text-center full bold mt-2">No detail added in this language.</p>
+                                {%endif%}
+                                
+                            </div>
+                            
+                            <div class="d-column" data-target="az" style="display: none;">
+                                <p class="pt-4 word">
+                                    {{description.description_az|capfirst|safe}}
+                                </p>
+                                {% if description.detail_az %}
+                                <nav class="details">
+                                    {% for i in description.detail_az %}
+                                    <div class="visible">
+                                        <p><b>{{i.title_az|capfirst}}:</b></p>
+                                        <p>{{i.text_az|capfirst}}</p>
+                                    </div>
+                                    {% endfor %} 
+                                </nav>
+                                {% else %}
+                                    <p class="text-center full bold mt-2">Bu dildə heç bir məlumat əlavə edilməyib.</p>
+                                {% endif %}
+                            </div>
 
+                            <div class="d-column" data-target="ru" style="display: none;">
+                                <p class="pt-4 word">
+                                    {{description.description_ru|capfirst|safe}}
+                                </p>
+                                {% if description.detail_ru %}
+                                    <nav class="details">
+                                        {% for i in description.detail_ru %}
+                                        <div class="visible">
+                                            <p><b>{{i.title_ru|capfirst}}:</b></p>
+                                            <p>{{i.text_ru|capfirst}}</p>
+                                        </div>
+                                        {% endfor %} 
+                                    </nav>
+                                {% else %}
+                                    <p class="text-center full bold mt-2">Никаких подробностей на этом языке не добавлено.</p>
+                                {% endif %}
+                            </div>
+                            
                         </div>
                     </div>
                     <div class="col-lg-3 middle-container tour-details">
@@ -403,28 +450,28 @@
                                                 <h5 class="full bold border-bottom mb-2 pb-2">Give Your Rating</h5>
                                                 <ul class="rating-menu d-column full m-0">
                                                     <li class="d-flex">
-                                                        <div class="starsBox"> 
-                                                            <input type="radio" id="rate-5" name="rating" value="5" > 
-                                                            <label for="rate-5" class="d-flex justify-content-center align-items-center">
-                                                                <i class="fas fa-star"></i>
-                                                            </label> 
-                                                            <input type="radio" id="rate-4" name="rating" value="4"> 
-                                                            <label for="rate-4" class="d-flex justify-content-center align-items-center">
-                                                                <i class="fas fa-star"></i>
-                                                            </label> 
-                                                            <input type="radio" id="rate-3" name="rating" value="3"> 
-                                                            <label for="rate-3" class="d-flex justify-content-center align-items-center">
-                                                                <i class="fas fa-star"></i>
-                                                            </label> 
-                                                            <input type="radio" id="rate-2" name="rating" value="2"> 
-                                                            <label for="rate-2" class="d-flex justify-content-center align-items-center">
-                                                                <i class="fas fa-star"></i>
-                                                            </label> 
-                                                            <input type="radio" id="rate-1" name="rating" value="1"> 
-                                                            <label for="rate-1" class="d-flex justify-content-center align-items-center">
-                                                                <i class="fas fa-star"></i>
-                                                            </label> 
-                                                        </div>  
+                                                        <div class="star-rating">
+                                                            <input id="star-5" type="radio" name="rating" value="5" />
+                                                            <label for="star-5" title="5 stars">
+                                                              <i class="active fa fa-star" aria-hidden="true"></i>
+                                                            </label>
+                                                            <input id="star-4" type="radio" name="rating" value="4" />
+                                                            <label for="star-4" title="4 stars">
+                                                              <i class="active fa fa-star" aria-hidden="true"></i>
+                                                            </label>
+                                                            <input id="star-3" type="radio" name="rating" value="3" />
+                                                            <label for="star-3" title="3 stars">
+                                                              <i class="active fa fa-star" aria-hidden="true"></i>
+                                                            </label>
+                                                            <input id="star-2" type="radio" name="rating" value="2" />
+                                                            <label for="star-2" title="2 stars">
+                                                              <i class="active fa fa-star" aria-hidden="true"></i>
+                                                            </label>
+                                                            <input id="star-1" type="radio" name="rating" value="1" />
+                                                            <label for="star-1" title="1 star">
+                                                              <i class="active fa fa-star" aria-hidden="true"></i>
+                                                            </label>
+                                                        </div> 
                                                     </li>
                                                 </ul>
                                             </div>
@@ -487,11 +534,20 @@
                                                             </div>
                                                             <div class="d-flex full justify-content-between mt-3">
                                                                 <div class="price">
-                                                                    {{tour.price}} {{tour.currency}}
+                                                                    {% if tour.discount %}
+                                                                        {{tour.discount_price}} {{tour.currency}}
+                                                                        <span style="text-decoration: line-through; font-weight: bold;">{{tour.price}} {{tour.currency}}</span>
+                                                                    {% else %}
+                                                                        {{tour.price}} {{tour.currency}}
+                                                                    {% endif %}
                                                                 </div>
                                                                 <div class="duration align-center">
                                                                     <i class="far fa-clock mr-1"></i>
-                                                                    {{tour.durationday}} days
+                                                                    {% if tour.get_duration_day %}
+                                                                        {{tour.get_duration_day}} days
+                                                                    {% else %}
+                                                                        Always
+                                                                    {% endif %}
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -520,28 +576,26 @@
 
     {% include 'partials/footer.html' %}
 
-
+    <script>
+       $('.show-reply-btn').click(function(){
+           $(this).parents('.comment-parent').find('.comment-item').slideToggle(200)
+       })
+    </script>
 
     <script>
-        details = document.querySelectorAll(".details .visible")
-        for (let i = 1; i < details.length; i++) {
-            details[i].style.display = "none"
-        }
 
-        function readmore() {
-            if (details[1].style.display == "none") {
-                document.querySelector(".readmore").innerHTML = "<strong>Read less</strong/>"
-                for (let i = 1; i < details.length; i++) {
-                    details[i].style.display = "block"
-                }
-            } else {
-                document.querySelector(
-                    ".readmore").innerHTML = "<strong>Read more</strong/>"
-                for (let i = 1; i < details.length; i++) {
-                    details[i].style.display = "none"
+        $('#langSelect').change(function(e){
+            var selected_lang = $('#langSelect option:selected').val()
+            var detail_boxs = $('#detailBox').children()
+            detail_boxs.slideUp(100)
+            for (let index = 0; index < detail_boxs.length; index++) {
+                const detail_box = detail_boxs[index];
+                console.log(detail_box);
+                if($(detail_box).data('target') == selected_lang){
+                    $(detail_box).slideDown(100)
                 }
             }
-        }
+        })
 
 
     </script>

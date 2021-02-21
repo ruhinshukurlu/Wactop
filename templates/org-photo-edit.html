@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Photo</title>
+    <title>Update Photo</title>
     <link rel="icon"  type="image/png" href="{% static 'images/wactop-fav-4.png' %}">
 
     <!-- Bootstrap Css -->
@@ -63,27 +63,27 @@
             </div>
             <div class="col-xl-11">
                 {% if request.user.organizer == photo.organizer %}
-                    <div class="custom-container mt-5">
+                    <div class="custom-container mt-5 min-full-height">
                         <div class="row d-flex justify-content-end" style="margin-bottom: 100px;">
-                            <h3 class="full bold border-bottom pb-2 mb-4">Edit Photo</h3>
+                            <h3 class="full bold border-bottom pb-2 pl-sm-0 pl-2 mb-4">Edit Photo</h3>
                             <div class="row full justify-content-center mb-3 edit-photo-box">
-                                <div class="col-6">
+                                <div class="col-12 col-sm-6">
                                     <h4 class="full bold border-bottom pb-2 mb-3">
                                         Current Photo
                                     </h4>
                                     <img src="{{photo.image.url}}" alt="">
                                 </div>
-                                <div class="col-6 p-relative">
+                                <div class="col-12 col-sm-6 p-relative">
                                     <h4 class="full bold border-bottom pb-2 mb-3">
                                         New Photo
                                     </h4>
                                     <img src="{% static 'images/default.png' %}" id='choosen-photo' alt="">
                                 </div>
                             </div>
-                            <div class="row">
-                                <form method="POST" enctype="multipart/form-data" class="d-flex">
+                            <div class="row full p-2">
+                                <form method="POST" enctype="multipart/form-data" class="d-flex mob-column full  justify-content-end d-flex">
                                     {% csrf_token %}
-                                    <div class="d-flex">
+                                    <div class="d-flex pb-4 pb-sm-0 pl-2 pl-sm-0">
                                         <div class="d-flex add-img-box" id="add-img-box" >
                                             {{form.image}}
                                             <label for="id_image" class="align-center m-0 change-photo-btn">
@@ -92,10 +92,10 @@
                                             </label>
                                         </div>
                                     </div>
-                                    <button type="button" class="btn btn-outline-danger ml-2 delete-btn" data-toggle="modal" data-target="#deletePhotoModal">
+                                    <button type="button" class="btn btn-outline-danger ml-2 delete-btn mb-3 mb-sm-0 p-2" data-toggle="modal" data-target="#deletePhotoModal">
                                         <i class="far fa-trash-alt mr-2"></i>
                                         Delete Photo</button>
-                                    <input type="submit" value="Save" class="btn btn-outline-success ml-2 save-btn">
+                                    <input type="submit" value="Save" class="btn btn-outline-success ml-2 save-btn p-2 mb-3 mb-sm-0">
                                 </form>
                             </div>
                         </div>

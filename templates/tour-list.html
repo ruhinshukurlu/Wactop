@@ -152,7 +152,6 @@
                                                     </div>
                                                     <div class="d-flex full justify-content-between mt-3">
                                                         <div class="price">
-                                                            
                                                             {% if tour.discount %}
                                                                 {{tour.discount_price}} {{tour.currency}}
                                                                 <span style="text-decoration: line-through; font-weight: bold;">{{tour.price}} {{tour.currency}}</span>
@@ -163,7 +162,11 @@
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>
-                                                            {{tour.durationday}} days
+                                                            {% if tour.get_duration_day %}
+                                                                {{tour.get_duration_day}} days
+                                                            {% else %}
+                                                                Always
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                 </div>

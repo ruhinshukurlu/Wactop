@@ -150,9 +150,19 @@
 }
 @media (max-width: 767px) {
     .messgae-icon{
-        width: 60px;
-        height: 60px;
+        width: 150px;
+        height: 150px;
         margin-bottom: 30px;
+    }
+    .tour-details {
+        font-size: 13px;
+    }
+    .comment-author i{
+        font-size: 13px;
+    }
+
+    .tour-details h3{
+        font-size: 20px;
     }
 }
 @media (max-width: 524px) {

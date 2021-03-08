@@ -10,10 +10,12 @@ channels==3.0.2
 chardet==3.0.4
 click==7.1.2
 constantly==15.1.0
+cryptography==3.1.1
 daphne==3.0.1
 defusedxml==0.7.0rc1
 Django==3.0.4
 django-3-jet==1.0.8
+django-filter==2.4.0
 django-model-utils==4.1.1
 django-multiselectfield==0.1.12
 django-notifications-hq==1.6.0
@@ -29,6 +31,7 @@ msgpack==1.0.2
 msgpack-python==0.5.6
 oauthlib==3.1.0
 Pillow==7.0.0
+pkg-resources==0.0.0
 psycopg2-binary==2.8.6
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
@@ -49,6 +52,7 @@ sqlparse==0.3.1
 swapper==1.1.2.post1
 Twisted==20.3.0
 txaio==20.12.1
+typing-extensions==3.7.4.3
 urllib3==1.25.10
 uvicorn==0.13.2
 zope.interface==5.2.0

@@ -253,19 +253,7 @@
                                                     </div>
                                                     
                                                 </div>
-                                                <div class="form-group row">
-                                                    <label for="" class="col-3">Duration Day & Night</label>
-                                                    <div class="col-9">
-                                                        <div class="full row">
-                                                            <div class="col-6 pl-0">
-                                                                {{tour_form.durationday}}
-                                                            </div>
-                                                            <div class="col-6 pr-0">
-                                                                {{tour_form.durationnight}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                
                                                 <div class="form-group row">
                                                     <label for="" class="col-3">Start & End Date</label>
                                                     <div class="col-9 ">
@@ -296,7 +284,11 @@
                                                         {% if tour_form.map_link %}
                                                             <div class="align-center mb-2 current-maplink">
                                                                 <span>Current : </span>
-                                                                <a class="f-size-13" href="{{tour_form.map_link.value}}">{{tour_form.map_link.value}}</a>
+                                                                {% if tour_form.map_link.value %}
+                                                                    <a class="f-size-13" href="{{tour_form.map_link.value}}" target="blank">{{tour_form.map_link.value}}</a>
+                                                                {% else %}
+                                                                    <span>You didn't include map link</span>
+                                                                {% endif %}
                                                             </div>
                                                         {% endif %}
                                                         <div class="d-flex">

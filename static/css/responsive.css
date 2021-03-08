@@ -10,11 +10,7 @@
         padding:20px 55px;
     }
 }
-@media (max-width : 768px){
-    .modal-content{
-        width: 50%;
-    }
-}
+    
 @media (max-width : 576px){
     .form-box {
         width: 100%;
@@ -74,7 +70,7 @@
         width: 20px;
     }
     .modal-content{
-        width: 80%;
+        width: 100%;
     }
     #main{
         min-height: 510px;

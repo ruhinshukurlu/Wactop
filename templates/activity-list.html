@@ -39,9 +39,9 @@
     <main>
 
         <div class="search-block">
-            <form method='GET'  class="tour-search">
+            <form class="tour-search" id="searchForm">
                 <div class="d-flex ">
-                    <input type="text" name='q' class="search-input">
+                    <input type="text" name='q' id="serachInput" class="search-input">
                     <button type="submit" class="search_btn" style="outline: none;">
                         <i class="fas fa-search"></i>
                     </button>
@@ -49,136 +49,132 @@
             </form>
         </div>
 
-        <div class="custom-container bg-white mt-4 shadow pt-4">
+        <div class="custom-container bg-white mt-4 shadow pt-4 min-full-height">
             <div class="inner-container ">
-                <div class="row">
-                    <nav role="navigation" class="full">
-                        <ul class="filter-menu-list d-flex align-center"> 
-                            <span>
-                                <i class="fas fa-sort-amount-down-alt mr-1"></i>
-                                Filter
-                            </span>
-                          <li><a  class="align-center">Price
-                            <i class="fas fa-angle-down ml-2"></i>
-                            </a>
-                            <ul class="dropdown">
-                                    <li><a href="?price=high"><button type="submit" name="price"  value="high">High</button></a></li>
-                                    <li><a href="?price=low"><button type="submit" name="price"  value="low">Low</button></a></li>
-                              </ul>
-                          </li>
-                          <li><a  class="align-center">Rating
-                            <i class="fas fa-angle-down ml-2"></i>
-                            </a>
-                            <ul class="dropdown">
-                                    <li><a href="?rating=high"><button type="submit" name="rating"  value="high">High</button></a></li>
-                                    <li><a href="?rating=low"><button type="submit" name="rating"  value="low">Low</button></a></li>
-                            </ul>
-                          </li>
-                          <li><a  class="align-center">Country
-                            <i class="fas fa-angle-down ml-2"></i>
-                            </a>
-                            <ul class="dropdown">
-                                    {% for country in countries %}
-                                        <li><a href="?country={{country}}"><button type="submit" name="country"  value="{{country}}">{{country|capfirst}}</button></a></li>
-                                    {% endfor %}
-                            </ul>
-                          </li>
-                          <li><a  class="align-center">Travel style
-                            <i class="fas fa-angle-down ml-2"></i>
-                            </a>
-                            <ul class="dropdown">
-                                    {% for activity_type in activity_types %}
-                                        <li><a href="?style={{activity_type}}"><button type="submit" name="style"  value="{{activity_type}}">{{activity_type|capfirst}}</button></a></li>
-                                    {% endfor %}
-                            </ul>
-                          </li>
-                          <li><a  class="align-center">Duration
-                            <i class="fas fa-angle-down ml-2"></i>
-                            </a>
-                            <ul class="dropdown">
-                                    <li><a href="?duration=long"><button type="submit" name="duration"  value="long">Long</button></a></li>
-                                    <li><a href="?duration=short"><button type="submit" name="duration"  value="short">Short</button></a></li>
-                            </ul>
-                          </li>
-                          <li><a  class="align-center">Discount
-                            <i class="fas fa-angle-down ml-2"></i>
-                            </a>
-                            <ul class="dropdown">
-                                <li><a href="?discount=True">Discount</a></li>
-                            </ul>
-                          </li>
-                        </ul>
-                    </nav>
-                </div>
-
-                <div class="row tour-list">
-                    {% if activities %}
-                        {% for activity in activities %}
-                            <div class="col-12 col-lg-3 col-md-4 col-sm-6">
-                                <div class="tour-item">
-                                    <a href="{% url 'activity:detail' activity.pk %}" class="full">
-                                        <div class="d-column full">
-                                            {% if activity.avatar %}
-                                                <img src="{{activity.avatar.url}}" alt="">
-                                            {% else %}
-                                                <img src="{% static 'images/default.png' %}" alt="">
-                                            {% endif %}
-                                            <div class="card-body">
-                                                <div class="title border-bottom mb-3">
-                                                    {{activity.title|capfirst|truncatechars:25 }}
-                                                    
-                                                </div>
-                                                <div class="d-column">
-                                                    <div class="d-flex mb-2 align-center">
-                                                        <div class="stars d-flex mr-2" data-value='{{activity.rating}}'>
-                                                            <div class="star"><i class="far fa-star star-active"></i></div>
-                                                            <div class="star"><i class="far fa-star star-active"></i></div>
-                                                            <div class="star"><i class="far fa-star star-active"></i></div>
-                                                            <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                            <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                        </div> 
-                                                        <span>{{activity.activity_comment.count}} reviews</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class="bold mr-2">Location : </span>
-                                                        <span>{{activity.city|capfirst}}, {{activity.country|capfirst}}</span>
-                                                    </div>
-                                                    <div class="d-flex">
-                                                        <span class="bold mr-2">Company : </span>
-                                                        <span>{{activity.organizer.organizer_name}}</span>
-                                                    </div>
-                                                    <div class="d-flex full justify-content-between mt-3">
-                                                        <div class="price">
-                                                            {% if activity.discount %}
-                                                                {{activity.discount_price}} {{activity.currency}}
-                                                                <span style="text-decoration: line-through; font-weight: bold;">{{activity.price}} {{activity.currency}}</span>
-                                                            {% else %}
-                                                                {{activity.price}} {{activity.currency}}
-                                                            {% endif %}
-                                                        </div>
-                                                        <div class="duration align-center">
-                                                            <i class="far fa-clock mr-1"></i>
-                                                            {% if activity.get_duration_day %}
-                                                                {{activity.get_duration_day}} days
-                                                            {% else %}
-                                                                Always
-                                                            {% endif %}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </div>
-                                    </a>
-                                </div>
-                            </div>
-                        {% endfor %} 
-                    {% else %}
-                        <h3 class="full bold text-center" style="height: 400px;">
-                            No Activities found<i class="far fa-folder-open ml-2"></i>
+                <div class="row m-4">
+                    <div class="d-column full">
+                        <h3 class="full text-center bold pb-2 mb-0">
+                            Find The Perfect Activity
                         </h3>
-                    {% endif %}
+                        <span class="text-center">with the help of filters and sortings</span>
+                    </div>
                 </div>
+
+                <div class="row mb-5 filter-list-menu">
+                    <div class="col-6 col-sm-4 col-xl-2">
+                        <div class="d-column">
+                            <button type="button" class="filter-open-btn">
+                                <span>Price</span>
+                                <span class="plus">+</span>
+                            </button>
+                            <div class="check-list">
+                                <select class="custom-select" data-filter="price">
+                                    <option selected value="">Select Option</option>
+                                    <option value="high">High-Low</option>
+                                    <option value="low">Low-High</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                    </div>
+                    <div class="col-6 col-sm-4 col-xl-2">
+                        <div class="d-column">
+                            <button type="button" class="filter-open-btn">
+                                <span>Rating</span>
+                                <span class="plus">+</span>
+                            </button>
+                            <div class="check-list">
+                                <select class="custom-select" data-filter="rating">
+                                    <option selected value="">Select Option</option>
+                                    <option value="high">High-Low</option>
+                                    <option value="low">Low-High</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-xl-2">
+                        <div class="d-column">
+                            <button type="button" class="filter-open-btn">
+                                <span>Duration</span>
+                                <span class="plus">+</span>
+                            </button>
+                            <div class="check-list">
+                                <select class="custom-select" data-filter="duration">
+                                    <option selected value="">Select Option</option>
+                                    <option value="long">Long-Short</option>
+                                    <option value="short">Short-Long</option>
+                                </select>
+                            </div>
+                        </div>
+                       
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-xl-2">
+                        <div class="d-column">
+                            <button type="button" class="filter-open-btn">
+                                <span>Country</span>
+                                <span class="plus">+</span>
+                            </button>
+                            <div class="check-list">
+                                {% for country in countries %}
+                                <div class="form-check">
+                                    <input class="form-check-input styled-checkbox" data-filter="country" type="checkbox"
+                                        onclick="filterData()" value="{{country}}" id="checkbox{{country}}">
+                                    <label class="form-check-label" for="checkbox{{country}}">
+                                        {{country|capfirst}}
+                                    </label>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-xl-2">
+                        <div class="d-column">
+                            <button type="button" class="filter-open-btn">
+                                <span>Travel Style</span>
+                                <span class="plus">+</span>
+                            </button>
+                            <div class="check-list">
+                                {% for activity_type in activity_types %}
+                                    <div class="form-check">
+                                        <input class="form-check-input styled-checkbox" data-filter="style" type="checkbox"
+                                            onclick="filterData()" value="{{activity_type}}" id="checkbox{{activity_type}}">
+                                        <label class="form-check-label" for="checkbox{{activity_type}}">
+                                            {{activity_type|capfirst}}
+                                        </label>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-6 col-sm-4 col-xl-2">
+                        <button type="button" class="filter-open-btn full">
+                            <input class="form-check-input styled-checkbox" type="checkbox" data-filter="discount"  onclick="filterData()" value="true" id="discount">
+                            <label class="form-check-label" for="discount">
+                                Discount
+                            </label>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row full justify-content-center align-center d-flex" id="Loader">
+                        <div class="LoaderBalls">
+                            <div class="LoaderBalls__item"></div>
+                            <div class="LoaderBalls__item"></div>
+                            <div class="LoaderBalls__item"></div>
+                        </div>
+                    </div>
+                    <div id="tourList" style="display: none;" class="tour-list row full">
+
+                    </div>
+                </div>
+
+               
                
                 <div class="row mt-5">
                     <div class="col text-center">
@@ -214,13 +210,237 @@
 
     {% include 'partials/footer.html' %}
 
+    <script>
+        const api_url = "http://127.0.0.1:8000/api/activities/";
+
+        async function getapi(url) {
+            const response = await fetch(url);
+            var data = await response.json();
+
+            console.log(data);
+            show(data.results);
+        }
+
+        getapi(api_url);
+
+
+        function show(data) {
+
+            let tour_item = ''
+
+            for (var i = 0; i < data.length; i++) {
+                let tour = data[i]
+
+                tour_item +=
+                    `<div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                        <div class="tour-item">
+                            <a href="${tour.id}" class="full">
+                                <div class="d-column full">
+                                        <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
+                                    <div class="card-body">
+                                        <div class="title border-bottom mb-3">
+                                            ${tour.title}
+                                        </div>
+                                        <div class="d-column">
+                                            <div class="d-flex mb-2 align-center">
+                                                <div class="stars d-flex mr-2" data-value='${tour.rating}'>
+                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                    <div class="star"><i class="far fa-star star-active"></i></div>
+                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                </div> 
+                                                <span>${tour.comment_list.length} reviews</span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class="bold mr-2">Location : </span>
+                                                <span>${tour.city}, ${tour.country}</span>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span class="bold mr-2">Company : </span>
+                                                <span>${tour.organizer_name}</span>
+                                            </div>
+                                            <div class="d-flex full justify-content-between mt-3">
+                                                <div class="price">
+                                                    
+                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`} 
+                                                </div>
+                                                <div class="duration align-center">
+                                                    <i class="far fa-clock mr-1"></i>
+                                                    ${tour.durationday}
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>`;
+            }
+
+            document.getElementById("tourList").innerHTML = tour_item;
+
+            setTimeout(function () {
+                document.getElementById("tourList").style.display = 'flex'
+                $('#Loader').removeClass('d-flex align-center').addClass('d-none')
+                for (let star = 0; star < $('.stars').length; star++) {
+                    var rating_count = parseInt($('.stars').eq(star).data('value'))
+                    for (let count = 0; count < rating_count; count++) {
+                        $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+
+                    }
+                }
+            }, 500)
+        }
+
+    </script>
     
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
 
+    <script>
+        var _filterObj = {};
+        function filterData() {
+
+            $(".form-check-input").each(function (index, ele) {
+                var _filterVal = $(this).val();
+                var _filterKey = $(this).data('filter');
+                _filterObj[_filterKey] = Array.from(document.querySelectorAll('input[data-filter=' + _filterKey + ']:checked')).map(function (el) {
+                    return el.value;
+                });
+            });
+
+            ajaxCall(_filterObj)
+            console.log(_filterObj);
+        }
+
+        $('.custom-select').change(function () {
+            $('.custom-select').each(function (index, element) {
+                var _filterKey = $(element).data('filter');
+                // console.log($(this));
+                _filterObj[_filterKey] = $(element).children(':selected').val()
+            })
+            console.log(_filterObj);
+            ajaxCall(_filterObj)
+        })
+
+        $('#searchForm').submit(function(e){
+            e.preventDefault()
+            _filterObj['search'] = $('#serachInput').val()
+            $('#serachInput').val('')
+            console.log(_filterObj);
+            ajaxCall(_filterObj)
+        })
+
+
+        // Run Ajax  
+        function ajaxCall(filterObj) {
+            $.ajax({
+                url: `http://127.0.0.1:8000/api/activities/`,
+                type: 'GET',
+                data: filterObj,
+                dataType: 'json',
+                success: function (res) {
+                    console.log(res, 'sasasasa');
+                    filteredProducts = $('#tourList')
+
+                    var tour_item = ''
+
+                    if (res.results.length) {
+
+                        for (var i = 0; i < res.results.length; i++) {
+                            let tour = res.results[i]
+
+                            tour_item +=
+                                `<div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                                <div class="tour-item">
+                                    <a href="${tour.id}" class="full">
+                                        <div class="d-column full">
+                                                <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
+                                            <div class="card-body">
+                                                <div class="title border-bottom mb-3">
+                                                    ${tour.title}
+                                                </div>
+                                                <div class="d-column">
+                                                    <div class="d-flex mb-2 align-center">
+                                                        <div class="stars d-flex mr-2" data-value='${tour.rating}'>
+                                                            <div class="star"><i class="far fa-star star-active"></i></div>
+                                                            <div class="star"><i class="far fa-star star-active"></i></div>
+                                                            <div class="star"><i class="far fa-star star-active"></i></div>
+                                                            <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                            <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                        </div> 
+                                                        <span>${tour.comment_list.length} reviews</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class="bold mr-2">Location : </span>
+                                                        <span>${tour.city}, ${tour.country}</span>
+                                                    </div>
+                                                    <div class="d-flex">
+                                                        <span class="bold mr-2">Company : </span>
+                                                        <span>${tour.organizer_name}</span>
+                                                    </div>
+                                                    <div class="d-flex full justify-content-between mt-3">
+                                                        <div class="price">
+                                                            
+                                                            ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`} 
+                                                        </div>
+                                                        <div class="duration align-center">
+                                                            <i class="far fa-clock mr-1"></i>
+                                                            ${tour.durationday}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>`;
+                        }
+                        // console.log(tour_item);
+                    } else {
+                        tour_item = `<h3 class="full bold text-center" >
+                                        No Trainings Matched Query <i class="far fa-folder-open ml-2"></i>
+                                    </h3>`
+                    }
+                    document.getElementById("tourList").style.display = 'none'
+                    $('#Loader').addClass('d-flex align-center').removeClass('d-none')
+                    filteredProducts.html(tour_item)
+
+
+                    setTimeout(function () {
+                        document.getElementById("tourList").style.display = 'flex'
+                        $('#Loader').removeClass('d-flex align-center').addClass('d-none')
+
+                        for (let star = 0; star < $('.stars').length; star++) {
+                            var rating_count = parseInt($('.stars').eq(star).data('value'))
+                            for (let count = 0; count < rating_count; count++) {
+                                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+
+                            }
+                        }
+                    }, 500)
+
+
+                },
+                error: function (res) {
+                    console.log(res, 'error');
+                }
+            });
+
+        }
+
+    </script>
+
 
     <script>
+
+        $('.filter-open-btn').click(function(){
+            $(this).siblings('.check-list').slideToggle(300)
+        })
         function readURL(input,place) {
            if (input.files && input.files[0]) {
                var reader = new FileReader();

@@ -74,6 +74,7 @@ class TourListView(ListView):
         context = super().get_context_data(**kwargs)
         tour_types = TourType.objects.all()
         tour_type_list = []
+        
         if tour_types:
             for tour_type in tour_types:
                 if tour_type.title not in tour_type_list:

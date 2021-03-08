@@ -1,42 +1,156 @@
-from django.shortcuts import render
-from rest_framework import *
-from .serializer import *
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.viewsets import ReadOnlyModelViewSet
-from tour.models import Tour
-from rest_framework.decorators import api_view
+from tour.models import *
+from activity.models import *
+from training.models import *
+from api.serializers import *
+
+from django.http import Http404
+from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView
-from django.contrib.auth.mixins import LoginRequiredMixin
-from rest_framework.permissions import IsAuthenticated
+from rest_framework import status
+import django_filters.rest_framework
+from rest_framework import generics
+from rest_framework import filters
 
 
-class TourApi(ReadOnlyModelViewSet):
-    queryset = Tour.objects.all()
+
+
+class TourList(generics.ListAPIView):
+    queryset = Tour.objects.filter(status=1)
     serializer_class = TourSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+    
     def get_queryset(self):
-        country = self.request.GET.get('country')
-        if country:
-            return Tour.objects.filter(country__icontains=country)
-        low = self.request.GET.get('low')
-        if low:
-            return Tour.objects.all().order_by('price')
-        high = self.request.GET.get('high')
-        if high:
-            return Tour.objects.all().order_by('-price')
-        return super().get_queryset()
+        queryset = super().get_queryset()
 
-class TourDetailApi(ReadOnlyModelViewSet):
-    queryset = Tour.objects.all()
-    serializer_class = TourDetailSerializer
-    def get_queryset(self):
-        pk = self.request.GET.get('id')
-        tour = Tour.objects.filter(pk=pk)
-        az = TourDetailAZ.objects.filter(tour=tour)
-        en = TourDetailEN.objects.filter(tour=tour)
-        ru = TourDetailEN.objects.filter(tour=tour)
+        price_query = self.request.GET.get('price')
+        if price_query:
+            if price_query == 'high':
+                queryset = queryset.order_by('-price')
+            elif price_query == 'low':
+                queryset = queryset.order_by('price')
+            
+        rating_query = self.request.GET.get('rating')
+        if rating_query:
+            if rating_query == 'high':
+                queryset = queryset.order_by('rating')
+            elif rating_query == 'low':
+                queryset = queryset.order_by('-rating')
+            
+        duration_query = self.request.GET.get('duration')
+        if duration_query:
+            if duration_query == 'long':
+                queryset = queryset.order_by('-durationday')
+            elif duration_query == 'short':
+                queryset = queryset.order_by('durationday')
+
+        countries = self.request.GET.getlist('country[]')
+        if countries:
+            print(countries)
+            queryset = queryset.filter(country__in = countries)
         
-        if tour:
-            return tour
-        return super().get_queryset()
+        style_query = self.request.GET.getlist('style[]')
+        if style_query:
+            queryset = queryset.filter(tour_type__title__in=style_query)
+
+        discount_query = self.request.GET.getlist('discount[]')
+        if discount_query:
+            queryset = queryset.filter(discount__gte=1)
+            
+        return queryset
+            
+    
+
+
+class ActivityList(generics.ListAPIView):
+    queryset = Activity.objects.filter(status=1)
+    serializer_class = ActivitySerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        price_query = self.request.GET.get('price')
+        if price_query:
+            if price_query == 'high':
+                queryset = queryset.order_by('-price')
+            elif price_query == 'low':
+                queryset = queryset.order_by('price')
+            
+        rating_query = self.request.GET.get('rating')
+        if rating_query:
+            if rating_query == 'high':
+                queryset = queryset.order_by('rating')
+            elif rating_query == 'low':
+                queryset = queryset.order_by('-rating')
+            
+        duration_query = self.request.GET.get('duration')
+        if duration_query:
+            if duration_query == 'long':
+                queryset = queryset.order_by('-durationday')
+            elif duration_query == 'short':
+                queryset = queryset.order_by('durationday')
+
+        countries = self.request.GET.getlist('country[]')
+        if countries:
+            print(countries)
+            queryset = queryset.filter(country__in = countries)
+        
+        style_query = self.request.GET.getlist('style[]')
+        if style_query:
+            queryset = queryset.filter(activity_type__title__in=style_query)
+
+        discount_query = self.request.GET.getlist('discount[]')
+        if discount_query:
+            queryset = queryset.filter(discount__gte=1)
+            
+        return queryset
+
+
+class TrainingList(generics.ListAPIView):
+    queryset = Training.objects.filter(status=1)
+    serializer_class = TrainingSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title']
+    
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        price_query = self.request.GET.get('price')
+        if price_query:
+            if price_query == 'high':
+                queryset = queryset.order_by('-price')
+            elif price_query == 'low':
+                queryset = queryset.order_by('price')
+            
+        rating_query = self.request.GET.get('rating')
+        if rating_query:
+            if rating_query == 'high':
+                queryset = queryset.order_by('rating')
+            elif rating_query == 'low':
+                queryset = queryset.order_by('-rating')
+            
+        duration_query = self.request.GET.get('duration')
+        if duration_query:
+            if duration_query == 'long':
+                queryset = queryset.order_by('-durationday')
+            elif duration_query == 'short':
+                queryset = queryset.order_by('durationday')
+
+        countries = self.request.GET.getlist('country[]')
+        if countries:
+            print(countries)
+            queryset = queryset.filter(country__in = countries)
+        
+        style_query = self.request.GET.getlist('style[]')
+        if style_query:
+            queryset = queryset.filter(training_type__title__in=style_query)
+
+        discount_query = self.request.GET.getlist('discount[]')
+        if discount_query:
+            queryset = queryset.filter(discount__gte=1)
+            
+        return queryset
+
+

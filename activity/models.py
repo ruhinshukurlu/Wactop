@@ -66,6 +66,24 @@ class Activity(models.Model):
     def discount_price(self):
         new_price = self.price - (self.price * self.discount) // 100
         return new_price
+
+    def discount_price_api(self):  
+        if self.discount: 
+            new_price = self.price - (self.price * self.discount) // 100
+        else:
+            new_price = 0
+        return new_price
+    
+    def get_duration_day_api(self):
+        duration = ''
+        if self.datefrom and self.dateto:
+            start_date = self.datefrom
+            end_date = self.dateto
+            duration = f'{(end_date-start_date).days} days'
+        else:
+            duration = 'Always'
+        
+        return duration
     
     def __str__ (self):
         return self.title

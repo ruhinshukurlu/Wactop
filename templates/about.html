@@ -37,13 +37,7 @@
             height: 100%;
         }
         
-        .contact-form-container{
-            position: absolute;
-            top: 50%;  /* position the top  edge of the element at the middle of the parent */
-            left: 50%; /* position the left edge of the element at the middle of the parent */
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }   
+        
 
        
         .about-box i{
@@ -65,12 +59,18 @@
         .about-box .d-flex a:hover{
             color: rgb(111, 160, 252);
         }
+
+        main{
+            background-image: url("{% static 'images/contact-bg.jpeg' %}");
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding: 50px 0px;
+        }
     </style>
   
     <main>
-        <div class="contact-bg">
-            <img src="{% static 'images/contact-bg.jpeg' %}" alt="" class="full">
-        </div>
+       
         <div class="custom-container contact-form-container">
             <div class="row justify-content-center">
                 <img src="{% static 'images/wactop1.png' %}" alt="" class="about-page-logo">

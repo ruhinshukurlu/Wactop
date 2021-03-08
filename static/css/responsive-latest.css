@@ -325,6 +325,10 @@
     .tour-edit-photos img{
         height: 140px;
     }
+
+    .filter-list-menu div{
+        margin-bottom: 10px;
+    }
 }
 
 @media (max-width : 992px){
@@ -366,6 +370,14 @@
 
     .tour-edit-photos img{
         height: 160px;
+    }
+
+    .company-name-box {
+        padding: 20px 0px 15px 0px;
+    }
+
+    .company-name-box h3{
+        font-size: 25px;
     }
 }
 
@@ -415,6 +427,19 @@
 
     .tour-edit-photos img{
         height: 130px;
+    }
+
+    .info-list{
+        flex-direction: column;
+    }
+    .styled-checkbox+label:before {
+        width: 15px;
+        height: 15px;
+    }
+
+    .styled-checkbox:checked+label:after {
+        left: 2px;
+        top: 8px;
     }
 }
 
@@ -521,7 +546,7 @@
         bottom: -40px;
         left: 20px;
     }
-    .form-input:not(textarea), .custom-select {
+    .form-input:not(textarea), .custom-select, .filter-open-btn {
         height: 35px;
         font-size: 13px;
     }  
@@ -561,13 +586,7 @@
     }
 
     .cover-photo-box .cover-photo {
-        height: 250px;
-    }
-
-    .cover-photo-box .profile-photo {
-        left: 20px;
-        width: 90px;
-        height: 90px;
+        height: 300px;
     }
 
     .cover-photo-box .company-name-box {
@@ -575,9 +594,7 @@
         padding-left: 35%;
     }
 
-    .info-list{
-        flex-direction: column;
-    }
+    
 
     .info-list li {
         margin-right: 0;
@@ -634,6 +651,7 @@
 
     .edit-user-form .col-sm-7{
         padding: 0px;
+        font-size: 13px;
     }
 
     .edit-user-form label{
@@ -746,8 +764,30 @@
     .org-register-form label{
         font-size: 13px;
     }
+
+    .helptext ul li{
+        font-size: 13px;
+    }
+
+    .comp-img-container{
+        justify-content: center;
+    }
+
+    .company-name-box h3{
+        font-size: 20px;
+    }
+
+    .comp-name-container{
+        max-width: 85%;
+    }
 }
 
+
+@media (max-width : 470px){
+    .company-links span{
+        display: none;
+    }
+}
 
 
 @media (max-width: 450px){

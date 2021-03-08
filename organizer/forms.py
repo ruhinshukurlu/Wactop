@@ -88,9 +88,17 @@ class OrganizerTourForm(forms.ModelForm):
     }))
 
     guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
-    descriptionen = forms.CharField(label = 'Tour Description in Engilsh', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
-    descriptionaz = forms.CharField(label = 'Tour Description in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
-    descriptionru = forms.CharField(label = 'Tour Description in Russia', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
+    descriptionen = forms.CharField(
+        label = 'Tour Description in Engilsh', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
+    descriptionaz = forms.CharField(
+        label = 'Tour Description in Azerbaijan', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
+        required = False)
+    descriptionru = forms.CharField(
+        label = 'Tour Description in Russia', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
+        required=False)
     
     class Meta:
         model = Tour
@@ -223,9 +231,17 @@ class OrganizerActivityForm(forms.ModelForm):
     }))
 
     guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
-    descriptionen = forms.CharField(label = 'Activity Description in English', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}))
-    descriptionaz = forms.CharField(label = 'Activity Description in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}))
-    descriptionru = forms.CharField(label = 'Activity Description in Russia', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}))
+    descriptionen = forms.CharField(
+        label = 'Activity Description in English', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}))
+    descriptionaz = forms.CharField(
+        label = 'Activity Description in Azerbaijan', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}),
+        required =False)
+    descriptionru = forms.CharField(
+        label = 'Activity Description in Russia', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}),
+        required=False)
     
     class Meta:
         model = Activity
@@ -367,9 +383,17 @@ class OrganizerTrainingForm(forms.ModelForm):
     }), required=False)
 
     # guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
-    descriptionen = forms.CharField(label = 'Training Description in English', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
-    descriptionaz = forms.CharField(label = 'Training Description in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
-    descriptionru = forms.CharField(label = 'Training Description in Russia', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
+    descriptionen = forms.CharField(
+        label = 'Training Description in English', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
+    descriptionaz = forms.CharField(
+        label = 'Training Description in Azerbaijan', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}),
+        required=False)
+    descriptionru = forms.CharField(
+        label = 'Training Description in Russia', 
+        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}),
+        required=False)
     
     class Meta:
         model = Training

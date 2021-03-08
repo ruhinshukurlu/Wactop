@@ -83,6 +83,7 @@ a:not([href]):hover {
     border: 1px solid #4CAEFF;
     background-color: #fff;
     border-radius: 10px;
+    padding: 0px 20px;
 }
 
 .company-admin-container i{
@@ -279,7 +280,13 @@ input[type="date"]{
     color: #4CAEFF;
     border: 1px solid;
     padding: 5px 20px;
-    border-radius: 5px;    
+    border-radius: 5px;  
+    transition: .4s;  
+}
+
+.add_detail_btn:hover{
+    color: #fff;
+    background-color: #4CAEFF;
 }
 
 .photos-box img{
@@ -629,11 +636,18 @@ h4{
 }
 
 .cover-photo-box .profile-photo{
-    position: absolute;
-    left: 100px;
-    bottom: 10px;
     width: 150px;
     height: 150px;
+}
+
+.company-img-bg{
+    background-color: #37a1f8;
+    padding: 2px;
+    border-radius: 50%;
+    -webkit-box-shadow: 0px 0px 8px 3px rgb(0 196 255);
+    -moz-box-shadow: 0px 8px 3px 0px rgba(0,196,255,1);
+    box-shadow: 0px 0px 8px 3px rgb(0 196 255);
+    border: 1px solid #4CAEFF;
 }
 
 .search_btn {
@@ -647,10 +661,13 @@ h4{
     color: #0093E9;
 }
 
-.cover-photo-box .company-name-box{
-    padding: 10px 300px;
+.comp-name-bg{
     background-color: #0093E9;
     color: #fff;
+}
+
+.company-name-box{
+    padding: 10px 0px;
 }
 
 .info-list,
@@ -1066,4 +1083,159 @@ h4{
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+}
+
+.comp-name-container{
+    max-width: 70%;
+    margin: auto;
+}
+
+.comp-img-container{
+    display: flex;
+    width: 90%;
+    margin: auto;
+}
+
+
+.company-prof-img-box{
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    width: 100%;
+    z-index: 2;
+}
+
+.LoaderBalls {
+    width: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+    .LoaderBalls__item {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #4dabf8;
+    }
+    .LoaderBalls__item:nth-child(1) {
+        animation: bouncing 0.4s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95);
+    }
+    .LoaderBalls__item:nth-child(2) {
+        animation: bouncing 0.4s 0.1s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95) backwards;
+    }
+    .LoaderBalls__item:nth-child(3) {
+        animation: bouncing 0.4s 0.2s alternate infinite cubic-bezier(0.6, 0.05, 0.15, 0.95) backwards;
+    }
+
+    @keyframes bouncing {
+        0% {
+            transform: translate3d(0, 10px, 0) scale(1.2, 0.85);
+        }
+        100% {
+            transform: translate3d(0, -20px, 0) scale(0.9, 1.1);
+        }
+    }
+
+
+.filter-open-btn{
+    padding: 0 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    color: #8C8C8C;
+    height: 45px;
+    display: flex;
+    align-items: center;
+}
+
+.plus{
+    color: #000;
+}
+
+.check-list{
+    display: flex;
+    flex-direction:column ;
+    margin: 20px 0;
+}
+
+.custom-select:focus{
+    box-shadow: none !important;
+}
+
+
+.filter-open-btn{
+    border: 1px solid #4dabf8;
+}
+
+.custom-select option{
+    color: #000;
+}
+
+.check-list{
+    display: none;
+}
+
+.styled-checkbox {
+    position: absolute;
+    opacity: 0;
+}
+
+.styled-checkbox+label {
+    position: relative;
+    cursor: pointer;
+    padding: 0;
+    display: flex;
+}
+
+.styled-checkbox+label:before {
+    content: "";
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: text-top;
+    width: 20px;
+    height: 20px;
+    background: white;
+    border: 1px solid #4dabf8;
+}
+
+.styled-checkbox:hover+label:before {
+    background: #87b8f8;
+}
+
+
+
+.styled-checkbox:checked+label:before {
+    background: #4f9bff;
+}
+
+.styled-checkbox:disabled+label {
+    color: #b8b8b8;
+    cursor: auto;
+}
+
+.styled-checkbox:disabled+label:before {
+    box-shadow: none;
+    background: #ddd;
+}
+
+.styled-checkbox:checked+label:after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 9px;
+    background: white;
+    width: 2px;
+    height: 2px;
+    box-shadow: 2px 0 0 white, 4px 0 0 white, 4px -2px 0 white, 4px -4px 0 white, 4px -6px 0 white, 4px -8px 0 white, 4px -10px 0 white;
+    transform: rotate(45deg);
+}
+
+.unstyled {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.form-check{
+    margin-bottom: 10px;
 }

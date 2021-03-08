@@ -129,7 +129,7 @@
                                      
                                     {% if request.user.is_organizer %}
                                         <li>
-                                            <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name}}</a>
+                                            <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name|truncatechars:20}}</a>
                                         </li>
                                         <li>
                                             <a href="{% url 'organizer:organizer-profile' %}">Organizer Settings</a>
@@ -229,8 +229,8 @@
                             </div>
                             </form>
                             <div class="d-column full mb-3">
-                            <p class="text-center">Are you new?</p>
-                            <a class="text-center" href="#" data-toggle="modal" data-target="#registerModal" >Create your account</a>
+                            <p class="text-center mb-1">Are you new?</p>
+                            <a class="text-center mb-1" href="#" data-toggle="modal" data-target="#registerModal" >Create your account</a>
                             </div>
                         </div>
 

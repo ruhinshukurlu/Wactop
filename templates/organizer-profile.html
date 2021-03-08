@@ -51,7 +51,7 @@
                             <div class="align-center">
                                 <!-- <i class="fas fa-home"></i> -->
                                 <img src="{% static 'images/home.svg' %}"  alt="">
-                                <span>{{request.user.organizer.organizer_name}}</span>
+                                <span>{{request.user.organizer.organizer_name|truncatechars:30}}</span>
                             </div>
                         </a>
                     </div>
@@ -149,7 +149,7 @@
     <script>
         $(document).ready(function(){
            
-            var width = $('.link-box').width()
+            var org_width = $('.link-box').outerWidth()
             $('.link-box').hover(function(){
                 var height = $(this).height()
 
@@ -160,8 +160,8 @@
             }, function(){
                 $(this).animate({
                     borderRadius : '10px',
-                    width : width
-                    })
+                    width : org_width
+                })
             })
         });
     </script>

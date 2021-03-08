@@ -35,6 +35,8 @@
             -moz-box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
             box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
         }
+
+       
     </style>
 </head>
 
@@ -52,15 +54,28 @@
                 <img src="{% static 'images/default.png' %}" class="cover-photo" alt="">
             {% endif %}
 
-            {% if organizer.profile_photo %}
-                <img src="{{organizer.profile_photo.url}}" class="profile-photo" alt="">
-            {% else %}
-                <img src="{% static 'images/default.png' %}" class="profile-photo" alt="">
-            {% endif %}
-            <div class="company-name-box">
-                <h3 class="bold m-0"> 
-                    {{organizer.organizer_name}}
-                </h3>
+            <div class="company-prof-img-box">
+                <div class="comp-img-container">
+                    <div class="company-img-bg">
+                        {% if organizer.profile_photo %}
+                            <img src="{{organizer.profile_photo.url}}" class="profile-photo" alt="">
+                        {% else %}
+                            <img src="{% static 'images/default.png' %}" class="profile-photo" alt="">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        <div class="full comp-name-bg">
+            <div class="comp-name-container">
+                <div class="row">
+                    <div class="company-name-box">
+                        <h3 class="bold m-0"> 
+                            {{organizer.organizer_name}}
+                        </h3>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -69,14 +84,14 @@
                 
                 <div class="col-lg-8">
                     
-                    <div class="mb-5 pl-3">
+                    <div class="mb-5 pl-sm-3">
                         <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
                         <p class="description">
                             {{organizer.description}}
                         </p>
                     </div>
                     
-                    <div class="pl-3"> 
+                    <div class="pl-sm-3"> 
                         <ul class="info-list border-bottom pb-2 mb-4">
                             <li>
                                 <div class="align-center mr-1">
@@ -97,25 +112,25 @@
                         <h5 class="full bold border-bottom pb-2 mb-3">Social Links</h5>
                         <ul class="company-links">
                             <li>
-                                <div class="align-center mr-1">
+                                <div class="mr-1">
                                     <i class="fas fa-external-link-alt"></i>
                                     Website : 
                                 </div>
-                                <a href="{{organizer.website}}" target="blank">{{organizer.organizer_name}} Website Address</a>
+                                <a href="{{organizer.website}}" target="blank"><span>{{organizer.organizer_name|truncatechars:30}}</span> Website Address</a>
                             </li>
                             <li>
                                 <div class="align-center mr-1">
                                     <i class="fas fa-external-link-alt"></i>
                                     Facebook : 
                                 </div>
-                                <a href="{{organizer.facebook}}" target="blank">{{organizer.organizer_name}} FaceBook Address</a>
+                                <a href="{{organizer.facebook}}" target="blank"><span>{{organizer.organizer_name|truncatechars:30}}</span> FaceBook Address</a>
                             </li>
                             <li>
                                 <div class="align-center mr-1">
                                     <i class="fas fa-external-link-alt"></i>
                                     Instagram : 
                                 </div>
-                                <a href="{{organizer.instagram}}" target="blank">{{organizer.organizer_name}} Instagram Address</a>
+                                <a href="{{organizer.instagram}}" target="blank"><span>{{organizer.organizer_name|truncatechars:30}}</span> Instagram Address</a>
                             </li>
                             
                         </ul>
@@ -241,7 +256,7 @@
                                                         </div>
                                                         <div class="d-flex">
                                                             <span class="bold mr-2">Company : </span>
-                                                            <span>{{tour.organizer.organizer_name}}</span>
+                                                            <span>{{tour.organizer.organizer_name|truncatechars:25}}</span>
                                                         </div>
                                                         <div class="d-flex full justify-content-between mt-3">
                                                             <div class="price">
@@ -302,7 +317,7 @@
                                                         </div>
                                                         <div class="d-flex">
                                                             <span class="bold mr-2">Company : </span>
-                                                            <span>{{tour.organizer.organizer_name}}</span>
+                                                            <span>{{tour.organizer.organizer_name|truncatechars:25}}</span>
                                                         </div>
                                                         <div class="d-flex full justify-content-between mt-3">
                                                             <div class="price">
@@ -363,7 +378,7 @@
                                                         </div>
                                                         <div class="d-flex">
                                                             <span class="bold mr-2">Company : </span>
-                                                            <span>{{tour.organizer.organizer_name}}</span>
+                                                            <span>{{tour.organizer.organizer_name|truncatechars:25}}</span>
                                                         </div>
                                                         <div class="d-flex full justify-content-between mt-3">
                                                             <div class="price">
@@ -404,7 +419,9 @@
                     <div class="owl-carousel owl-theme photo-list">
                         {% for image in images %}
                             <div class="item">
-                                <a data-fancybox="gallery" class="full" href="{{image.image.url}}"><img src="{{image.image.url}}"></a>
+                                <a data-fancybox="gallery" class="full" href="{{image.image.url}}">
+                                    <img src="{{image.image.url}}">
+                                </a>
                             </div>
                         {% endfor %}
                     </div>

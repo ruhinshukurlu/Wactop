@@ -28,7 +28,6 @@ ENV DEBUG False
 #RUN if [ -f manage.py ]; then /venv/bin/python manage.py collectstatic --noinput; fi
 
 
-
 COPY requirements.txt /code/requirements.txt
 WORKDIR /code
 RUN pip install -r requirements.txt

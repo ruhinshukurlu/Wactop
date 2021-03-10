@@ -37,6 +37,7 @@ ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS = [
     'jet',
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,6 +69,7 @@ AUTHENTICATION_BACKENDS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -169,9 +171,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Baku'
 
 USE_I18N = True
 
@@ -199,6 +201,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('main:home')
 LOGIN_URL = reverse_lazy('main:home')
 LOGOUT_REDIRECT_URL = reverse_lazy('main:home')
 
+CORS_ORIGIN_ALLOW_ALL = True 
 
 SITE_ID = 1
 SITE_ADDRESS = 'http://127.0.0.1:8000'
@@ -238,6 +241,21 @@ EMAIL_HOST_PASSWORD = 'wactop123'
 DJANGO_NOTIFICATIONS_CONFIG = {
       'USE_JSONFIELD': True,
 }
+
+gettext = lambda s: s
+LANGUAGES = (
+    ('az', gettext('Azerbaijan')),
+    ('en', gettext('English')),
+    ('ru', gettext('Russian')),
+)
+# MODELTRANSLATION_DEFAULT_LANGUAGE = 'en'
+
+# MODELTRANSLATION_LANGUAGES = ('en','az', 'ru')
+# MODELTRANSLATION_FALLBACK_LANGUAGES = ('en','az', 'ru')
+# MODELTRANSLATION_PREPOPULATE_LANGUAGE = 'en'
+MODELTRANSLATION_TRANSLATION_FILES = (
+    "tour.translation",
+)
 
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587

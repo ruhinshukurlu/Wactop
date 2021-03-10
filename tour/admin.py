@@ -9,20 +9,15 @@ class ImageTabularInline(admin.TabularInline):
 class UrlTabularInline(admin.TabularInline):
     model = TourUrl
 
-class DetailAZTabularInline(admin.TabularInline):
-    model = TourDetailAZ
+class DetailTabularInline(admin.TabularInline):
+    model = TourDetail
 
-class DetailENTabularInline(admin.TabularInline):
-    model = TourDetailEN
-
-class DetailRUTabularInline(admin.TabularInline):
-    model = TourDetailRU
 
 class ScheduleTabularInline(admin.TabularInline):
     model = TourSchedule
 
 class TourAdmin(admin.ModelAdmin):
-    inlines = [ImageTabularInline, DetailAZTabularInline, DetailENTabularInline, DetailRUTabularInline, UrlTabularInline, ScheduleTabularInline]
+    inlines = [ImageTabularInline, DetailTabularInline, UrlTabularInline, ScheduleTabularInline]
     list_filter = ('status', )
     list_display = ['title','organizer','tour_type','datefrom','dateto']
     class Meta:
@@ -45,9 +40,7 @@ admin.site.register(Type)
 admin.site.register(TourType)
 
 admin.site.register(Tour, TourAdmin)
-admin.site.register(TourDetailAZ)
-admin.site.register(TourDetailEN)
-admin.site.register(TourDetailRU)
+admin.site.register(TourDetail)
 admin.site.register(TourImage)
 admin.site.register(TourUrl)
 admin.site.register(TourSchedule)

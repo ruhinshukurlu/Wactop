@@ -37,9 +37,7 @@ class Tour(models.Model):
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='tour')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
-    descriptionaz = models.TextField(blank=True, null=True)
-    descriptionen = models.TextField(blank=True, null=True)
-    descriptionru = models.TextField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     tour_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='tour')
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
@@ -113,34 +111,13 @@ class Tour(models.Model):
 
 
 
-
-
-
-class TourDetailAZ(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_az')
-    title_az = models.CharField(max_length=31)
-    text_az = models.TextField()
+class TourDetail(models.Model):
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail')
+    title = models.CharField(max_length=31)
+    text = models.TextField()
 
     def __str__ (self):
-        return "AZ" + self.tour.title + ": " + self.title_az
-
-
-class TourDetailEN(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_en')
-    title_en = models.CharField(max_length=31, blank=True, null=True)
-    text_en = models.TextField(blank=True, null=True)
-
-    def __str__ (self):
-        return "EN" + self.tour.title + ": " + self.title_en
-
-
-class TourDetailRU(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail_ru')
-    title_ru = models.CharField(max_length=31)
-    text_ru = models.TextField()
-    
-    def __str__ (self):
-        return "RU" + self.tour.title + ": " + self.title_ru
+        return self.tour.title + ": " + self.title
 
 
 class TourImage(models.Model):

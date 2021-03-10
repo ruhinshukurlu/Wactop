@@ -88,21 +88,21 @@ class OrganizerTourForm(forms.ModelForm):
     }))
 
     guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
-    descriptionen = forms.CharField(
+    description_en = forms.CharField(
         label = 'Tour Description in Engilsh', 
         widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
-    descriptionaz = forms.CharField(
+    description_az = forms.CharField(
         label = 'Tour Description in Azerbaijan', 
         widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
         required = False)
-    descriptionru = forms.CharField(
+    description_ru = forms.CharField(
         label = 'Tour Description in Russia', 
         widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
         required=False)
     
     class Meta:
         model = Tour
-        fields = [ 'title','city','country','address','guide','descriptionen', 'descriptionaz', 'descriptionru', 'tour_type', 'price', 'pricefor','discount', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
+        fields = [ 'title','city','country','address','guide','description_en', 'description_az', 'description_ru', 'tour_type', 'price', 'pricefor','discount', 'currency', 'durationday', 'durationnight', 'datefrom', 'dateto', 'avatar', 'cover', 'map_link']
 
         widgets = {
 
@@ -149,34 +149,21 @@ class OrganizerTourForm(forms.ModelForm):
         }
 
 
-class OrganizerTourDetailEnForm(forms.ModelForm):
+
+
+class OrganizerTourDetailForm(forms.ModelForm):
 
     title_en = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
     text_en = forms.CharField(label='Text in English', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
-    
-    class Meta:
-        model = TourDetailEN
-        fields = ('title_en', 'text_en', )
-
-
-class OrganizerTourDetailAzForm(forms.ModelForm):
-
     title_az = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
     text_az = forms.CharField(label='Text in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
-    
-    class Meta:
-        model = TourDetailAZ
-        fields = ('title_az', 'text_az', )
-
-
-class OrganizerTourDetailRuForm(forms.ModelForm):
-
     title_ru = forms.CharField(label='Tour Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
-    text_ru = forms.CharField(label='Text in Russian',widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+    text_ru = forms.CharField(label='Text in Russian', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
     
     class Meta:
-        model = TourDetailRU
-        fields = ('title_ru', 'text_ru', )
+        model = TourDetail
+        fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
+
 
 
 class OrganizerTourImageForm(forms.ModelForm):

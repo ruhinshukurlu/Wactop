@@ -132,12 +132,10 @@ def TourDetailView(request, pk):
     url = TourUrl.objects.filter(tour=tour)
 
     description = {
-        'detail_az' : TourDetailAZ.objects.filter(tour=tour),
-        'description_az' : tour.descriptionaz,
-        'detail_ru' : TourDetailRU.objects.filter(tour=tour),
-        'description_ru' : tour.descriptionru,
-        'detail_en' : TourDetailEN.objects.filter(tour=tour),
-        'description_en' : tour.descriptionen
+        'tour_detail' : TourDetail.objects.filter(tour=tour),
+        'description_az' : tour.description_az,
+        'description_ru' : tour.description_ru,
+        'description_en' : tour.description_en
     }
     
         

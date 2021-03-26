@@ -185,8 +185,10 @@
 
                 <div class="row mt-5">
                     <div class="col text-center">
-                        <div class="block-27">
-                            
+                        <div class="block-27" id='paginationContainer' style="display: none;">
+                            <ul class="pagination d-flex justify-content-center" id="paginationBox">
+                                <li class="active btn btn-info page-link"><span></span></li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -204,20 +206,32 @@
             var data = await response.json();
 
             console.log(data);
-            // generatePagination(data, 16)
+            generatePagination(data, 16, 1)
             show(data.results);
 
         }
 
         getapi(api_url);
 
-        // function generatePagination(data, limit){
-        //     var num_of_pages = Math.round(data.count / limit)
+        function generatePagination(data, limit, page_position){
+            var num_of_pages = Math.floor(data.count / limit) + 1
+            console.log(data.count,num_of_pages);
+            var page_item = ''
+            for (let index = 1; index <= num_of_pages; index++) {
+                if (index == page_position){
+                    page_item += `
+                        <li class="active btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
+                    `  
+                }else{
+                    page_item += `
+                        <li class="btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
+                    `  
+                }
+                        
+            }
+            $('#paginationBox').html(page_item)
 
-        //     for (let index = 0; index < num_of_pages; index++) {
-                                
-        //     }
-        // }
+        }
 
 
 
@@ -280,6 +294,7 @@
 
             setTimeout(function () {
                 document.getElementById("tourList").style.display = 'flex'
+                document.getElementById('paginationContainer').style.display = 'block'
                 console.log('okk')
                 $('#Loader').removeClass('d-flex align-center').addClass('d-none')
 
@@ -312,6 +327,7 @@
                 });
             });
 
+            delete _filterObj.page
             ajaxCall(_filterObj)
             console.log(_filterObj);
         }
@@ -322,6 +338,8 @@
                 // console.log($(this));
                 _filterObj[_filterKey] = $(element).children(':selected').val()
             })
+
+            delete _filterObj.page
             console.log(_filterObj);
             ajaxCall(_filterObj)
         })
@@ -330,19 +348,32 @@
             e.preventDefault()
             _filterObj['search'] = $('#serachInput').val()
             $('#serachInput').val('')
+           
+            delete _filterObj.page
             console.log(_filterObj);
             ajaxCall(_filterObj)
         })
 
+       
+        function getPagePosition(e){
+            _filterObj['page'] = e
+            ajaxCall(_filterObj, e)
+        }
+
+
+
 
         // Run Ajax  
-        function ajaxCall(filterObj) {
+        function ajaxCall(filterObj, clicked_page=1) {
             $.ajax({
                 url: `http://127.0.0.1:8000/api/tours/`,
                 type: 'GET',
                 data: filterObj,
                 dataType: 'json',
                 success: function (res) {
+
+                    generatePagination(res, 16,clicked_page)
+
                     console.log(res, 'filtered data');
                     filteredProducts = $('#tourList')
 
@@ -495,7 +526,6 @@
             }
         }
     </script>
-
 
 
 </body>

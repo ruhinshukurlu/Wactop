@@ -214,11 +214,11 @@
                         <div class="left" id="detailBox">
                             <div class="d-column" data-target="en">
                                 <p class="pt-4 word">
-                                    {{description.description_en|capfirst|safe}}
+                                    {{tour.description_en|capfirst|safe}}
                                 </p>
-                                {% if description.detail_en %}
+                                {% if training_detail %}
                                     <nav class="details">
-                                        {% for i in description.detail_en %}
+                                        {% for i in training_detail %}
                                         <div class="visible">
                                             <p><b>{{i.title_en|capfirst}}:</b></p>
                                             <p>{{i.text_en|capfirst}}</p>
@@ -233,11 +233,11 @@
                             
                             <div class="d-column" data-target="az" style="display: none;">
                                 <p class="pt-4 word">
-                                    {{description.description_az|capfirst|safe}}
+                                    {{tour.description_az|capfirst|safe}}
                                 </p>
-                                {% if description.detail_az %}
+                                {% if training_detail %}
                                 <nav class="details">
-                                    {% for i in description.detail_az %}
+                                    {% for i in training_detail %}
                                     <div class="visible">
                                         <p><b>{{i.title_az|capfirst}}:</b></p>
                                         <p>{{i.text_az|capfirst}}</p>
@@ -251,11 +251,11 @@
 
                             <div class="d-column" data-target="ru" style="display: none;">
                                 <p class="pt-4 word">
-                                    {{description.description_ru|capfirst|safe}}
+                                    {{tour.description_ru|capfirst|safe}}
                                 </p>
-                                {% if description.detail_ru %}
+                                {% if training_detail %}
                                     <nav class="details">
-                                        {% for i in description.detail_ru %}
+                                        {% for i in training_detail %}
                                         <div class="visible">
                                             <p><b>{{i.title_ru|capfirst}}:</b></p>
                                             <p>{{i.text_ru|capfirst}}</p>

@@ -1,5 +1,6 @@
   
-
+$('#id_datefrom').attr('required','true')
+$('#id_dateto').attr('required','true')
 
 var photo_box = $('#photo-form-box').children('.photo-item')
 var photo_count = 1

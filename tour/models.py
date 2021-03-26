@@ -7,7 +7,6 @@ import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
 from django.utils.translation import ugettext as _
-from notifications.signals import notify
 
 
 status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past'), (4, 'deny')]
@@ -49,6 +48,7 @@ class Tour(models.Model):
     distance = models.CharField(max_length=31, blank=True, null=True)
     durationday = models.IntegerField(blank=True, null=True)
     durationnight = models.IntegerField(blank=True, null=True)
+    
     datefrom = models.DateField(blank=True, null=True)
     dateto = models.DateField(blank=True, null=True)
     viewcount = models.IntegerField(default=0, blank=True, null=True)

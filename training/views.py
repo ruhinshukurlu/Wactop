@@ -133,15 +133,6 @@ def TrainingDetailView(request, pk):
     schedule = TrainingSchedule.objects.filter(training=training)
     url = TrainingUrl.objects.filter(training=training)
 
-    description = {
-        'detail_az' : TrainingDetailAZ.objects.filter(training=training),
-        'description_az' : training.descriptionaz,
-        'detail_ru' : TrainingDetailRU.objects.filter(training=training),
-        'description_ru' : training.descriptionru,
-        'detail_en' : TrainingDetailEN.objects.filter(training=training),
-        'description_en' : training.descriptionen
-    }
-
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -219,7 +210,7 @@ def TrainingDetailView(request, pk):
         'image': image,
         'schedule': schedule,
         'url': url,
-        'description': description,
+        'training_detail': TrainingDetail.objects.filter(training=training),
         'form' : form,
         'comments' : training.comment.filter(comment_reply__isnull=True),
         'comments_count': training.comment.all()

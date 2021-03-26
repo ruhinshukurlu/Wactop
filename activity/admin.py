@@ -9,20 +9,14 @@ class ImageTabularInline(admin.TabularInline):
 class UrlTabularInline(admin.TabularInline):
     model = ActivityUrl
 
-class DetailAZTabularInline(admin.TabularInline):
-    model = ActivityDetailAZ
-
-class DetailENTabularInline(admin.TabularInline):
-    model = ActivityDetailEN
-
-class DetailRUTabularInline(admin.TabularInline):
-    model = ActivityDetailRU
+class DetailTabularInline(admin.TabularInline):
+    model = ActivityDetail
 
 class ScheduleTabularInline(admin.TabularInline):
     model = ActivitySchedule
 
 class ActivityAdmin(admin.ModelAdmin):
-    inlines = [ImageTabularInline, DetailAZTabularInline, DetailENTabularInline, DetailRUTabularInline, UrlTabularInline, ScheduleTabularInline]
+    inlines = [ImageTabularInline, DetailTabularInline, UrlTabularInline, ScheduleTabularInline]
     list_display = ['title','organizer','activity_type','datefrom','dateto']
     list_filter = ('status', )
     class Meta:
@@ -39,9 +33,7 @@ class ActivityAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Activity, ActivityAdmin)
-admin.site.register(ActivityDetailAZ)
-admin.site.register(ActivityDetailEN)
-admin.site.register(ActivityDetailRU)
+admin.site.register(ActivityDetail)
 admin.site.register(ActivityImage)
 admin.site.register(ActivityUrl)
 admin.site.register(ActivitySchedule)

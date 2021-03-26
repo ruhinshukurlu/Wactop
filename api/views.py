@@ -15,7 +15,7 @@ from rest_framework import filters
 
 
 class TourList(generics.ListAPIView):
-    queryset = Tour.objects.filter(status=1)
+    queryset = Tour.objects.all()#filter(status=1)
     serializer_class = TourSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
@@ -60,10 +60,8 @@ class TourList(generics.ListAPIView):
         return queryset
             
     
-
-
 class ActivityList(generics.ListAPIView):
-    queryset = Activity.objects.filter(status=1)
+    queryset = Activity.objects.all()#filter(status=1)
     serializer_class = ActivitySerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
@@ -109,7 +107,7 @@ class ActivityList(generics.ListAPIView):
 
 
 class TrainingList(generics.ListAPIView):
-    queryset = Training.objects.filter(status=1)
+    queryset = Training.objects.all()#filter(status=1)
     serializer_class = TrainingSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']

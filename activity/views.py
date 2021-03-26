@@ -104,16 +104,6 @@ def ActivityDetailView(request, pk):
     schedule = ActivitySchedule.objects.filter(activity=activity)
     url = ActivityUrl.objects.filter(activity=activity)
 
-    description = {
-        'detail_az' : ActivityDetailAZ.objects.filter(activity=activity),
-        'description_az' : activity.descriptionaz,
-        'detail_ru' : ActivityDetailRU.objects.filter(activity=activity),
-        'description_ru' : activity.descriptionru,
-        'detail_en' : ActivityDetailEN.objects.filter(activity=activity),
-        'description_en' : activity.descriptionen
-    }
-
-    
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
@@ -192,7 +182,7 @@ def ActivityDetailView(request, pk):
         'image': image,
         'schedule': schedule,
         'url': url,
-        'description': description,
+        'activity_detail': ActivityDetail.objects.filter(activity=activity),
         'form' : form,
         'comments' : activity.activity_comment.filter(comment_reply__isnull=True),
         'comments_count': activity.activity_comment.all()

@@ -175,29 +175,10 @@
                
                 <div class="row mt-5">
                     <div class="col text-center">
-                        <div class="block-27">
-                            {% if is_paginated %}
-                            <ul class="pagination d-flex justify-content-center">
-                                {% if page_obj.has_previous %}
-                                <li><a class='btn btn-outline-info page-link' href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
-                                {% else %}
-                                <li class="disabled btn btn-outline-info page-link"><span >&laquo;</span></li>
-                                {% endif %}
-                                {% for i in paginator.page_range %}
-                                {% if page_obj.number == i %}
-                                    <li class="active btn btn-info page-link"><span >{{ i }} <span class="sr-only">(current)</span></span></li>
-                                {% else %}
-                                    <li><a class='btn btn-outline-info page-link' href="?page={{ i }}">{{ i }}</a></li>
-                                {% endif %}
-                                {% endfor %}
-                                {% if page_obj.has_next %}
-                                <li><a class='btn btn-outline-info page-link' href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
-                                {% else %}
-                                <li class="disabled btn btn-outline-info page-link"><span >&raquo;</span></li>
-                                {% endif %}
+                        <div class="block-27" id='paginationContainer' style="display: none;">
+                            <ul class="pagination d-flex justify-content-center" id="paginationBox">
+                                <li class="active btn btn-info page-link"><span></span></li>
                             </ul>
-                            {% endif %}
-
                         </div>
                     </div>
                 </div>
@@ -215,10 +196,30 @@
             var data = await response.json();
 
             console.log(data);
+            generatePagination(data, 16, 1)
             show(data.results);
         }
 
         getapi(api_url);
+
+        function generatePagination(data, limit, page_position){
+            var num_of_pages = Math.floor(data.count / limit) + 1
+            var page_item = ''
+            for (let index = 1; index <= num_of_pages; index++) {
+                if (index == page_position){
+                    page_item += `
+                        <li class="active btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
+                    `  
+                }else{
+                    page_item += `
+                        <li class="btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
+                    `  
+                }
+                        
+            }
+            $('#paginationBox').html(page_item)
+
+        }
 
 
         function show(data) {
@@ -280,6 +281,7 @@
 
             setTimeout(function () {
                 document.getElementById("tourList").style.display = 'flex'
+                document.getElementById('paginationContainer').style.display = 'block'
                 $('#Loader').removeClass('d-flex align-center').addClass('d-none')
 
                 for (let star = 0; star < $('.stars').length; star++) {
@@ -311,6 +313,7 @@
                 });
             });
 
+            delete _filterObj.page
             ajaxCall(_filterObj)
             console.log(_filterObj);
         }
@@ -321,6 +324,7 @@
                 // console.log($(this));
                 _filterObj[_filterKey] = $(element).children(':selected').val()
             })
+            delete _filterObj.page
             console.log(_filterObj);
             ajaxCall(_filterObj)
         })
@@ -329,18 +333,28 @@
             e.preventDefault()
             _filterObj['search'] = $('#serachInput').val()
             $('#serachInput').val('')
+
+            delete _filterObj.page
             console.log(_filterObj);
             ajaxCall(_filterObj)
         })
 
+        function getPagePosition(e){
+            _filterObj['page'] = e
+            ajaxCall(_filterObj, e)
+        }
+
         // Run Ajax  
-        function ajaxCall(filterObj) {
+        function ajaxCall(filterObj, clicked_page=1) {
             $.ajax({
                 url: `http://127.0.0.1:8000/api/trainings/`,
                 type: 'GET',
                 data: filterObj,
                 dataType: 'json',
                 success: function (res) {
+
+                    generatePagination(res, 16,clicked_page)
+
                     console.log(res, 'sasasasa');
                     filteredProducts = $('#tourList')
 

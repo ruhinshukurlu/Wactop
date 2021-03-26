@@ -361,7 +361,7 @@ input[type="date"]{
 }
 
 #org-menu-nav{
-    z-index: 3;
+    z-index: 10;
 }
 .mob-org-menu{
     display: none;
@@ -471,17 +471,31 @@ footer{
     border-radius: 8px;
     transition: .4s;
     border: 1px solid #d3d3d3;
+    overflow: hidden;
+    transition: .4s;
+}
+
+.tour-item img{
+    transition: .4s;
 }
 
 .saved-item .row{
     padding: 20px;
 }
 
-.tour-item:hover{
-    -webkit-box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
--moz-box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
-box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
+ .tour-item:hover{
+    box-shadow: 1px 0px 44px -13px rgba(0,0,0,0.35);
+    -webkit-box-shadow: 1px 0px 44px -13px rgba(0,0,0,0.35);
+    -moz-box-shadow: 1px 0px 44px -13px rgba(0,0,0,0.35);
+    -webkit-transform: scale(1.1) rotate(0.01deg);
+    transform: scale(1.05) rotate(0.01deg);
 }
+
+#tourList .tour-item:hover img{
+    -webkit-transform: scale(1.2) rotate(0.01deg);
+    transform: scale(1.2) rotate(0.01deg);
+}
+
 .saved-item:hover {
     -webkit-box-shadow: 0px 0px 26px -10px rgba(0,0,0,0.75);
     -moz-box-shadow: 0px 0px 26px -10px rgba(0,0,0,0.75);
@@ -563,7 +577,8 @@ box-shadow: 0px 0px 13px -5px rgba(0,0,0,1);
 
 .tour-item .card-body{
     padding: 10px 10px;
-    
+    z-index: 2;
+    background-color: #fff;
 }
 
 
@@ -799,7 +814,7 @@ h4{
     width: 100%;
     height: 100%;
     background-color: rgba(0,0,0,.8);
-    z-index: 2;
+    z-index: 5;
     top: 0;
     left: 0;
 }

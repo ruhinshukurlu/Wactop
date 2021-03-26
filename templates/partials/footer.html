@@ -23,7 +23,7 @@
             <div class="col-4">
                 <div class="d-column align-center">
                     <span class="mb-2 mt-2">Follow Us</span>
-                    <ul class="footer-social-links" >
+                    <ul class="footer-social-links">
                         <li>
                             <a href="#">
                                 <i class="fab fa-facebook-square"></i>
@@ -48,3 +48,72 @@
         </div>
     </div>
 </footer>
+
+<style>
+    #back-to-top-btn {
+        display: flex;
+        width: 60px;
+        height: 60px;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+        background-color: #4dabf8;
+        position: fixed;
+        bottom: 50px;
+        right: 50px;
+        transition: background-color .3s,
+            opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
+
+    #back-to-top-btn img {
+        width: 70%;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    #back-to-top-btn:hover{
+        opacity: 0.7;
+        box-shadow: 1px 0px 44px -13px rgb(0 0 0 / 35%);
+    }
+
+    
+
+    #back-to-top-btn.show {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @media (max-width : 600px){
+        #back-to-top-btn{
+            bottom: 30px;
+            right: 30px;
+        }
+    }
+</style>
+
+<button id="back-to-top-btn">
+    <img src="{% static 'images/up-arrow.svg' %}" alt="">
+</button>
+<script src="{% static 'js/jquery-latest.js' %}"></script>
+
+<script>
+    var btn = $('#back-to-top-btn');
+
+    $(window).scroll(function () {
+        if ($(window).scrollTop() > 300) {
+            btn.addClass('show');
+        } else {
+            btn.removeClass('show');
+        }
+    });
+
+    btn.on('click', function (e) {
+        e.preventDefault();
+        $('html, body').animate({ scrollTop: 0 }, '300');
+    });
+
+
+</script>

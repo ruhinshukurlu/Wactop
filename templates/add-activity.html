@@ -77,9 +77,7 @@
                                     {% csrf_token %}
                                     
                                     {{tour_form.management_form}}
-                                    {{detail_form_en.management_form }}
-                                    {{detail_form_az.management_form }}
-                                    {{detail_form_ru.management_form }}
+                                    {{detail_form.management_form }}
                                     {{url_form.management_form}}
                                     {{image_form.management_form}}
                                     {{schedule_form.management_form}}
@@ -262,15 +260,15 @@
                                             
                                             <div class="form-group row">
                                                 <div class='col-12'>
-                                                    {{tour_form.descriptionen.label_tag}}
+                                                    {{tour_form.description_en.label_tag}}
                                                 </div>
                                                 <div class='col-12'>
-                                                    {{tour_form.descriptionen}}
+                                                    {{tour_form.description_en}}
                                                 </div>
                                             </div>
                                             
                                             <div id="text-forms-en">
-                                                {% for form in detail_form_en %}
+                                                {% for form in detail_form %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
                                                             {{form.title_en.label_tag}}
@@ -296,15 +294,15 @@
                                         <div class="form-box mb-3">
                                             <div class="form-group row">
                                                 <div class='col-12'>
-                                                    {{tour_form.descriptionaz.label_tag}}
+                                                    {{tour_form.description_az.label_tag}}
                                                 </div>
                                                 <div class='col-12'>
-                                                    {{tour_form.descriptionaz}}
+                                                    {{tour_form.description_az}}
                                                 </div>
                                             </div>
 
                                             <div id="text-forms-az">
-                                                {% for form in detail_form_az %}
+                                                {% for form in detail_form %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
                                                             {{form.title_az.label_tag}}
@@ -330,15 +328,15 @@
                                         <div class="form-box">
                                             <div class="form-group row">
                                                 <div class='col-12'>
-                                                    {{tour_form.descriptionru.label_tag}}
+                                                    {{tour_form.description_ru.label_tag}}
                                                 </div>
                                                 <div class='col-12'>
-                                                    {{tour_form.descriptionru}}
+                                                    {{tour_form.description_ru}}
                                                 </div>
                                             </div>
 
                                             <div id="text-forms-ru">
-                                                {% for form in detail_form_ru %}
+                                                {% for form in detail_form %}
                                                     <div class="form-group row">
                                                         <div class='col-12'>
                                                             {{form.title_ru.label_tag}}

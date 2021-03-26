@@ -9,20 +9,15 @@ class ImageTabularInline(admin.TabularInline):
 class UrlTabularInline(admin.TabularInline):
     model = TrainingUrl
 
-class DetailAZTabularInline(admin.TabularInline):
-    model = TrainingDetailAZ
+class DetailTabularInline(admin.TabularInline):
+    model = TrainingDetail
 
-class DetailENTabularInline(admin.TabularInline):
-    model = TrainingDetailEN
-
-class DetailRUTabularInline(admin.TabularInline):
-    model = TrainingDetailRU
 
 class ScheduleTabularInline(admin.TabularInline):
     model = TrainingSchedule
 
 class TrainingAdmin(admin.ModelAdmin):
-    inlines = [ImageTabularInline, DetailAZTabularInline, DetailENTabularInline, DetailRUTabularInline, UrlTabularInline, ScheduleTabularInline]
+    inlines = [ImageTabularInline, DetailTabularInline, UrlTabularInline, ScheduleTabularInline]
     list_display = ['title','organizer','training_type','datefrom','dateto']
     list_filter = ('status', )
     class Meta:
@@ -43,9 +38,7 @@ class CommentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Training, TrainingAdmin)
-admin.site.register(TrainingDetailAZ)
-admin.site.register(TrainingDetailEN)
-admin.site.register(TrainingDetailRU)
+admin.site.register(TrainingDetail)
 admin.site.register(TrainingImage)
 admin.site.register(TrainingUrl)
 admin.site.register(TrainingSchedule)

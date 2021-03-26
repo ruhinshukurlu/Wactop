@@ -1,6 +1,5 @@
 
 {% load static custom-tags %}
-{% load notifications_tags %}
 
 
 <style>
@@ -152,23 +151,10 @@
                         <div class="user-profile">
                             <div class="d-flex justify-content-center align-center p-relative">
                                 <i class="far fa-bell"></i>
-                                {% if user.notifications.unread.exists %}
-                                    <div class="not-point"></div>
-                                {% endif %}
                             </div>
                             <div class="header-menu p-2" id="notification-box">
-                                {% if user.notifications.unread.exists %}
-                                    <div class="d-flex">
-                                        <img src="{% static 'images/bell-ring.svg' %}" alt="" style="width: 120px; height: 120px; border-radius: 0; margin: 10px;">
-                                        <div class="d-column justify-content-around ml-2">
-                                            <a href="{% url 'notifications:unread' %}"> You have <strong>{% live_notify_badge %}</strong> new notifications</a>
-                                            <a href="{% url 'notifications:unread' %}" class="btn btn-mob btn-outline-primary">Go To Notifications</a>
-                                        </div>
-                                    </div>
-                                    {% else %}
                                     <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
                                     <p class="bold text-center" style="color: #000;" >Nothing to see here, you’re all caught up!</p>
-                                {% endif %}
                             </div>
                         </div>
                     {% endif %}
@@ -274,5 +260,3 @@
         </div>
     </div>
 </header>
-<script src="{% static 'notifications/notify.js' %}" type="text/javascript"></script>
-{% register_notify_callbacks callbacks='fill_notification_list,fill_notification_badge' %}

@@ -1,13 +1,13 @@
-from tour.models import Tour, TourDetail
+from activity.models import Activity, ActivityDetail
 from django.db import models
 from django.db.models import fields
 from modeltranslation.translator import TranslationOptions, register
 
-@register(TourDetail)
-class TourDetailTranslation(TranslationOptions):
+@register(ActivityDetail)
+class ActivityDetailTranslation(TranslationOptions):
     fields = ('title', 'text',)
 
 
-@register(Tour)
-class TourTranslation(TranslationOptions):
+@register(Activity)
+class ActivityTranslation(TranslationOptions):
     fields = ('description', )

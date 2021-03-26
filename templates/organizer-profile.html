@@ -29,7 +29,13 @@
         }
         .link-box{
             box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+            transition: .4s;
         }
+        
+        .link-box:hover{
+            transform: scale(1.09);
+        }
+
     </style>
 
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
@@ -144,27 +150,6 @@
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
-
-
-    <script>
-        $(document).ready(function(){
-           
-            var org_width = $('.link-box').outerWidth()
-            $('.link-box').hover(function(){
-                var height = $(this).height()
-
-                $(this).stop().animate({
-                    borderRadius : '50%',
-                    width : height
-                    })
-            }, function(){
-                $(this).animate({
-                    borderRadius : '10px',
-                    width : org_width
-                })
-            })
-        });
-    </script>
 
 </body>
 </html>

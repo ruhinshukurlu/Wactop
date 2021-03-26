@@ -22,10 +22,8 @@ class Activity(models.Model):
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True)
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
-    descriptionaz = models.TextField(blank=True, null=True)
-    descriptionen = models.TextField(blank=True, null=True)
-    descriptionru = models.TextField(blank=True, null=True)
-    # type = models.ManyToManyField(Type, verbose_name=("type"), related_name="activity", blank=True)
+    description = models.TextField(blank=True, null=True)
+
     activity_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='activity')
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
@@ -88,28 +86,15 @@ class Activity(models.Model):
     def __str__ (self):
         return self.title
 
-        
 
-class ActivityDetailAZ(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    title_az = models.CharField(max_length=31)
-    text_az = models.TextField()
-    def __str__ (self):
-        return "AZ" + self.activity.title + ": " + self.title_az
+class ActivityDetail(models.Model):
+    activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_detail')
+    title = models.CharField(max_length=31)
+    text = models.TextField()
 
-class ActivityDetailEN(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    title_en = models.CharField(max_length=31)
-    text_en = models.TextField()
     def __str__ (self):
-        return "EN" + self.activity.title + ": " + self.title_en
-
-class ActivityDetailRU(models.Model):
-    activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
-    title_ru = models.CharField(max_length=31)
-    text_ru = models.TextField()
-    def __str__ (self):
-        return "RU" + self.activity.title + ": " + self.title_ru
+        return self.activity.title + ": " + self.title
+     
 
 class ActivityImage(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)

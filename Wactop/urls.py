@@ -7,16 +7,13 @@ from django.urls import reverse_lazy
 from django.conf.urls.i18n import i18n_patterns
 
 
-import notifications.urls
-
 urlpatterns = [
     path('jet/', include('jet.urls', 'jet')),
     path('admin/', admin.site.urls),
-    path('i18n/', include('django.conf.urls.i18n')), #Django translations URLS
-    path('inbox/notifications/', include(notifications.urls, namespace='notifications')),
     path('', include('main.urls', namespace='main')),
     path('account/', include('account.urls', namespace='account')),
     path('organizer/', include('organizer.urls', namespace='organizer')),
+    path('tour/', include('tour.urls', namespace='tour')),
     path('training/', include('training.urls', namespace='training')),
     path('activity/', include('activity.urls', namespace='activity')),
     path('api/', include('api.urls', namespace='api')),
@@ -26,10 +23,6 @@ urlpatterns = [
 
 ]
 
-urlpatterns += i18n_patterns(
-    path('tour/', include('tour.urls', namespace='tour')),
-
-)
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)  

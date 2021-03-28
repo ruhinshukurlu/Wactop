@@ -50,3 +50,13 @@ class FormsetMixin(object):
 
     def form_invalid(self, form, formset):
         return self.render_to_response(self.get_context_data(form=form, formset=formset))
+
+
+from django.core.exceptions import PermissionDenied
+
+
+class NotificationMixin(object):
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user != self.get_object().user:
+            raise PermissionDenied
+        return super(NotificationMixin, self).dispatch(request, *args, **kwargs)

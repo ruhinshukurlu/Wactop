@@ -31,6 +31,16 @@ body{
     color: #fff;
 }
 
+.notification_icon{
+    color: rgb(255, 0, 0) !important;
+}
+.display_n{
+    display: none !important;
+}
+.display_b{
+    display: block;
+}
+
 a:not([href]):hover {
     color: #000;
     text-decoration: none;

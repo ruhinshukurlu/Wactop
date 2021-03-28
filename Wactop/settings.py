@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'social_django',
+    'channels',
+    # "fcm_django",
     'account',
     'main',
     'organizer',
@@ -119,6 +121,7 @@ SOCIAL_AUTH_PIPELINE = (
 )
 
 WSGI_APPLICATION = 'Wactop.wsgi.application'
+ASGI_APPLICATION = 'Wactop.asgi.application'
 AUTH_USER_MODEL = "account.User"
 
 # Database
@@ -256,6 +259,29 @@ MODELTRANSLATION_TRANSLATION_FILES = (
     "tour.translation",
 )
 
+if PROD:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [("redis", 6379)],
+            },
+        },
+    }
+else:
+    CHANNEL_LAYERS = {
+        "default": {
+            "BACKEND": "channels_redis.core.RedisChannelLayer",
+            "CONFIG": {
+                "hosts": [("localhost", 6379)],
+            },
+        },
+    }
+
+# FCM_DJANGO_SETTINGS = {
+#         "FCM_SERVER_KEY": "AAAAgHxfmkA:APA91bGURwL3PZWm_m1fs-Jp2ojERKzecaF85u_PXDHfavjUAJn5cSnlm1XlKVOBYH6GgrxZBTnz4xT5Cgo7_ic-ZdO-q2OoUK3v-tFA0IIhP0CnDswPMsEjXoJQLpSJKUXXYR_nSKkX"
+#      }
+# FCM_SERVER_KEY="AAAAgHxfmkA:APA91bGURwL3PZWm_m1fs-Jp2ojERKzecaF85u_PXDHfavjUAJn5cSnlm1XlKVOBYH6GgrxZBTnz4xT5Cgo7_ic-ZdO-q2OoUK3v-tFA0IIhP0CnDswPMsEjXoJQLpSJKUXXYR_nSKkX"
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_HOST_USER = 'parsifal_app'

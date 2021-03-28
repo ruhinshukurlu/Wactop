@@ -6,4 +6,5 @@ class TourConfig(AppConfig):
 
 
     def ready(self):
+        import tour.consumers
         import tour.signals

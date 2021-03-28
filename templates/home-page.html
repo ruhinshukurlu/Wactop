@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/register.css' %}"> 
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
 
@@ -230,7 +231,7 @@
         $('.carousel-inner').children().eq(0).addClass('active')
         console.log($('.carousel-inner').children().eq(0));
     </script>
-   
+   {% include 'partials/websocket.html' %}
 </body>
 
 </html>

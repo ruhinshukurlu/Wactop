@@ -23,8 +23,9 @@ from account.forms import *
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from organizer.mixin import FormsetMixin
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from datetime import datetime
+from organizer.mixin import NotificationMixin
 
 
 
@@ -695,4 +696,32 @@ def OrganizerTraining(request):
         }
         return render(request, 'add-training.html', context)
 
+
+
+class AllNotifications(LoginRequiredMixin,ListView):
+    model = Notification
+    context_object_name = 'notifications'
+    template_name='notifications.html'
+
+    def dispatch(self, *args, **kwargs):
+        return super(AllNotifications, self).dispatch(*args, **kwargs)
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+       
+        queryset = queryset.filter(user = self.request.user).order_by('-created_at')
+        return queryset
+
+
+
+def resetNotifications(request):
+    notifications = Notification.objects.filter(user = request.user, is_published=True)
+    context = {
+        'notifications' : notifications
+    }
+    for notification in notifications:
+        notification.is_published = False
+        notification.save()
+    
+    return redirect(reverse_lazy('organizer:notifications'))
 

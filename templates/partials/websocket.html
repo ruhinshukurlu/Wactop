@@ -1,0 +1,43 @@
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js"></script>
+    <script>
+        $('.menu_btn').click(function () {
+            $('#menu-column').slideToggle()
+        })
+
+        for (let star = 0; star < $('.stars').length; star++) {
+            var rating_count = parseInt($('.stars').eq(star).data('value'))
+            for (let count = 0; count < rating_count; count++) {
+                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
+
+            }
+        }
+
+        var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
+        var ws_path = ws_scheme + '://' + window.location.host + '/user/{% if request.user.is_authenticated %}{{request.user.pk}}{% else %}0{% endif %}/';
+        var socket = new ReconnectingWebSocket(ws_path);
+        socket.debug = true;
+        socket.timeoutInterval = 5400;
+        // var socket = new WebSocket(endpoint);
+        socket.onmessage = function(e) {
+        console.log('message', e);
+        var data_response = JSON.parse(e.data);
+        
+        console.log('onmessage',data_response)
+        var notifications = $('#notifications')
+        notifications.html(`You have ${data_response.text} new notifications`)
+        $('.notify_icon').addClass('notification_icon')
+        $('.notification_btn').removeClass('display_n').addClass('display_b')
+        console.log($('#header'), 'salam')
+        }
+        
+        socket.onerror = function(e) {
+            console.log("error", e, e.data)
+            console.error('Notification socket closed unexpectedly')
+        }
+
+        socket.onclose = function(e) {
+            console.log("error", e, e.data)
+            console.error('Notification socket closed unexpectedly')
+        }
+        
+    </script>

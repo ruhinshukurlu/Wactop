@@ -79,6 +79,21 @@ class Instructor(models.Model):
         return self.name
 
 
+class Notification(models.Model):
+    # informations
+    user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, related_name = 'notification', blank=True, null=True)
+    text = models.TextField(_("Text"), blank=True, null=True)
+
+    # moderations
+    is_published = models.BooleanField('is published', default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.text
+
+
+
 class Contact(models.Model):
 
     first_name = models.CharField(_("First Name"), max_length=50)

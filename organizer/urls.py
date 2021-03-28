@@ -42,7 +42,9 @@ urlpatterns = [
     path("tour/<int:pk>/finish", finishTour, name="finish-tour"),
     path("activity/<int:pk>/finish", finishActivity, name="finish-activity"),
     path("training/<int:pk>/finish", finishTraining, name="finish-training"),
-    # path("tour/photos", TourImageView.as_view(), name="tour-images"),
+    path("notifications/", AllNotifications.as_view(), name="notifications"),
 
+    path("reset-notifications/", resetNotifications, name="reset_notifications"),
+    # path("notification/", NotificationListView.as_view(), name="notifications"),
 
 ]

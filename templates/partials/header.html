@@ -147,18 +147,23 @@
                             </nav>
                         </div>
                     </div>
+                    {% notifications_count  request.user as notifs %} 
                     {% if request.user.is_organizer %}
                         <div class="user-profile">
                             <div class="d-flex justify-content-center align-center p-relative">
-                                <i class="far fa-bell"></i>
+                                <i class="far fa-bell notify_icon {% if notifs  %} notification_icon {% endif %} "></i>
                             </div>
                             <div class="header-menu p-2" id="notification-box">
-                                    <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
-                                    <p class="bold text-center" style="color: #000;" >Nothing to see here, you’re all caught up!</p>
+                                <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
+                                <p class="bold text-center" id='notifications' style="color: #000;" > {% if notifs  %}You have new {{notifs}} notifications{% else %}Nothing notifications here!{% endif %} </p>
+                                <form action="{% url 'organizer:reset_notifications' %}" class="">
+                                    <input type="submit" value="View All" class="w-100 btn btn-outline-secondary notification_btn {% if notifs  %} display_b {% else %} display_n {% endif %}'">
+                                </form>
                             </div>
                         </div>
                     {% endif %}
                 {% else %}
+                
                 {% login_form as login %}
                 <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog login-modal" >
@@ -260,3 +265,5 @@
         </div>
     </div>
 </header>
+
+

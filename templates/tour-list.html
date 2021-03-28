@@ -513,20 +513,7 @@
     </script>
 
 
-    <script>
-        $('.menu_btn').click(function () {
-            $('#menu-column').slideToggle()
-        })
-
-        for (let star = 0; star < $('.stars').length; star++) {
-            var rating_count = parseInt($('.stars').eq(star).data('value'))
-            for (let count = 0; count < rating_count; count++) {
-                $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
-
-            }
-        }
-    </script>
-
+    {% include 'partials/websocket.html' %}
 
 </body>
 

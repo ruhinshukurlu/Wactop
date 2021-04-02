@@ -289,9 +289,26 @@
                                                     Add new Paragraph
                                                 </button>
                                             </div>
+
+                                            <div class="d-flex full justify-content-end">
+                                                <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourURL">
+                                                    Next
+                                                    <i class="fas fa-angle-double-right ml-1"></i>
+                                                </button>
+                                            </div>
                                         </div>
 
-                                        <div class="form-box mb-3">
+                                        <div class="d-flex full justify-content-end mt-4 mb-4">
+                                            <button data-target="detailAz" type="button" class="add-new-lang mr-3">
+                                                Add Detail in Azerbaijan Language
+                                            </button>
+                                            
+                                            <button data-target="detailRu" type="button" class="add-new-lang">
+                                                Add Detail in Russian Language
+                                            </button>
+                                        </div>
+
+                                        <div class="form-box shadow mb-3" id="detailAz" style="display: none;">
                                             <div class="form-group row">
                                                 <div class='col-12'>
                                                     {{tour_form.description_az.label_tag}}
@@ -325,7 +342,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-box">
+                                        <div class="form-box shadow" id="detailRu" style="display: none;">
                                             <div class="form-group row">
                                                 <div class='col-12'>
                                                     {{tour_form.description_ru.label_tag}}
@@ -357,12 +374,7 @@
                                                     Add new Paragraph
                                                 </button>
                                             </div>
-                                            <div class="d-flex full justify-content-end">
-                                                <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourURL">
-                                                    Next
-                                                    <i class="fas fa-angle-double-right ml-1"></i>
-                                                </button>
-                                            </div>
+                                           
                                         </div>
 
                                             

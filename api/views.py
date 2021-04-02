@@ -15,7 +15,7 @@ from rest_framework import filters
 
 
 class TourList(generics.ListAPIView):
-    queryset = Tour.objects.all()#filter(status=1)
+    queryset = Tour.objects.filter(status=1)
     serializer_class = TourSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']

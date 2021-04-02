@@ -271,7 +271,7 @@ a {
 }
 #partners-crsl img{
     width: 100% !important;
-    height: 80px !important;
-    object-fit: cover;
+    height: 100px !important;
+    /* object-fit: cover; */
     cursor: pointer;
 }

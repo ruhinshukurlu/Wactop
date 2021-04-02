@@ -20,8 +20,9 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
-
-
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@1,600&display=swap" rel="stylesheet">
+    
     <style>
         .company-admin-container img{
             width: 60px;
@@ -35,7 +36,37 @@
         .link-box:hover{
             transform: scale(1.09);
         }
+        
+        .admin-message-box{
+            border-radius: 30px;
+            margin: 60px 20px;
+            padding: 20px;
+            border: 1px solid #4CAEFF;
+        }
 
+        .admin-message-box h3{
+            color: #7A7A7A;
+            font-family: 'Nunito', sans-serif;
+            /* font-family: 'Syne Mono', monospace; */
+        }
+
+        .instruction-btn{
+            cursor: pointer;
+        }
+
+        .instruction-btn i{
+            font-size: 18px !important;
+        }
+
+        .instruction-list{
+            margin-left: 20px;
+        }
+
+        .instruction-list li{
+            list-style-type: disclosure-closed !important;
+            margin-bottom: 10px;
+
+        }
     </style>
 
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
@@ -51,6 +82,31 @@
     <main>
         <div class="custom-container company-admin-container mt-5">
             {% if request.user.is_organizer %}
+
+                <div class="row admin-message-box bg-white shadow">
+                    <div class="d-column">
+                        <h3 class="bold">
+                            Organizer Admin Page
+                        </h3>
+
+                        <!-- <div class="d-column">
+                            <h4 class="mb-3 bold instruction-btn">
+                                Instructions
+                                <i class="fas fa-chevron-down"></i>
+                            </h4>
+
+                            <ul class="d-column instruction-list" style="display: none;">
+                                <li>dnvejgnerjvnerjgne</li>
+                                <li>dnvejgnerjvnerjgne</li>
+                                <li>dnvejgnerjvnerjgne</li>
+                                <li>dnvejgnerjvnerjgne</li>
+                                <li>dnvejgnerjvnerjgne</li>
+                                <li>dnvejgnerjvnerjgne</li>
+                            </ul>
+                        </div> -->
+                    </div>
+                </div>
+
                 <div class="row justify-content-center">
                     <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                         <a href="{% url 'organizer:detail' request.user.organizer.pk %}" class="link-box">
@@ -151,5 +207,25 @@
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
     {% include 'partials/websocket.html' %}
+
+
+    <script>
+        $('.instruction-btn').click(function(){
+            $('.instruction-list').slideToggle(300)
+            if(degree == 180){
+        $('.fa-chevron-down').css({
+            'transform' : `rotate(${degree}deg)`
+        })
+        degree = 0
+            }
+            else{
+                $('.fa-chevron-down').css({
+                    'transform' : `rotate(${degree}deg)`
+                })
+                degree = 180
+            }
+        })
+        
+    </script>
 </body>
 </html>

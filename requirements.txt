@@ -11,7 +11,6 @@ channels-redis==3.2.0
 chardet==3.0.4
 click==7.1.2
 constantly==15.1.0
-cryptography==3.1.1
 daphne==3.0.1
 defusedxml==0.7.0rc1
 Django==3.0.4

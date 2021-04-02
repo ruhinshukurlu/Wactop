@@ -286,7 +286,8 @@ input[type="date"]{
     color:#7D7D7E;
 }
 
-.add_detail_btn{
+.add_detail_btn,
+.add-new-lang{
     color: #4CAEFF;
     border: 1px solid;
     padding: 5px 20px;
@@ -294,7 +295,8 @@ input[type="date"]{
     transition: .4s;  
 }
 
-.add_detail_btn:hover{
+.add_detail_btn:hover,
+.add-new-lang:hover{
     color: #fff;
     background-color: #4CAEFF;
 }

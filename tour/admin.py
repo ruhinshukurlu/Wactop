@@ -36,7 +36,6 @@ class TourCommentAdmin(admin.ModelAdmin):
     list_display = ['tour','user','message', 'rating','commented_at']
     
 
-admin.site.register(Type)
 admin.site.register(TourType)
 
 admin.site.register(Tour, TourAdmin)

@@ -2,6 +2,14 @@
 $('#id_datefrom').attr('required','true')
 $('#id_dateto').attr('required','true')
 
+$('.add-new-lang').click(function(){
+    var target = $(this).data('target')
+    $(this).hide(100)
+    $(`#${target}`).show(200)
+})
+
+
+
 var photo_box = $('#photo-form-box').children('.photo-item')
 var photo_count = 1
 // console.log(photo_box);

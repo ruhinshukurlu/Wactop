@@ -1,0 +1,8 @@
+.v/
+.venv/
+.pgadmin/
+pbdb/
+redisdb/
+.vscode/
+**.pyc
+**/__pycache__/

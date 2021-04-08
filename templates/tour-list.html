@@ -199,8 +199,9 @@
     {% include 'partials/footer.html' %}
 
     <script>
-        const api_url = "http://127.0.0.1:8000/api/tours/";
 
+        const api_url = `${window.location.protocol}//${window.location.host}/api/tours/`;
+        console.log();
         async function getapi(url) {
             const response = await fetch(url);
             var data = await response.json();
@@ -366,7 +367,7 @@
         // Run Ajax  
         function ajaxCall(filterObj, clicked_page=1) {
             $.ajax({
-                url: `http://127.0.0.1:8000/api/tours/`,
+                url: `${window.location.protocol}//${window.location.host}/api/tours/`,
                 type: 'GET',
                 data: filterObj,
                 dataType: 'json',

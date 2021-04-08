@@ -189,7 +189,7 @@
     {% include 'partials/footer.html' %}
 
     <script>
-        const api_url = "http://127.0.0.1:8000/api/trainings/";
+        const api_url = `${window.location.protocol}//${window.location.host}/api/trainings/`;
 
         async function getapi(url) {
             const response = await fetch(url);
@@ -347,7 +347,7 @@
         // Run Ajax  
         function ajaxCall(filterObj, clicked_page=1) {
             $.ajax({
-                url: `http://127.0.0.1:8000/api/trainings/`,
+                url: `${window.location.protocol}//${window.location.host}/api/trainings/`,
                 type: 'GET',
                 data: filterObj,
                 dataType: 'json',

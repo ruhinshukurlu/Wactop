@@ -14,7 +14,7 @@
 
         var ws_scheme = window.location.protocol == "https:" ? "wss" : "ws";
         var ws_path = ws_scheme + '://' + window.location.host + '/user/{% if request.user.is_authenticated %}{{request.user.pk}}{% else %}0{% endif %}/';
-        var socket = new ReconnectingWebSocket(ws_path);
+        var socket = new WebSocket(ws_path);
         socket.debug = true;
         socket.timeoutInterval = 5400;
         // var socket = new WebSocket(endpoint);

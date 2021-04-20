@@ -34,15 +34,13 @@
             height: 220px;
         }
 
-        .stars i{
-            font-size: 20px;
-        }
-
-        .saved-item .description {
-        font-size: 15px;
-        }
+        
         .page-link{
                 margin: 0px 5px;
+        }
+
+        .card-body{
+            font-size: 0.75em;
         }
     </style>
 
@@ -91,7 +89,7 @@
                                             </div>
                                             <div class="card-body organizer-item-infos">
                                                 <div class="org-name mb-3">
-                                                    {{organizer.organizer_name|truncatechars:25}}
+                                                    {{organizer.organizer_name|truncatechars:20}}
                                                 </div>
                                                 <div class="d-column">
                                                     <div class="d-flex mb-1">

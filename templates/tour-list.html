@@ -31,7 +31,7 @@
             margin: 0px 5px;
         }
 
-        
+
     </style>
 
 
@@ -56,8 +56,8 @@
             </form>
         </div>
 
-        <div class="custom-container bg-white mt-4 shadow pt-4 min-full-height">
-            <div class="inner-container ">
+        <div class="tour-container bg-white mt-4 shadow pt-4 min-full-height">
+            <div class="tour-inner-container ">
 
                 <div class="row m-4">
                     <div class="d-column full">
@@ -83,7 +83,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="col-6 col-sm-4 col-xl-2">
                         <div class="d-column">
@@ -99,7 +99,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <div class="col-6 col-sm-4 col-xl-2">
@@ -116,7 +116,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
                     </div>
 
                     <div class="col-6 col-sm-4 col-xl-2">
@@ -222,13 +222,13 @@
                 if (index == page_position){
                     page_item += `
                         <li class="active btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
-                    `  
+                    `
                 }else{
                     page_item += `
                         <li class="btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
-                    `  
+                    `
                 }
-                        
+
             }
             $('#paginationBox').html(page_item)
 
@@ -250,18 +250,18 @@
                                 <div class="d-column full">
                                         <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
                                     <div class="card-body">
-                                        <div class="title border-bottom mb-3">
+                                        <div class="title mb-2">
                                             ${tour.title}
                                         </div>
                                         <div class="d-column">
-                                            <div class="d-flex mb-2 align-center">
+                                            <div class="d-flex align-center">
                                                 <div class="stars d-flex mr-2" data-value='${tour.rating}'>
                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                     <div class="star"><i class="far fa-star star-deactive"></i></div>
                                                     <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                </div> 
+                                                </div>
                                                 <span>${tour.comment_list.length} reviews</span>
                                             </div>
                                             <div class="d-flex">
@@ -272,10 +272,10 @@
                                                 <span class="bold mr-2">Company : </span>
                                                 <span>${tour.organizer_name}</span>
                                             </div>
-                                            <div class="d-flex full justify-content-between mt-3">
+                                            <div class="d-flex full justify-content-between mt-2">
                                                 <div class="price">
-                                                    
-                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`} 
+
+                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
                                                 </div>
                                                 <div class="duration align-center">
                                                     <i class="far fa-clock mr-1"></i>
@@ -309,7 +309,7 @@
         }
 
 
-       
+
     </script>
 
 
@@ -349,13 +349,13 @@
             e.preventDefault()
             _filterObj['search'] = $('#serachInput').val()
             $('#serachInput').val('')
-           
+
             delete _filterObj.page
             console.log(_filterObj);
             ajaxCall(_filterObj)
         })
 
-       
+
         function getPagePosition(e){
             _filterObj['page'] = e
             ajaxCall(_filterObj, e)
@@ -364,7 +364,7 @@
 
 
 
-        // Run Ajax  
+        // Run Ajax
         function ajaxCall(filterObj, clicked_page=1) {
             $.ajax({
                 url: `${window.location.protocol}//${window.location.host}/api/tours/`,
@@ -396,14 +396,14 @@
                                                     ${tour.title}
                                                 </div>
                                                 <div class="d-column">
-                                                    <div class="d-flex mb-2 align-center">
+                                                    <div class="d-flex align-center">
                                                         <div class="stars d-flex mr-2" data-value='${tour.rating}'>
                                                             <div class="star"><i class="far fa-star star-active"></i></div>
                                                             <div class="star"><i class="far fa-star star-active"></i></div>
                                                             <div class="star"><i class="far fa-star star-active"></i></div>
                                                             <div class="star"><i class="far fa-star star-deactive"></i></div>
                                                             <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                        </div> 
+                                                        </div>
                                                         <span>${tour.comment_list.length} reviews</span>
                                                     </div>
                                                     <div class="d-flex">
@@ -416,8 +416,8 @@
                                                     </div>
                                                     <div class="d-flex full justify-content-between mt-3">
                                                         <div class="price">
-                                                            
-                                                            ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`} 
+
+                                                            ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>

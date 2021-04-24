@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/dropdown-menu-style.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
-    
+
     <style>
         .shadow{
             -webkit-box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
@@ -31,11 +31,11 @@
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main>
 
         <div class="search-block">
@@ -49,8 +49,8 @@
             </form>
         </div>
 
-        <div class="custom-container bg-white mt-4 shadow pt-4 min-full-height">
-            <div class="inner-container ">
+        <div class="tour-container bg-white mt-4 shadow pt-4 min-full-height">
+            <div class="tour-inner-container ">
                 <div class="row m-4">
                     <div class="d-column full">
                         <h3 class="full text-center bold pb-2 mb-0">
@@ -75,7 +75,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
                     </div>
                     <div class="col-6 col-sm-4 col-xl-2">
                         <div class="d-column">
@@ -91,7 +91,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                     </div>
 
                     <div class="col-6 col-sm-4 col-xl-2">
@@ -108,7 +108,7 @@
                                 </select>
                             </div>
                         </div>
-                       
+
                     </div>
 
                     <div class="col-6 col-sm-4 col-xl-2">
@@ -174,8 +174,8 @@
                     </div>
                 </div>
 
-               
-               
+
+
                 <div class="row mt-5">
                     <div class="col text-center">
                         <div class="block-27" id='paginationContainer' style="display: none;">
@@ -212,13 +212,13 @@
                 if (index == page_position){
                     page_item += `
                         <li class="active btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
-                    `  
+                    `
                 }else{
                     page_item += `
                         <li class="btn btn-info page-link" data-target='${index}' onclick='getPagePosition(${index})'><span>${index}</span></li>
-                    `  
+                    `
                 }
-                        
+
             }
             $('#paginationBox').html(page_item)
 
@@ -238,18 +238,18 @@
                                 <div class="d-column full">
                                         <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
                                     <div class="card-body">
-                                        <div class="title border-bottom mb-3">
+                                        <div class="title mb-2">
                                             ${tour.title}
                                         </div>
                                         <div class="d-column">
-                                            <div class="d-flex mb-2 align-center">
+                                            <div class="d-flex align-center">
                                                 <div class="stars d-flex mr-2" data-value='${tour.rating}'>
                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                     <div class="star"><i class="far fa-star star-deactive"></i></div>
                                                     <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                </div> 
+                                                </div>
                                                 <span>${tour.comment_list.length} reviews</span>
                                             </div>
                                             <div class="d-flex">
@@ -262,8 +262,8 @@
                                             </div>
                                             <div class="d-flex full justify-content-between mt-3">
                                                 <div class="price">
-                                                    
-                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`} 
+
+                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
                                                 </div>
                                                 <div class="duration align-center">
                                                     <i class="far fa-clock mr-1"></i>
@@ -296,7 +296,7 @@
         }
 
     </script>
-    
+
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
@@ -346,7 +346,7 @@
         }
 
 
-        // Run Ajax  
+        // Run Ajax
         function ajaxCall(filterObj, clicked_page=1) {
             $.ajax({
                 url: `${window.location.protocol}//${window.location.host}/api/activities/`,
@@ -374,18 +374,18 @@
                                         <div class="d-column full">
                                                 <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
                                             <div class="card-body">
-                                                <div class="title border-bottom mb-3">
+                                                <div class="title mb-2">
                                                     ${tour.title}
                                                 </div>
                                                 <div class="d-column">
-                                                    <div class="d-flex mb-2 align-center">
+                                                    <div class="d-flex align-center">
                                                         <div class="stars d-flex mr-2" data-value='${tour.rating}'>
                                                             <div class="star"><i class="far fa-star star-active"></i></div>
                                                             <div class="star"><i class="far fa-star star-active"></i></div>
                                                             <div class="star"><i class="far fa-star star-active"></i></div>
                                                             <div class="star"><i class="far fa-star star-deactive"></i></div>
                                                             <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                        </div> 
+                                                        </div>
                                                         <span>${tour.comment_list.length} reviews</span>
                                                     </div>
                                                     <div class="d-flex">
@@ -398,8 +398,8 @@
                                                     </div>
                                                     <div class="d-flex full justify-content-between mt-3">
                                                         <div class="price">
-                                                            
-                                                            ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`} 
+
+                                                            ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
                                                         </div>
                                                         <div class="duration align-center">
                                                             <i class="far fa-clock mr-1"></i>
@@ -464,7 +464,7 @@
                     console.log($(place));
                    $(place).attr('src', e.target.result);
                }
-               
+
                reader.readAsDataURL(input.files[0]);
            }
        }
@@ -473,8 +473,8 @@
            readURL(this,$('#choosen-photo'));
        });
 
-       
-       
+
+
    </script>
 
 
@@ -487,12 +487,12 @@
             var rating_count = parseInt($('.stars').eq(star).data('value'))
             for (let count = 0; count < rating_count; count++) {
                 $('.stars').eq(star).find('i').eq(count).removeClass('far').addClass('fas')
-                
+
             }
         }
    </script>
 
-  {% include 'partials/websocket.html' %}  
+  {% include 'partials/websocket.html' %}
 
 </body>
 </html>

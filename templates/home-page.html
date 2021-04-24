@@ -1,4 +1,4 @@
-{% load static %}
+{% load static custom-tags %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,225 +12,507 @@
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
         integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
+
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'css/register.css' %}"> 
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
-    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home-page/responsive.css' %}">
 
-    <style>
-      .input_style {
-        outline: 0;
-        border-bottom: 2px solid rgb(236, 233, 233);
-        padding: 5px 10px;
-        width: 80%;
-      }
-      .input_style:focus {
-        border-bottom: 2px solid #6ea8f2;
-      }
-      .login_btn{
-        border-radius: 20px;
-        width: 80%;
-      }
-    .user-profile img{
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        object-fit: cover;
-    }
 
-    .user-profile:hover{
-        color: #ccc;
-        cursor: pointer;
-    }
 
-    .header-menu{
-        display: none;
-        z-index: 1111; 
-        position: absolute;
-        background-color: #fff;
-        box-shadow: 0 2px 8px rgba(153,153,153,.4);
-        right: 5px;
-        flex-direction: column;
-
-    }
-
-    .user-profile span{
-      color: #fff;
-    }
-
-    .header-menu li{
-        padding: 7px 50px;
-        transition: .4s;
-    }
-
-    .header-menu li:hover{
-        background-color: #d3d3d3;
-        color: #4CAEFF;
-    }
-
-    .header-menu a{
-        text-decoration: none;
-        color: rgb(63, 63, 63);
-    }
-
-    .user-profile:hover .header-menu{
-        display: flex;
-    }
-
-    .menu-btn{
-      display: none;
-    }
-    .owl-stage{
-        margin: auto;
-    }
-    .inner:hover{
-        transform: scale(1.1);
-    }
-    @media (max-width: 450px){
-        
-        .username{
-            display: none;
-        }
-    }
-    </style>
 </head>
 
 <body>
-      
-    {% include 'partials/header.html' %}
+
+    <header class="header">
+        <div class="custom-container">
+            <div class="row">
+                <nav class="d-flex justify-content-between align-items-center full">
+                    <a href="{% url 'main:home' %}">
+                        <img src="{% static 'images/wactop1.png' %}" class="logo" alt="">
+                    </a>
+
+                    <div class="d-flex">
+
+                        {% if request.user.is_authenticated %}
+                        <div class=" user-profile">
+                            {% if request.user.profile_img %}
+                                <img src="{{request.user.profile_img.url}}" class="user-img" alt="">
+                            {% else %}
+                                <img src="{% static 'images/profile.png' %}" class="user-img"  alt="">
+                            {% endif %}
+                            <div class="username">
+                                <span>{{ request.user.username }}</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+
+                            <div class="header-menu" >
+                                <nav>
+                                    <ul class="d-column mb-0">
+
+                                        {% if request.user.is_organizer %}
+                                            <li>
+                                                <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name|truncatechars:20}}</a>
+                                            </li>
+                                            <li>
+                                                <a href="{% url 'organizer:organizer-profile' %}">Organizer Settings</a>
+                                            </li>
+                                        {% endif %}
+                                        <li>
+                                            <a href="{% url 'account:change-password' %}">Change Password</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'account:user-update' request.user.pk %}">Account Details</a>
+                                        </li>
+                                        <li>
+                                            <a href="{% url 'account:logout' %}">Sign Out</a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                        {% notifications_count  request.user as notifs %}
+                        {% if request.user.is_organizer %}
+                            <div class="notification align-center">
+                                <div class="d-flex justify-content-center align-center p-relative">
+                                    <i class="far fa-bell notify_icon {% if notifs  %} notification_icon {% endif %} "></i>
+                                </div>
+                                <div class="header-menu p-2" id="notification-box">
+                                    <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
+                                    <p class="bold text-center" id='notifications' style="color: #000;" > {% if notifs  %}You have new {{notifs}} notifications{% else %}Nothing notifications here!{% endif %} </p>
+                                    <form action="{% url 'organizer:reset_notifications' %}" class="">
+                                        <input type="submit" value="View All" class="w-100 btn btn-outline-secondary notification_btn {% if notifs  %} display_b {% else %} display_n {% endif %}'">
+                                    </form>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% else %}
+                        <ul class="menu-list d-flex m-0 align-center">
+                            <li>
+                                <button data-toggle="modal" data-target="#loginModal" class="login-btn">Login</button>
+                            </li>
+                            <li>
+                                <button class="register-btn" data-toggle="modal" data-target="#registerModal">
+                                    Sign Up
+                                </button>
+                            </li>
+                        </ul>
+
+                        {% endif %}
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section>
+        {% login_form as login %}
+        <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog login-modal" >
+                <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
+
+                    <form class="" method="post" action="{% url 'main:home' %}">
+                        {% csrf_token %}
+                        <div class="login-container">
+                            <div class="row">
+                                <div class="col-2"></div>
+                                <div class="col-8">
+                                    <h4 class="text-center mb-3" style="color: rgb(112, 111, 111);">Sing-In</h4>
+                                </div>
+                                <div class="col-2">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="form-group row">
+                                <div class="col-sm-12  d-flex justify-content-center">
+                                    {{login.username}}
+                                    {{login.username.errors}}
+                                </div>
+                            </div>
+                            <div class="form-group row" >
+                                <div class="col-sm-12 d-flex justify-content-center">
+                                    {{login.password}}
+                                    {{login.password.errors}}
+                                </div>
+                            </div>
+                            <div class="form-group row mt-3">
+                                <div class="col-sm-12 d-flex justify-content-center">
+                                <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
+                                </div>
+                            </div>
+
+                            <div class="form-group row justify-content-end d-flex">
+                            <a href="{% url 'account:password_reset' %}" class="float-right mr-3">Forgot password?</a>
+                            </div>
+                        </div>
+                    </form>
+                <div class="row">
+                    <form class="full p-2">
+                    <div class="form-group d-column social-login">
+                        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" >
+                            <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
+                        </a>
+                        <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" style="border: 1px solid #ccc">
+                            <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
+                        </a>
+
+                    </div>
+                    </form>
+                    <div class="d-column full mb-3">
+                    <p class="text-center mb-1">Are you new?</p>
+                    <a class="text-center mb-1" href="#" data-toggle="modal" data-target="#registerModal" >Create your account</a>
+                    </div>
+                </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog register-modal" role="document">
+            <div class="modal-content" style="background-color: #ebebeb;">
+                <div class="modal-body d-column">
+                    <div class="row  mb-3 pb-2 border-bottom">
+                        <div class="col-2"></div>
+                        <div class="col-8">
+                            <h4 class="full text-center">Register</h4>
+                        </div>
+                        <div class="col-2">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <a class="register-link mt-3"  href="{% url 'organizer:organizer-register' %}" >
+                    Register as Organizer
+                    </a>
+                    <a class="register-link" href="{% url 'account:user-register' %}">
+                    Register as User
+                    </a>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <section class="slider-section" style="background: url({% static 'images/home-page/slider-img-1.jpg' %}) no-repeat 90% 100px, url({% static 'images/home-page/slider-img-4.jpg' %}) no-repeat 100px bottom;">
+
+        <div class="custom-container">
+            <div class="inner-container">
+                <h1 class="text-center home-heading">World Active Tourism Platform</h1>
+                <div class="main-menu">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="{% url 'tour:home' %}" class="menu-link">
+                                <div class="d-flex align-center justify-content-center">
+                                    <img src="{% static 'images/home-page/direction.svg' %}" alt="">
+                                    <h3>
+                                        Tours
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'activity:home' %}" class="menu-link">
+                                <div class="d-flex align-center justify-content-center">
+                                    <img src="{% static 'images/home-page/pin.svg' %}" alt="">
+                                    <h3>
+                                        Activities
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'training:home' %}" class="menu-link">
+                                <div class="d-flex align-center justify-content-center">
+                                    <img src="{% static 'images/home-page/bus.svg' %}" alt="">
+                                    <h3>
+                                        Trainings
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-6">
+                            <a href="{% url 'organizer:home' %}" class="menu-link">
+                                <div class="d-flex align-center justify-content-center">
+                                    <img src="{% static 'images/home-page/calendar.svg' %}" alt="">
+                                    <h3>
+                                        Organizers
+                                    </h3>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>
 
 
-    <main id="main">
-        <div class="img-overlay"></div>
-        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel">
-            <div class="carousel-inner">
-                {% if slide_images %}
-                    {% for image in slide_images %}
-                        <div class="carousel-item ">
-                            <img class="d-block w-100" src="{{image.slide_image.url}}" alt="First slide">
+    <main>
+        <div class="custom-container">
+            <div class="row mb-100">
+                <h3 class="text-center full home-heading">Newest Tours</h3>
+
+                <div class="tour-grid">
+                    {% for tour in tours %}
+                        <div class="tour">
+                            <div class="d-column">
+                                <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+
+                                <div class="card-body">
+                                    <div class="d-flex ">
+                                        <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                            <h4>
+                                                {{tour.title|capfirst}}
+                                            </h4>
+                                        </a>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        {% if tour.durationday %}
+                                            <span class="duration">{{tour.durationday}} days</span>
+                                        {% else %}
+                                            <span class="duration">Always</span>
+                                        {% endif %}
+                                        <span>{{tour.price}} {{tour.currency}}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     {% endfor %}
-                {% else %}
-                    <div class="carousel-item active">
-                        <img class="d-block w-100" src="{% static 'images/home-page/slide-img-1.jpg' %}" alt="First slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/home-page/slide-img-2.jpg' %}" alt="Second slide">
-                    </div>
-                    <div class="carousel-item">
-                        <img class="d-block w-100" src="{% static 'images/home-page/slide-img-3.jpg' %}" alt="Third slide">
-                    </div>
-                {% endif %}
-            </div>
-        </div>
-        <div class="container" style="z-index: 1;">
-            <div class="full-width">
-                <div class="row text-center">
-                    <a class="inner" href="{% url 'tour:home' %}">
-                      <div >
-                          <p class="suggestions">Tours
-                          {{notifications_tags}}
-                          </p>
-                          <p>{{tourcount}}</p>
-                      </div>
-                    </a>
-                    <a class="inner" href="{% url 'activity:home' %}">
-                      <div >
-                          <p class="suggestions">Activities</p>
-                          <p>{{activitycount}}</p>
-                      </div>
-                    </a>
-                    <a class="inner" href="{% url 'training:home' %}" >
-                      <div >
-                          <p class="suggestions">Tranings
-                          </p>
-                          <p>{{trainingcount}}</p>
-                      </div>
-                    </a>
-                    <a class="inner" href="{% url 'organizer:home' %}">
-                      <div >
-                          <p class="suggestions">Organizer</p>
-                          <p>{{organizercount}}</p>
-                      </div>
-                    </a>
                 </div>
-            </div>
-        </div>
-       
-    </main>
-    <footer id="footer" class="full">
-        
-        <div class="footer-up">
-            <div class="partners">Our partners</div>
-            <div class="partners-logos">
-                <div class="owl-carousel owl-theme partners-logos-box">
-                    {% for partner in partners %}
-                        <div class="item" id="partners-crsl"><img src="{{partner.partner_logo.url}}" alt="" onclick="window.open('{% if partner.partner_url %}{{partner.partner_url}} {% else %}{{request.path}}{% endif %}')"></div>
+
+                <h3 class="text-center full home-heading">Newest Trainings</h3>
+
+                <div class="tour-grid">
+                    {% for tour in trainings %}
+                        <div class="tour">
+                            <div class="d-column">
+                                <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+
+                                <div class="card-body">
+                                    <div class="d-flex ">
+                                        <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                            <h4>
+                                                {{tour.title|capfirst}}
+                                            </h4>
+                                        </a>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        {% if tour.durationday %}
+                                            <span class="duration">{{tour.durationday}} days</span>
+                                        {% else %}
+                                            <span class="duration">Always</span>
+                                        {% endif %}
+                                        <span>{{tour.price}} {{tour.currency}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     {% endfor %}
                 </div>
+
+                <h3 class="text-center full home-heading">Newest Activities</h3>
+
+                <div class="tour-grid">
+                    {% for tour in activities %}
+                        <div class="tour">
+                            <div class="d-column">
+                                <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+
+                                <div class="card-body">
+                                    <div class="d-flex ">
+                                        <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                            <h4>
+                                                {{tour.title|capfirst}}
+                                            </h4>
+                                        </a>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        {% if tour.durationday %}
+                                            <span class="duration">{{tour.durationday}} days</span>
+                                        {% else %}
+                                            <span class="duration">Always</span>
+                                        {% endif %}
+                                        <span>{{tour.price}} {{tour.currency}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div class="pt-5 pb-5">
+                <div class="row">
+                    <div class="col-7">
+                        <div class="owl-carousel">
+                            <div>
+                                <img class="owl-img-item" src="https://lp-cms-production.imgix.net/features/2013/06/GettyRF_83654057-0d23ef9081fb.jpg"
+                                    alt="">
+                            </div>
+                            <div>
+                                <img class="owl-img-item" src="https://d3jkudlc7u70kh.cloudfront.net/extreme-sport-fact.jpg" alt="">
+                            </div>
+                            <div>
+                                <img class="owl-img-item" src="https://wallpapercave.com/wp/tQbrBgT.jpg" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-5 about-section d-column justify-content-around">
+                        <div>
+                            <h5>About Us</h5>
+                            <h3>Get ready for real time adventure</h3>
+                            <p>Let’s start your journey with us, your dream will come true.Wactop, provides people with
+                                access
+                                to active lifestyles and access to active products they are
+                                interested in on a common platform. Our mission is to provide services they need to live
+                                active
+                                lives on the online platform.
+                            </p>
+                        </div>
+
+                        <div class="d-column">
+                            <h3>Our Partners</h3>
+
+                            <div class="d-flex">
+                                {% for partner in partners %}
+                                    <a target="_blank" href="{% if partner.partner_url %}{{partner.partner_url}} {% else %}#{% endif %}">
+                                        <img src="{{partner.partner_logo.url}}" class="partner-logo" alt="">
+                                    </a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
-        <div class="full footer-bottom">
-            <div class="container-fluid">
+    </main>
+
+
+    <footer class="footer">
+        <div class="custom-container">
+            <div class="inner-container">
                 <div class="row">
-                    <div class="col-4">
-                        <nav class="footer-menu">
+                    <div class="col-4 d-column align-center">
+                        <div class="d-column">
+                            <img src="{% static 'images/wactop.png' %}" class="logo" alt="">
+
+                            <h5>World Active Tourism Platform</h5>
+
+                            <nav class="d-flex">
+                                <ul class="footer-social-links">
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-facebook-square"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-instagram"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <i class="fab fa-linkedin"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="col-4 d-column align-center">
+                        <h5>Navigation</h5>
+
+                        <nav class="footer-nav">
                             <ul class="d-column">
                                 <li>
-                                    <a href="{% url 'main:about' %}">About Us</a>
+                                    <a href="#">
+                                        Tours
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'main:terms' %}">Terms</a>
+                                    <a href="#">
+                                        Activities
+                                    </a>
                                 </li>
                                 <li>
-                                    <a href="{% url 'main:privacies' %}">Privacy</a>
+                                    <a href="#">
+                                        Trainings
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        Organizers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        About
+                                    </a>
                                 </li>
                             </ul>
-                            <p><i class="far fa-copyright"></i> 2021</p>
                         </nav>
                     </div>
-                    <div class="col-4">
-                        <div class="d-column align-center">
-                            <span class="mb-2 mt-2">Follow Us</span>
-                            <ul class="footer-social-links" >
+
+                    <div class="col-4 d-column align-center">
+                        <h5>Contact Us</h5>
+
+                        <nav class="footer-nav">
+                            <ul class="d-column">
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-facebook-square"></i>
-                                    </a>
+                                    <a href="#">Contact</a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-instagram"></i>
-                                    </a>
+                                    <a href="#">Privacy</a>
                                 </li>
                                 <li>
-                                    <a href="#">
-                                        <i class="fab fa-linkedin"></i>
-                                    </a>
+                                    <a href="#">Terms</a>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-4 d-flex justify-content-end">
-                        <a href="{% url 'main:contact' %}">Contact</a>
+                        </nav>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
-    <script src="{% static 'js/home-page/jquery-latest.js' %}"></script>
-    <script src="{% static 'js/home-page/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/home-page/owl.carousel.js' %}"></script>
-    <script src="{% static 'js/home-page/owl.carousel.min.js' %}"></script>
-    <script src="{% static 'js/home-page/main.js' %}"></script>
-    <script>
-        $('.carousel-inner').children().eq(0).addClass('active')
-        console.log($('.carousel-inner').children().eq(0));
+
+
+
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+
+     <script>
+        $(document).ready(function () {
+            $(".owl-carousel").owlCarousel({
+                loop: true,
+                items: 1,
+                autoplay: true,
+                autoplayTimeout: 2000,
+                autoplayHoverPause: true
+            });
+        });
     </script>
+
    {% include 'partials/websocket.html' %}
 </body>
 

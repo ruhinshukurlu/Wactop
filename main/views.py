@@ -47,16 +47,13 @@ def HomeView(request):
 
     else:
         form = LoginForm()
-        tourcount = Tour.objects.filter(status=1).count()
-        activitycount = Activity.objects.filter(status=1).count()
-        trainingcount = Training.objects.filter(status=1).count()
-        organizercount = Organizer.objects.all().count() 
+        tours = Tour.objects.filter(status=1)[:4]
+        activities = Activity.objects.filter(status=1)[:4]
+        trainings = Training.objects.filter(status=1)[:4]
     context = {
-        'tourcount': tourcount,
-        'activitycount': activitycount,
-        'trainingcount': trainingcount,
-        'organizercount': organizercount,
-        # 'pk': pk,
+        'tours': tours,
+        'activities': activities,
+        'trainings': trainings,
         'form': form,
         'slide_images': slide_images,
         'partners': partners,

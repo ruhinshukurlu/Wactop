@@ -1,0 +1,16 @@
+@media (max-width : 1300px) {
+    .tour-img{
+        height: 130px;
+    }
+}
+
+
+@media (max-width : 1000px) {
+    .tour-grid{
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .tour-img{
+        height: 200px;
+    }
+}

@@ -1,7 +1,7 @@
 location /static/ {
-    alias   /wactop/static/;
+    alias   /code/static/;
 }
 
 location /media/ {
-    alias   /wactop/media/;
+    alias   /code/media/;
 }

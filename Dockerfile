@@ -33,7 +33,7 @@ WORKDIR /code
 RUN pip install -r requirements.txt
 ADD . .
 # RUN python manage.py collectstatic
-RUN if [ -f manage.py ]; then python manage.py collectstatic --noinput; fi
+RUN python manage.py collectstatic --noinput
 # Start uWSGI
 # CMD [ "/venv/bin/uwsgi", "--ini", "/code/uwsgi.ini"]
 CMD [ "gunicorn", "--bind", "0.0.0.0", "-p", "8000",  "Wactop.wsgi" ]

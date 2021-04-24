@@ -74,7 +74,7 @@
         font-size: 14px;
     }
 
-    .form-input:not(textarea), 
+    .form-input:not(textarea),
     .custom-select,
     .organizer-edit-form input{
         height: 40px;
@@ -124,6 +124,13 @@
         max-width: 90%;
     }
 
+    .tour-container{
+        max-width: 95%;
+    }
+    .tour-inner-container{
+        max-width: 95%;
+    }
+
     .saved-item .description{
         display: none;
     }
@@ -146,7 +153,7 @@
     .footer-social-links i {
         font-size: 15px;
     }
-   
+
     .organizer-edit-form{
         font-size: 13px;
     }
@@ -206,11 +213,18 @@
 }
 
 @media (max-width : 1200px) {
-    
+
 
     .tour-item .title,
     .tour-item .price{
         font-size: 15px;
+    }
+
+    .tour-container{
+        max-width: 100%;
+    }
+    .tour-inner-container{
+        max-width: 95%;
     }
 
     .tour-item .title{
@@ -249,7 +263,7 @@
     .filter-menu-list{
         width: 90%;
         font-size: 11px;
-    }    
+    }
     .tour-menu-list{
         flex-direction: row !important;
     }
@@ -403,7 +417,7 @@
 }
 
 @media ( max-width : 768px ){
-    
+
 
     .change-photo-btn {
         padding: 5px 30px;
@@ -463,6 +477,10 @@
 
 @media ( max-width : 577px ) {
     .custom-container, .inner-container{
+        max-width: 100%;
+    }
+
+    .tour-inner-container{
         max-width: 100%;
     }
 
@@ -567,8 +585,8 @@
     .form-input:not(textarea), .custom-select, .filter-open-btn {
         height: 35px;
         font-size: 13px;
-    }  
-    
+    }
+
     .form-input::placeholder{
         font-size: 13px;
     }
@@ -612,7 +630,7 @@
         padding-left: 35%;
     }
 
-    
+
 
     .info-list li {
         margin-right: 0;
@@ -629,7 +647,7 @@
     .company-admin-container img {
         width: 75px !important;
     }
-    
+
     .company-admin-container span {
         font-size: 16px;
     }
@@ -654,7 +672,7 @@
         align-items: center;
     }
 
-    .add-guide-form input[type='submit'] { 
+    .add-guide-form input[type='submit'] {
         font-size: 13px;
         padding: 5px 10px;
     }
@@ -680,7 +698,7 @@
     .btn-mob{
         font-size: 13px;
     }
-   
+
     .edit-delete-box{
         right: 25px;
     }
@@ -702,7 +720,7 @@
     .form-input{
         font-size: 13px;
     }
-  
+
     .tour-prof-edit{
         flex-direction: column !important;
     }
@@ -720,12 +738,12 @@
         height: 220px;
     }
 
-    #organizerActions .tour-item .stars i, 
+    #organizerActions .tour-item .stars i,
     #organizerActions .tour-item span,
     #organizerActions .tour-item i {
         font-size: 12px;
     }
-    #organizerActions .tour-item .price, 
+    #organizerActions .tour-item .price,
     #organizerActions .tour-item .duration {
         font-size: 15px;
     }
@@ -817,7 +835,7 @@
         width: 100px;
         height: 100px;
     }
-    
+
     .username{
         display: none;
     }

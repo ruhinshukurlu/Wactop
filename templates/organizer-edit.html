@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
-    
+
     <style>
         .org-cover-photo, .org-profile-photo{
             border: 1px solid rgb(90, 200, 243);
@@ -26,11 +26,11 @@
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main>
         <div class="row justify-content-center p-relative">
             <div class="col-xl-3 p-0" id="menu-column" >
@@ -70,15 +70,16 @@
                                                 {% else %}
                                                     <img src="{% static 'images/default.png' %}" class="org-cover-photo" id='default-cover-photo' alt="">
                                                 {% endif %}
-                                                <div class="d-flex add-img-box profile-img-box d-column">
-                                                    {{form.cover}}
-                                                    <label for="coverPhoto" class="align-center change-photo-btn">
-                                                        <i class="fas fa-camera"></i>
-                                                        Change Cover Photo
-                                                    </label>
-                                                </div>
+
                                             </div>
-                                            
+                                            <div class="d-flex add-img-box p-3 border-bottom mb-5 d-column">
+                                                <p class="bold border-bottom">If you want to delete cover photo, please click 'clear' and save it :)</p>
+                                                {{form.cover}}
+                                                <label for="coverPhoto" class="align-center change-photo-btn">
+                                                    <i class="fas fa-camera"></i>
+                                                    Change Cover Photo
+                                                </label>
+                                            </div>
                                         </div>
                                         <div class="form-group row">
                                             <div class="col-12">
@@ -134,7 +135,7 @@
                                             </div>
                                             <div class="col-9">
                                                 <div class="d-flex">
-                                                    Current : 
+                                                    Current :
                                                     <a href="{{form.website.value}}" target="blank">{{form.website.value}}</a>
                                                 </div>
                                                 {{form.website}}
@@ -146,7 +147,7 @@
                                             </div>
                                             <div class="col-9">
                                                 <div class="d-flex">
-                                                    Current : 
+                                                    Current :
                                                     <a href="{{form.facebook.value}}" target="blank">{{form.facebook.value}}</a>
                                                 </div>
                                                 {{form.facebook}}
@@ -158,7 +159,7 @@
                                             </div>
                                             <div class="col-9">
                                                 <div class="d-flex">
-                                                    Current : 
+                                                    Current :
                                                     <a href="{{form.instagram.value}}" target="blank">{{form.instagram.value}}</a>
                                                 </div>
                                                 {{form.instagram}}
@@ -211,7 +212,7 @@
                     console.log($(place));
                    $(place).attr('src', e.target.result);
                }
-               
+
                reader.readAsDataURL(input.files[0]);
            }
        }
@@ -223,11 +224,11 @@
        $("#profilePhoto").change(function(){
            readURL(this,$('#default-profile-photo'));
        });
-       
+
    </script>
 
 {% include 'partials/websocket.html' %}
-    
+
 
 </body>
 </html>

@@ -39,13 +39,13 @@
                   {% csrf_token %}
                   <div class="form-group row p-relative" style="margin-bottom: 80px;">
                     <!-- Tour Cover Photo -->
-                    <div class="d-flex add-img-box cover-img-box"> 
+                    <div class="d-flex add-img-box cover-img-box">
                         <label for="coverimgInp"><i class="fas fa-camera mr-2"></i>Cover Photo</label>
                         {{form.cover_image}}
                         {{form.cover_image.errors}}
                     </div>
                     <img id="coverPhoto" class="cover-photo" src="{% static 'images/org-cover-4.jpg' %}" alt="your image" />
-                    
+
                     <!-- Tour Profile Photo -->
                     <div class="tour-profile-photo">
                         <div class="p-relative org-logo-bg">
@@ -55,7 +55,7 @@
                                 </label>
                                 {{form.profile_image}}
                                 {{form.profile_image.errors}}
-                                
+
                             </div>
                             <img id="profilePhoto" class="profile-photo" src="{% static 'images/org-logo-1.png' %}" alt="your image" />
                         </div>
@@ -106,7 +106,7 @@
                       {{form.password2.errors}}
                   </div>
                 </div>
-                
+
                 <div class="form-group row justify-content-center f-size mt-3">
                   <div class="col-12 col-sm-3">
                       {{form.description.label_tag}}
@@ -146,7 +146,7 @@
                       {{form.contact_number1.errors}}
                   </div>
                 </div>
-               
+
                 <div class="form-group row justify-content-center f-size mt-3">
                   <div class="col-12 col-sm-3">
                       {{form.contact_number2.label_tag}}
@@ -156,7 +156,7 @@
                       {{form.contact_number2.errors}}
                   </div>
                 </div>
-                
+
                 <div class="form-group row justify-content-center f-size mt-3">
                   <div class="col-12 col-sm-3">
                       {{form.website.label_tag}}
@@ -166,7 +166,7 @@
                       {{form.website.errors}}
                   </div>
                 </div>
-                
+
                 <div class="form-group row justify-content-center f-size mt-3">
                   <div class="col-12 col-sm-3">
                       {{form.facebook.label_tag}}
@@ -176,7 +176,7 @@
                       {{form.facebook.errors}}
                   </div>
                 </div>
-                
+
                 <div class="form-group row justify-content-center f-size mt-3">
                   <div class="col-12 col-sm-3">
                       {{form.instagram.label_tag}}
@@ -186,14 +186,14 @@
                       {{form.instagram.errors}}
                   </div>
                 </div>
-                   
+
                 <div class="form-group row  f-size">
                   <div class="col-12 d-flex justify-content-end">
                     <input type="submit" value="Register" class="btn btn-outline-success btn-mob">
                   </div>
                 </div>
 
-                 
+
                 </form>
             </div>
         </div>
@@ -207,7 +207,7 @@
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/owl.carousel.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
     <script src="{% static 'js/main.js' %}"></script>
 
     <script>

@@ -19,7 +19,7 @@ class Training(models.Model):
         ('TRY', 'TRY'),
         ('RUB','RUB')
     ]
- 
+
 
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='training')
     title = models.CharField(max_length=63)
@@ -44,15 +44,17 @@ class Training(models.Model):
     trainer = models.CharField(max_length=31, blank=True, null=True)
     availabledays = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
-    rating = models.IntegerField(_("Rating"), blank=True, null=True)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True, default=0)
 
     start_hour = models.TimeField(_("Start Hour"))
     finish_hour = models.TimeField(_("Finish Hour"))
 
-    map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
+    created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True )
 
+    map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
     activated = models.BooleanField(_("Activated"), default  = False)
-    
+
     old_status = None
 
     def __init__(self, *args, **kwargs):
@@ -74,13 +76,13 @@ class Training(models.Model):
         new_price = self.price - (self.price * self.discount) // 100
         return new_price
 
-    def discount_price_api(self):  
-        if self.discount: 
+    def discount_price_api(self):
+        if self.discount:
             new_price = self.price - (self.price * self.discount) // 100
         else:
             new_price = 0
         return new_price
-    
+
     def get_duration_day_api(self):
         duration = ''
         if self.datefrom and self.dateto:
@@ -89,11 +91,11 @@ class Training(models.Model):
             duration = f'{(end_date-start_date).days} days'
         else:
             duration = 'Always'
-        
+
         return duration
-        
-    
-  
+
+
+
 
 class TrainingDetail(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail')
@@ -133,7 +135,7 @@ class Comment(models.Model):
     comment_reply = models.ForeignKey("self", verbose_name=_("Comment"), on_delete=models.CASCADE, blank=True, null = True, related_name='replies')
     training = models.ForeignKey("training.Training", verbose_name=_("Training"), on_delete=models.CASCADE, blank=True, null=True, related_name='comment')
     user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, blank=True, null=True, related_name='comment')
-   
+
     def __str__ (self):
         return self.message
 
@@ -158,4 +160,3 @@ class TrainingDeny(models.Model):
     def __str__(self):
         return str(self.training)
 
-   

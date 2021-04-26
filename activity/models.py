@@ -43,10 +43,13 @@ class Activity(models.Model):
     guide = models.CharField(max_length=31, blank=True, null=True)
     availabledays = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
-    rating = models.IntegerField(_("Rating"), blank=True, null=True)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True, default=0)
 
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
     activated = models.BooleanField(_("Activated"), default  = False)
+
+    created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True )
 
     old_status = None
     def __init__(self, *args, **kwargs):
@@ -65,13 +68,13 @@ class Activity(models.Model):
         new_price = self.price - (self.price * self.discount) // 100
         return new_price
 
-    def discount_price_api(self):  
-        if self.discount: 
+    def discount_price_api(self):
+        if self.discount:
             new_price = self.price - (self.price * self.discount) // 100
         else:
             new_price = 0
         return new_price
-    
+
     def get_duration_day_api(self):
         duration = ''
         if self.datefrom and self.dateto:
@@ -80,9 +83,9 @@ class Activity(models.Model):
             duration = f'{(end_date-start_date).days} days'
         else:
             duration = 'Always'
-        
+
         return duration
-    
+
     def __str__ (self):
         return self.title
 
@@ -94,7 +97,7 @@ class ActivityDetail(models.Model):
 
     def __str__ (self):
         return self.activity.title + ": " + self.title
-     
+
 
 class ActivityImage(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE)
@@ -123,7 +126,7 @@ class ActivityComment(models.Model):
     comment_reply = models.ForeignKey("self", verbose_name=_("Comment"), on_delete=models.CASCADE, blank=True, null = True, related_name='replies')
     activity = models.ForeignKey("activity.Activity", verbose_name=_("Activity"), on_delete=models.CASCADE, blank=True, null=True, related_name='activity_comment')
     user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, blank=True, null=True, related_name='activity_comment')
-   
+
     def __str__ (self):
         return self.message
 

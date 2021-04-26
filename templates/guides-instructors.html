@@ -18,18 +18,18 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
-    
+
     <style>
-        
+
     </style>
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main>
         <div class="row justify-content-center p-relative">
             <div class="col-xl-3 p-0" id="menu-column" >
@@ -77,7 +77,9 @@
                                             <td>{{instructor.name}}</td>
                                             <td>{{instructor.surname}}</td>
                                             <td>{{instructor.experience}}</td>
-                                            <td>{{instructor.certification}}</td>
+                                            <td>
+                                                <a target="_blank" href="{{instructor.certification.url}}">Certification File</a>
+                                            </td>
                                             <td >
                                                 <a href="{% url 'organizer:instructor-edit' instructor.pk %}" class="btn btn-outline-success mr-2 btn-mob">
                                                     <i class="far fa-edit"></i>
@@ -110,8 +112,8 @@
                                             </td>
                                         </tr>
                                     {% endfor %}
-                                
-                                
+
+
                                 </tbody>
                             </table>
                         {% else %}
@@ -142,7 +144,9 @@
                                             <td>{{guide.name}}</td>
                                             <td>{{guide.surname}}</td>
                                             <td>{{guide.experience}}</td>
-                                            <td>{{guide.certification}}</td>
+                                            <td>
+                                                <a target="_blank" href="{{guide.certification.url}}">Certification File</a>
+                                            </td>
                                             <td>
                                                 <a href="{% url 'organizer:guide-edit' guide.pk %}" class="btn btn-outline-success mr-2 btn-mob">
                                                     <i class="far fa-edit"></i>
@@ -189,7 +193,7 @@
     </main>
 
     {% include 'partials/footer.html' %}
-    
+
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
@@ -205,7 +209,7 @@
                     console.log($(place));
                    $(place).attr('src', e.target.result);
                }
-               
+
                reader.readAsDataURL(input.files[0]);
            }
        }
@@ -214,13 +218,13 @@
            readURL(this,$('#choosen-photo'));
        });
 
-       
-       
+
+
    </script>
 
 
     {% include 'partials/websocket.html' %}
-    
+
 
 </body>
 </html>

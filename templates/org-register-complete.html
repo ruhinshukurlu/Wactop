@@ -47,22 +47,22 @@
             animation-play-state: paused;
         }
 
-        .check 
+        .check
         {
             stroke-dasharray: 110;
             stroke-dashoffset: -110;
             stroke-width: 0;
         }
 
-        .check-complete 
-        {   
+        .check-complete
+        {
             -webkit-animation: check 1s ease-in forwards;
             animation: check 1s ease-in forwards;
             stroke-width: 15;
             stroke-dashoffset: 0;
         }
 
-        .fill 
+        .fill
         {
             stroke-dasharray: 285;
             stroke-dashoffset: -257;
@@ -72,7 +72,7 @@
             -moz-transform-origin: 50px 50px;
         }
 
-        .fill-complete 
+        .fill-complete
         {
             -webkit-animation: fill 1s ease-out forwards;
             animation: fill 1s ease-out forwards;
@@ -173,7 +173,7 @@
         }
         }
 
-        .success 
+        .success
         {
             stroke: #009900;
             transition: stroke .6s;
@@ -188,7 +188,7 @@
 
 </head>
 <body id="profile-body">
-    
+
     {% include 'partials/header.html' %}
 
     <!-- <main class="mb-5"> -->
@@ -202,7 +202,7 @@
                                 <g transform="">
                                     <circle class="path" fill="none" stroke="#7DB0D5" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="44"/>
                                     <circle class="fill" fill="none" stroke="#7DB0D5" stroke-width="4" stroke-miterlimit="10" cx="50" cy="50" r="44"/>
-                                    <polyline class="check" fill="none" stroke="#7DB0D5" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10" 
+                                    <polyline class="check" fill="none" stroke="#7DB0D5" stroke-width="8" stroke-linecap="round" stroke-miterlimit="10"
                                         points="70,35 45,65 30,52  "/>
                                 </g>
                             </svg>
@@ -225,17 +225,17 @@
                                 <img src="{% static 'images/wactop1.png' %}" width="150px" style="margin-bottom: 5px;" alt="">
                             </h4>
                         </div>
-                    </div> 
+                    </div>
                 </div>
             </div>
         </div>
     <!-- </main> -->
-    
+
 
 
     <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
     <script src="{% static 'js/main.js' %}"></script>
 
         <script>
@@ -253,6 +253,6 @@
             });
         </script>
 
-    
+
 </body>
 </html>

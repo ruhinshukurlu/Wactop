@@ -30,7 +30,7 @@
 <body>
 
     <header class="header">
-        <div class="custom-container">
+        <div class="pr-2 pl-2">
             <div class="row">
                 <nav class="d-flex justify-content-between align-items-center full">
                     <a href="{% url 'main:home' %}">
@@ -41,17 +41,19 @@
 
                         {% if request.user.is_authenticated %}
                         <div class=" user-profile">
-                            {% if request.user.profile_img %}
-                                <img src="{{request.user.profile_img.url}}" class="user-img" alt="">
-                            {% else %}
-                                <img src="{% static 'images/profile.png' %}" class="user-img"  alt="">
-                            {% endif %}
-                            <div class="username">
-                                <span>{{ request.user.username }}</span>
-                                <i class="fas fa-chevron-down"></i>
+                            <div class="align-center">
+                                {% if request.user.profile_img %}
+                                    <img src="{{request.user.profile_img.url}}" class="user-img" alt="">
+                                {% else %}
+                                    <img src="{% static 'images/profile.png' %}" class="user-img"  alt="">
+                                {% endif %}
+                                <div class="username">
+                                    <span>{{ request.user.username }}</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
                             </div>
 
-                            <div class="header-menu" >
+                            <div class="header-menu shadow" >
                                 <nav>
                                     <ul class="d-column mb-0">
 
@@ -79,12 +81,18 @@
 
                         {% notifications_count  request.user as notifs %}
                         {% if request.user.is_organizer %}
-                            <div class="notification align-center">
-                                <div class="d-flex justify-content-center align-center p-relative">
-                                    <i class="far fa-bell notify_icon {% if notifs  %} notification_icon {% endif %} "></i>
+                            <div class="notification">
+                                <div class="align-center p-relative full-h">
+                                    {% if notifs  %}
+                                        <i class="far fa-bell notify_icon notification_icon" style="color: red;"></i>
+                                    {% else %}
+                                        <i class="far fa-bell notify_icon notification_icon" ></i>
+                                    {% endif %}
                                 </div>
-                                <div class="header-menu p-2" id="notification-box">
-                                    <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
+                                <div class="header-menu p-2 shadow" id="notification-box">
+                                    <div class="d-flex justify-content-center">
+                                        <img src="{% static 'images/animat-bell-color.gif' %}" id="notification-bell" class="m-auto" alt="">
+                                    </div>
                                     <p class="bold text-center" id='notifications' style="color: #000;" > {% if notifs  %}You have new {{notifs}} notifications{% else %}Nothing notifications here!{% endif %} </p>
                                     <form action="{% url 'organizer:reset_notifications' %}" class="">
                                         <input type="submit" value="View All" class="w-100 btn btn-outline-secondary notification_btn {% if notifs  %} display_b {% else %} display_n {% endif %}'">
@@ -262,100 +270,117 @@
 
     <main>
         <div class="custom-container">
+
             <div class="row mb-100">
-                <h3 class="text-center full home-heading">Newest Tours</h3>
+                {% if tours %}
+                    <h3 class="text-center full home-heading">Newest Tours</h3>
 
-                <div class="tour-grid">
-                    {% for tour in tours %}
-                        <div class="tour">
-                            <div class="d-column">
-                                <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                    <div class="tour-grid">
+                        {% for tour in tours %}
+                            <div class="tour">
+                                <div class="d-column">
+                                    {% if tour.avatar %}
+                                        <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/default.png' %}" class="tour-img" alt="">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <div class="d-flex ">
+                                            <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                                <h4>
+                                                    {{tour.title|capfirst}}
+                                                </h4>
+                                            </a>
+                                        </div>
 
-                                <div class="card-body">
-                                    <div class="d-flex ">
-                                        <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
-                                            <h4>
-                                                {{tour.title|capfirst}}
-                                            </h4>
-                                        </a>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between">
-                                        {% if tour.durationday %}
-                                            <span class="duration">{{tour.durationday}} days</span>
-                                        {% else %}
-                                            <span class="duration">Always</span>
-                                        {% endif %}
-                                        <span>{{tour.price}} {{tour.currency}}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                </div>
-
-                <h3 class="text-center full home-heading">Newest Trainings</h3>
-
-                <div class="tour-grid">
-                    {% for tour in trainings %}
-                        <div class="tour">
-                            <div class="d-column">
-                                <img src="{{tour.avatar.url}}" class="tour-img" alt="">
-
-                                <div class="card-body">
-                                    <div class="d-flex ">
-                                        <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
-                                            <h4>
-                                                {{tour.title|capfirst}}
-                                            </h4>
-                                        </a>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between">
-                                        {% if tour.durationday %}
-                                            <span class="duration">{{tour.durationday}} days</span>
-                                        {% else %}
-                                            <span class="duration">Always</span>
-                                        {% endif %}
-                                        <span>{{tour.price}} {{tour.currency}}</span>
+                                        <div class="d-flex justify-content-between">
+                                            {% if tour.durationday %}
+                                                <span class="duration">{{tour.durationday}} days</span>
+                                            {% else %}
+                                                <span class="duration">Always</span>
+                                            {% endif %}
+                                            <span>{{tour.price}} {{tour.currency}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
-                <h3 class="text-center full home-heading">Newest Activities</h3>
+                {% if trainings %}
+                    <h3 class="text-center full home-heading">Newest Trainings</h3>
 
-                <div class="tour-grid">
-                    {% for tour in activities %}
-                        <div class="tour">
-                            <div class="d-column">
-                                <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                    <div class="tour-grid">
+                        {% for tour in trainings %}
+                            <div class="tour">
+                                <div class="d-column">
+                                    {% if tour.avatar %}
+                                        <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/default.png' %}" class="tour-img" alt="">
+                                    {% endif %}
 
-                                <div class="card-body">
-                                    <div class="d-flex ">
-                                        <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
-                                            <h4>
-                                                {{tour.title|capfirst}}
-                                            </h4>
-                                        </a>
-                                    </div>
+                                    <div class="card-body">
+                                        <div class="d-flex ">
+                                            <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                                <h4>
+                                                    {{tour.title|capfirst}}
+                                                </h4>
+                                            </a>
+                                        </div>
 
-                                    <div class="d-flex justify-content-between">
-                                        {% if tour.durationday %}
-                                            <span class="duration">{{tour.durationday}} days</span>
-                                        {% else %}
-                                            <span class="duration">Always</span>
-                                        {% endif %}
-                                        <span>{{tour.price}} {{tour.currency}}</span>
+                                        <div class="d-flex justify-content-between">
+                                            {% if tour.durationday %}
+                                                <span class="duration">{{tour.durationday}} days</span>
+                                            {% else %}
+                                                <span class="duration">Always</span>
+                                            {% endif %}
+                                            <span>{{tour.price}} {{tour.currency}}</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
-                </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
+                {% if activities %}
+                    <h3 class="text-center full home-heading">Newest Activities</h3>
+
+                    <div class="tour-grid">
+                        {% for tour in activities %}
+                            <div class="tour">
+                                <div class="d-column">
+                                    {% if tour.avatar %}
+                                        <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/default.png' %}" class="tour-img" alt="">
+                                    {% endif %}
+
+                                    <div class="card-body">
+                                        <div class="d-flex ">
+                                            <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                                <h4>
+                                                    {{tour.title|capfirst}}
+                                                </h4>
+                                            </a>
+                                        </div>
+
+                                        <div class="d-flex justify-content-between">
+                                            {% if tour.durationday %}
+                                                <span class="duration">{{tour.durationday}} days</span>
+                                            {% else %}
+                                                <span class="duration">Always</span>
+                                            {% endif %}
+                                            <span>{{tour.price}} {{tour.currency}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </div>
 
             <div class="pt-5 pb-5">
@@ -387,18 +412,20 @@
                             </p>
                         </div>
 
-                        <div class="d-column">
-                            <h3>Our Partners</h3>
+                        {% if partners %}
+                            <div class="d-column">
+                                <h3>Our Partners</h3>
 
-                            <div class="d-flex">
-                                {% for partner in partners %}
-                                    <a target="_blank" href="{% if partner.partner_url %}{{partner.partner_url}} {% else %}#{% endif %}">
-                                        <img src="{{partner.partner_logo.url}}" class="partner-logo" alt="">
-                                    </a>
-                                {% endfor %}
+                                <div class="d-flex">
+                                    {% for partner in partners %}
+                                        <a target="_blank" href="{% if partner.partner_url %}{{partner.partner_url}} {% else %}#{% endif %}">
+                                            <img src="{{partner.partner_logo.url}}" class="partner-logo" alt="">
+                                        </a>
+                                    {% endfor %}
 
+                                </div>
                             </div>
-                        </div>
+                        {% endif %}
                     </div>
 
                 </div>
@@ -498,7 +525,7 @@
 
 
     <script src="{% static 'js/jquery-latest.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
      <script>

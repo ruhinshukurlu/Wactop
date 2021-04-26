@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
 
 
-    <link rel="stylesheet" href="{% static 'css/tour-page/owl.carousel.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/tour-page/owl.theme.default.min.css' %}" />
-    <link rel="stylesheet" href="{% static 'css/tour-page/bootstrap.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}" />
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/dropdown-menu-style.css' %}">
@@ -28,7 +28,7 @@
 
      <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
      <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
- 
+
 
     <style>
         .info-list li{
@@ -100,7 +100,7 @@
         width: 200px;
         z-index: 10;
     }
-        
+
     @media (max-width : 577px) {
         .edit-delete-box{
             right: 25px;
@@ -121,7 +121,7 @@
     {% if tour.organizer == request.user.organizer %}
     <div class="edit-delete-box shadow" >
         {% if tour.status == 3 %}
-            <button type="button" class="btn-mob btn btn-outline-success full mb-2" disabled>Finished</button> 
+            <button type="button" class="btn-mob btn btn-outline-success full mb-2" disabled>Finished</button>
         {% else %}
         <form action="{% url 'organizer:finish-tour' tour.pk %}" method="post" class="mb-2">
             {% csrf_token %}
@@ -129,14 +129,14 @@
         </form>
         {% endif %}
         <a href="{% url 'organizer:tour-edit' tour.pk %}" class="btn-mob btn btn-outline-primary mb-2">
-            <i class="fas fa-edit"></i> 
+            <i class="fas fa-edit"></i>
             Edit Tour
         </a>
         <button style="outline: none;" class="btn-mob btn btn-outline-danger" type="button" data-toggle="modal" data-target="#tourDeleteModal">
             <i class="fas fa-trash-alt"></i>
             Delete Tour
         </button>
-        
+
     </div>
     <!-- Modal -->
     <div class="modal fade" id="tourDeleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -166,7 +166,7 @@
 
     <div class="">
             <div class="head-bottom head-bottom-img position-relative ">
-                
+
                 <img src="{%if tour.cover%}{{tour.cover.url}}{%else%}{% static 'images/image2.jpg' %}{%endif%}" alt="" class="back-img" />
                 <div class="d-md-none company-mobile-image position-absolute d-flex justify-content-center align-items-center ">
                     <img src="{%if tour.avatar%}{{tour.avatar.url}}{%else%}{% static 'images/default.png' %}{%endif%}" alt="">
@@ -225,14 +225,14 @@
                                             <p><b>{{i.title_en|capfirst}}:</b></p>
                                             <p>{{i.text_en|capfirst}}</p>
                                         </div>
-                                        {% endfor %} 
+                                        {% endfor %}
                                     </nav>
                                 {% else %}
                                     <p class="text-center full bold mt-2">No detail added in this language.</p>
                                 {%endif%}
-                                
+
                             </div>
-                            
+
                             <div class="d-column" data-target="az" style="display: none;">
                                 <p class="pt-4 word">
                                     {{description.description_az|capfirst|safe}}
@@ -244,7 +244,7 @@
                                         <p><b>{{i.title_az|capfirst}}:</b></p>
                                         <p>{{i.text_az|capfirst}}</p>
                                     </div>
-                                    {% endfor %} 
+                                    {% endfor %}
                                 </nav>
                                 {% else %}
                                     <p class="text-center full bold mt-2">Bu dildə heç bir məlumat əlavə edilməyib.</p>
@@ -262,13 +262,13 @@
                                             <p><b>{{i.title_ru|capfirst}}:</b></p>
                                             <p>{{i.text_ru|capfirst}}</p>
                                         </div>
-                                        {% endfor %} 
+                                        {% endfor %}
                                     </nav>
                                 {% else %}
                                     <p class="text-center full bold mt-2">Никаких подробностей на этом языке не добавлено.</p>
                                 {% endif %}
                             </div>
-                            
+
                         </div>
                     </div>
                     <div class="col-lg-3 middle-container tour-details">
@@ -292,16 +292,28 @@
                     </div>
                     <div class="col-lg-2">
                         <div class="right">
-                            <p>{{tour.datefrom}} - {% if tour.dateto %}{{tour.dateto}}{%endif%}</p>
+                            {% if tour.datefrom and tour.dateto %}
+                                <p>
+                                    <i class="far fa-calendar-alt mr-1"></i>
+                                    {{tour.datefrom}} - {{tour.dateto}}
+                                </p>
+                            {% else %}
+                                <p>
+                                    <i class="far fa-calendar-alt mr-1"></i>
+                                    This trip is available always
+                                </p>
+                            {% endif %}
+                            {%if tour.durationday and tour.durationnight %}
                             <div class="right-list pt-2">
                                 <span class="d-flex justify-content-center align-items-center " ><i class="fas fa-clock"></i></span>
                                 <nav>
                                     <ul class="day-count-list mb-0">
-                                        <li class='day'>{%if tour.durationday%} {{tour.durationday}} day {%endif%}</li>
-                                        <li>{%if tour.durationnight%} {{tour.durationnight}} night {%endif%}</li>
+                                        <li class='day'> {{tour.durationday}} day</li>
+                                        <li>{{tour.durationnight}} night</li>
                                     </ul>
                                 </nav>
                             </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -315,7 +327,7 @@
                                 <div class="item">
                                     <a data-fancybox="gallery" class="full" href="{{ i.image.url }}"><img src="{{ i.image.url }}"></a>
                                 </div>
-                                {% endfor %} 
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -331,7 +343,7 @@
                                 <div class="item">
                                     <a data-fancybox="gallery" class="full" href="{{ i.schedule_image.url }}"><img src="{{ i.schedule_image.url }}"></a>
                                 </div>
-                                {% endfor %} 
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
@@ -340,17 +352,17 @@
                 <div class="row">
                     <div class="col-lg-10 tour-details pt-5">
                         <div class="iframe-container">
-                            <iframe src="{{tour.map_link}}" ></iframe>  
+                            <iframe src="{{tour.map_link}}" ></iframe>
                         </div>
                     </div>
                 </div>
                 <div class="row mb-5">
                     <div class="col-lg-10 tour-details pl-md-5 pl-3 d-column">
                         <h3 class="full bold border-bottom pb-2 mb-3">About company</h3>
-                        
+
                         <div class="mb-5 d-flex">
                             <div class="d-flex mr-3" style="font-weight: bold;">
-                                Company Name : {{tour.organizer.organizer_name}} 
+                                Company Name : {{tour.organizer.organizer_name}}
                             </div>
                             <a href="{% url 'organizer:detail' tour.organizer.id %}">
                                 <i class="fas fa-external-link-alt mr-1"></i>
@@ -365,12 +377,12 @@
                             </p>
                         </div>
 
-                        <div class="d-column"> 
+                        <div class="d-column">
                             <ul class="info-list border-bottom pb-2 mb-4 d-flex flex-wrap justify-content-between ">
                                 <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="fas fa-map-marker-alt"></i>
-                                        Address : 
+                                        Address :
                                     </div>
                                     {% if tour.organizer.address %}
                                     <span>{{tour.organizer.address}}</span>
@@ -381,7 +393,7 @@
                                 <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="far fa-envelope"></i>
-                                        Email : 
+                                        Email :
                                     </div>
                                     {% if tour.organizer.user.email %}
                                     <span>{{tour.organizer.user.email}}</span>
@@ -392,7 +404,7 @@
                                 <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="fas fa-phone-alt"></i>
-                                        Number 1 : 
+                                        Number 1 :
                                     </div>
                                     {% if tour.organizer.contact_number_1 %}
                                         <span class="phone">{{tour.organizer.contact_number_1}}</span>
@@ -403,7 +415,7 @@
                                 <li class="mb-2">
                                     <div class="align-center mr-1">
                                         <i class="fas fa-phone-alt"></i>
-                                        Number 2 : 
+                                        Number 2 :
                                     </div>
                                     {% if tour.organizer.contact_number_2 %}
                                         <span class="phone">{{tour.organizer.contact_number_2}}</span>
@@ -412,7 +424,7 @@
                                     {% endif %}
                                 </li>
                             </ul>
-                            
+
                             <h3 class="full bold border-bottom pb-2 mb-3">Other Links</h3>
                             <ul class="company-links">
                                 {% if url %}
@@ -423,18 +435,18 @@
                                             </div>
                                             <a href="{{link.url}}" target="blank">{{link.url}}</a>
                                         </li>
-                                    {% endfor %} 
+                                    {% endfor %}
                                 {% else %}
                                     <li>
                                         No links added
                                     </li>
                                 {% endif %}
-                                    
+
                             </ul>
                         </div>
-            
+
                     </div>
-                    
+
                 </div>
 
                 <div class="row">
@@ -475,7 +487,7 @@
                                                             <label for="star-1" title="1 star">
                                                               <i class="active fa fa-star" aria-hidden="true"></i>
                                                             </label>
-                                                        </div> 
+                                                        </div>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -491,11 +503,11 @@
                         </div>
                     {% endif %}
 
-                    
+
                     <div class="col-lg-10 commentBox tour-details pl-md-5 pl-3">
                         {% include 'partials/tour-comments.html' %}
                     </div>
-                    
+
                 </div>
 
                 <section class="full p-4">
@@ -525,7 +537,7 @@
                                                                     <div class="star"><i class="far fa-star star-active"></i></div>
                                                                     <div class="star"><i class="far fa-star star-deactive"></i></div>
                                                                     <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                                </div> 
+                                                                </div>
                                                                 <span>{{tour.tour_comment.count}} reviews</span>
                                                             </div>
                                                             <div class="d-flex">
@@ -555,7 +567,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-        
+
                                                     </div>
                                                 </div>
                                             </a>
@@ -568,15 +580,15 @@
                             </div>
                     </div>
                 {% endif %}
-            
+
                 </section>
             </div>
 
-            
+
         </div>
     </main>
 
-    
+
 
     {% include 'partials/footer.html' %}
 
@@ -604,15 +616,14 @@
 
     </script>
 
-    <script src="{% static 'js/jquery-3.4.1.min.js' %}"></script>
-    <script src="{% static 'js/tour-page/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/tour-page/owl.carousel.js' %}"></script>
-    <script src="{% static 'js/tour-page/owl.carousel.min.js' %}"></script>
+    <script src="{% static 'js/jquery-latest.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
     <script src="{% static 'js/tour-page/main.js' %}"></script>
 
     <script >
         $('#myform').on('submit', function(e){
-            e.preventDefault()  
+            e.preventDefault()
             var rating = $('input[type=radio]:checked').val()
             var textarea = $('textarea').val()
             var parent_id =  $('.parent_id').val()
@@ -635,7 +646,7 @@
                     $('.reply-btn').click(function(){
                         $('.reply-form').hide()
                         $(this).parent().find('.reply-form').show()
-                    
+
                     })
                     $('.commentBox').html('').load(
                         "{% url 'tour:comments' tour.pk %}"
@@ -647,7 +658,7 @@
                 }
             });
         });
-       
+
 
     </script>
    <script>

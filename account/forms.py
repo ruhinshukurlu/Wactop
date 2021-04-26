@@ -30,26 +30,26 @@ class OrganizerRegisterForm(UserCreationForm):
     password1 = forms.CharField(required=True, widget = forms.PasswordInput(attrs={
                     'class': 'form-input',
                     'placeholder' : 'Password'
-                    
+
                 }), label = 'Password')
     password2 = forms.CharField(required=True, widget = forms.PasswordInput(attrs={
                     'class': 'form-input',
                     'placeholder' : 'Confirm Password'
-                    
+
                 }), label = 'Confirm Password')
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={
                     'class': 'form-input',
                     'placeholder' : 'Email....'
 
                 }),label='Email')
-    description = forms.CharField(max_length=250, widget=forms.Textarea(attrs={
+    description = forms.CharField(widget=forms.Textarea(attrs={
                     'class': 'form-input',
                     'placeholder' : 'Enter short description about Company...',
                     'cols': "10",
                     'rows' : "5"
 
                 }),label='Description')
-    about = forms.CharField(max_length=250, widget=forms.Textarea(attrs={
+    about = forms.CharField(widget=forms.Textarea(attrs={
                     'class': 'form-input',
                     'placeholder' : 'About you...',
                     'cols': "10",
@@ -86,7 +86,7 @@ class OrganizerRegisterForm(UserCreationForm):
 
                 }),label='Instagram')
 
-    
+
     class Meta(UserCreationForm.Meta):
         model = User
 
@@ -112,7 +112,7 @@ class OrganizerRegisterForm(UserCreationForm):
         organizer.instagram=self.cleaned_data['instagram']
         organizer.save()
         return user
-  
+
 
 
 class CustomerRegisterForm(UserCreationForm):
@@ -137,12 +137,12 @@ class CustomerRegisterForm(UserCreationForm):
                     'class': 'form-input',
                     'placeholder' : 'Confirm Password *',
                 }), label='Confirm Password')
-                
+
     # profile_image = forms.FileField('Profile', max_length=, required=False)
 
     class Meta(UserCreationForm.Meta):
         model = User
-        
+
     @transaction.atomic
     def save(self):
         user = super().save(commit=False)
@@ -185,11 +185,11 @@ class ChangePasswordForm(PasswordChangeForm):
         'class' : 'form-input',
         'placeholder' : 'Re-enter new password'
     }), required=True)
-    
+
 
 
 class UserEditForm(forms.ModelForm):
-    
+
     class Meta:
         model = User
         fields = ['username','email','profile_img']

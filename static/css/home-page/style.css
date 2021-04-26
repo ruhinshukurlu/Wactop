@@ -242,6 +242,25 @@
 .header-menu{
   display: none;
   position: absolute;
+  background-color: #fff;
+  /* padding: 20px; */
+}
+
+.header-menu li{
+  display: flex;
+}
+
+.header-menu li a{
+  text-decoration: none;
+  color: #000;
+  padding: 5px 30px;
+  width: 100%;
+  font-size: 0.85em;
+  transition: .4s;
+}
+
+.header-menu li a:hover{
+  background-color: #ccc;
 }
 
 .notification:hover .header-menu{
@@ -249,7 +268,7 @@
 }
 
 #notification-bell{
-  width: 200px;
+  width: 150px;
 }
 
 .register-modal .register-link{
@@ -301,12 +320,14 @@
 }
 
 /* end login */
-
-
-.header-menu{
-  display: none;
+.user-profile{
+  cursor: pointer;
 }
 
 .user-profile:hover>.header-menu{
   display: block;
+}
+
+#notification-box{
+  right: 5px;
 }

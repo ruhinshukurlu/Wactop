@@ -9,7 +9,7 @@ class Organizer(models.Model):
     email = models.EmailField(_("Email"), max_length=254, blank=True, null=True)
     organizer_name = models.CharField(max_length=127, unique=True)
     description = models.TextField(blank=True, null=True)
-    
+
     website = models.URLField(max_length=255, blank=True, null=True)
     facebook = models.URLField(max_length=127, blank=True, null=True)
     instagram = models.URLField(max_length=127, blank=True, null=True)
@@ -22,7 +22,7 @@ class Organizer(models.Model):
     profile_photo = models.ImageField( upload_to='organizer/cover/', height_field=None, width_field=None, max_length=None)
     cover = models.ImageField(upload_to='organizer/cover/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
     viewcount = models.IntegerField(default=0)
-    
+
     def __str__ (self):
         return self.organizer_name
 
@@ -61,7 +61,7 @@ class Guide(models.Model):
     name = models.CharField(_("Name"), max_length=50)
     surname = models.CharField(_("Surname"), max_length=50)
     experience =  models.CharField(_("Experience"), max_length=50, choices = EPERIENCE_CHOICES)
-    certification = models.CharField(_("Certification"), max_length=50)
+    certification = models.FileField(_("Certification"), upload_to='guide/certifications/')
 
     def __str__(self):
         return self.name
@@ -73,7 +73,7 @@ class Instructor(models.Model):
     name = models.CharField(_("Name"), max_length=50)
     surname = models.CharField(_("Surname"), max_length=50)
     experience =  models.CharField(_("Experience"), max_length=50, choices = EPERIENCE_CHOICES)
-    certification = models.CharField(_("Certification"), max_length=50)
+    certification = models.FileField(_("Certification"), upload_to='instructor/certifications/')
 
     def __str__(self):
         return self.name

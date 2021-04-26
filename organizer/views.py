@@ -15,7 +15,7 @@ from .models import *
 from tour.models import *
 from training.models import *
 from activity.models import *
-from django.contrib import messages 
+from django.contrib import messages
 import smtplib
 from django.core.mail import send_mail, EmailMultiAlternatives
 from Wactop.mail import *
@@ -61,7 +61,7 @@ class OrganizerRegisterView(CreateView):
         # html_content = f"<p>Organizer name : {form.cleaned_data['organizer_name']}</p><p>Organizer email : {form.cleaned_data['email']}</p><p>Organizer description : {form.cleaned_data['description']}</p><p>About Organizer : {form.cleaned_data['about']}</p><p>Organizer address : {form.cleaned_data['address']}</p><p>Organizer website : {form.cleaned_data['website']}</p><p>Organizer facebook : {form.cleaned_data['facebook']}</p><p>Organizer instagram : {form.cleaned_data['instagram']}</p>"
         sendMail(subject,text_content,html_content)
         login(self.request, user, backend='django.contrib.auth.backends.ModelBackend')
-       
+
         return redirect('organizer:register-complete')
 
 class OrgRegisterComplete(TemplateView):
@@ -80,12 +80,12 @@ class OrganizerListView(ListView):
 
     def get_queryset(self):
         if self.request.method == 'GET':
-            
+
             title_name = self.request.GET.get('q', None)
             if title_name is not None:
                 queryset1 = Organizer.objects.filter(organizer_name__icontains=title_name)
                 return queryset1
-        
+
         return super().get_queryset().all()
 
 
@@ -97,7 +97,7 @@ class OrganizerEditView(UpdateView, LoginRequiredMixin):
 
     def get_success_url(self):
         return reverse_lazy('organizer:detail', args = (self.kwargs['pk'],))
-    
+
 
 class OrganizerPhotoView(CreateView):
     model = OrganizerImage
@@ -109,15 +109,15 @@ class OrganizerPhotoView(CreateView):
         form.instance.organizer = self.request.user.organizer
         form.save()
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         messages.warning(self.request, 'Something went wrong!!')
         return super().form_invalid(form)
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["photos"] = OrganizerImage.objects.filter(organizer=self.request.user.organizer)
-        
+
         return context
 
 class OrganizerPhotoUpdateView(UpdateView):
@@ -161,7 +161,7 @@ class GuideCreateView(CreateView):
         form.instance.organizer = self.request.user.organizer
         form.save()
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
         messages.warning(self.request, 'Something went wrong!!')
         return super().form_invalid(form)
@@ -173,7 +173,7 @@ class GuideCreateView(CreateView):
         context = super().get_context_data(**kwargs)
         context["worker"] = 'Guide'
         return context
-    
+
 
 class GuideUpdateView(UpdateView):
     model = Guide
@@ -194,11 +194,13 @@ class InstructorCreateView(CreateView):
     template_name = "add-guide-instructor.html"
 
     def form_valid(self, form):
+        print('okk')
         form.instance.organizer = self.request.user.organizer
         form.save()
         return super().form_valid(form)
-    
+
     def form_invalid(self, form):
+        print(self.request)
         messages.warning(self.request, 'Something went wrong!!')
         return super().form_invalid(form)
 
@@ -237,14 +239,14 @@ class OrganizerAllActions(ListView):
     def get_queryset(self):
         print(super().get_queryset().filter(organizer=self.request.user.organizer))
         return super().get_queryset().filter(organizer=self.request.user.organizer)
-    
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["activities"] = Activity.objects.filter(organizer=self.request.user.organizer)
         context['trainings'] = Training.objects.filter(organizer=self.request.user.organizer)
         return context
-    
+
 
 def OrganizerDetail(request, pk):
     organizer = Organizer.objects.get(pk=pk)
@@ -363,13 +365,13 @@ def finishTraining(request, pk):
 def TourUpdate(request, pk):
 
     tour = Tour.objects.get(id=pk)
-       
+
     TourImageFormSet = inlineformset_factory(Tour, TourImage, form=OrganizerTourImageForm, fields=('image',), extra=5)
     TourScheduleFormSet = inlineformset_factory(Tour, TourSchedule, form=OrganizerTourScheduleForm, fields=('schedule_image',), extra=5)
     TourUrlFormSet = inlineformset_factory(Tour, TourUrl, form=OrganizerTourURLForm, fields=('url',), extra=5)
     TourDetailFormSet = inlineformset_factory(Tour, TourDetail, form=OrganizerTourDetailForm, extra=5)
-    
-  
+
+
     if request.method == 'POST':
 
         tour_form = OrganizerTourForm(request.POST or None, request.FILES or None, instance=tour)
@@ -382,7 +384,7 @@ def TourUpdate(request, pk):
         print(tour_form.is_valid(),detail_form.is_valid(), url_form.is_valid() , image_form.is_valid() , schedule_form.is_valid())
 
         if tour_form.is_valid() and detail_form.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
-        
+
             tour_form.save()
             detail_form.save()
             url_form.save()
@@ -390,8 +392,8 @@ def TourUpdate(request, pk):
             schedule_form.save()
 
             return redirect('tour:detail', pk=pk)
-        
-        
+
+
     else:
         context = {
             'tour_form': OrganizerTourForm(instance=tour),
@@ -406,13 +408,13 @@ def TourUpdate(request, pk):
 def ActivityUpdate(request, pk):
 
     activity = Activity.objects.get(id=pk)
-       
+
     ActivityImageFormSet = inlineformset_factory(Activity, ActivityImage, form=OrganizerActivityImageForm, fields=('image',), extra=5)
     ActivityScheduleFormSet = inlineformset_factory(Activity, ActivitySchedule, form=OrganizerActivityScheduleForm, fields=('schedule_image',), extra=5)
     ActivityUrlFormSet = inlineformset_factory(Activity, ActivityUrl, form=OrganizerActivityURLForm, fields=('url',), extra=5)
 
     ActivityDetailFormSet = inlineformset_factory(Activity, ActivityDetail, form=OrganizerActivityDetailForm, extra=5)
-  
+
     if request.method == 'POST':
 
         activity_form = OrganizerActivityForm(request.POST or None, request.FILES or None, instance=activity)
@@ -423,7 +425,7 @@ def ActivityUpdate(request, pk):
         schedule_form = ActivityScheduleFormSet(request.POST or None, request.FILES or None, instance=activity)
 
         if activity_form.is_valid() and detail_form.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
-        
+
             activity_form.save()
             detail_form.save()
             url_form.save()
@@ -431,8 +433,8 @@ def ActivityUpdate(request, pk):
             schedule_form.save()
 
             return redirect('activity:detail', pk=pk)
-        
-        
+
+
     else:
         context = {
             'tour_form': OrganizerActivityForm(instance=activity),
@@ -447,13 +449,13 @@ def ActivityUpdate(request, pk):
 def TrainingUpdate(request, pk):
 
     training = Training.objects.get(id=pk)
-       
+
     TrainingImageFormSet = inlineformset_factory(Training, TrainingImage, form=OrganizerTrainingImageForm, fields=('image',), extra=5)
     TrainingScheduleFormSet = inlineformset_factory(Training, TrainingSchedule, form=OrganizerTrainingScheduleForm, fields=('schedule_image',), extra=5)
     TrainingUrlFormSet = inlineformset_factory(Training, TrainingUrl, form=OrganizerTrainingURLForm, fields=('url',), extra=5)
 
     TrainingDetailFormSet = inlineformset_factory(Training, TrainingDetail, form=OrganizerTrainingDetailForm, extra=5)
-  
+
     if request.method == 'POST':
 
         training_form = OrganizerTrainingForm(request.POST or None, request.FILES or None, instance=training)
@@ -464,7 +466,7 @@ def TrainingUpdate(request, pk):
         schedule_form = TrainingScheduleFormSet(request.POST or None, request.FILES or None, instance=training)
 
         if training_form.is_valid() and detail_form.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
-        
+
             training_form.save()
             detail_form.save()
             url_form.save()
@@ -472,8 +474,8 @@ def TrainingUpdate(request, pk):
             schedule_form.save()
 
             return redirect('training:detail', pk=pk)
-        
-        
+
+
     else:
         context = {
             'tour_form': OrganizerTrainingForm(instance=training),
@@ -505,11 +507,11 @@ def OrganizerTour(request):
             tour.organizer = request.user.organizer
             tour.status = 2
             tour.save()
-            
+
             # start_date = datetime.strptime(request.POST.get('datefrom'), "%Y-%m-%d")
             # end_date = datetime.strptime(request.POST.get('dateto'), "%Y-%m-%d")
             # print((end_date-start_date).days, 'days')
-            
+
             subject = f'New tour added by {tour.organizer.organizer_name}'
             text_content = f'New tour added by {tour.organizer.organizer_name}'
             html_content = f"<p>Name : {tour.title}</p><p>Location : {tour.address} , {tour.city} {tour.country}</p><p>Owner : {tour.organizer.organizer_name}</p>"
@@ -529,7 +531,7 @@ def OrganizerTour(request):
                     detail.tour = tour
                     detail.save()
 
-            
+
             for i in url_form:
                 if i.cleaned_data:
                     url = i.save(commit=False)
@@ -573,7 +575,7 @@ def OrganizerActivity(request):
 
         detail_form = detail_formset(request.POST or None)
         url_form = url_formset(request.POST or None)
-        
+
         image_form = image_formset(request.POST or None, request.FILES or None)
         schedule_form = schedule_formset(request.POST or None, request.FILES or None)
 
@@ -594,7 +596,7 @@ def OrganizerActivity(request):
                     detail = i.save(commit=False)
                     detail.activity = tour
                     detail.save()
-            
+
             for i in url_form:
                 if i.cleaned_data:
                     url = i.save(commit=False)
@@ -642,11 +644,11 @@ def OrganizerTraining(request):
         url_form = url_formset(request.POST or None)
         image_form = image_formset(request.POST or None, request.FILES or None)
         schedule_form = schedule_formset(request.POST or None, request.FILES or None)
-        
+
         print(tour_form.is_valid(),detail_form.is_valid(), url_form.is_valid() , image_form.is_valid() , schedule_form.is_valid())
 
         if tour_form.is_valid() and detail_form.is_valid() and url_form.is_valid() and image_form.is_valid() and schedule_form.is_valid():
-           
+
             tour = tour_form.save(commit=False)
             tour.organizer = Organizer.objects.get(user=request.user.id)
             tour.status = 2
@@ -664,7 +666,7 @@ def OrganizerTraining(request):
                     detail.training = tour
                     detail.save()
 
-            
+
             for i in url_form:
                 if i.cleaned_data:
                     url = i.save(commit=False)
@@ -682,7 +684,7 @@ def OrganizerTraining(request):
                     schedule = i.save(commit=False)
                     schedule.training = tour
                     schedule.save()
-            
+
             return redirect('training:home')
         else:
             messages.error(request, "Error")
@@ -708,7 +710,7 @@ class AllNotifications(LoginRequiredMixin,ListView):
 
     def get_queryset(self):
         queryset = super().get_queryset()
-       
+
         queryset = queryset.filter(user = self.request.user).order_by('-created_at')
         return queryset
 
@@ -722,6 +724,6 @@ def resetNotifications(request):
     for notification in notifications:
         notification.is_published = False
         notification.save()
-    
+
     return redirect(reverse_lazy('organizer:notifications'))
 

@@ -16,17 +16,17 @@
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
-    
+
     <!-- carousel -->
     <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/owl.theme.default.min.css' %}">
- 
+
     <!-- FancyBox -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
     <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-    
+
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
     <style>
@@ -36,16 +36,16 @@
             box-shadow: 0px 0px 17px -7px rgba(0,0,0,1);
         }
 
-       
+
     </style>
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main>
         <div class="cover-photo-box p-relative">
             {% if organizer.cover %}
@@ -65,13 +65,13 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
         <div class="full comp-name-bg">
             <div class="comp-name-container">
                 <div class="row">
                     <div class="company-name-box">
-                        <h3 class="bold m-0"> 
+                        <h3 class="bold m-0">
                             {{organizer.organizer_name}}
                         </h3>
                     </div>
@@ -81,61 +81,61 @@
 
         <div class="custom-container copmany-infos-block">
             <div class="row mb-4 company-infos">
-                
+
                 <div class="col-lg-8">
-                    
+
                     <div class="mb-5 pl-sm-3">
                         <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
                         <p class="description">
                             {{organizer.description}}
                         </p>
                     </div>
-                    
-                    <div class="pl-sm-3"> 
+
+                    <div class="pl-sm-3">
                         <ul class="info-list border-bottom pb-2 mb-4">
                             <li>
                                 <div class="align-center mr-1">
                                     <i class="fas fa-map-marker-alt"></i>
-                                    Address : 
+                                    Address :
                                 </div>
                                 <span>{{organizer.address}}</span>
                             </li>
                             <li>
                                 <div class="align-center mr-1">
                                     <i class="far fa-envelope"></i>
-                                    Email : 
+                                    Email :
                                 </div>
                                 <span>{{organizer.user.email}}</span>
                             </li>
                         </ul>
-                        
+
                         <h5 class="full bold border-bottom pb-2 mb-3">Social Links</h5>
                         <ul class="company-links">
                             <li>
                                 <div class="mr-1">
                                     <i class="fas fa-external-link-alt"></i>
-                                    Website : 
+                                    Website :
                                 </div>
                                 <a href="{{organizer.website}}" target="blank"><span>{{organizer.organizer_name|truncatechars:30}}</span> Website Address</a>
                             </li>
                             <li>
                                 <div class="align-center mr-1">
                                     <i class="fas fa-external-link-alt"></i>
-                                    Facebook : 
+                                    Facebook :
                                 </div>
                                 <a href="{{organizer.facebook}}" target="blank"><span>{{organizer.organizer_name|truncatechars:30}}</span> FaceBook Address</a>
                             </li>
                             <li>
                                 <div class="align-center mr-1">
                                     <i class="fas fa-external-link-alt"></i>
-                                    Instagram : 
+                                    Instagram :
                                 </div>
                                 <a href="{{organizer.instagram}}" target="blank"><span>{{organizer.organizer_name|truncatechars:30}}</span> Instagram Address</a>
                             </li>
-                            
+
                         </ul>
                     </div>
-        
+
                 </div>
                 <div class="col-lg-4">
                     <div class="phone-box">
@@ -144,7 +144,7 @@
                             <div class="d-flex justify-content-center phone-item">
                                 <div class="align-center mr-2">
                                     <i class="fas fa-phone-alt"></i>
-                                    Number 1 : 
+                                    Number 1 :
                                 </div>
                                 {% if organizer.contact_number_1 %}
                                     <span class="phone">{{organizer.contact_number_1}}</span>
@@ -171,9 +171,9 @@
             <div class="row mb-4">
                 {% if guides %}
                 <h2 class="full bold border-bottom pb-2 mb-4">Guides</h2>
-                
+
                 <div class="inner-container full">
-                    
+
                     <table class="table mb-5">
                         <thead class="thead-light">
                         <tr>
@@ -181,7 +181,7 @@
                             <th scope="col">Surname</th>
                             <th scope="col">Experience</th>
                             <th scope="col">Certifications</th>
-                            
+
                         </tr>
                         </thead>
                         <tbody>
@@ -191,19 +191,19 @@
                                     <td>{{guide.surname}}</td>
                                     <td>{{guide.experience}}</td>
                                     <td>{{guide.certification}}</td>
-                                    
+
                                 </tr>
                             {% endfor %}
                         </tbody>
                     </table>
-                    
+
                 </div>
 
                 {% endif %}
 
                 {% if instructors %}
                     <h2 class="full bold border-bottom pb-2 mb-4">Instructors</h2>
-                    
+
                     <div class="inner-container full">
                         <table class="table">
                             <thead class="thead-light">
@@ -212,7 +212,7 @@
                                 <th scope="col">Surname</th>
                                 <th scope="col">Experience</th>
                                 <th scope="col">Certifications</th>
-                                
+
                             </tr>
                             </thead>
                             <tbody>
@@ -249,7 +249,7 @@
                                                         {{tour.title}}
                                                     </div>
                                                     <div class="d-column">
-                                                            
+
                                                         <div class="d-flex">
                                                             <span class="bold mr-2">Location : </span>
                                                             <span>{{tour.city}}, {{tour.country}}</span>
@@ -310,7 +310,7 @@
                                                         {{tour.title}}
                                                     </div>
                                                     <div class="d-column">
-                                                            
+
                                                         <div class="d-flex">
                                                             <span class="bold mr-2">Location : </span>
                                                             <span>{{tour.city}}, {{tour.country}}</span>
@@ -371,7 +371,7 @@
                                                         {{tour.title}}
                                                     </div>
                                                     <div class="d-column">
-                                                            
+
                                                         <div class="d-flex">
                                                             <span class="bold mr-2">Location : </span>
                                                             <span>{{tour.city}}, {{tour.country}}</span>
@@ -412,7 +412,7 @@
                         </div>
                 </div>
             {% endif %}
-            
+
             {% if images %}
                 <div class="row">
                     <h2 class="full bold border-bottom pb-2 mb-3">Photos</h2>
@@ -432,11 +432,11 @@
 
     {% include 'partials/footer.html' %}
 
-    
+
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/owl.carousel.js' %}"></script>
-    <script src="{% static 'js/owl.carousel.min.js' %}"></script>
+
     <script src="{% static 'js/organizer.js' %}"></script>
 
 
@@ -450,7 +450,7 @@
                     console.log($(place));
                    $(place).attr('src', e.target.result);
                }
-               
+
                reader.readAsDataURL(input.files[0]);
            }
        }
@@ -459,8 +459,8 @@
            readURL(this,$('#choosen-photo'));
        });
 
-       
-       
+
+
    </script>
 
 

@@ -32,7 +32,7 @@ class Tour(models.Model):
         ('TRY', 'TRY'),
         ('RUB','RUB')
     ]
- 
+
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='tour')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
@@ -48,7 +48,7 @@ class Tour(models.Model):
     distance = models.CharField(max_length=31, blank=True, null=True)
     durationday = models.IntegerField(blank=True, null=True)
     durationnight = models.IntegerField(blank=True, null=True)
-    
+
     datefrom = models.DateField(blank=True, null=True)
     dateto = models.DateField(blank=True, null=True)
     viewcount = models.IntegerField(default=0, blank=True, null=True)
@@ -56,25 +56,28 @@ class Tour(models.Model):
     cover = models.ImageField(upload_to='tour/cover/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
     guide = models.CharField(max_length=31, blank=True, null=True)
     status = models.IntegerField(choices=status_choices, default=1)
-    rating = models.IntegerField(_("Rating"), blank=True, null=True)
+    rating = models.IntegerField(_("Rating"), blank=True, null=True, default=0)
     activated = models.BooleanField(_("Activated"), default  = False)
+
+    created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
+    updated_at = models.DateTimeField(_("Updated at"), auto_now=True )
 
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
 
     def __str__ (self):
         return self.title
-    
+
     old_status = None
     def __init__(self, *args, **kwargs):
         super(Tour, self).__init__(*args, **kwargs)
         self.old_status = self.status
 
-    def discount_price(self):   
+    def discount_price(self):
         new_price = self.price - (self.price * self.discount) // 100
         return new_price
 
-    def discount_price_api(self):  
-        if self.discount: 
+    def discount_price_api(self):
+        if self.discount:
             new_price = self.price - (self.price * self.discount) // 100
         else:
             new_price = 0
@@ -96,7 +99,7 @@ class Tour(models.Model):
             duration = f'{(end_date-start_date).days} days'
         else:
             duration = 'Always'
-        
+
         return duration
 
     # def save(self, *args, **kwargs):
@@ -148,7 +151,7 @@ class TourComment(models.Model):
     comment_reply = models.ForeignKey("self", verbose_name=_("Comment"), on_delete=models.CASCADE, blank=True, null = True, related_name='replies')
     tour = models.ForeignKey("tour.Tour", verbose_name=_("Tour"), on_delete=models.CASCADE, blank=True, null=True, related_name='tour_comment')
     user = models.ForeignKey("account.User", verbose_name=_("User"), on_delete=models.CASCADE, blank=True, null=True, related_name='tour_comment')
-   
+
     def __str__ (self):
         return self.message
 
@@ -172,4 +175,3 @@ class TourDeny(models.Model):
     def __str__(self):
         return str(self.tour)
 
-  

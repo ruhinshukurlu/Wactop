@@ -23,6 +23,28 @@
     <link rel="stylesheet" href="{% static 'css/home-page/style.css' %}">
     <link rel="stylesheet" href="{% static 'css/home-page/responsive.css' %}">
 
+    <style>
+        .slider-section{
+            background: url({% static 'images/home-page/slider-img-1.jpg' %}) no-repeat 100% 100px,
+            url({% static 'images/home-page/slider-img-4.jpg' %}) no-repeat 50px bottom;
+        }
+
+        @media (max-width:1300px) {
+            .slider-section{
+                background-size: 400px;
+            }
+        }
+
+        @media (max-width:768px){
+            .slider-section{
+                background: url({% static 'images/home-page/slider-img-1.jpg' %}) no-repeat 90% 200px,
+                url({% static 'images/home-page/slider-img-4.jpg' %}) no-repeat 0px bottom;
+                background-size: 400px;
+                padding-bottom: 200px;
+                margin-bottom: 6em;
+            }
+        }
+    </style>
 
 
 </head>
@@ -213,14 +235,14 @@
         </div>
     </section>
 
-    <section class="slider-section" style="background: url({% static 'images/home-page/slider-img-1.jpg' %}) no-repeat 90% 100px, url({% static 'images/home-page/slider-img-4.jpg' %}) no-repeat 100px bottom;">
+    <section class="slider-section">
 
         <div class="custom-container">
             <div class="inner-container">
                 <h1 class="text-center home-heading">World Active Tourism Platform</h1>
                 <div class="main-menu">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-12 col-sm-6">
                             <a href="{% url 'tour:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/direction.svg' %}" alt="">
@@ -230,7 +252,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-sm-6">
                             <a href="{% url 'activity:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/pin.svg' %}" alt="">
@@ -240,7 +262,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-sm-6">
                             <a href="{% url 'training:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/bus.svg' %}" alt="">
@@ -250,7 +272,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-6">
+                        <div class="col-12 col-sm-6">
                             <a href="{% url 'organizer:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/calendar.svg' %}" alt="">
@@ -385,7 +407,7 @@
 
             <div class="pt-5 pb-5">
                 <div class="row">
-                    <div class="col-7">
+                    <div class="col-12 col-sm-7">
                         <div class="owl-carousel">
                             <div>
                                 <img class="owl-img-item" src="https://lp-cms-production.imgix.net/features/2013/06/GettyRF_83654057-0d23ef9081fb.jpg"
@@ -399,7 +421,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-5 about-section d-column justify-content-around">
+                    <div class="col-12 col-sm-5 about-section d-column justify-content-around">
                         <div>
                             <h5>About Us</h5>
                             <h3>Get ready for real time adventure</h3>
@@ -525,7 +547,7 @@
 
 
     <script src="{% static 'js/jquery-latest.js' %}"></script>
-
+    <script src="{% static 'js/owl.carousel.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
      <script>

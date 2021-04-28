@@ -2,7 +2,19 @@
     .tour-img{
         height: 130px;
     }
+
+    .slider-section{
+        padding-top: 10em;
+    }
+
+    .slider-section .inner-container{
+        max-width: 95%;
+    }
+    .slider-section .custom-container{
+        max-width: 90%;
+    }
 }
+
 
 
 @media (max-width : 1000px) {
@@ -12,5 +24,41 @@
 
     .tour-img{
         height: 200px;
+    }
+
+
+    .slider-section{
+        padding-top: 10em;
+        height: unset;
+    }
+
+}
+
+@media (max-width:768px){
+    .inner-container{
+        max-width: 100%;
+    }
+    .custom-container{
+        max-width: 90%;
+    }
+
+    .main-menu{
+        padding: 0px;
+    }
+    .slider-section .inner-container{
+        max-width: 100%;
+    }
+
+
+}
+
+
+@media (max-width : 576px) {
+
+
+
+    .main-menu .col-12:not(:last-child){
+        padding: 20px !important;
+        padding-bottom: 0px !important;
     }
 }

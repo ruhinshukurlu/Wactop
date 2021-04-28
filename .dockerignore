@@ -1,6 +1,8 @@
 .v/
 .venv/
 .pgadmin/
+.idea/
+.postgresdb/
 pbdb/
 redisdb/
 .vscode/

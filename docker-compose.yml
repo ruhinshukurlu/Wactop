@@ -26,17 +26,6 @@ services:
       - "${POSTGRES_PORT}:5432"
     restart: on-failure
 
-  redis:
-    container_name: redis
-    image: redis:4.0.11
-    ports:
-      - "6380:6379"
-    volumes:
-      - ./redisdb:/var/lib/redis
-    restart: on-failure
-    command: ["redis-server", "--appendonly", "yes"]
-    hostname: redis
-
   web:
     container_name: wactop
     build: .
@@ -53,6 +42,19 @@ services:
       - postgres
     depends_on:
       - "postgres"
+
+  redis:
+    container_name: redis
+    image: redis:4.0.11
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./redisdb:/var/lib/redis
+    restart: on-failure
+    command: ["redis-server", "--appendonly", "yes"]
+    hostname: redis
+
+
 
 networks:
   default:

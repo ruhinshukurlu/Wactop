@@ -1,4 +1,4 @@
-{% load static %}
+{% load static custom-tags %}
 
 
 <footer>
@@ -24,18 +24,19 @@
                 <div class="d-column align-center">
                     <span class="mb-2 mt-2">Follow Us</span>
                     <ul class="footer-social-links">
+                        {% get_social_links as social_link %}
                         <li>
-                            <a href="#">
+                            <a target="_blank" href="{{social_link.facebook_link}}">
                                 <i class="fab fa-facebook-square"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a target="_blank" href="{{social_link.instagram_link}}">
                                 <i class="fab fa-instagram"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="#">
+                            <a target="_blank" href="{{social_link.linkedin_link}}">
                                 <i class="fab fa-linkedin"></i>
                             </a>
                         </li>
@@ -79,7 +80,7 @@
         box-shadow: 1px 0px 44px -13px rgb(0 0 0 / 35%);
     }
 
-    
+
 
     #back-to-top-btn.show {
         opacity: 1;

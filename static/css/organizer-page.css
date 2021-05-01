@@ -806,6 +806,7 @@ h4{
     background-color: #fff;
     box-shadow: 0 2px 8px rgba(153,153,153,.4);
     right: 5px;
+    font-size: 0.85em;
 }
 
 .header-menu li{

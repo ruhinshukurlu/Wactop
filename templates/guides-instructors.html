@@ -74,8 +74,8 @@
                                 <tbody>
                                     {% for instructor in instructors %}
                                         <tr>
-                                            <td>{{instructor.name}}</td>
-                                            <td>{{instructor.surname}}</td>
+                                            <td>{{instructor.name|capfirst}}</td>
+                                            <td>{{instructor.surname|capfirst}}</td>
                                             <td>{{instructor.experience}}</td>
                                             <td>
                                                 <a target="_blank" href="{{instructor.certification.url}}">Certification File</a>
@@ -141,8 +141,8 @@
                                 <tbody>
                                     {% for guide in guides %}
                                         <tr>
-                                            <td>{{guide.name}}</td>
-                                            <td>{{guide.surname}}</td>
+                                            <td>{{guide.name|capfirst}}</td>
+                                            <td>{{guide.surname|capfirst}}</td>
                                             <td>{{guide.experience}}</td>
                                             <td>
                                                 <a target="_blank" href="{{guide.certification.url}}">Certification File</a>

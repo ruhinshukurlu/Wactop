@@ -16,7 +16,7 @@ from django.contrib import messages
 from main.models import *
 from organizer.forms import *
 
-from django.contrib import messages 
+from django.contrib import messages
 import smtplib
 from django.core.mail import send_mail, EmailMultiAlternatives
 from Wactop.mail import *
@@ -47,9 +47,9 @@ def HomeView(request):
 
     else:
         form = LoginForm()
-        tours = Tour.objects.filter(status=1)[:4]
-        activities = Activity.objects.filter(status=1)[:4]
-        trainings = Training.objects.filter(status=1)[:4]
+        tours = Tour.objects.filter(status=1).order_by('-created_at')[:4]
+        activities = Activity.objects.filter(status=1).order_by('-created_at')[:4]
+        trainings = Training.objects.filter(status=1).order_by('-created_at')[:4]
     context = {
         'tours': tours,
         'activities': activities,
@@ -57,7 +57,6 @@ def HomeView(request):
         'form': form,
         'slide_images': slide_images,
         'partners': partners,
-        'social_link': SocialLink.objects.first()
     }
     return render(request, 'home-page.html', context)
 
@@ -77,7 +76,7 @@ class OrganizerTourFilterView(ListView):
                 queryset = queryset.filter(title__icontains=title_name)
             return queryset
         return Tour.objects.filter(organizer=self.organizer,status=1)
-       
+
 
 class OrganizerTrainingFilterView(ListView):
     model = Training
@@ -93,9 +92,9 @@ class OrganizerTrainingFilterView(ListView):
             title_name = self.request.GET.get('q', None)
             if title_name is not None:
                 queryset = queryset.filter(title__icontains=title_name)
-            return queryset  
+            return queryset
         return Training.objects.filter(organizer=self.organizer,status=1)
-       
+
 
 class OrganizerActivityFilterView(ListView):
     model = Activity
@@ -113,11 +112,11 @@ class OrganizerActivityFilterView(ListView):
                 queryset = queryset.filter(title__icontains=title_name)
             return queryset
         return Activity.objects.filter(organizer=self.organizer,status=1)
-       
+
 
 class TermsView(TemplateView):
     template_name = "terms.html"
-  
+
 
 class PrivacyView(TemplateView):
     template_name = "privacy-policy.html"
@@ -137,5 +136,5 @@ class ContactView(CreateView):
         text_content = 'New user contacted'
         html_content = f"<p>First name : {form.cleaned_data['first_name']}</p><p>Last name : {form.cleaned_data['last_name']}</p><p>Email : {form.cleaned_data['email']}</p><p>Phone number : {form.cleaned_data['phone_number']}</p><p>Message : {form.cleaned_data['message']}</p>"
         sendMail(subject,text_content,html_content)
-       
+
         return redirect('main:home')

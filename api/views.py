@@ -15,11 +15,11 @@ from rest_framework import filters
 
 
 class TourList(generics.ListAPIView):
-    queryset = Tour.objects.filter(status=1)
+    queryset = Tour.objects.filter(status=1).order_by('-created_at')
     serializer_class = TourSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -29,14 +29,14 @@ class TourList(generics.ListAPIView):
                 queryset = queryset.order_by('-price')
             elif price_query == 'low':
                 queryset = queryset.order_by('price')
-            
+
         rating_query = self.request.GET.get('rating')
         if rating_query:
             if rating_query == 'high':
                 queryset = queryset.order_by('rating')
             elif rating_query == 'low':
                 queryset = queryset.order_by('-rating')
-            
+
         duration_query = self.request.GET.get('duration')
         if duration_query:
             if duration_query == 'long':
@@ -48,7 +48,7 @@ class TourList(generics.ListAPIView):
         if countries:
             print(countries)
             queryset = queryset.filter(country__in = countries)
-        
+
         style_query = self.request.GET.getlist('style[]')
         if style_query:
             queryset = queryset.filter(tour_type__title__in=style_query)
@@ -56,16 +56,16 @@ class TourList(generics.ListAPIView):
         discount_query = self.request.GET.getlist('discount[]')
         if discount_query:
             queryset = queryset.filter(discount__gte=1)
-            
+
         return queryset
-            
-    
+
+
 class ActivityList(generics.ListAPIView):
-    queryset = Activity.objects.all()#filter(status=1)
+    queryset = Activity.objects.filter(status=1).order_by('-created_at')
     serializer_class = ActivitySerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -75,14 +75,14 @@ class ActivityList(generics.ListAPIView):
                 queryset = queryset.order_by('-price')
             elif price_query == 'low':
                 queryset = queryset.order_by('price')
-            
+
         rating_query = self.request.GET.get('rating')
         if rating_query:
             if rating_query == 'high':
                 queryset = queryset.order_by('rating')
             elif rating_query == 'low':
                 queryset = queryset.order_by('-rating')
-            
+
         duration_query = self.request.GET.get('duration')
         if duration_query:
             if duration_query == 'long':
@@ -94,7 +94,7 @@ class ActivityList(generics.ListAPIView):
         if countries:
             print(countries)
             queryset = queryset.filter(country__in = countries)
-        
+
         style_query = self.request.GET.getlist('style[]')
         if style_query:
             queryset = queryset.filter(activity_type__title__in=style_query)
@@ -102,16 +102,16 @@ class ActivityList(generics.ListAPIView):
         discount_query = self.request.GET.getlist('discount[]')
         if discount_query:
             queryset = queryset.filter(discount__gte=1)
-            
+
         return queryset
 
 
 class TrainingList(generics.ListAPIView):
-    queryset = Training.objects.all()#filter(status=1)
+    queryset = Training.objects.filter(status=1).order_by('-created_at')
     serializer_class = TrainingSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title']
-    
+
     def get_queryset(self):
         queryset = super().get_queryset()
 
@@ -121,14 +121,14 @@ class TrainingList(generics.ListAPIView):
                 queryset = queryset.order_by('-price')
             elif price_query == 'low':
                 queryset = queryset.order_by('price')
-            
+
         rating_query = self.request.GET.get('rating')
         if rating_query:
             if rating_query == 'high':
                 queryset = queryset.order_by('rating')
             elif rating_query == 'low':
                 queryset = queryset.order_by('-rating')
-            
+
         duration_query = self.request.GET.get('duration')
         if duration_query:
             if duration_query == 'long':
@@ -140,7 +140,7 @@ class TrainingList(generics.ListAPIView):
         if countries:
             print(countries)
             queryset = queryset.filter(country__in = countries)
-        
+
         style_query = self.request.GET.getlist('style[]')
         if style_query:
             queryset = queryset.filter(training_type__title__in=style_query)
@@ -148,7 +148,7 @@ class TrainingList(generics.ListAPIView):
         discount_query = self.request.GET.getlist('discount[]')
         if discount_query:
             queryset = queryset.filter(discount__gte=1)
-            
+
         return queryset
 
 

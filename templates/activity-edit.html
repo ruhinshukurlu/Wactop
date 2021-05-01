@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
-    
+
     <style>
         .tour-menu-list li {
             flex-grow: 1;
@@ -44,12 +44,13 @@
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main >
+        {% if request.user.organizer == activity_organizer %}
         <div class="row p-relative justify-content-center">
             <div class="col-xl-3 p-0" id="menu-column" >
                 {% include 'partials/organizer-menu.html' %}
@@ -91,14 +92,14 @@
                                         </li>
                                     </ul>
                                 </nav>
-                                
+
                             </div>
                             <div class="col-12">
-                                
+
                                 <div class="row justify-content-center">
                                     <form method="post" enctype="multipart/form-data" id="addTourForm" class="full">
                                         {% csrf_token %}
-                                        
+
                                         {{tour_form.management_form}}
                                         {{detail_form.management_form }}
                                         {{url_form.management_form}}
@@ -110,12 +111,12 @@
                                         {{url_form.non_field_errors}}
                                         {{image_form.non_field_errors}}
                                         {{schedule_form.non_field_errors}}
-                                        
+
 
                                         <div id="tourBasics">
-                                            
+
                                             <div class="form-box">
-                                            
+
                                                 <div class="form-group row tour-prof-img-box border-bottom">
                                                     <div class="col-12 col-lg-4">
                                                         <div class="profile-photo-box mt-5 mb-3">
@@ -125,7 +126,7 @@
                                                                 {% else %}
                                                                     <img src="{% static 'images/default.png' %}" class="org-profile-photo" id="profilePhoto" alt="">
                                                                 {% endif %}
-                                                                <div class="d-flex add-img-box mt-3 d-column" >
+                                                                <div class="d-flex add-img-box mt-3 d-column" style="overflow-wrap: anywhere;">
                                                                     {{tour_form.avatar}}
                                                                     {% if tour_form.avatar.value %}
                                                                         <label for="profilePhotoExample" class="align-center m-0 change-photo-btn">
@@ -138,12 +139,12 @@
                                                                             Add Profile Photo
                                                                         </label>
                                                                     {% endif %}
-                                                                    
+
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="col-12 col-lg-8">
                                                         <div class="cover-photo-box mt-5 mb-3">
                                                             <div class="p-relative">
@@ -152,9 +153,9 @@
                                                                 {% else %}
                                                                     <img src="{% static 'images/default-tour-photo.jpg' %}" class="org-cover-photo" id="coverPhoto" alt="">
                                                                 {% endif %}
-                                                            
+
                                                             </div>
-                                                            
+
                                                         </div>
                                                         <div class="d-flex add-img-box justify-content-around align-center">
                                                             {{tour_form.cover}}
@@ -169,11 +170,11 @@
                                                                     Add Cover Photo
                                                                 </label>
                                                             {% endif %}
-                                                            
+
                                                         </div>
                                                     </div>
-        
-                                                    
+
+
                                                 </div>
 
                                                 <div class="form-group row">
@@ -184,7 +185,7 @@
                                                         {{tour_form.title}}
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="form-group row">
                                                     <div class='col-3'>
                                                         {{tour_form.country.label_tag}}
@@ -216,7 +217,7 @@
                                                     <div class='col-9'>
                                                         {{tour_form.activity_type}}
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class='col-3'>
@@ -225,7 +226,7 @@
                                                     <div class='col-9'>
                                                         {{tour_form.pricefor}}
                                                     </div>
-                                                    
+
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="" class="col-3">Price & Currency</label>
@@ -247,9 +248,9 @@
                                                     <div class='col-9'>
                                                         {{tour_form.discount}}
                                                     </div>
-                                                    
+
                                                 </div>
-                                                
+
                                                 <div class="form-group row">
                                                     <label for="" class="col-3">Start & End Date</label>
                                                     <div class="col-9 ">
@@ -271,7 +272,7 @@
                                                         {{tour_form.guide}}
                                                     </div>
                                                 </div>
-                                                
+
                                                 <div class="form-group row mt-3">
                                                     <div class='col-3 align-center'>
                                                         {{tour_form.map_link.label_tag}}
@@ -292,8 +293,8 @@
                                                                 <i class="far fa-question-circle"></i>
                                                             </button>
                                                             <div class="d-column full">
-                                                                <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" > 
-                                                                <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
+                                                                <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" >
+                                                                <div class="d-column pt-2" id="iframe-link-box" style="display: none;">
                                                                     <span>We got the link successfully</span>
                                                                 </div>
                                                                 <div style="display: none;">
@@ -302,7 +303,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="help-text mt-1" style="display: none;">
-                                                            This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>. 
+                                                            This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>.
                                                             We automatically will get main link of iframe for presenting address in Google map.
                                                         </div>
                                                     </div>
@@ -349,7 +350,7 @@
                                                 </div>
                                             </div>
                                         </div>
-            
+
                                         <div id="tourDescriptionEn" style="display: none;" >
                                             <div class="mb-3">
                                                 <div id="text-forms-en">
@@ -413,7 +414,7 @@
                                                             {% for hidden in form.hidden_fields %}
                                                                 {{ hidden }}
                                                             {% endfor %}
-                                                            
+
                                                         </div>
                                                     {% endfor %}
                                                 </div>
@@ -458,7 +459,7 @@
                                                         </div>
                                                     {% endfor %}
                                                 </div>
-                                                
+
                                                 <div class="form-group row p-2">
                                                     <div class="col-12">
                                                         <div class="d-flex full justify-content-end">
@@ -472,7 +473,7 @@
                                             </div>
                                         </div>
 
-                                        
+
                                         <div id="tourURL" style="display: none;">
 
                                             <div class="form-box mb-3" id="urls">
@@ -511,9 +512,9 @@
                                                 </div>
                                             </div>
                                         </div>
-            
+
                                         <div id="tourPhotos" style="display: none;">
-                                            
+
                                             <div class="form-box tour-edit-photos row">
                                                 <div class="photos-box row">
                                                     {% for form in image_form %}
@@ -541,7 +542,7 @@
                                                         </div>
                                                     {% endfor %}
                                                 </div>
-                                            
+
                                                 <div class="form-group row p-2 full">
                                                     <div class="col-12">
                                                         <div class="d-flex full justify-content-end">
@@ -556,7 +557,7 @@
                                         </div>
 
                                         <div id="tourSchedules" style="display: none;">
-                                        
+
                                             <div class="form-box tour-edit-photos">
                                                 <div class="photos-box row">
                                                     {% for form in schedule_form %}
@@ -584,7 +585,7 @@
                                                         </div>
                                                     {% endfor %}
                                                 </div>
-                                                
+
                                                 <div class="form-group row p-2 full">
                                                     <div class="col-12">
                                                         <div class="d-flex full justify-content-end">
@@ -596,10 +597,10 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            
+
                                         </div>
 
-                                    
+
                                     </form>
                                 </div>
                             </div>
@@ -607,11 +608,16 @@
                 </div>
             </div>
         </div>
+        {% else %}
+        <div class="row d-flex justify-content-center align-center" style="min-height: 80vh;">
+            <h3 class="bold" style="color: red;">You don't have access to this page</h3>
+        </div>
+        {% endif %}
     </main>
 
     {% include 'partials/footer.html' %}
 
-   
+
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
@@ -641,7 +647,7 @@
            }
        }
 
-        
+
         $('.photo-input').change(function(){
             console.log('okkk-tour');
             var photo = $(this).parents('.photo-item').find('img')
@@ -655,7 +661,7 @@
             readURL(this,$(schedule));
         })
 
-        
+
         $("#profilePhotoExample").change(function(){
             readURL(this,$('#profilePhoto'));
         });
@@ -675,7 +681,7 @@
    </script>
 
 {% include 'partials/websocket.html' %}
-    
+
 
 </body>
 </html>

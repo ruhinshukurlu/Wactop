@@ -18,18 +18,18 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
-    
+
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main>
         <div class="row justify-content-center p-relative">
-           
+
             <div class="col-xl-3 p-0" id="menu-column" >
                 {% include 'partials/organizer-menu.html' %}
                 <button type="button" id="organizer-menu-btn">
@@ -72,13 +72,13 @@
                                             <span>Save Tour</span>
                                         </li>
                                     </ul>
-                                    
+
                                 </nav>
                             </div>
                             <div class="col-12 col-xl-9">
                                 <form method="post" enctype="multipart/form-data" id="addTourForm">
                                     {% csrf_token %}
-                                    
+
                                     {{tour_form.management_form}}
                                     {{detail_form.management_form }}
                                     {{url_form.management_form}}
@@ -106,17 +106,17 @@
                                             </h3>
                                             <span>First you have to write basic information about your new tour :)</span>
                                         </div>
-                                        
+
                                         <div class="form-box">
                                             <div class="form-group row p-relative" style="margin-bottom: 80px;">
                                                 <!-- Tour Cover Photo -->
-                                                <div class="d-flex add-img-box cover-img-box"> 
+                                                <div class="d-flex add-img-box cover-img-box">
                                                     <label for="coverPhotoInput"><i class="fas fa-camera mr-2"></i>Cover Photo</label>
                                                     {{tour_form.avatar}}
                                                     {{tour_form.avatar.errors}}
                                                 </div>
                                                 <img id="coverPhoto" class="cover-photo" src="{% static 'images/default-tour-photo.jpg' %}" alt="your image" />
-                                                
+
                                                 <!-- Tour Profile Photo -->
                                                 <div class="tour-profile-photo">
                                                     <div class="p-relative">
@@ -144,7 +144,7 @@
                                                     </ul>
                                                 </div>
                                             </div>
-                                            
+
                                             <div class="form-group row">
                                                 <div class='col-3'>
                                                     {{tour_form.country.label_tag}}
@@ -180,7 +180,7 @@
                                                     {{tour_form.tour_type}}
                                                     {{tour_form.tour_type.errors}}
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="form-group row">
                                                 <div class='col-3'>
@@ -190,7 +190,7 @@
                                                     {{tour_form.pricefor}}
                                                     {{tour_form.pricefor.errors}}
                                                 </div>
-                                                
+
                                             </div>
                                             <div class="form-group row">
                                                 <label for="" class="col-3">Price & Currency</label>
@@ -217,7 +217,7 @@
                                                                 <option value="all_year">All Year</option>
                                                             </select>
                                                         </div>
-                                                        
+
                                                     </div>
                                                 </div>
                                             </div>
@@ -255,8 +255,8 @@
                                                             <i class="far fa-question-circle"></i>
                                                         </button>
                                                         <div class="d-column full">
-                                                            <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" > 
-                                                            <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
+                                                            <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" >
+                                                            <div class="d-column pt-2" id="iframe-link-box" style="display: none;">
                                                                 <span>We got the link successfully</span>
                                                             </div>
                                                             <div style="display: none;">
@@ -265,7 +265,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="help-text mt-1" style="display: none;">
-                                                        This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>. 
+                                                        This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>.
                                                         We automatically will get main link of iframe for presenting address in Google map.
                                                     </div>
                                                 </div>
@@ -278,7 +278,7 @@
                                             </div>
                                         </div>
                                     </div>
-        
+
                                     <div id="tourDescription" style="display: none;">
                                         <div class="d-column border-bottom pb-2 mb-4">
                                             <h3 class="full bold ">
@@ -287,7 +287,7 @@
                                             <span>Click "Add new Paragraph", if you need to add more paragraph.</span>
                                         </div>
                                         <div class="form-box mb-3">
-                                            
+
                                             <div class="form-group row">
                                                 <div class='col-12'>
                                                     {{tour_form.description_en.label_tag}}
@@ -297,7 +297,7 @@
                                                     {{tour_form.description_en.errors}}
                                                 </div>
                                             </div>
-                                            
+
                                             <div id="text-forms-en">
                                                 {% for form in detail_form %}
                                                     <div class="form-group row">
@@ -335,7 +335,7 @@
                                             <button data-target="detailAz" type="button" class="add-new-lang mr-3">
                                                 Add Detail in Azerbaijan Language
                                             </button>
-                                            
+
                                             <button data-target="detailRu" type="button" class="add-new-lang">
                                                 Add Detail in Russian Language
                                             </button>
@@ -404,19 +404,19 @@
                                                     </div>
                                                 {% endfor %}
                                             </div>
-                                            
+
                                             <div class="form-group justify-content-end d-flex">
                                                 <button type="button" class="add_detail_btn" onclick = 'adddetail_ru()' style="outline: none;">
                                                     <i class="fas fa-plus-circle mr-2"></i>
                                                     Add new Paragraph
                                                 </button>
                                             </div>
-                                            
+
                                         </div>
 
-                                            
-                                        
-                                    
+
+
+
                                     </div>
 
                                     <div id="tourURL" style="display: none;">
@@ -425,7 +425,7 @@
                                                 In this form you can add Links related to your tour
                                             </h3>
                                             <span>Click "Add new Paragraph", if you need to add more paragraph.</span>
-                                        </div>  
+                                        </div>
 
                                         <div class="form-box mb-3" id="urls">
                                             {% for form in url_form %}
@@ -450,9 +450,9 @@
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
-        
+
                                     <div id="tourPhotos" style="display: none;">
                                         <div class="d-column border-bottom pb-2 mb-4">
                                             <h3 class="full bold ">
@@ -460,13 +460,13 @@
                                             </h3>
                                             <span>Click "Add another Photo", if you need to add more photos (limit is 10)</span>
                                         </div>
-                                       
+
                                         <div class="form-box">
                                             <div class="photos-box row" id="photo-form-box">
                                                 {% for form in image_form %}
                                                     <div class="photo-item col-6 col-sm-4 col-lg-3">
                                                         <img src="{% static 'images/default.png' %}" alt="">
-                                                        <div class="d-flex add-img-box"> 
+                                                        <div class="d-flex add-img-box">
                                                             {{form.image.label_tag}}
                                                             {{form.image}}
                                                             {{form.image.errors}}
@@ -477,7 +477,7 @@
                                             <div class="form-group d-flex justify-content-end">
                                                 <button type="button" class="add_detail_btn" onclick="addPhoto()" style="outline: none;">
                                                     <i class="fas fa-plus-circle mr-2"></i>
-                                                    Add another Photo   
+                                                    Add another Photo
                                                 </button>
                                             </div>
                                             <div class="d-flex full justify-content-end">
@@ -501,7 +501,7 @@
                                                 {% for form in schedule_form %}
                                                     <div class="photo-item schedule-item col-6 col-sm-4 col-lg-3">
                                                         <img src="{% static 'images/default.png' %}" alt="">
-                                                        <div class="d-flex add-img-box"> 
+                                                        <div class="d-flex add-img-box">
                                                             {{form.schedule_image.label_tag}}
                                                             {{form.schedule_image}}
                                                         </div>
@@ -511,7 +511,7 @@
                                             <div class="form-group d-flex justify-content-end">
                                                 <button type="button" class="add_detail_btn" onclick="addSchedule()" style="outline: none;">
                                                     <i class="fas fa-plus-circle mr-2"></i>
-                                                    Add another Schedule   
+                                                    Add another Schedule
                                                 </button>
                                             </div>
                                             <div class="d-flex full justify-content-end">
@@ -520,11 +520,11 @@
                                                     <i class="fas fa-angle-double-right ml-1"></i>
                                                 </button>
                                             </div>
-                                            
+
                                         </div>
-                                        
+
                                     </div>
-                                    
+
                                     <div id="tourSave" style="display: none;">
                                        <div class="form-box shadow align-center" style="min-height: 300px;">
                                             <img src="{% static 'images/note.svg' %}" alt="" class="tour-complete-icon">
@@ -539,7 +539,7 @@
                                                 </h6>
                                                 <input type="submit" value="Save Tour" class="btn btn-outline-success pl-5 pr-5" style="display: none;" id="save-tour-submit">
                                                 <button type='button' class="btn btn-outline-success pl-5 pr-5" data-toggle="modal" data-target="#checkTourFormModal" id="save-tour-btn">Save Tour</button>
-                                                
+
                                                 <!-- Modal -->
                                                 <div class="modal fade" id="checkTourFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
@@ -551,7 +551,7 @@
                                                         </button>
                                                     </div>
                                                     <div class="modal-body" id="formMessageBox">
-                                                        
+
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -560,7 +560,7 @@
                                                 </div>
                                                 </div>
                                             </div>
-                                       </div> 
+                                       </div>
                                     </div>
                                 </form>
                             </div>
@@ -573,18 +573,19 @@
 
     {% include 'partials/footer.html' %}
 
-    
+
     <script src="{% static 'js/jquery-latest.js' %}"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/formValidation.js' %}"></script>
     <script src="{% static 'js/organizer.js' %}"></script>
 
-   
+
     <script>
 
-        
+        $('#id_datefrom').attr('required','true')
+        $('#id_dateto').attr('required','true')
 
-       
+
         // Photo and schedule input labels were same, that is why I have to add one of them manually
         var schedule_label_list = $('#schedule-form-box').find('label')
         var schedule_input_list = $('#schedule-form-box').find('.schedule-input')
@@ -607,7 +608,7 @@
            }
        }
 
-        
+
         $('.photo-input').change(function(){
             console.log('okkk-tour');
             var photo = $(this).parents('.photo-item').find('img')
@@ -621,7 +622,7 @@
             readURL(this,$(schedule));
         })
 
-        
+
         $("#profilePhotoExample").change(function(){
             readURL(this,$('#profilePhoto'));
         });
@@ -634,7 +635,7 @@
 
   {% include 'partials/websocket.html' %}
 
-    
+
 
 </body>
 </html>

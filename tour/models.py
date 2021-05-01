@@ -51,6 +51,7 @@ class Tour(models.Model):
 
     datefrom = models.DateField(blank=True, null=True)
     dateto = models.DateField(blank=True, null=True)
+
     viewcount = models.IntegerField(default=0, blank=True, null=True)
     avatar = models.ImageField(upload_to='tour/avatar/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
     cover = models.ImageField(upload_to='tour/cover/', height_field=None, width_field=None, max_length=None, blank=True, null=True)

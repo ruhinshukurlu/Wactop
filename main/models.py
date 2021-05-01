@@ -5,7 +5,7 @@ from django.utils.translation import ugettext as _
 
 class HomeSlide(models.Model):
 
-    slide_image = models.ImageField(_("Slide Image"), upload_to='slide-images', height_field=None, width_field=None, max_length=None)    
+    slide_image = models.ImageField(_("Slide Image"), upload_to='slide-images', height_field=None, width_field=None, max_length=None)
 
     class Meta:
         verbose_name = _("HomeSlide")
@@ -28,7 +28,6 @@ class Partner(models.Model):
 
 
 class SocialLink(models.Model):
-    title = models.CharField(_("Title"), max_length=50, blank=True, null=True)
     instagram_link = models.URLField(_("Instagram Link"), max_length=300, blank=True, null=True)
     facebook_link = models.URLField(_("Facebook Link"), max_length=300, blank=True, null=True)
     linkedin_link = models.URLField(_("LinkedIn Link"), max_length=300, blank=True, null=True)

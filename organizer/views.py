@@ -401,6 +401,7 @@ def TourUpdate(request, pk):
             'url_form': TourUrlFormSet(instance=tour),
             'image_form':TourImageFormSet(instance=tour),
             'schedule_form': TourScheduleFormSet(instance=tour),
+            'tour_organizer' : tour.organizer
         }
         return render(request, 'tour-edit.html', context)
 
@@ -442,6 +443,7 @@ def ActivityUpdate(request, pk):
             'url_form': ActivityUrlFormSet(instance=activity),
             'image_form':ActivityImageFormSet(instance=activity),
             'schedule_form': ActivityScheduleFormSet(instance=activity),
+            'activity_organizer':activity.organizer
         }
         return render(request, 'activity-edit.html', context)
 
@@ -483,6 +485,7 @@ def TrainingUpdate(request, pk):
             'url_form': TrainingUrlFormSet(instance=training),
             'image_form':TrainingImageFormSet(instance=training),
             'schedule_form': TrainingScheduleFormSet(instance=training),
+            'training_organizer':training.organizer
         }
         return render(request, 'training-edit.html', context)
 

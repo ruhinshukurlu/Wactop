@@ -11,7 +11,7 @@
 
     <!-- Bootstrap Css -->
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <!-- <link rel="stylesheet" href="assets/css/fontawesome.min.css"> -->
+    <!-- <link rel="stylesheet" href="{% static 'css/fontawesome.css' %}"> -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.1/css/all.min.css">
     <!-- Css files -->
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
@@ -177,7 +177,7 @@
                             <div class="LoaderBalls__item"></div>
                         </div>
                     </div>
-                    <div id="tourList" style="display: none;" class="tour-list row full">
+                    <div id="tourList" style="display: none; min-height: 300px;" class="tour-list row full">
 
                     </div>
                 </div>
@@ -240,56 +240,62 @@
 
             let tour_item = ''
 
-            for (var i = 0; i < data.length; i++) {
-                let tour = data[i]
+            if(data.length != 0){
+                for (var i = 0; i < data.length; i++) {
+                    let tour = data[i]
 
-                tour_item +=
-                    `<div class="col-12 col-lg-3 col-md-4 col-sm-6">
-                        <div class="tour-item">
-                            <a href="${tour.id}" class="full">
-                                <div class="d-column full">
-                                        <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
-                                    <div class="card-body">
-                                        <div class="title mb-2">
-                                            ${tour.title}
+                    tour_item +=
+                        `<div class="col-12 col-lg-3 col-md-4 col-sm-6">
+                            <div class="tour-item">
+                                <a href="${tour.id}" class="full">
+                                    <div class="d-column full">
+                                            <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
+                                        <div class="card-body">
+                                            <div class="title mb-2">
+                                                ${tour.title}
+                                            </div>
+                                            <div class="d-column">
+                                                <div class="d-flex align-center">
+                                                    <div class="stars d-flex mr-2" data-value='${tour.rating}'>
+                                                        <div class="star"><i class="far fa-star star-active"></i></div>
+                                                        <div class="star"><i class="far fa-star star-active"></i></div>
+                                                        <div class="star"><i class="far fa-star star-active"></i></div>
+                                                        <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                        <div class="star"><i class="far fa-star star-deactive"></i></div>
+                                                    </div>
+                                                    <span>${tour.comment_list.length} reviews</span>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <span class="bold mr-2">Location : </span>
+                                                    <span>${tour.city}, ${tour.country}</span>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <span class="bold mr-2">Company : </span>
+                                                    <span>${tour.organizer_name}</span>
+                                                </div>
+                                                <div class="d-flex full justify-content-between mt-2">
+                                                    <div class="price">
+
+                                                        ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
+                                                    </div>
+                                                    <div class="duration align-center">
+                                                        <i class="far fa-clock mr-1"></i>
+                                                        ${tour.durationday}
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
-                                        <div class="d-column">
-                                            <div class="d-flex align-center">
-                                                <div class="stars d-flex mr-2" data-value='${tour.rating}'>
-                                                    <div class="star"><i class="far fa-star star-active"></i></div>
-                                                    <div class="star"><i class="far fa-star star-active"></i></div>
-                                                    <div class="star"><i class="far fa-star star-active"></i></div>
-                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                    <div class="star"><i class="far fa-star star-deactive"></i></div>
-                                                </div>
-                                                <span>${tour.comment_list.length} reviews</span>
-                                            </div>
-                                            <div class="d-flex">
-                                                <span class="bold mr-2">Location : </span>
-                                                <span>${tour.city}, ${tour.country}</span>
-                                            </div>
-                                            <div class="d-flex">
-                                                <span class="bold mr-2">Company : </span>
-                                                <span>${tour.organizer_name}</span>
-                                            </div>
-                                            <div class="d-flex full justify-content-between mt-2">
-                                                <div class="price">
-
-                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
-                                                </div>
-                                                <div class="duration align-center">
-                                                    <i class="far fa-clock mr-1"></i>
-                                                    ${tour.durationday}
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>`;
-            }
+                                </a>
+                            </div>
+                        </div>`;
+                }
+        }  else {
+                    tour_item = `<h3 class="full bold text-center" >
+                                    No Tours added <i class="far fa-folder-open ml-2"></i>
+                                </h3>`
+                }
 
             document.getElementById("tourList").innerHTML = tour_item;
 

@@ -1,10 +1,19 @@
 @media (max-width : 1300px) {
     .tour-img{
-        height: 130px;
+        height: 150px;
+    }
+
+    .tour-grid .tour .card-body{
+        padding: 10px;
+    }
+
+    .tour-grid .tour h4{
+        font-size: 1.5em;
     }
 
     .slider-section{
         padding-top: 10em;
+        height: unset;
     }
 
     .slider-section .inner-container{
@@ -29,7 +38,6 @@
 
     .slider-section{
         padding-top: 10em;
-        height: unset;
     }
 
 }
@@ -49,16 +57,65 @@
         max-width: 100%;
     }
 
+    .main-menu .col-12{
+        padding: 20px !important;
+        padding-bottom: 0px !important;
+    }
 
+    .main-menu .col-12:last-child{
+        padding-bottom: 20px !important;
+    }
+    .owl-img-item{
+        height: 400px;
+    }
+
+    .footer-nav{
+        font-size: 0.85em;
+    }
+    .footer h5{
+        font-size: 1.0em;
+    }
+
+    .footer-social-links a {
+        width: 30px;
+        height: 30px;
+        font-size: 0.75em;
+    }
 }
 
 
 @media (max-width : 576px) {
+    .logo {
+        width: 130px;
+    }
+
+    .tour-img{
+        height: 130px;
+    }
+
+    .owl-img-item{
+        height: 300px;
+    }
+
+    .footer .row{
+        justify-content: space-between;
+    }
 
 
 
-    .main-menu .col-12:not(:last-child){
-        padding: 20px !important;
-        padding-bottom: 0px !important;
+
+}
+
+@media (max-width: 450px){
+    .tour-grid{
+        grid-template-columns: 1fr;
+    }
+
+    .tour-img{
+        height: 200px;
+    }
+
+    .username-span{
+        display: none;
     }
 }

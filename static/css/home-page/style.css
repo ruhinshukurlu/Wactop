@@ -45,6 +45,7 @@
   border: 1px solid;
   border-radius: 10px;
   transition: 0.4s;
+  font-size: 0.75em;
 }
 
 .login-btn:hover,
@@ -74,7 +75,7 @@
 .slider-section {
   display: flex;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   padding-top: 5em;
   margin-bottom: 10em;
 
@@ -111,7 +112,7 @@
 
 .main-menu {
   border-radius: 20px;
-  padding: 2em;
+  padding: 15px;
   background: rgba(117, 217, 255, 0.4);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4.5px);
@@ -121,7 +122,7 @@
 }
 
 .main-menu .col-12{
-  padding: 20px !important;
+  padding: 15px !important;
 }
 
 .home-heading {
@@ -167,7 +168,8 @@
   font-family: "Josefin Sans", sans-serif;
 }
 
-.about-section h3 {
+.about-section h3 ,
+.partners h3{
   font-size: 30px;
   display: block;
   font-weight: 700;
@@ -179,7 +181,7 @@
 
 .partner-logo{
   width: 150px;
-  margin-right: 10px;
+  margin: 20px;
 }
 
 .footer h5 {
@@ -199,7 +201,6 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
-  border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   padding: 3em 0;
 }
@@ -236,7 +237,10 @@
   object-fit: cover;
 }
 
-
+.partner-title-img{
+  position: absolute;
+  margin-top: 15px;
+}
 
 /* login, register */
 
@@ -244,7 +248,7 @@
   display: none;
   position: absolute;
   background-color: #fff;
-  /* padding: 20px; */
+  right: 1px;
 }
 
 .header-menu li{
@@ -292,6 +296,7 @@
   height: 50px;
   width: 100%;
   padding: 5px 10px;
+  border-radius: 10px;
 }
 
 .login-modal .login_btn{

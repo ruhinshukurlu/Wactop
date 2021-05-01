@@ -29,6 +29,7 @@
       .login-modal .form-input{
         height: 50px;
         padding: 5px 10px;
+        border-radius: 10px;
       }
 
       .login-modal .login_btn{
@@ -58,7 +59,7 @@
           height: auto;
 
       }
-      
+
       .user-profile .fa-bell{
             margin-left: 15px;
             border-left: 1px solid;
@@ -118,14 +119,14 @@
                                 <img src="{% static 'images/profile.png' %}"  alt="">
                             {% endif %}
                             <span class="ml-2">
-                                <span class="username">{{request.user.username}}</span> 
+                                <span class="username">{{request.user.username}}</span>
                                 <i class="fas fa-angle-down"></i>
                             </span>
                         </div>
                         <div class="header-menu" >
                             <nav>
-                                <ul class="d-column mb-0"> 
-                                     
+                                <ul class="d-column mb-0">
+
                                     {% if request.user.is_organizer %}
                                         <li>
                                             <a href="{% url 'organizer:detail' request.user.organizer.pk %}">{{request.user.organizer.organizer_name|truncatechars:20}}</a>
@@ -147,7 +148,7 @@
                             </nav>
                         </div>
                     </div>
-                    {% notifications_count  request.user as notifs %} 
+                    {% notifications_count  request.user as notifs %}
                     {% if request.user.is_organizer %}
                         <div class="user-profile">
                             <div class="d-flex justify-content-center align-center p-relative">
@@ -163,12 +164,12 @@
                         </div>
                     {% endif %}
                 {% else %}
-                
+
                     {% login_form as login %}
-                    <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal fade " style="padding: 0px !important;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                         <div class="modal-dialog login-modal" >
-                            <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
-                                
+                            <div class="modal-content p-3 pt-5 shadow" style="background-color: #ebebeb;">
+
                                 <form class="" method="post" action="{% url 'main:home' %}">
                                     {% csrf_token %}
                                     <div class="login-container">
@@ -185,19 +186,19 @@
                                         </div>
                                         <hr>
                                         <div class="form-group row">
-                                            <div class="col-sm-12  d-flex justify-content-center">
+                                            <div class="full d-flex justify-content-center">
                                                 {{login.username}}
                                                 {{login.username.errors}}
                                             </div>
                                         </div>
                                         <div class="form-group row" >
-                                            <div class="col-sm-12 d-flex justify-content-center">
+                                            <div class="full d-flex justify-content-center">
                                                 {{login.password}}
                                                 {{login.password.errors}}
                                             </div>
                                         </div>
                                         <div class="form-group row mt-3">
-                                            <div class="col-sm-12 d-flex justify-content-center">
+                                            <div class="full d-flex justify-content-center">
                                             <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
                                             </div>
                                         </div>
@@ -208,7 +209,7 @@
                                     </div>
                                 </form>
                             <div class="row">
-                                <form class="full p-2">
+                                <form class="full">
                                 <div class="form-group d-column social-login">
                                     <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" >
                                         <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
@@ -216,7 +217,7 @@
                                     <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-primary" style="border: 1px solid #ccc">
                                         <i class="fab fa-facebook-f mr-2"></i> Continue with Facebook
                                     </a>
-                                
+
                                 </div>
                                 </form>
                                 <div class="d-column full mb-3">

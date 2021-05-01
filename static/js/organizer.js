@@ -1,6 +1,3 @@
-  
-$('#id_datefrom').attr('required','true')
-$('#id_dateto').attr('required','true')
 
 $('.add-new-lang').click(function(){
     var target = $(this).data('target')
@@ -89,7 +86,7 @@ $('#formControlMenu li').click(function(){
     $('#addTourForm').children(`#${$(this).data('target')}`).show()
     $('#organizerActions').children().hide()
     $('#organizerActions').children(`#${$(this).data('target')}`).show()
-    console.log('okkk');         
+    console.log('okkk');
     if($(window).width() < 577){
         $('.form-steps-btn').trigger('click')
     }
@@ -107,7 +104,7 @@ $('.menu-btn').click(function(){
         width : 'toggle'
     },300);
   });
-  
+
   $('.menu-btn').click(function(){
     $('.menu-box').css("display","block");
     $('body').css("overflow","hidden");
@@ -135,7 +132,7 @@ $('.menu-btn').click(function(){
         $('input[name="map_link"]').val('')
         alert("We couldn't get link, please enter correct item.")
     }
-    
+
 })
 
 $('#trip_date').change(function(e){
@@ -149,7 +146,7 @@ $('#trip_date').change(function(e){
             $($('#trip_date').children()[0]).removeAttr('selected');
             $($('#trip_date').children()[0]).attr('selected','true');
         }
-        
+
     }
     else if(e.target.value == 'one_time'){
         $('#start-end-date-box').show(200)
@@ -158,7 +155,7 @@ $('#trip_date').change(function(e){
     }
 })
 
-var btn_right_position = $('#organizer-menu-btn').css('right') 
+var btn_right_position = $('#organizer-menu-btn').css('right')
 console.log(btn_right_position);
 $('#organizer-menu-btn').click(function(){
     $('.org-menu-box').show(100)
@@ -220,7 +217,7 @@ var org_menu_a_list = $('#org-menu-nav').find('li')
 var degree = 180
 $('.form-steps-btn').click(function(){
     $('.tour-menu-list-nav').slideToggle(200)
-    
+
     if(degree == 180){
         $('.fa-chevron-down').css({
             'transform' : `rotate(${degree}deg)`
@@ -233,7 +230,7 @@ $('.form-steps-btn').click(function(){
         })
         degree = 180
     }
-    
+
 })
 
 

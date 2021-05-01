@@ -216,15 +216,17 @@
                         <div class="left" id="detailBox">
                             <div class="d-column" data-target="en">
                                 <p class="pt-4 word">
-                                    {{description.description_en|capfirst|safe}}
+                                    {{tour.description_en|capfirst|safe}}
                                 </p>
                                 {% if description.tour_detail %}
                                     <nav class="details">
                                         {% for i in description.tour_detail %}
-                                        <div class="visible">
-                                            <p><b>{{i.title_en|capfirst}}:</b></p>
-                                            <p>{{i.text_en|capfirst}}</p>
-                                        </div>
+                                            {% if i.title_en and i.text_en %}
+                                                <div class="visible">
+                                                    <p><b>{{i.title_en|capfirst}}:</b></p>
+                                                    <p>{{i.text_en|capfirst}}</p>
+                                                </div>
+                                            {% endif %}
                                         {% endfor %}
                                     </nav>
                                 {% else %}
@@ -234,39 +236,44 @@
                             </div>
 
                             <div class="d-column" data-target="az" style="display: none;">
-                                <p class="pt-4 word">
-                                    {{description.description_az|capfirst|safe}}
-                                </p>
-                                {% if description.tour_detail %}
+                                {% if tour.description_az %}
+                                    <p class="pt-4 word">
+                                        {{tour.description_az|capfirst|safe}}
+                                    </p>
+                                {% else %}
+                                    <p class="full bold mt-4">Bu dildə heç bir məlumat əlavə edilməyib.</p>
+                                {% endif %}
                                 <nav class="details">
-                                    {% for i in description.tour_detail %}
-                                    <div class="visible">
-                                        <p><b>{{i.title_az|capfirst}}:</b></p>
-                                        <p>{{i.text_az|capfirst}}</p>
-                                    </div>
+                                    {% for i in tour_detail %}
+                                        {% if i.title_az and i.text_az %}
+                                            <div class="visible">
+                                                <p><b>{{i.title_az|capfirst}}:</b></p>
+                                                <p>{{i.text_az|capfirst}}</p>
+                                            </div>
+                                        {% endif %}
                                     {% endfor %}
                                 </nav>
-                                {% else %}
-                                    <p class="text-center full bold mt-2">Bu dildə heç bir məlumat əlavə edilməyib.</p>
-                                {% endif %}
                             </div>
 
                             <div class="d-column" data-target="ru" style="display: none;">
-                                <p class="pt-4 word">
-                                    {{description.description_ru|capfirst|safe}}
-                                </p>
-                                {% if description.tour_detail %}
-                                    <nav class="details">
-                                        {% for i in description.tour_detail %}
-                                        <div class="visible">
-                                            <p><b>{{i.title_ru|capfirst}}:</b></p>
-                                            <p>{{i.text_ru|capfirst}}</p>
-                                        </div>
-                                        {% endfor %}
-                                    </nav>
+                                {% if tour.description_ru %}
+                                    <p class="pt-4 word">
+                                        {{tour.description_ru|capfirst|safe}}
+                                    </p>
                                 {% else %}
-                                    <p class="text-center full bold mt-2">Никаких подробностей на этом языке не добавлено.</p>
+                                    <p class="full bold mt-4">Никаких подробностей на этом языке не добавлено.</p>
                                 {% endif %}
+
+                                <nav class="details">
+                                    {% for i in tour_detail %}
+                                        {% if i.title_ru and i.text_ru %}
+                                            <div class="visible">
+                                                <p><b>{{i.title_ru|capfirst}}:</b></p>
+                                                <p>{{i.text_ru|capfirst}}</p>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </nav>
                             </div>
 
                         </div>
@@ -291,7 +298,7 @@
                         </div>
                     </div>
                     <div class="col-lg-2">
-                        <div class="right">
+                        <div class="right" style="font-size: 0.75em;">
                             {% if tour.datefrom and tour.dateto %}
                                 <p>
                                     <i class="far fa-calendar-alt mr-1"></i>

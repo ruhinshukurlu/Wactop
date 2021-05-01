@@ -70,7 +70,7 @@
                                     <img src="{% static 'images/profile.png' %}" class="user-img"  alt="">
                                 {% endif %}
                                 <div class="username">
-                                    <span>{{ request.user.username }}</span>
+                                    <span class="username-span">{{ request.user.username }}</span>
                                     <i class="fas fa-chevron-down"></i>
                                 </div>
                             </div>
@@ -144,9 +144,9 @@
 
     <section>
         {% login_form as login %}
-        <div class="modal fade " style="margin-top: 90px;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade " style="padding: 0 !important;" id="loginModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog login-modal" >
-                <div class="modal-content p-2 pt-5 shadow" style="background-color: #ebebeb;">
+                <div class="modal-content p-3 pt-5 shadow" style="background-color: #ebebeb;">
 
                     <form class="" method="post" action="{% url 'main:home' %}">
                         {% csrf_token %}
@@ -164,19 +164,19 @@
                             </div>
                             <hr>
                             <div class="form-group row">
-                                <div class="col-sm-12  d-flex justify-content-center">
+                                <div class="d-flex justify-content-center full">
                                     {{login.username}}
                                     {{login.username.errors}}
                                 </div>
                             </div>
                             <div class="form-group row" >
-                                <div class="col-sm-12 d-flex justify-content-center">
+                                <div class="d-flex justify-content-center full">
                                     {{login.password}}
                                     {{login.password.errors}}
                                 </div>
                             </div>
                             <div class="form-group row mt-3">
-                                <div class="col-sm-12 d-flex justify-content-center">
+                                <div class="full d-flex justify-content-center">
                                 <input type="submit" class="btn btn-primary login_btn" value="Sing-In" />
                                 </div>
                             </div>
@@ -187,7 +187,7 @@
                         </div>
                     </form>
                 <div class="row">
-                    <form class="full p-2">
+                    <form class="full">
                     <div class="form-group d-column social-login">
                         <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-primary" >
                             <i class="fab fa-google-plus-g mr-2"></i>Continue with Google
@@ -242,7 +242,7 @@
                 <h1 class="text-center home-heading">World Active Tourism Platform</h1>
                 <div class="main-menu">
                     <div class="row">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-md-6">
                             <a href="{% url 'tour:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/direction.svg' %}" alt="">
@@ -252,7 +252,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-md-6">
                             <a href="{% url 'activity:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/pin.svg' %}" alt="">
@@ -262,7 +262,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-md-6">
                             <a href="{% url 'training:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/bus.svg' %}" alt="">
@@ -272,7 +272,7 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-md-6">
                             <a href="{% url 'organizer:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
                                     <img src="{% static 'images/home-page/calendar.svg' %}" alt="">
@@ -316,8 +316,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between">
-                                            {% if tour.durationday %}
-                                                <span class="duration">{{tour.durationday}} days</span>
+                                            {% if tour.datefrom and tour.dateto %}
+                                                <span class="duration">{{tour.get_duration_day}} days</span>
                                             {% else %}
                                                 <span class="duration">Always</span>
                                             {% endif %}
@@ -353,8 +353,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between">
-                                            {% if tour.durationday %}
-                                                <span class="duration">{{tour.durationday}} days</span>
+                                            {% if tour.datefrom and tour.dateto %}
+                                                <span class="duration">{{tour.get_duration_day}} days</span>
                                             {% else %}
                                                 <span class="duration">Always</span>
                                             {% endif %}
@@ -390,8 +390,8 @@
                                         </div>
 
                                         <div class="d-flex justify-content-between">
-                                            {% if tour.durationday %}
-                                                <span class="duration">{{tour.durationday}} days</span>
+                                            {% if tour.datefrom and tour.dateto %}
+                                                <span class="duration">{{tour.get_duration_day}} days</span>
                                             {% else %}
                                                 <span class="duration">Always</span>
                                             {% endif %}
@@ -406,22 +406,29 @@
             </div>
 
             <div class="pt-5 pb-5">
-                <div class="row">
+                <div class="row mb-5">
                     <div class="col-12 col-sm-7">
                         <div class="owl-carousel">
-                            <div>
-                                <img class="owl-img-item" src="https://lp-cms-production.imgix.net/features/2013/06/GettyRF_83654057-0d23ef9081fb.jpg"
-                                    alt="">
-                            </div>
-                            <div>
-                                <img class="owl-img-item" src="https://d3jkudlc7u70kh.cloudfront.net/extreme-sport-fact.jpg" alt="">
-                            </div>
-                            <div>
-                                <img class="owl-img-item" src="https://wallpapercave.com/wp/tQbrBgT.jpg" alt="">
-                            </div>
+                            {% if slide_images %}
+                                {% for img in slide_images %}
+                                    <div>
+                                        <img class="owl-img-item" src="{{img.slide_image.url}}" alt="">
+                                    </div>
+                                {% endfor %}
+                            {% else %}
+                                <div>
+                                    <img class="owl-img-item" src="https://lp-cms-production.imgix.net/features/2013/06/GettyRF_83654057-0d23ef9081fb.jpg" alt="">
+                                </div>
+                                <div>
+                                    <img class="owl-img-item" src="https://d3jkudlc7u70kh.cloudfront.net/extreme-sport-fact.jpg" alt="">
+                                </div>
+                                <div>
+                                    <img class="owl-img-item" src="https://wallpapercave.com/wp/tQbrBgT.jpg" alt="">
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
-                    <div class="col-12 col-sm-5 about-section d-column justify-content-around">
+                    <div class="col-12 col-sm-5 about-section">
                         <div>
                             <h5>About Us</h5>
                             <h3>Get ready for real time adventure</h3>
@@ -434,22 +441,28 @@
                             </p>
                         </div>
 
-                        {% if partners %}
-                            <div class="d-column">
-                                <h3>Our Partners</h3>
 
-                                <div class="d-flex">
-                                    {% for partner in partners %}
-                                        <a target="_blank" href="{% if partner.partner_url %}{{partner.partner_url}} {% else %}#{% endif %}">
-                                            <img src="{{partner.partner_logo.url}}" class="partner-logo" alt="">
-                                        </a>
-                                    {% endfor %}
-
-                                </div>
-                            </div>
-                        {% endif %}
                     </div>
 
+                </div>
+
+                <div class="row justify-content-center partners">
+                    {% if partners %}
+                        <div class="d-column">
+                            <div class="d-column align-center mb-5 p-relative">
+                                <h3 class="text-center">Our Partners</h3>
+                                <img src="{% static 'images/home-page/ribbon.svg' %}" class="partner-title-img" alt="">
+                            </div>
+                            <div class="d-flex" style="flex-wrap: wrap; justify-content: center;">
+                                {% for partner in partners %}
+                                    <a target="_blank" href="{% if partner.partner_url %}{{partner.partner_url}} {% else %}#{% endif %}">
+                                        <img src="{{partner.partner_logo.url}}" class="partner-logo" alt="">
+                                    </a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -460,7 +473,7 @@
         <div class="custom-container">
             <div class="inner-container">
                 <div class="row">
-                    <div class="col-4 d-column align-center">
+                    <div class="col-12 mb-5 mb-sm-0 col-sm-4 d-column">
                         <div class="d-column">
                             <img src="{% static 'images/wactop.png' %}" class="logo" alt="">
 
@@ -468,18 +481,19 @@
 
                             <nav class="d-flex">
                                 <ul class="footer-social-links">
+                                    {% get_social_links as social_link %}
                                     <li>
-                                        <a href="#">
+                                        <a target="_blank" href="{{social_link.facebook_link}}">
                                             <i class="fab fa-facebook-square"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a target="_blank" href="{{social_link.instagram_link}}">
                                             <i class="fab fa-instagram"></i>
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="#">
+                                        <a target="_blank" href="{{social_link.linkedin_link}}">
                                             <i class="fab fa-linkedin"></i>
                                         </a>
                                     </li>
@@ -494,27 +508,27 @@
                         <nav class="footer-nav">
                             <ul class="d-column">
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'tour:home' %}">
                                         Tours
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'activity:home' %}">
                                         Activities
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'training:home' %}">
                                         Trainings
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'organizer:home' %}">
                                         Organizers
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="#">
+                                    <a href="{% url 'main:about' %}">
                                         About
                                     </a>
                                 </li>
@@ -528,13 +542,13 @@
                         <nav class="footer-nav">
                             <ul class="d-column">
                                 <li>
-                                    <a href="#">Contact</a>
+                                    <a href="{% url 'main:contact' %}">Contact</a>
                                 </li>
                                 <li>
-                                    <a href="#">Privacy</a>
+                                    <a href="{% url 'main:privacies' %}">Privacy</a>
                                 </li>
                                 <li>
-                                    <a href="#">Terms</a>
+                                    <a href="{% url 'main:terms' %}">Terms</a>
                                 </li>
                             </ul>
                         </nav>

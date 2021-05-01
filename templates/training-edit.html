@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
 
-    
+
     <style>
         .tour-menu-list li {
             flex-grow: 1;
@@ -43,472 +43,351 @@
 </head>
 
 <body>
-    
+
     {% include 'partials/header.html' %}
     {% include 'partials/main-menu.html' %}
 
-  
+
     <main>
-        <div class="row p-relative justify-content-center">
-            <div class="col-xl-3 p-0" id="menu-column" >
-                {% include 'partials/organizer-menu.html' %}
-                <button type="button" id="organizer-menu-btn">
-                    <i class="fas fa-angle-right"></i>
-                </button>
-            </div>
-            <div class="col-xl-11">
-                <div class="custom-container mt-5 mb-5">
-                    <div class="inner-container">
-                        <div class="row">
+        {% if request.user.organizer == training_organizer %}
+            <div class="row p-relative justify-content-center">
+                <div class="col-xl-3 p-0" id="menu-column" >
+                    {% include 'partials/organizer-menu.html' %}
+                    <button type="button" id="organizer-menu-btn">
+                        <i class="fas fa-angle-right"></i>
+                    </button>
+                </div>
+                <div class="col-xl-11">
+                    <div class="custom-container mt-5 mb-5">
+                        <div class="inner-container">
+                            <div class="row">
+                                <div class="col-12">
+                                    <button type="button" class="mb-3 full form-steps-btn">
+                                        All Steps of Form
+                                        <i class="fas fa-chevron-down ml-1"></i>
+                                    </button>
+                                    <nav class="full tour-menu-list-nav">
+                                        <ul class="full tour-menu-list d-flex" id="formControlMenu">
+                                            <li data-target="tourBasics" class="active">
+                                                <span>Basics</span>
+                                            </li>
+                                            <li data-target="tourDescriptionEn">
+                                                <span>Description ENG</span>
+                                            </li>
+                                            <li data-target="tourDescriptionAz">
+                                                <span>Description AZS</span>
+                                            </li>
+                                            <li data-target="tourDescriptionRu">
+                                                <span>Description RUS</span>
+                                            </li>
+                                            <li data-target="tourURL">
+                                                <span>Related URL's</span>
+                                            </li>
+                                            <li data-target="tourPhotos">
+                                                <span>Photos</span>
+                                            </li>
+                                            <li data-target="tourSchedules">
+                                                <span>Schedules</span>
+                                            </li>
+                                        </ul>
+                                    </nav>
+
+                                </div>
                             <div class="col-12">
-                                <button type="button" class="mb-3 full form-steps-btn">
-                                    All Steps of Form
-                                    <i class="fas fa-chevron-down ml-1"></i>
-                                </button>
-                                <nav class="full tour-menu-list-nav">
-                                    <ul class="full tour-menu-list d-flex" id="formControlMenu">
-                                        <li data-target="tourBasics" class="active">
-                                            <span>Basics</span>
-                                        </li>
-                                        <li data-target="tourDescriptionEn">
-                                            <span>Description ENG</span>
-                                        </li>
-                                        <li data-target="tourDescriptionAz">
-                                            <span>Description AZS</span>
-                                        </li>
-                                        <li data-target="tourDescriptionRu">
-                                            <span>Description RUS</span>
-                                        </li>
-                                        <li data-target="tourURL">
-                                            <span>Related URL's</span>
-                                        </li>
-                                        <li data-target="tourPhotos">
-                                            <span>Photos</span>
-                                        </li>
-                                        <li data-target="tourSchedules">
-                                            <span>Schedules</span>
-                                        </li>
-                                    </ul>
-                                </nav>
-                                
-                            </div>
-                        <div class="col-12">
-                            <div class="row full justify-content-center">
-                                <form method="post" enctype="multipart/form-data" id="addTourForm" class="full">
-                                    {% csrf_token %}
-                                    
-                                    {{tour_form.management_form}}
-                                    {{detail_form.management_form }}
-                                    {{url_form.management_form}}
-                                    {{image_form.management_form}}
-                                    {{schedule_form.management_form}}
+                                <div class="row full justify-content-center">
+                                    <form method="post" enctype="multipart/form-data" id="addTourForm" class="full">
+                                        {% csrf_token %}
 
-                                    {{tour_form.non_field_errors}}
-                                    {{detail_form.non_field_errors }}
-                                    {{url_form.non_field_errors}}
-                                    {{image_form.non_field_errors}}
-                                    {{schedule_form.non_field_errors}}
-                                    
+                                        {{tour_form.management_form}}
+                                        {{detail_form.management_form }}
+                                        {{url_form.management_form}}
+                                        {{image_form.management_form}}
+                                        {{schedule_form.management_form}}
 
-                                    <div id="tourBasics">
-                                        
-                                        <div class="form-box">
-                                           
-                                            <div class="form-group row tour-prof-img-box border-bottom">
-                                                
-                                                <div class="col-12 col-lg-4">
-                                                    <div class="profile-photo-box mt-5 mb-3">
-                                                        <div class="d-column justify-content-center align-center tour-prof-edit">
-                                                            {% if tour_form.avatar.value %}
-                                                                <img src="{{tour_form.avatar.value.url}}" class="org-profile-photo" id="profilePhoto" alt="">
-                                                            {% else %}
-                                                                <img src="{% static 'images/default.png' %}" class="org-profile-photo" id="profilePhoto" alt="">
-                                                            {% endif %}
-                                                            <div class="d-flex add-img-box mt-3 d-column" >
-                                                                {{tour_form.avatar}}
+                                        {{tour_form.non_field_errors}}
+                                        {{detail_form.non_field_errors }}
+                                        {{url_form.non_field_errors}}
+                                        {{image_form.non_field_errors}}
+                                        {{schedule_form.non_field_errors}}
+
+
+                                        <div id="tourBasics">
+
+                                            <div class="form-box">
+
+                                                <div class="form-group row tour-prof-img-box border-bottom">
+
+                                                    <div class="col-12 col-lg-4">
+                                                        <div class="profile-photo-box mt-5 mb-3">
+                                                            <div class="d-column justify-content-center align-center tour-prof-edit">
                                                                 {% if tour_form.avatar.value %}
-                                                                    <label for="profilePhotoExample" class="align-center m-0 change-photo-btn">
-                                                                        <i class="fas fa-camera"></i>
-                                                                        Change Profile Photo
-                                                                    </label>
+                                                                    <img src="{{tour_form.avatar.value.url}}" class="org-profile-photo" id="profilePhoto" alt="">
                                                                 {% else %}
-                                                                    <label for="profilePhotoExample" class="align-center m-0 change-photo-btn">
-                                                                        <i class="fas fa-camera"></i>
-                                                                        Add Profile Photo
-                                                                    </label>
+                                                                    <img src="{% static 'images/default.png' %}" class="org-profile-photo" id="profilePhoto" alt="">
                                                                 {% endif %}
-                                                                
+                                                                <div class="d-flex add-img-box mt-3 d-column" style="overflow-wrap: anywhere;">
+                                                                    {{tour_form.avatar}}
+                                                                    {% if tour_form.avatar.value %}
+                                                                        <label for="profilePhotoExample" class="align-center m-0 change-photo-btn">
+                                                                            <i class="fas fa-camera"></i>
+                                                                            Change Profile Photo
+                                                                        </label>
+                                                                    {% else %}
+                                                                        <label for="profilePhotoExample" class="align-center m-0 change-photo-btn">
+                                                                            <i class="fas fa-camera"></i>
+                                                                            Add Profile Photo
+                                                                        </label>
+                                                                    {% endif %}
+
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
 
-                                                <div class="col-12 col-lg-8">
-                                                    <div class="cover-photo-box mt-5 mb-3">
-                                                        <div class="p-relative">
+                                                    <div class="col-12 col-lg-8">
+                                                        <div class="cover-photo-box mt-5 mb-3">
+                                                            <div class="p-relative">
+                                                                {% if tour_form.cover.value %}
+                                                                    <img src="{{tour_form.cover.value.url}}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                                {% else %}
+                                                                    <img src="{% static 'images/default-tour-photo.jpg' %}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex add-img-box justify-content-around align-center">
+                                                            {{tour_form.cover}}
                                                             {% if tour_form.cover.value %}
-                                                                <img src="{{tour_form.cover.value.url}}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                                <label for="coverPhotoInput" class="align-center change-photo-btn">
+                                                                    <i class="fas fa-camera"></i>
+                                                                    Change Cover Photo
+                                                                </label>
                                                             {% else %}
-                                                                <img src="{% static 'images/default-tour-photo.jpg' %}" class="org-cover-photo" id="coverPhoto" alt="">
+                                                                <label for="coverPhotoInput" class="align-center change-photo-btn">
+                                                                    <i class="fas fa-camera"></i>
+                                                                    Add Cover Photo
+                                                                </label>
                                                             {% endif %}
-                                                        </div>
-                                                    </div>
-                                                    <div class="d-flex add-img-box justify-content-around align-center">
-                                                        {{tour_form.cover}}
-                                                        {% if tour_form.cover.value %}
-                                                            <label for="coverPhotoInput" class="align-center change-photo-btn">
-                                                                <i class="fas fa-camera"></i>
-                                                                Change Cover Photo
-                                                            </label>
-                                                        {% else %}
-                                                            <label for="coverPhotoInput" class="align-center change-photo-btn">
-                                                                <i class="fas fa-camera"></i>
-                                                                Add Cover Photo
-                                                            </label>
-                                                        {% endif %}
-                                                        
-                                                    </div>
-                                                </div>
-    
-                                                
-                                            </div>
 
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.title.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.title}}
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.country.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.country}}
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.city.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.city}}
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.address.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.address}}
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.training_type.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.training_type}}
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.pricefor.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.pricefor}}
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="" class="col-3">Price & Currency</label>
-                                                <div class="col-9">
-                                                    <div class="full row">
-                                                        <div class="col-6 pl-0">
-                                                            {{tour_form.price}}
-                                                        </div>
-                                                        <div class="col-6 pr-0">
-                                                            {{tour_form.currency}}
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.discount.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.discount}}
-                                                </div>
-                                                
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="" class="col-3">Start & End Hours</label>
-                                                <div class="col-9">
-                                                    <div class="full row">
-                                                        <div class="col-6 pl-0">
-                                                            {{tour_form.start_hour}}
-                                                        </div>
-                                                        <div class="col-6 pr-0">
-                                                            {{tour_form.finish_hour}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="" class="col-3">Start & End Date</label>
-                                                <div class="col-9 ">
-                                                    <div class="full row">
-                                                        <div class="col-6 pl-0">
-                                                            {{tour_form.datefrom}}
-                                                        </div>
-                                                        <div class="col-6 pr-0">
-                                                            {{tour_form.dateto}}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <div class='col-3'>
-                                                    {{tour_form.guide.label_tag}}
-                                                </div>
-                                                <div class='col-9'>
-                                                    {{tour_form.guide}}
-                                                </div>
-                                            </div>
-                                            <div class="form-group row mt-3">
-                                                <div class='col-3 align-center'>
-                                                    {{tour_form.map_link.label_tag}}
-                                                </div>
-                                                <div class='col-9 d-column'>
-                                                    {% if tour_form.map_link %}
-                                                        <div class="align-center mb-2 current-maplink">
-                                                            <span>Current : </span>
-                                                            {% if tour_form.map_link.value %}
-                                                                <a class="f-size-13" href="{{tour_form.map_link.value}}" target="blank">{{tour_form.map_link.value}}</a>
-                                                            {% else %}
-                                                                <span>You didn't include map link</span>
-                                                            {% endif %}
-                                                        </div>
-                                                    {% endif %}
-                                                    <div class="d-flex">
-                                                        <button type="button" class="help-btn mr-2">
-                                                            <i class="far fa-question-circle"></i>
-                                                        </button>
-                                                        <div class="d-column full">
-                                                            <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" > 
-                                                            <div class="d-column pt-2" id="iframe-link-box" style="display: none;"> 
-                                                                <span>We got the link successfully</span>
-                                                            </div>
-                                                            <div style="display: none;">
-                                                                {{tour_form.map_link}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="help-text mt-1" style="display: none;">
-                                                        This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>. 
-                                                        We automatically will get main link of iframe for presenting address in Google map.
-                                                    </div>
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group row">
-                                                <div class='col-12'>
-                                                    {{tour_form.description_en.label_tag}}
-                                                </div>
-                                                <div class='col-12'>
-                                                    {{tour_form.description_en}}
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group row">
-                                                <div class='col-12'>
-                                                    {{tour_form.description_az.label_tag}}
                                                 </div>
-                                                <div class='col-12'>
-                                                    {{tour_form.description_az}}
-                                                    {{tour_form.description_az.errors}}
-                                                </div>
-                                            </div>
 
-                                            <div class="form-group row">
-                                                <div class='col-12'>
-                                                    {{tour_form.description_ru.label_tag}}
-                                                </div>
-                                                <div class='col-12'>
-                                                    {{tour_form.description_ru}}
-                                                    {{tour_form.description_ru.errors}}
-                                                </div>
-                                            </div>
-
-                                            <div class="form-group row p-2">
-                                                <div class="col-12">
-                                                    <div class="d-flex full justify-content-end">
-                                                        <button type="submit" class="btn btn-outline-success full">
-                                                            <i class="far fa-check-circle mr-1"></i>
-                                                            Save Changes
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-        
-                                    <div id="tourDescriptionEn" style="display: none;" >
-                                        <div class="mb-3">
-                                            <div id="text-forms-en">
-                                                {% for form in detail_form %}
-                                                    <div class="row mb-4 border-bottom detail-block">
-                                                        <div class="col-12 col-sm-10">
-                                                            <div class="d-column mb-2">
-                                                                {{form.title_en.label_tag}}
-                                                                {{form.title_en}}
-                                                            </div>
-                                                            <div class="d-column">
-                                                                {{form.text_en.label_tag}}
-                                                                {{form.text_en}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-sm-2">
-                                                            <div class="align-center delete-detail-box">
-                                                                {{form.DELETE.label_tag}}
-                                                                {{form.DELETE}}
-                                                            </div>
-                                                        </div>
-                                                        {% for hidden in form.hidden_fields %}
-                                                            {{ hidden }}
-                                                        {% endfor %}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="form-group row p-2">
-                                                <div class="d-flex full justify-content-end">
-                                                    <button type="submit" class="btn btn-outline-success full">
-                                                        <i class="far fa-check-circle mr-1"></i>
-                                                        Save Changes
-                                                    </button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="tourDescriptionAz" style="display: none;">
-                                        <div class="mb-3">
-                                            <div id="text-forms-en">
-                                                {% for form in detail_form %}
-                                                    <div class="row mb-4 border-bottom detail-block">
-                                                        <div class="col-12 col-sm-10">
-                                                            <div class="d-column mb-2">
-                                                                {{form.title_az.label_tag}}
-                                                                {{form.title_az}}
-                                                            </div>
-                                                            <div class="d-column">
-                                                                {{form.text_az.label_tag}}
-                                                                {{form.text_az}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-sm-2">
-                                                            <div class="align-center delete-detail-box">
-                                                                {{form.DELETE.label_tag}}
-                                                                {{form.DELETE}}
-                                                            </div>
-                                                        </div>
-                                                        {% for hidden in form.hidden_fields %}
-                                                            {{ hidden }}
-                                                        {% endfor %}
-                                                        
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="form-group row p-2">
-                                                <div class="col-12">
-                                                    <div class="d-flex full justify-content-end">
-                                                        <button type="submit" class="btn btn-outline-success full">
-                                                            <i class="far fa-check-circle mr-1"></i>
-                                                            Save Changes
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="tourDescriptionRu" style="display: none;">
-                                        <div class="mb-3">
-                                            <div id="text-forms-en">
-                                                {% for form in detail_form %}
-                                                    <div class="row mb-4 border-bottom detail-block">
-                                                        <div class="col-12 col-sm-10">
-                                                            <div class="d-column mb-2">
-                                                                {{form.title_ru.label_tag}}
-                                                                {{form.title_ru}}
-                                                            </div>
-                                                            <div class="d-column">
-                                                                {{form.text_ru.label_tag}}
-                                                                {{form.text_ru}}
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-sm-2">
-                                                            <div class="align-center delete-detail-box">
-                                                                {{form.DELETE.label_tag}}
-                                                                {{form.DELETE}}
-                                                            </div>
-                                                        </div>
-                                                       {% for hidden in form.hidden_fields %}
-                                                            {{ hidden }}
-                                                        {% endfor %}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                        
-                                            <div class="form-group row p-2">
-                                                <div class="col-12">
-                                                    <div class="d-flex full justify-content-end">
-                                                        <button type="submit" class="btn btn-outline-success full">
-                                                            <i class="far fa-check-circle mr-1"></i>
-                                                            Save Changes
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    
-                                    <div id="tourURL" style="display: none;">
-
-                                        <div class="form-box mb-3" id="urls">
-                                            {% for form in url_form %}
                                                 <div class="form-group row">
-                                                    <div class="col-1 pt-2">
-                                                        {{form.url.label_tag}}
+                                                    <div class='col-3'>
+                                                        {{tour_form.title.label_tag}}
                                                     </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.title}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.country.label_tag}}
+                                                    </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.country}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.city.label_tag}}
+                                                    </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.city}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.address.label_tag}}
+                                                    </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.address}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.training_type.label_tag}}
+                                                    </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.training_type}}
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.pricefor.label_tag}}
+                                                    </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.pricefor}}
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="" class="col-3">Price & Currency</label>
                                                     <div class="col-9">
-                                                        {{form.url}}
+                                                        <div class="full row">
+                                                            <div class="col-6 pl-0">
+                                                                {{tour_form.price}}
+                                                            </div>
+                                                            <div class="col-6 pr-0">
+                                                                {{tour_form.currency}}
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-2 align-center url-delete-box">
-                                                        {{form.DELETE.label_tag}}
-                                                        {{form.DELETE}}
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.discount.label_tag}}
                                                     </div>
-                                                    {% for hidden in form.hidden_fields %}
-                                                        {{ hidden }}
+                                                    <div class='col-9'>
+                                                        {{tour_form.discount}}
+                                                    </div>
+
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="" class="col-3">Start & End Hours</label>
+                                                    <div class="col-9">
+                                                        <div class="full row">
+                                                            <div class="col-6 pl-0">
+                                                                {{tour_form.start_hour}}
+                                                            </div>
+                                                            <div class="col-6 pr-0">
+                                                                {{tour_form.finish_hour}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="" class="col-3">Start & End Date</label>
+                                                    <div class="col-9 ">
+                                                        <div class="full row">
+                                                            <div class="col-6 pl-0">
+                                                                {{tour_form.datefrom}}
+                                                            </div>
+                                                            <div class="col-6 pr-0">
+                                                                {{tour_form.dateto}}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class='col-3'>
+                                                        {{tour_form.guide.label_tag}}
+                                                    </div>
+                                                    <div class='col-9'>
+                                                        {{tour_form.guide}}
+                                                    </div>
+                                                </div>
+                                                <div class="form-group row mt-3">
+                                                    <div class='col-3 align-center'>
+                                                        {{tour_form.map_link.label_tag}}
+                                                    </div>
+                                                    <div class='col-9 d-column'>
+                                                        {% if tour_form.map_link %}
+                                                            <div class="align-center mb-2 current-maplink">
+                                                                <span>Current : </span>
+                                                                {% if tour_form.map_link.value %}
+                                                                    <a class="f-size-13" href="{{tour_form.map_link.value}}" target="blank">{{tour_form.map_link.value}}</a>
+                                                                {% else %}
+                                                                    <span>You didn't include map link</span>
+                                                                {% endif %}
+                                                            </div>
+                                                        {% endif %}
+                                                        <div class="d-flex">
+                                                            <button type="button" class="help-btn mr-2">
+                                                                <i class="far fa-question-circle"></i>
+                                                            </button>
+                                                            <div class="d-column full">
+                                                                <input type="text"  class="form-input" placeholder="Add Map iframe here" id="id_map_link" >
+                                                                <div class="d-column pt-2" id="iframe-link-box" style="display: none;">
+                                                                    <span>We got the link successfully</span>
+                                                                </div>
+                                                                <div style="display: none;">
+                                                                    {{tour_form.map_link}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="help-text mt-1" style="display: none;">
+                                                            This field will make your tour address more clear to users, you have to include embeded iframe from <a href="https://www.google.com/maps/d/u/0/">Google My Map</a>.
+                                                            We automatically will get main link of iframe for presenting address in Google map.
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class='col-12'>
+                                                        {{tour_form.description_en.label_tag}}
+                                                    </div>
+                                                    <div class='col-12'>
+                                                        {{tour_form.description_en}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class='col-12'>
+                                                        {{tour_form.description_az.label_tag}}
+                                                    </div>
+                                                    <div class='col-12'>
+                                                        {{tour_form.description_az}}
+                                                        {{tour_form.description_az.errors}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row">
+                                                    <div class='col-12'>
+                                                        {{tour_form.description_ru.label_tag}}
+                                                    </div>
+                                                    <div class='col-12'>
+                                                        {{tour_form.description_ru}}
+                                                        {{tour_form.description_ru.errors}}
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group row p-2">
+                                                    <div class="col-12">
+                                                        <div class="d-flex full justify-content-end">
+                                                            <button type="submit" class="btn btn-outline-success full">
+                                                                <i class="far fa-check-circle mr-1"></i>
+                                                                Save Changes
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="tourDescriptionEn" style="display: none;" >
+                                            <div class="mb-3">
+                                                <div id="text-forms-en">
+                                                    {% for form in detail_form %}
+                                                        <div class="row mb-4 border-bottom detail-block">
+                                                            <div class="col-12 col-sm-10">
+                                                                <div class="d-column mb-2">
+                                                                    {{form.title_en.label_tag}}
+                                                                    {{form.title_en}}
+                                                                </div>
+                                                                <div class="d-column">
+                                                                    {{form.text_en.label_tag}}
+                                                                    {{form.text_en}}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-12 col-sm-2">
+                                                                <div class="align-center delete-detail-box">
+                                                                    {{form.DELETE.label_tag}}
+                                                                    {{form.DELETE}}
+                                                                </div>
+                                                            </div>
+                                                            {% for hidden in form.hidden_fields %}
+                                                                {{ hidden }}
+                                                            {% endfor %}
+                                                        </div>
                                                     {% endfor %}
                                                 </div>
-                                            {% endfor %}
-                                            <div class="mb-2 justify-content-end d-flex">
-                                                <button type="button" class="add_detail_btn" onclick = 'addurl()' style="outline: none;">
-                                                    <i class="fas fa-plus-circle mr-2"></i>
-                                                    Add new URL
-                                                </button>
-                                            </div>
-                                            <div class="row p-2">
-                                                <div class="col-12">
+
+                                                <div class="form-group row p-2">
                                                     <div class="d-flex full justify-content-end">
                                                         <button type="submit" class="btn btn-outline-success full">
                                                             <i class="far fa-check-circle mr-1"></i>
@@ -518,105 +397,232 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-        
-                                    <div id="tourPhotos" style="display: none;">
-                                        
-                                        <div class="form-box tour-edit-photos row">
-                                            <div class="photos-box row">
-                                                {% for form in image_form %}
-                                                    <div class="photo-item col-12 col-sm-6 col-lg-4 col-xl-3">
-                                                        {% if form.image.value %}
-                                                            <img src="{{form.image.value.url}}" alt="" width="100%">
-                                                        {% else %}
-                                                            <img src="{% static 'images/default.png' %}" alt="" width="100%">
-                                                        {% endif %}
-                                                        <div class="d-column p-2 border ">
-                                                            <div class="edit-photo-label">
-                                                                {{form.image.label_tag}}
+
+                                        <div id="tourDescriptionAz" style="display: none;">
+                                            <div class="mb-3">
+                                                <div id="text-forms-en">
+                                                    {% for form in detail_form %}
+                                                        <div class="row mb-4 border-bottom detail-block">
+                                                            <div class="col-12 col-sm-10">
+                                                                <div class="d-column mb-2">
+                                                                    {{form.title_az.label_tag}}
+                                                                    {{form.title_az}}
+                                                                </div>
+                                                                <div class="d-column">
+                                                                    {{form.text_az.label_tag}}
+                                                                    {{form.text_az}}
+                                                                </div>
                                                             </div>
-                                                            <div class="mt-3 f-size-13" style="display: none;">
-                                                                {{form.image}}
+                                                            <div class="col-12 col-sm-2">
+                                                                <div class="align-center delete-detail-box">
+                                                                    {{form.DELETE.label_tag}}
+                                                                    {{form.DELETE}}
+                                                                </div>
                                                             </div>
-                                                            <div class="align-center url-delete-box">
-                                                                {{form.DELETE.label_tag}}
-                                                                {{form.DELETE}}
+                                                            {% for hidden in form.hidden_fields %}
+                                                                {{ hidden }}
+                                                            {% endfor %}
+
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="form-group row p-2">
+                                                    <div class="col-12">
+                                                        <div class="d-flex full justify-content-end">
+                                                            <button type="submit" class="btn btn-outline-success full">
+                                                                <i class="far fa-check-circle mr-1"></i>
+                                                                Save Changes
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="tourDescriptionRu" style="display: none;">
+                                            <div class="mb-3">
+                                                <div id="text-forms-en">
+                                                    {% for form in detail_form %}
+                                                        <div class="row mb-4 border-bottom detail-block">
+                                                            <div class="col-12 col-sm-10">
+                                                                <div class="d-column mb-2">
+                                                                    {{form.title_ru.label_tag}}
+                                                                    {{form.title_ru}}
+                                                                </div>
+                                                                <div class="d-column">
+                                                                    {{form.text_ru.label_tag}}
+                                                                    {{form.text_ru}}
+                                                                </div>
                                                             </div>
+                                                            <div class="col-12 col-sm-2">
+                                                                <div class="align-center delete-detail-box">
+                                                                    {{form.DELETE.label_tag}}
+                                                                    {{form.DELETE}}
+                                                                </div>
+                                                            </div>
+                                                        {% for hidden in form.hidden_fields %}
+                                                                {{ hidden }}
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="form-group row p-2">
+                                                    <div class="col-12">
+                                                        <div class="d-flex full justify-content-end">
+                                                            <button type="submit" class="btn btn-outline-success full">
+                                                                <i class="far fa-check-circle mr-1"></i>
+                                                                Save Changes
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div id="tourURL" style="display: none;">
+
+                                            <div class="form-box mb-3" id="urls">
+                                                {% for form in url_form %}
+                                                    <div class="form-group row">
+                                                        <div class="col-1 pt-2">
+                                                            {{form.url.label_tag}}
+                                                        </div>
+                                                        <div class="col-9">
+                                                            {{form.url}}
+                                                        </div>
+                                                        <div class="col-2 align-center url-delete-box">
+                                                            {{form.DELETE.label_tag}}
+                                                            {{form.DELETE}}
                                                         </div>
                                                         {% for hidden in form.hidden_fields %}
                                                             {{ hidden }}
                                                         {% endfor %}
                                                     </div>
                                                 {% endfor %}
-                                            </div>
-                                           
-                                           
-                                            <div class="form-group row p-2 full">
-                                                <div class="col-12">
-                                                    <div class="d-flex full justify-content-end">
-                                                        <button type="submit" class="btn btn-outline-success full">
-                                                            <i class="far fa-check-circle mr-1"></i>
-                                                            Save Changes
-                                                        </button>
-                                                    </div>
+                                                <div class="mb-2 justify-content-end d-flex">
+                                                    <button type="button" class="add_detail_btn" onclick = 'addurl()' style="outline: none;">
+                                                        <i class="fas fa-plus-circle mr-2"></i>
+                                                        Add new URL
+                                                    </button>
                                                 </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div id="tourSchedules" style="display: none;">
-                                       
-                                        <div class="form-box tour-edit-photos">
-                                            
-                                            <div class="photos-box row">
-                                                {% for form in schedule_form %}
-                                                    <div class="photo-item col-12 col-sm-6 col-lg-4 col-xl-3">
-                                                        {% if form.schedule_image.value %}
-                                                            <img src="{{form.schedule_image.value.url}}" alt="" width="100%">
-                                                        {% else %}
-                                                            <img src="{% static 'images/default.png' %}" alt="" width="100%">
-                                                        {% endif %}
-                                                        <div class="d-column p-2 border ">
-                                                            <div class="edit-photo-label">
-                                                                {{form.schedule_image.label_tag}}
-                                                            </div>
-                                                            <div class="mt-3 f-size-13" style="display: none;">
-                                                                {{form.schedule_image}}
-                                                            </div>
-                                                            <div class="align-center url-delete-box">
-                                                                {{form.DELETE.label_tag}}
-                                                                {{form.DELETE}}
-                                                            </div>
+                                                <div class="row p-2">
+                                                    <div class="col-12">
+                                                        <div class="d-flex full justify-content-end">
+                                                            <button type="submit" class="btn btn-outline-success full">
+                                                                <i class="far fa-check-circle mr-1"></i>
+                                                                Save Changes
+                                                            </button>
                                                         </div>
-                                                        {% for hidden in form.hidden_fields %}
-                                                            {{ hidden }}
-                                                        {% endfor %}
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-                                            
-                                            <div class="form-group row p-2 full">
-                                                <div class="col-12">
-                                                    <div class="d-flex full justify-content-end">
-                                                        <button type="submit" class="btn btn-outline-success full">
-                                                            <i class="far fa-check-circle mr-1"></i>
-                                                            Save Changes
-                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        
-                                    </div>
 
-                                   
-                                </form>
+                                        <div id="tourPhotos" style="display: none;">
+
+                                            <div class="form-box tour-edit-photos row">
+                                                <div class="photos-box row">
+                                                    {% for form in image_form %}
+                                                        <div class="photo-item col-12 col-sm-6 col-lg-4 col-xl-3">
+                                                            {% if form.image.value %}
+                                                                <img src="{{form.image.value.url}}" alt="" width="100%">
+                                                            {% else %}
+                                                                <img src="{% static 'images/default.png' %}" alt="" width="100%">
+                                                            {% endif %}
+                                                            <div class="d-column p-2 border ">
+                                                                <div class="edit-photo-label">
+                                                                    {{form.image.label_tag}}
+                                                                </div>
+                                                                <div class="mt-3 f-size-13" style="display: none;">
+                                                                    {{form.image}}
+                                                                </div>
+                                                                <div class="align-center url-delete-box">
+                                                                    {{form.DELETE.label_tag}}
+                                                                    {{form.DELETE}}
+                                                                </div>
+                                                            </div>
+                                                            {% for hidden in form.hidden_fields %}
+                                                                {{ hidden }}
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+
+
+                                                <div class="form-group row p-2 full">
+                                                    <div class="col-12">
+                                                        <div class="d-flex full justify-content-end">
+                                                            <button type="submit" class="btn btn-outline-success full">
+                                                                <i class="far fa-check-circle mr-1"></i>
+                                                                Save Changes
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="tourSchedules" style="display: none;">
+
+                                            <div class="form-box tour-edit-photos">
+
+                                                <div class="photos-box row">
+                                                    {% for form in schedule_form %}
+                                                        <div class="photo-item col-12 col-sm-6 col-lg-4 col-xl-3">
+                                                            {% if form.schedule_image.value %}
+                                                                <img src="{{form.schedule_image.value.url}}" alt="" width="100%">
+                                                            {% else %}
+                                                                <img src="{% static 'images/default.png' %}" alt="" width="100%">
+                                                            {% endif %}
+                                                            <div class="d-column p-2 border ">
+                                                                <div class="edit-photo-label">
+                                                                    {{form.schedule_image.label_tag}}
+                                                                </div>
+                                                                <div class="mt-3 f-size-13" style="display: none;">
+                                                                    {{form.schedule_image}}
+                                                                </div>
+                                                                <div class="align-center url-delete-box">
+                                                                    {{form.DELETE.label_tag}}
+                                                                    {{form.DELETE}}
+                                                                </div>
+                                                            </div>
+                                                            {% for hidden in form.hidden_fields %}
+                                                                {{ hidden }}
+                                                            {% endfor %}
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+
+                                                <div class="form-group row p-2 full">
+                                                    <div class="col-12">
+                                                        <div class="d-flex full justify-content-end">
+                                                            <button type="submit" class="btn btn-outline-success full">
+                                                                <i class="far fa-check-circle mr-1"></i>
+                                                                Save Changes
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row d-flex justify-content-center align-center" style="min-height: 80vh;">
+                <h3 class="bold" style="color: red;">You don't have access to this page</h3>
+            </div>
+        {% endif %}
     </main>
 
     {% include 'partials/footer.html' %}
@@ -650,7 +656,7 @@
            }
        }
 
-        
+
         $('.photo-input').change(function(){
             console.log('okkk-tour');
             var photo = $(this).parents('.photo-item').find('img')
@@ -664,7 +670,7 @@
             readURL(this,$(schedule));
         })
 
-        
+
         $("#profilePhotoExample").change(function(){
             readURL(this,$('#profilePhoto'));
         });

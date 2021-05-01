@@ -190,7 +190,9 @@
                                     <td>{{guide.name}}</td>
                                     <td>{{guide.surname}}</td>
                                     <td>{{guide.experience}}</td>
-                                    <td>{{guide.certification}}</td>
+                                    <td>
+                                        <a target="_blank" href="{{guide.certification.url}}">Certification File</a>
+                                    </td>
 
                                 </tr>
                             {% endfor %}
@@ -221,7 +223,9 @@
                                         <td>{{instructor.name}}</td>
                                         <td>{{instructor.surname}}</td>
                                         <td>{{instructor.experience}}</td>
-                                        <td>{{instructor.certification}}</td>
+                                        <td>
+                                            <a target="_blank" href="{{instructor.certification.url}}">Certification File</a>
+                                        </td>
                                     </tr>
                                 {% endfor %}
                             </tbody>

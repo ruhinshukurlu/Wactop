@@ -14,17 +14,17 @@ from django.http import JsonResponse
 class User(AbstractUser):
     is_user = models.BooleanField(default=False)
     is_organizer = models.BooleanField(default=False)
-    
+
     email = models.EmailField(_("Email"), max_length=254, unique=True)
     username = models.CharField(_('Username'), unique=True, max_length=30, blank=True)
     profile_img = models.ImageField(_("Profile image"),upload_to='profile-pictures/', null=True, blank=True)
     date_joined = models.DateTimeField(_('Date joined'), auto_now_add=True)
-    
+
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     activated = models.BooleanField(default=False)
 
-    USERNAME_FIELD = 'username'    
+    USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = []
 
     objects = UserManager()
@@ -46,19 +46,18 @@ class User(AbstractUser):
 def send_user_data_when_created_by_admin(sender, instance, **kwargs):
     if instance.is_active and instance.is_organizer and not instance.activated:
         email = instance.email
-        html_content = "you Organizer is activated by admin"
-        send_mail('Hello', html_content ,  EMAIL_HOST_USER, [email])
+        html_content = "Your Organizer account was activated by admin, now you can login our platform with your username and password https://wactop.com/ "
+        send_mail('Wactop, account activation', html_content ,  EMAIL_HOST_USER, [email])
         instance.activated = True
         instance.save()
 
 class Customer(models.Model):
-    
+
     user = models.OneToOneField("account.User", verbose_name=_("Customer"), on_delete=models.CASCADE, primary_key=True, related_name='customer')
-    
+
     class Meta:
         verbose_name = 'Customer'
         verbose_name_plural = 'Customers'
 
     def __str__(self):
         return self.user.username
-    

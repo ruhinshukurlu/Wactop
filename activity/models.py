@@ -5,7 +5,7 @@ from multiselectfield import MultiSelectField
 import smtplib
 from django.core.mail import send_mail
 from django.utils.translation import ugettext as _
-
+from slugify import slugify
 from Wactop.mail import *
 
 
@@ -48,6 +48,8 @@ class Activity(models.Model):
     map_link = models.URLField(_("Map Link"), max_length=300, blank=True, null=True)
     activated = models.BooleanField(_("Activated"), default  = False)
 
+    slug = models.SlugField(_("Slug"), blank=True, null=True)
+
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True )
 
@@ -89,6 +91,9 @@ class Activity(models.Model):
     def __str__ (self):
         return self.title
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super(Activity, self).save(*args, **kwargs)
 
 class ActivityDetail(models.Model):
     activity = models.ForeignKey(Activity, on_delete=models.CASCADE, related_name='activity_detail')

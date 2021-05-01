@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext as _
 from account.models import *
+from slugify import slugify
 
 
 class Organizer(models.Model):
@@ -23,8 +24,15 @@ class Organizer(models.Model):
     cover = models.ImageField(upload_to='organizer/cover/', height_field=None, width_field=None, max_length=None, blank=True, null=True)
     viewcount = models.IntegerField(default=0)
 
+    slug = models.SlugField(_("Slug"), blank=True, null=True)
+
     def __str__ (self):
         return self.organizer_name
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.organizer_name)
+        return super(Organizer, self).save(*args, **kwargs)
+
 
 
 class OrganizerType(models.Model):

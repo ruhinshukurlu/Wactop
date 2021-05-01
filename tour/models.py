@@ -7,6 +7,7 @@ import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
 from django.utils.translation import ugettext as _
+from slugify import slugify
 
 
 status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past'), (4, 'deny')]
@@ -60,6 +61,7 @@ class Tour(models.Model):
     rating = models.IntegerField(_("Rating"), blank=True, null=True, default=0)
     activated = models.BooleanField(_("Activated"), default  = False)
 
+    slug = models.SlugField(_("Slug"), blank=True, null=True)
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True )
 
@@ -102,6 +104,10 @@ class Tour(models.Model):
             duration = 'Always'
 
         return duration
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super(Tour, self).save(*args, **kwargs)
 
     # def save(self, *args, **kwargs):
     #     if self.old_status != self.status:

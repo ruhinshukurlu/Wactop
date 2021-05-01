@@ -7,6 +7,7 @@ from django.utils.translation import ugettext as _
 import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
+from slugify import slugify
 
 
 
@@ -48,6 +49,8 @@ class Training(models.Model):
 
     start_hour = models.TimeField(_("Start Hour"))
     finish_hour = models.TimeField(_("Finish Hour"))
+
+    slug = models.SlugField(_("Slug"), blank=True, null=True)
 
     created_at = models.DateTimeField(_("Created At"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Updated at"), auto_now=True )
@@ -94,7 +97,9 @@ class Training(models.Model):
 
         return duration
 
-
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        return super(Training, self).save(*args, **kwargs)
 
 
 class TrainingDetail(models.Model):

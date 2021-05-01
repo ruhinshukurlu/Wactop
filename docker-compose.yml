@@ -47,7 +47,7 @@ services:
     container_name: redis
     image: redis:4.0.11
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
       - ./redisdb:/var/lib/redis
     restart: on-failure

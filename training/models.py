@@ -8,6 +8,8 @@ import smtplib
 from django.core.mail import send_mail
 from Wactop.mail import *
 from slugify import slugify
+from ckeditor.fields import RichTextField
+
 
 
 
@@ -25,7 +27,7 @@ class Training(models.Model):
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='training')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
     training_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='training')
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
@@ -105,7 +107,7 @@ class Training(models.Model):
 class TrainingDetail(models.Model):
     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail')
     title = models.CharField(max_length=31)
-    text = models.TextField()
+    text = RichTextField(blank = True)
 
     def __str__ (self):
         return self.training.title + ": " + self.title

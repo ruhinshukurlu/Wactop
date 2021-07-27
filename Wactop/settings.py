@@ -57,6 +57,8 @@ INSTALLED_APPS = [
     'multiselectfield',
     'rest_framework',
     'django_filters',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 AUTHENTICATION_BACKENDS = [
@@ -197,6 +199,17 @@ else:
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+CKEDITOR_UPLOAD_PATH = "uploads/"
+CKEDITOR_FILENAME_GENERATOR = 'utils.get_filename'
+CKEDITOR_BROWSE_SHOW_DIRS = True
+CKEDITOR_RESTRICT_BY_DATE = True  
+CKEDITOR_CONFIGS = {
+    "default": {
+        'height': '100%',
+        'width': '100%',
+    }
+}  
 
 
 LOGIN_REDIRECT_URL = reverse_lazy('main:home')

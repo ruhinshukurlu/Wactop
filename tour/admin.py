@@ -2,6 +2,7 @@ from django.contrib import admin
 from django.shortcuts import redirect
 from django.http import HttpResponseRedirect
 from .models import *
+from tour.forms import TourAdminForm
 
 class ImageTabularInline(admin.TabularInline):
     model = TourImage
@@ -17,6 +18,7 @@ class ScheduleTabularInline(admin.TabularInline):
     model = TourSchedule
 
 class TourAdmin(admin.ModelAdmin):
+    form = TourAdminForm
     inlines = [ImageTabularInline, DetailTabularInline, UrlTabularInline, ScheduleTabularInline]
     list_filter = ('status', )
     list_display = ['title','organizer','tour_type','datefrom','dateto']

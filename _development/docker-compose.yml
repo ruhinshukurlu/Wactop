@@ -22,7 +22,7 @@ services:
     volumes:
       - ../redisdb:/var/lib/redis
 
-networks:
-  default:
-    external:
-      name: nginx-proxy
+# networks:
+#   default:
+#     external:
+#       name: nginx-proxy

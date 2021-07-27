@@ -2,6 +2,7 @@ from django.db import models
 from django.utils.translation import ugettext as _
 from account.models import *
 from slugify import slugify
+from ckeditor.fields import RichTextField
 
 
 class Organizer(models.Model):
@@ -9,14 +10,14 @@ class Organizer(models.Model):
     user = models.OneToOneField("account.User", verbose_name=_("User"), on_delete=models.CASCADE, related_name = 'organizer')
     email = models.EmailField(_("Email"), max_length=254, blank=True, null=True)
     organizer_name = models.CharField(max_length=127, unique=True)
-    description = models.TextField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
 
     website = models.URLField(max_length=255, blank=True, null=True)
     facebook = models.URLField(max_length=127, blank=True, null=True)
     instagram = models.URLField(max_length=127, blank=True, null=True)
     keyword = models.CharField(max_length=255, blank=True, null=True)
     organizer_type = models.ForeignKey('OrganizerType', on_delete=models.SET_NULL, blank=True, null=True,related_name = 'organizer')
-    about = models.TextField(blank=True, null=True)
+    about = RichTextField(blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
     contact_number_1 = models.CharField(max_length=31, blank=True, null=True)
     contact_number_2 = models.CharField(max_length=31, blank=True, null=True)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views 
@@ -20,6 +20,7 @@ urlpatterns = [
     path('social-auth/', include('social_django.urls', namespace="social")), 
     path('password_reset_confirm//<uidb64>/<token>/',auth_views.PasswordResetConfirmView.as_view(template_name = 'password_reset_confirm.html',success_url = reverse_lazy('account:password_reset_complete')), 
         name="password_reset_confirm"),
+    path(r'^ckeditor/', include('ckeditor_uploader.urls')),
 
 ]
 

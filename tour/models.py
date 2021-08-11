@@ -8,7 +8,7 @@ from django.core.mail import send_mail
 from Wactop.mail import *
 from django.utils.translation import ugettext as _
 from slugify import slugify
-
+from ckeditor.fields import RichTextField
 
 status_choices = [(1, 'publish'), (2, 'draft'), (3, 'past'), (4, 'deny')]
 
@@ -37,7 +37,7 @@ class Tour(models.Model):
     organizer = models.ForeignKey(Organizer, on_delete=models.SET_NULL, blank=True, null=True, related_name='tour')
     title = models.CharField(max_length=63)
     keyword = models.CharField(max_length=255, blank=True, null=True)
-    description = models.TextField(blank=True, null=True)
+    description = RichTextField(blank=True, null=True)
     tour_type = models.ForeignKey(TourType, on_delete=models.CASCADE, related_name='tour')
     country = models.CharField(max_length=31, default='Azerbaijan')
     city = models.CharField(max_length=31, null=True, blank=True)
@@ -124,7 +124,7 @@ class Tour(models.Model):
 class TourDetail(models.Model):
     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail')
     title = models.CharField(max_length=31)
-    text = models.TextField()
+    text = RichTextField(blank = True)
 
     def __str__ (self):
         return self.tour.title + ": " + self.title

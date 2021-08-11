@@ -9,5 +9,6 @@ urlpatterns = [
     path('<int:pk>/comments/', update_items, name='comments'),
     path('filter/', TourFilter, name='filter'),
     path('<int:pk>/deny/', TourDenyView.as_view(), name='tour-deny'),
+   
 
 ]

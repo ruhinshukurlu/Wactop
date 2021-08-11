@@ -10,6 +10,7 @@ from .models import *
 from tour.models import *
 from activity.models import *
 from training.models import *
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 
 
@@ -559,3 +560,10 @@ class ContactForm(forms.ModelForm):
             })
         }
 
+
+class OrganizerAdminForm(forms.ModelForm):
+    desciption = forms.CharField(widget=CKEditorUploadingWidget())
+    about = forms.CharField(widget=CKEditorUploadingWidget())
+    class Meta:
+        model = Organizer
+        fields = '__all__'

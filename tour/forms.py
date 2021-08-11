@@ -1,6 +1,7 @@
 from django import forms
 from django.forms import ModelForm
-from tour.models import TourComment , TourDeny
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
+from tour.models import TourComment , TourDeny , Tour, TourDetail
 
 
 class TourCommentForm(forms.ModelForm):
@@ -30,3 +31,16 @@ class TourDenyForm(forms.ModelForm):
             }),            
         }
 
+
+class TourAdminForm(forms.ModelForm):
+    description = forms.CharField(widget=CKEditorUploadingWidget())
+    class Meta:
+        model = Tour
+        fields = '__all__'
+
+
+class TourDetailAdminForm(forms.ModelForm):
+    text = forms.CharField(widget=CKEditorUploadingWidget())
+    class Meta:
+        model = TourDetail
+        fields = '__all__'

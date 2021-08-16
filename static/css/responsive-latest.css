@@ -15,23 +15,6 @@
         height: 170px;
     }
 
-    .saved-item .d-column{
-        font-size: 13px;
-    }
-
-    .saved-item .description{
-        font-size: 13px;
-    }
-
-    .saved-item img{
-        height: 190px;
-    }
-
-    .saved-item #org-profile-photo{
-        width: 90px;
-        height: 90px;
-    }
-
     .phone-box{
         margin: 0;
     }
@@ -131,15 +114,8 @@
         max-width: 95%;
     }
 
-    .saved-item .description{
-        display: none;
-    }
     .cover-photo-box .company-name-box {
         padding: 10px 260px;
-    }
-
-    .company-infos{
-        font-size: 13px;
     }
 
     .photo-list img {
@@ -213,6 +189,7 @@
 }
 
 @media (max-width : 1200px) {
+
 
 
     .tour-item .title,
@@ -291,26 +268,6 @@
         height: 240px;
     }
 
-    .saved-item img {
-        height: 150px;
-        border-radius: 10px;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-    }
-
-    .saved-item #org-profile-photo {
-        width: 70px;
-        height: 70px;
-    }
-
-    .saved-item .org-name {
-        font-size: 15px;
-        margin-bottom: 5px !important;
-    }
-
-    .saved-item .d-column {
-        font-size: 11px;
-    }
 
     .saved-item {
         border-radius: 10px;
@@ -427,15 +384,6 @@
         padding: 0px 30px;
     }
 
-    .saved-item img {
-        height: 180px;
-    }
-
-    .saved-item #org-profile-photo {
-        width: 90px;
-        height: 90px;
-    }
-
     .about-icon-box{
         display: none;
     }
@@ -473,6 +421,10 @@
         left: 2px;
         top: 8px;
     }
+
+    .tour-item img {
+        height: 200px;
+    }
 }
 
 @media ( max-width : 577px ) {
@@ -492,10 +444,22 @@
         font-size: 20px;
     }
 
+    .container{
+        padding: 0;
+    }
+
+    .saved-item .card-body>div{
+        padding: 10px !important;
+    }
+
     .tour-item .price,
     .tour-item .duration{
         font-size: 18px;
 
+    }
+
+    #tourList .col-12 {
+        margin-bottom: 50px;
     }
 
     .tour-item .stars i,
@@ -532,19 +496,6 @@
 
     .filter-menu-list span{
         display: none;
-    }
-
-    .saved-item img {
-        height: 270px;
-    }
-
-    .saved-item #org-profile-photo {
-        width: 140px;
-        height: 140px;
-    }
-
-    .saved-item .description{
-        display: block;
     }
 
     .saved-item img{

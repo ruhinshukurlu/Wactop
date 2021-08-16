@@ -104,13 +104,13 @@ class Training(models.Model):
         return super(Training, self).save(*args, **kwargs)
 
 
-class TrainingDetail(models.Model):
-    training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail')
-    title = models.CharField(max_length=31)
-    text = RichTextField(blank = True)
+# class TrainingDetail(models.Model):
+#     training = models.ForeignKey(Training, on_delete=models.CASCADE, related_name='training_detail')
+#     title = models.CharField(max_length=31)
+#     text = RichTextField(blank = True)
 
-    def __str__ (self):
-        return self.training.title + ": " + self.title
+#     def __str__ (self):
+#         return self.training.title + ": " + self.title
 
 
 

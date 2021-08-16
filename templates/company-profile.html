@@ -46,7 +46,7 @@
     {% include 'partials/main-menu.html' %}
 
 
-    <main>
+    <main class="text-size-md">
         <div class="cover-photo-box p-relative">
             {% if organizer.cover %}
                 <img src="{{organizer.cover.url}}" class="cover-photo" alt="">
@@ -87,7 +87,14 @@
                     <div class="mb-5 pl-sm-3">
                         <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
                         <p class="description">
-                            {{organizer.description}}
+                            {{organizer.description|safe}}
+                        </p>
+                    </div>
+
+                    <div class="mb-5 pl-sm-3">
+                        <h5 class="full bold border-bottom pb-2 mb-3">About</h5>
+                        <p class="description ">
+                            {{organizer.about|safe}}
                         </p>
                     </div>
 

@@ -1,4 +1,11 @@
+
+
 @media (max-width : 1300px) {
+
+    .main-menu{
+        max-width: 70%;
+    }
+
     .tour-img{
         height: 150px;
     }
@@ -40,6 +47,10 @@
         padding-top: 10em;
     }
 
+    .main-menu{
+        max-width: 90%;
+    }
+
 }
 
 @media (max-width:768px){
@@ -52,6 +63,7 @@
 
     .main-menu{
         padding: 0px;
+        margin-top: 200px;
     }
     .slider-section .inner-container{
         max-width: 100%;

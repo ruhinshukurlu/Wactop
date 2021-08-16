@@ -10,8 +10,8 @@ class ImageTabularInline(admin.TabularInline):
 class UrlTabularInline(admin.TabularInline):
     model = TourUrl
 
-class DetailTabularInline(admin.TabularInline):
-    model = TourDetail
+# class DetailTabularInline(admin.TabularInline):
+#     model = TourDetail
 
 
 class ScheduleTabularInline(admin.TabularInline):
@@ -19,7 +19,7 @@ class ScheduleTabularInline(admin.TabularInline):
 
 class TourAdmin(admin.ModelAdmin):
     form = TourAdminForm
-    inlines = [ImageTabularInline, DetailTabularInline, UrlTabularInline, ScheduleTabularInline]
+    inlines = [ImageTabularInline, UrlTabularInline, ScheduleTabularInline]
     list_filter = ('status', )
     list_display = ['title','organizer','tour_type','datefrom','dateto']
     class Meta:
@@ -36,12 +36,12 @@ class TourAdmin(admin.ModelAdmin):
 @admin.register(TourComment)
 class TourCommentAdmin(admin.ModelAdmin):
     list_display = ['tour','user','message', 'rating','commented_at']
-    
+
 
 admin.site.register(TourType)
 
 admin.site.register(Tour, TourAdmin)
-admin.site.register(TourDetail)
+# admin.site.register(TourDetail)
 admin.site.register(TourImage)
 admin.site.register(TourUrl)
 admin.site.register(TourSchedule)

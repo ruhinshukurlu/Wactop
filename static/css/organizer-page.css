@@ -471,10 +471,10 @@ footer{
 
 .saved-item{
     background-color: #fff;
-    border-radius: 15px;
+    border-radius: 10px;
     margin-bottom: 20px;
     transition: .4s;
-    border: 1px solid #65B5F8;
+    border: 1.5px solid rgb(219, 219, 219);
 }
 
 .tour-container{
@@ -487,29 +487,24 @@ footer{
     margin: auto;
 }
 
+#tourList .col-12{
+    margin-bottom: 20px;
+}
+
 .tour-item{
     background-color: #fff;
-    margin-bottom: 30px;
     border-radius: 8px;
     transition: .4s;
     box-shadow: 0px 4px 13px 0px rgb(0 0 0 / 22%);
     overflow: hidden;
     transition: .4s;
+    height: 100%;
 }
 
 .tour-item img{
     transition: .4s;
 }
 
-.saved-item .row{
-    padding: 20px;
-}
-
- /* .tour-item:hover{
-    box-shadow: 1px 0px 44px -13px rgba(0,0,0,0.35);
-    -webkit-box-shadow: 1px 0px 44px -13px rgba(0,0,0,0.35);
-    -moz-box-shadow: 1px 0px 44px -13px rgba(0,0,0,0.35);
-} */
 
 #tourList .tour-item:hover img{
     -webkit-transform: scale(1.2) rotate(0.01deg);
@@ -524,11 +519,20 @@ footer{
 
 .saved-item img{
     width: 100%;
-    height: 300px;
+    height: 250px;
     object-fit: cover;
     border-radius: 15px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border: 1px solid #65B5F8;
+}
+
+
+
+.text-size-md{
+    font-size: 0.85em;
+}
+
+.saved-item .col-12{
+    padding: 16px;
 }
 
 .tour-item img{
@@ -572,10 +576,6 @@ footer{
     color: #565656;
 }
 
-.organizer-list .saved-item .description{
-    height: 50px;
-    overflow: hidden;
-}
 
 .saved-item .price{
     font-size: 18px;
@@ -589,16 +589,16 @@ footer{
     color: #000000;
 }
 
-.saved-item .card-body{
-    padding: 10px 15px;
-    padding-top: 35px;
-}
 
 .tour-item .card-body{
     padding: 10px 10px;
     z-index: 2;
     background-color: #fff;
     font-size: 0.75em;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
 }
 
 

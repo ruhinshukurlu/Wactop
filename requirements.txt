@@ -16,8 +16,10 @@ daphne==3.0.1
 defusedxml==0.7.0rc1
 Django==3.0.4
 django-3-jet==1.0.8
+django-ckeditor==6.1.0
 django-cuser==2017.3.16
 django-filter==2.4.0
+django-js-asset==1.2.2
 django-model-utils==4.1.1
 django-modeltranslation==0.16.2
 django-multiselectfield==0.1.12

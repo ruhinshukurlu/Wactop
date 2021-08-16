@@ -11,7 +11,7 @@ from .models import *
 from tour.models import *
 from .forms import *
 
- 
+
 from django.http import HttpResponse, JsonResponse
 import json
 
@@ -61,7 +61,7 @@ class ActivityListView(ListView):
             if country_query:
                 queryset = Activity.objects.filter(country__icontains=country_query, status=1)
                 return queryset
-            
+
             style_query = self.request.GET.get('style')
             if style_query:
                 queryset = Activity.objects.filter(activity_type=TourType.objects.filter(title=style_query).first().id,status=1)
@@ -71,7 +71,7 @@ class ActivityListView(ListView):
             if discount_query:
                 queryset = Activity.objects.filter(discount__gte=1, status=1)
                 return queryset
-        
+
         return super().get_queryset().filter(status=1)
 
 
@@ -84,7 +84,7 @@ class ActivityListView(ListView):
             for activity in activities:
                 if activity.country not in activity_country_list:
                     activity_country_list.append(activity.country)
-        
+
         tour_types = TourType.objects.all()
         tour_type_list = []
         if tour_types:
@@ -107,28 +107,28 @@ def ActivityDetailView(request, pk):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if request.POST.get('form_id') == 'myform': 
+        if request.POST.get('form_id') == 'myform':
             textarea = request.POST.get('textarea')
-            
+
             rating = request.POST.get('rating')
-            
+
             comment = ActivityComment.objects.create(
                 message = textarea,
                 rating = rating if rating else 0,
                 activity = Activity.objects.get(pk=pk),
                 user = request.user
             )
-             
+
             response_data = {
-                   
+
             }
 
             return HttpResponse(
                     json.dumps(response_data, indent=4, sort_keys=True, default=str),
                     content_type="application/json"
                 )
-        
-        elif request.POST.get('form_id') == 'p-2 reply-form': 
+
+        elif request.POST.get('form_id') == 'p-2 reply-form':
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             parent_obj = None
@@ -140,7 +140,7 @@ def ActivityDetailView(request, pk):
                 parent_id = None
             if parent_id:
                 parent_obj = ActivityComment.objects.get(id=parent_id)
-               
+
                 comment = ActivityComment.objects.create(
                     message = textarea,
                     rating = rating,
@@ -156,9 +156,9 @@ def ActivityDetailView(request, pk):
                     activity = Activity.objects.get(pk=pk),
                     user = request.user,
                 )
-             
+
             response_data = {
-                   
+
             }
             response_data['comments'] = ActivityComment.objects.filter(activity = activity)
             return HttpResponse(
@@ -171,7 +171,7 @@ def ActivityDetailView(request, pk):
                 json.dumps({"nothing to see": "this isn't happening"}),
                 content_type="application/json"
             )
-    else: 
+    else:
         form = CommentForm()
 
     top_activities = sorted(Activity.objects.filter(status=1).order_by('rating')[:5], key=lambda x: random.random())
@@ -182,7 +182,7 @@ def ActivityDetailView(request, pk):
         'image': image,
         'schedule': schedule,
         'url': url,
-        'activity_detail': ActivityDetail.objects.filter(activity=activity),
+        # 'activity_detail': ActivityDetail.objects.filter(activity=activity),
         'form' : form,
         'comments' : activity.activity_comment.filter(comment_reply__isnull=True),
         'comments_count': activity.activity_comment.all()
@@ -213,7 +213,7 @@ def update_items(request, pk):
 
     if request.method == 'POST':
         form = CommentForm(request.POST)
-        if request.POST.get('form_id') == 'p-2 reply-form': 
+        if request.POST.get('form_id') == 'p-2 reply-form':
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             parent_obj = None
@@ -225,7 +225,7 @@ def update_items(request, pk):
                 parent_id = None
             if parent_id:
                 parent_obj = ActivityComment.objects.get(id=parent_id)
-                
+
                 comment = ActivityComment.objects.create(
                     message = textarea,
                     rating = rating,
@@ -241,9 +241,9 @@ def update_items(request, pk):
                     activity = Activity.objects.get(pk=pk),
                     user = request.user,
                 )
-             
+
             response_data = {
-                   
+
             }
             response_data['comments'] = ActivityComment.objects.filter(activity = activity)
             return HttpResponse(
@@ -256,7 +256,7 @@ def update_items(request, pk):
                 json.dumps({"nothing to see": "this isn't happening"}),
                 content_type="application/json"
             )
-    else: 
+    else:
         form = CommentForm()
 
     context = {
@@ -303,7 +303,7 @@ def ActivityFilter(request):
     if country_query:
         context2['country2'] = country_query
         data = Activity.objects.filter(country__icontains=country_query, status=1)
-    
+
     # discount_query = request.GET.get('discount')
     # if discount_query:
     #     context2['discount2'] = '1'
@@ -313,7 +313,7 @@ def ActivityFilter(request):
     if style_query:
         context2['style2'] = style_query
         data = Activity.objects.filter(activity_type=TourType.objects.filter(title=style_query).first().id, status=1)
-        
+
 
     # data = Activity.objects.all()
     # price_query = request.GET.get('price')
@@ -350,7 +350,7 @@ def ActivityFilter(request):
     #     for i in data:
     #         if i.pk not in idArr:
     #             data = data.exclude(pk=i.pk)
-    
+
     # if request.GET.get('search'):
     #     data = Activity.objects.filter(keyword__icontains=request.GET.get('search'))
     # data = data.filter(status=1)
@@ -394,8 +394,8 @@ class ActivityDenyView(CreateView):
         activity = Activity.objects.filter(pk = self.kwargs['pk']).first()
         context['object'] = activity
         return context
-   
-    
+
+
     # def form_valid(self, form):
     #     activity = Activity.objects.filter(pk = self.kwargs['pk']).first()
     #     send_mail(
@@ -404,7 +404,7 @@ class ActivityDenyView(CreateView):
     #         'sara.axmedova98@gmail.com',
     #         [activity.organizer.user.email],
     #         fail_silently=False,
-    #     )   
+    #     )
 
         return redirect('main:home')
 

@@ -109,7 +109,7 @@
     }
 
     .border-bottom{
-        border-bottom: 4px solid #e7e7e7 !important;
+        border-bottom: 2px solid #e7e7e7 !important;
     }
     </style>
 </head>
@@ -208,7 +208,7 @@
             </div>
         </div>
 
-    <main id="main">
+    <main id="main" class="text-size-md">
         <div class="cover-menu">
             <div class="container main-tour-container shadow">
                 <div class="row">
@@ -218,21 +218,6 @@
                                 <p class="pt-4 word">
                                     {{tour.description_en|capfirst|safe}}
                                 </p>
-                                {% if description.tour_detail %}
-                                    <nav class="details">
-                                        {% for i in description.tour_detail %}
-                                            {% if i.title_en and i.text_en %}
-                                                <div class="visible">
-                                                    <p><b>{{i.title_en|capfirst}}:</b></p>
-                                                    <p>{{i.text_en|capfirst}}</p>
-                                                </div>
-                                            {% endif %}
-                                        {% endfor %}
-                                    </nav>
-                                {% else %}
-                                    <p class="text-center full bold mt-2">No detail added in this language.</p>
-                                {%endif%}
-
                             </div>
 
                             <div class="d-column" data-target="az" style="display: none;">
@@ -243,16 +228,6 @@
                                 {% else %}
                                     <p class="full bold mt-4">Bu dildə heç bir məlumat əlavə edilməyib.</p>
                                 {% endif %}
-                                <nav class="details">
-                                    {% for i in tour_detail %}
-                                        {% if i.title_az and i.text_az %}
-                                            <div class="visible">
-                                                <p><b>{{i.title_az|capfirst}}:</b></p>
-                                                <p>{{i.text_az|capfirst}}</p>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </nav>
                             </div>
 
                             <div class="d-column" data-target="ru" style="display: none;">
@@ -263,17 +238,6 @@
                                 {% else %}
                                     <p class="full bold mt-4">Никаких подробностей на этом языке не добавлено.</p>
                                 {% endif %}
-
-                                <nav class="details">
-                                    {% for i in tour_detail %}
-                                        {% if i.title_ru and i.text_ru %}
-                                            <div class="visible">
-                                                <p><b>{{i.title_ru|capfirst}}:</b></p>
-                                                <p>{{i.text_ru|capfirst}}</p>
-                                            </div>
-                                        {% endif %}
-                                    {% endfor %}
-                                </nav>
                             </div>
 
                         </div>
@@ -358,13 +322,15 @@
                 {% endif %}
                 <div class="row">
                     <div class="col-lg-10 tour-details pt-5">
-                        <div class="iframe-container">
-                            <iframe src="{{tour.map_link}}" ></iframe>
-                        </div>
+                        {% if tour.map_link %}
+                            <div class="iframe-container">
+                                <iframe src="{{tour.map_link}}" ></iframe>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
                 <div class="row mb-5">
-                    <div class="col-lg-10 tour-details pl-md-5 pl-3 d-column">
+                    <div class="col-lg-10 tour-details pl-md-5 pl-3 pr-0 d-column">
                         <h3 class="full bold border-bottom pb-2 mb-3">About company</h3>
 
                         <div class="mb-5 d-flex">
@@ -379,8 +345,8 @@
 
                         <div class="mb-5">
                             <h5 class="full bold border-bottom pb-2 mb-3">Description</h5>
-                            <p class="description">
-                                {{tour.organizer.description}}
+                            <p class="description pr-4">
+                                {{tour.organizer.description|safe}}
                             </p>
                         </div>
 
@@ -459,7 +425,7 @@
                 <div class="row">
 
                     {% if not request.user.is_organizer and request.user.is_authenticated %}
-                        <div class="col-lg-10 tour-details pl-md-5 pl-3 pb-3">
+                        <div class="col-lg-10 tour-details pl-md-5 pl-3 pb-3 pr-0">
                             <h3 class="full bold border-bottom pb-2 mb-5">Write thoughts about "{{tour.title|capfirst}}" organized by "{{tour.organizer.organizer_name}}" </h3>
 
                             <div class="row justify-content-center">

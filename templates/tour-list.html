@@ -247,10 +247,10 @@
                     tour_item +=
                         `<div class="col-12 col-lg-3 col-md-4 col-sm-6">
                             <div class="tour-item">
-                                <a href="${tour.id}" class="full">
-                                    <div class="d-column full">
-                                            <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
-                                        <div class="card-body">
+                                <a href="${tour.id}" class="full full-h">
+                                    <div class="d-column full full-h">
+                                            <img src="${tour.cover ? tour.cover : "{% static 'images/default.png' %}"}" alt="">
+                                        <div class="card-body full-h">
                                             <div class="title mb-2">
                                                 ${tour.title}
                                             </div>
@@ -266,25 +266,24 @@
                                                     <span>${tour.comment_list.length} reviews</span>
                                                 </div>
                                                 <div class="d-flex">
-                                                    <span class="bold mr-2">Location : </span>
+                                                    <span class="bold mr-2"> <strong>Location :</strong>  </span>
                                                     <span>${tour.city}, ${tour.country}</span>
                                                 </div>
                                                 <div class="d-flex">
-                                                    <span class="bold mr-2">Company : </span>
-                                                    <span>${tour.organizer_name}</span>
+                                                    <span class="bold mr-2"> <strong>Company :</strong> ${tour.organizer_name}</span>
                                                 </div>
-                                                <div class="d-flex full justify-content-between mt-2">
-                                                    <div class="price">
 
-                                                        ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
-                                                    </div>
-                                                    <div class="duration align-center">
-                                                        <i class="far fa-clock mr-1"></i>
-                                                        ${tour.durationday}
-                                                    </div>
+                                            </div>
+                                            <div class="d-flex full justify-content-between mt-2">
+                                                <div class="price">
+
+                                                    ${tour.discount ? `${tour.new_price} ${tour.currency} <span style='text-decoration: line-through; font-weight: bold;''>${tour.price} ${tour.currency}</span>` : `${tour.price} ${tour.currency}`}
+                                                </div>
+                                                <div class="duration align-center">
+                                                    <i class="far fa-clock mr-1"></i>
+                                                    ${tour.durationday}
                                                 </div>
                                             </div>
-
                                         </div>
                                     </div>
                                 </a>
@@ -396,7 +395,7 @@
                                 <div class="tour-item">
                                     <a href="${tour.id}" class="full">
                                         <div class="d-column full">
-                                                <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
+                                                <img src="${tour.cover ? tour.cover : "{% static 'images/default.png' %}"}" alt="">
                                             <div class="card-body">
                                                 <div class="title mb-2">
                                                     ${tour.title}

@@ -121,13 +121,13 @@ class Tour(models.Model):
 
 
 
-class TourDetail(models.Model):
-    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail')
-    title = models.CharField(max_length=31)
-    text = RichTextField(blank = True)
+# class TourDetail(models.Model):
+#     tour = models.ForeignKey(Tour, on_delete=models.CASCADE, related_name='tour_detail')
+#     title = models.CharField(max_length=31)
+#     text = RichTextField(blank = True)
 
-    def __str__ (self):
-        return self.tour.title + ": " + self.title
+#     def __str__ (self):
+#         return self.tour.title + ": " + self.title
 
 
 class TourImage(models.Model):

@@ -38,15 +38,26 @@
             url({% static 'images/home-page/slider-img-4.jpg' %}) no-repeat 50px bottom;
         }
 
-        @media (max-width:1300px) {
+        .slider-section{
+            background-size: 500px;
+        }
+
+        @media (max-width:1600px) {
             .slider-section{
                 background-size: 400px;
             }
         }
 
+        @media (max-width:1300px) {
+            .slider-section{
+                background-size: 300px;
+            }
+        }
+
+
         @media (max-width:768px){
             .slider-section{
-                background: url({% static 'images/home-page/slider-img-1.jpg' %}) no-repeat 90% 200px,
+                background: url({% static 'images/home-page/slider-img-1.jpg' %}) no-repeat 90% 110px,
                 url({% static 'images/home-page/slider-img-4.jpg' %}) no-repeat 0px bottom;
                 background-size: 400px;
                 padding-bottom: 200px;
@@ -73,10 +84,14 @@
                         {% if request.user.is_authenticated %}
                         <div class=" user-profile">
                             <div class="align-center">
-                                {% if request.user.profile_img %}
-                                    <img src="{{request.user.profile_img.url}}" class="user-img" alt="">
+                                {% if request.user.is_organizer %}
+                                    <img src="{{request.user.organizer.profile_photo.url}}" class="user-img" alt="">
                                 {% else %}
-                                    <img src="{% static 'images/profile.png' %}" class="user-img"  alt="">
+                                    {% if request.user.profile_img %}
+                                        <img src="{{request.user.profile_img.url}}" class="user-img" alt="">
+                                    {% else %}
+                                        <img src="{% static 'images/profile.png' %}" class="user-img" alt="">
+                                    {% endif %}
                                 {% endif %}
                                 <div class="username">
                                     <span class="username-span">{{ request.user.username }}</span>
@@ -248,9 +263,8 @@
 
         <div class="custom-container">
             <div class="inner-container">
-                <h1 class="text-center home-heading">World Active Tourism Platform</h1>
                 <div class="main-menu">
-                    <div class="row">
+                    <div class="row menu-row">
                         <div class="col-12 col-md-6">
                             <a href="{% url 'tour:home' %}" class="menu-link">
                                 <div class="d-flex align-center justify-content-center">
@@ -302,7 +316,7 @@
     <main>
         <div class="custom-container">
 
-            <div class="row mb-100">
+            <div class="row mb-100" style="display: flex; justify-content: center;">
                 {% if tours %}
                     <h3 class="text-center full home-heading">Newest Tours</h3>
 
@@ -310,8 +324,8 @@
                         {% for tour in tours %}
                             <div class="tour">
                                 <div class="d-column">
-                                    {% if tour.avatar %}
-                                        <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                                    {% if tour.cover %}
+                                        <img src="{{tour.cover.url}}" class="tour-img" alt="">
                                     {% else %}
                                         <img src="{% static 'images/default.png' %}" class="tour-img" alt="">
                                     {% endif %}
@@ -346,15 +360,15 @@
                         {% for tour in trainings %}
                             <div class="tour">
                                 <div class="d-column">
-                                    {% if tour.avatar %}
-                                        <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                                    {% if tour.cover %}
+                                        <img src="{{tour.cover.url}}" class="tour-img" alt="">
                                     {% else %}
                                         <img src="{% static 'images/default.png' %}" class="tour-img" alt="">
                                     {% endif %}
 
                                     <div class="card-body">
                                         <div class="d-flex ">
-                                            <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                            <a href="{% url 'training:detail' tour.pk %}" class="tour-title">
                                                 <h4>
                                                     {{tour.title|capfirst}}
                                                 </h4>
@@ -383,15 +397,15 @@
                         {% for tour in activities %}
                             <div class="tour">
                                 <div class="d-column">
-                                    {% if tour.avatar %}
-                                        <img src="{{tour.avatar.url}}" class="tour-img" alt="">
+                                    {% if tour.cover %}
+                                        <img src="{{tour.cover.url}}" class="tour-img" alt="">
                                     {% else %}
                                         <img src="{% static 'images/default.png' %}" class="tour-img" alt="">
                                     {% endif %}
 
                                     <div class="card-body">
                                         <div class="d-flex ">
-                                            <a href="{% url 'tour:detail' tour.pk %}" class="tour-title">
+                                            <a href="{% url 'activity:detail' tour.pk %}" class="tour-title">
                                                 <h4>
                                                     {{tour.title|capfirst}}
                                                 </h4>

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/organizer-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/responsive-latest.css' %}">
+    <script src="https://cdn.ckeditor.com/4.16.2/standard/ckeditor.js"></script>
 
 </head>
 
@@ -267,29 +268,6 @@
                                                 </div>
                                             </div>
 
-                                            <div id="text-forms-en">
-                                                {% for form in detail_form %}
-                                                    <div class="form-group row">
-                                                        <div class='col-12'>
-                                                            {{form.title_en.label_tag}}
-                                                        </div>
-                                                        <div class='col-12'>
-                                                            {{form.title_en}}
-                                                        </div>
-                                                        <div class='col-12'>
-                                                            {{form.text_en}}
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="form-group justify-content-end d-flex">
-                                                <button type="button" class="add_detail_btn" onclick = 'adddetail_en()' style="outline: none;">
-                                                    <i class="fas fa-plus-circle mr-2"></i>
-                                                    Add new Paragraph
-                                                </button>
-                                            </div>
-
                                             <div class="d-flex full justify-content-end">
                                                 <button type="button" class="btn btn-outline-success pr-4 pl-4 next_btn" data-target="tourURL">
                                                     Next
@@ -317,29 +295,6 @@
                                                     {{tour_form.description_az}}
                                                 </div>
                                             </div>
-
-                                            <div id="text-forms-az">
-                                                {% for form in detail_form %}
-                                                    <div class="form-group row">
-                                                        <div class='col-12'>
-                                                            {{form.title_az.label_tag}}
-                                                        </div>
-                                                        <div class='col-12'>
-                                                            {{form.title_az}}
-                                                        </div>
-                                                        <div class='col-12'>
-                                                            {{form.text_az}}
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="form-group justify-content-end d-flex">
-                                                <button type="button" class="add_detail_btn" onclick = 'adddetail_az()' style="outline: none;">
-                                                    <i class="fas fa-plus-circle mr-2"></i>
-                                                    Add new Paragraph
-                                                </button>
-                                            </div>
                                         </div>
 
                                         <div class="form-box shadow" id="detailRu" style="display: none;">
@@ -351,30 +306,6 @@
                                                     {{tour_form.description_ru}}
                                                 </div>
                                             </div>
-
-                                            <div id="text-forms-ru">
-                                                {% for form in detail_form %}
-                                                    <div class="form-group row">
-                                                        <div class='col-12'>
-                                                            {{form.title_ru.label_tag}}
-                                                        </div>
-                                                        <div class='col-12'>
-                                                            {{form.title_ru}}
-                                                        </div>
-                                                        <div class='col-12'>
-                                                            {{form.text_ru}}
-                                                        </div>
-                                                    </div>
-                                                {% endfor %}
-                                            </div>
-
-                                            <div class="form-group justify-content-end d-flex">
-                                                <button type="button" class="add_detail_btn" onclick = 'adddetail_ru()' style="outline: none;">
-                                                    <i class="fas fa-plus-circle mr-2"></i>
-                                                    Add new Paragraph
-                                                </button>
-                                            </div>
-
                                         </div>
 
 

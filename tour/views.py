@@ -57,7 +57,7 @@ class TourListView(ListView):
             if country_query:
                 queryset = Tour.objects.filter(country__icontains=country_query, status=1)
                 return queryset
-            
+
             style_query = self.request.GET.get('style')
             if style_query:
                 queryset = Tour.objects.filter(tour_type=TourType.objects.filter(title=style_query).first().id,status=1)
@@ -67,14 +67,14 @@ class TourListView(ListView):
             if discount_query:
                 queryset = Tour.objects.filter(discount__gte=1, status=1)
                 return queryset
-        
+
         return super().get_queryset().filter(status=1)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         tour_types = TourType.objects.all()
         tour_type_list = []
-        
+
         if tour_types:
             for tour_type in tour_types:
                 if tour_type.title not in tour_type_list:
@@ -90,7 +90,7 @@ class TourListView(ListView):
         context["countries"] = tour_country_list
         context['tour_types'] = tour_type_list
         return context
-    
+
 
 def TourList(request):
     data = Tour.objects.all()
@@ -108,11 +108,11 @@ def TourList(request):
         eachpage = paginator.page(1)
     except EmptyPage:
         eachpage = paginator.page(paginator.num_pages)
-    
+
     arr = []
     for i in range(0, eachpage.paginator.num_pages):
         arr.append(i+1)
-    
+
     context = {
         'tour': eachpage,
         'page': page_request,
@@ -131,17 +131,17 @@ def TourDetailView(request, pk):
     schedule = TourSchedule.objects.filter(tour=tour)
     url = TourUrl.objects.filter(tour=tour)
 
-    description = {
-        'tour_detail' : TourDetail.objects.filter(tour=tour),
-        'description_az' : tour.description_az,
-        'description_ru' : tour.description_ru,
-        'description_en' : tour.description_en
-    }
-    
-        
+    # description = {
+    #     'tour_detail' : TourDetail.objects.filter(tour=tour),
+    #     'description_az' : tour.description_az,
+    #     'description_ru' : tour.description_ru,
+    #     'description_en' : tour.description_en
+    # }
+
+
     if request.method == 'POST':
         form = TourCommentForm(request.POST)
-        if request.POST.get('form_id') == 'myform': 
+        if request.POST.get('form_id') == 'myform':
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             parent_obj = None
@@ -162,17 +162,17 @@ def TourDetailView(request, pk):
                 tour = Tour.objects.get(pk=pk),
                 user = request.user
             )
-             
+
             response_data = {
-                   
+
             }
 
             return HttpResponse(
                     json.dumps(response_data, indent=4, sort_keys=True, default=str),
                     content_type="application/json"
                 )
-        
-        elif request.POST.get('form_id') == 'p-2 reply-form': 
+
+        elif request.POST.get('form_id') == 'p-2 reply-form':
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             parent_obj = None
@@ -199,9 +199,9 @@ def TourDetailView(request, pk):
                     tour = Tour.objects.get(pk=pk),
                     user = request.user,
                 )
-             
+
             response_data = {
-                   
+
             }
             response_data['comments'] = TourComment.objects.filter(tour = tour)
             return HttpResponse(
@@ -214,7 +214,7 @@ def TourDetailView(request, pk):
                 json.dumps({"nothing to see": "this isn't happening"}),
                 content_type="application/json"
             )
-    else: 
+    else:
         form = TourCommentForm()
 
     top_tours = sorted(Tour.objects.filter(status=1).order_by('rating')[:5], key=lambda x: random.random())
@@ -225,7 +225,7 @@ def TourDetailView(request, pk):
         'image': image,
         'schedule': schedule,
         'url': url,
-        'description': description,
+        # 'description': description,
         'form' : form,
         'comments' : tour.tour_comment.filter(comment_reply__isnull=True),
         'comments_count': tour.tour_comment.all()
@@ -239,7 +239,7 @@ def TourDetailView(request, pk):
         total_tour_comment = int(tour.tour_comment.aggregate(Avg('rating')).get('rating__avg', 0))
         tour.rating = total_tour_comment
         tour.save()
-    
+
 
     if not request.COOKIES.get(tour_view):
         response = render(request, 'tour-page.html', context)
@@ -256,8 +256,8 @@ def update_items(request, pk):
 
     if request.method == 'POST':
         form = TourCommentForm(request.POST)
-               
-        if request.POST.get('form_id') == 'p-2 reply-form': 
+
+        if request.POST.get('form_id') == 'p-2 reply-form':
             textarea = request.POST.get('textarea')
             rating = request.POST.get('rating')
             parent_obj = None
@@ -269,7 +269,7 @@ def update_items(request, pk):
                 parent_id = None
             if parent_id:
                 parent_obj = TourComment.objects.get(id=parent_id)
-                
+
                 comment = TourComment.objects.create(
                     message = textarea,
                     rating = rating,
@@ -285,9 +285,9 @@ def update_items(request, pk):
                     tour = Tour.objects.get(pk=pk),
                     user = request.user,
                 )
-             
+
             response_data = {
-                   
+
             }
             response_data['comments'] = TourComment.objects.filter(tour = tour)
             return HttpResponse(
@@ -300,7 +300,7 @@ def update_items(request, pk):
                 json.dumps({"nothing to see": "this isn't happening"}),
                 content_type="application/json"
             )
-    else: 
+    else:
         form = TourCommentForm()
 
     context = {
@@ -347,7 +347,7 @@ def TourFilter(request):
     if country_query:
         context2['country2'] = country_query
         data = Tour.objects.filter(country__icontains=country_query, status=1)
-    
+
     # discount_query = request.GET.get('discount')
     # if discount_query:
     #     context2['discount2'] = '1'
@@ -357,7 +357,7 @@ def TourFilter(request):
     if style_query:
         context2['style2'] = style_query
         data = Tour.objects.filter(tour_type=TourType.objects.filter(title=style_query).first().id, status=1)
-        
+
 
     # if request.GET.get('search'):
     #     context2['search2'] = request.GET.get('search')
@@ -407,7 +407,7 @@ class TourDenyView(CreateView):
         tour = Tour.objects.filter(pk = self.kwargs['pk']).first()
         context['object'] = tour
         return context
-   
+
     def form_valid(self, form):
         tour = Tour.objects.filter(pk = self.kwargs['pk']).first()
         deny_tour = form.save(commit=False)
@@ -419,6 +419,6 @@ class TourDenyView(CreateView):
             'sara.axmedova98@gmail.com',
             [tour.organizer.user.email],
             fail_silently=False,
-        )   
+        )
 
         return redirect('main:home')

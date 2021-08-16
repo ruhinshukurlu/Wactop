@@ -235,7 +235,7 @@
                             <div class="tour-item">
                                 <a href="${tour.id}" class="full">
                                     <div class="d-column full">
-                                            <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
+                                            <img src="${tour.cover ? tour.cover : "{% static 'images/default.png' %}"}" alt="">
                                         <div class="card-body">
                                             <div class="title mb-2">
                                                 ${tour.title}
@@ -376,7 +376,7 @@
                                 <div class="tour-item">
                                     <a href="${tour.id}" class="full">
                                         <div class="d-column full">
-                                                <img src="${tour.avatar ? tour.avatar : "{% static 'images/default.png' %}"}" alt="">
+                                                <img src="${tour.cover ? tour.cover : "{% static 'images/default.png' %}"}" alt="">
                                             <div class="card-body">
                                                 <div class="title mb-2">
                                                     ${tour.title}

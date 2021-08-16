@@ -16,33 +16,33 @@ class CustomCharField(serializers.CharField):
 
 
 class TourCommentSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = TourComment
         fields = '__all__'
 
 
 class ActivityCommentSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = ActivityComment
         fields = '__all__'
 
 
 class TrainingCommentSerializer(serializers.ModelSerializer):
-    
+
     class Meta:
         model = Comment
         fields = '__all__'
 
 
 class TourSerializer(serializers.ModelSerializer):
-    organizer_name = CustomCharField(source='organizer.organizer_name', repr_length=20)
+    organizer_name = serializers.CharField(source='organizer.organizer_name')
     tour_type = serializers.CharField(source='tour_type.title')
     comment_list = TourCommentSerializer(source='tour_comment', many=True)
     new_price = serializers.IntegerField(source = 'discount_price_api')
     durationday = serializers.CharField(source = 'get_duration_day_api')
-    
+
 
     class Meta:
         model = Tour
@@ -55,7 +55,7 @@ class ActivitySerializer(serializers.ModelSerializer):
     comment_list = ActivityCommentSerializer(source='activity_comment', many=True)
     new_price = serializers.IntegerField(source = 'discount_price_api')
     durationday = serializers.CharField(source = 'get_duration_day_api')
-    
+
 
     class Meta:
         model = Activity
@@ -68,7 +68,7 @@ class TrainingSerializer(serializers.ModelSerializer):
     comment_list = TrainingCommentSerializer(source='comment', many=True)
     new_price = serializers.IntegerField(source = 'discount_price_api')
     durationday = serializers.CharField(source = 'get_duration_day_api')
-    
+
 
     class Meta:
         model = Training

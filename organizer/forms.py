@@ -91,14 +91,14 @@ class OrganizerTourForm(forms.ModelForm):
     guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
     description_en = forms.CharField(
         label = 'Tour Description in Engilsh',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}))
     description_az = forms.CharField(
         label = 'Tour Description in Azerbaijan',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
         required = False)
     description_ru = forms.CharField(
         label = 'Tour Description in Russia',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about tour...', 'rows' : '5'}),
         required=False)
 
     class Meta:
@@ -152,35 +152,35 @@ class OrganizerTourForm(forms.ModelForm):
 
 
 
-class OrganizerTourDetailForm(forms.ModelForm):
+# class OrganizerTourDetailForm(forms.ModelForm):
 
-    title_en = forms.CharField(
-        label='Tour Paragraph',
-        widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+#     title_en = forms.CharField(
+#         label='Tour Paragraph',
+#         widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
 
-    text_en = forms.CharField(
-        label='Text in English',
-        widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+#     text_en = forms.CharField(
+#         label='Text in English',
+#         widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
 
-    title_az = forms.CharField(
-        label='Tour Paragraph',
-        widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
+#     title_az = forms.CharField(
+#         label='Tour Paragraph',
+#         widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
 
-    text_az = forms.CharField(
-        label='Text in Azerbaijan',
-        widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
+#     text_az = forms.CharField(
+#         label='Text in Azerbaijan',
+#         widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
 
-    title_ru = forms.CharField(
-        label='Tour Paragraph',
-        widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
+#     title_ru = forms.CharField(
+#         label='Tour Paragraph',
+#         widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
 
-    text_ru = forms.CharField(
-        label='Text in Russian',
-        widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
+#     text_ru = forms.CharField(
+#         label='Text in Russian',
+#         widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
 
-    class Meta:
-        model = TourDetail
-        fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
+#     class Meta:
+#         model = TourDetail
+#         fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
 
 
 
@@ -238,14 +238,14 @@ class OrganizerActivityForm(forms.ModelForm):
     guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
     description_en = forms.CharField(
         label = 'Activity Description in English',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}))
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}))
     description_az = forms.CharField(
         label = 'Activity Description in Azerbaijan',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}),
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}),
         required =False)
     description_ru = forms.CharField(
         label = 'Activity Description in Russia',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}),
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about activity...', 'rows' : '5'}),
         required=False)
 
     class Meta:
@@ -297,30 +297,30 @@ class OrganizerActivityForm(forms.ModelForm):
         }
 
 
-class OrganizerActivityDetailForm(forms.ModelForm):
+# class OrganizerActivityDetailForm(forms.ModelForm):
 
-    title_en = forms.CharField(
-        label='Activity Paragraph',
-        widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
-    text_en = forms.CharField(
-        label='Text in English',
-        widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
-    title_az = forms.CharField(
-        label='Activity Paragraph',
-        widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
-    text_az = forms.CharField(
-        label='Text in Azerbaijan',
-        widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
-    title_ru = forms.CharField(
-        label='Activity Paragraph',
-        widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
-    text_ru = forms.CharField(
-        label='Text in Russian',
-        widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
+#     title_en = forms.CharField(
+#         label='Activity Paragraph',
+#         widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+#     text_en = forms.CharField(
+#         label='Text in English',
+#         widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+#     title_az = forms.CharField(
+#         label='Activity Paragraph',
+#         widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
+#     text_az = forms.CharField(
+#         label='Text in Azerbaijan',
+#         widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
+#     title_ru = forms.CharField(
+#         label='Activity Paragraph',
+#         widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
+#     text_ru = forms.CharField(
+#         label='Text in Russian',
+#         widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
 
-    class Meta:
-        model = ActivityDetail
-        fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
+#     class Meta:
+#         model = ActivityDetail
+#         fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
 
 
 class OrganizerActivityURLForm(forms.ModelForm):
@@ -386,14 +386,14 @@ class OrganizerTrainingForm(forms.ModelForm):
     # guide = forms.CharField(label = 'Guide', widget = forms.TextInput(attrs = {'class' : 'form-input', 'placeholder' : 'Who is tour guide?'}))
     description_en = forms.CharField(
         label = 'Training Description in English',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}))
     description_az = forms.CharField(
         label = 'Training Description in Azerbaijan',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}),
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}),
         required=False)
     description_ru = forms.CharField(
         label = 'Training Description in Russia',
-        widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}),
+        widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about training...', 'rows' : '5'}),
         required=False)
 
     class Meta:
@@ -449,18 +449,18 @@ class OrganizerTrainingForm(forms.ModelForm):
         }
 
 
-class OrganizerTrainingDetailForm(forms.ModelForm):
+# class OrganizerTrainingDetailForm(forms.ModelForm):
 
-    title_en = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
-    text_en = forms.CharField(label='Text in English', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
-    title_az = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
-    text_az = forms.CharField(label='Text in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
-    title_ru = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
-    text_ru = forms.CharField(label='Text in Russian', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
+#     title_en = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}))
+#     text_en = forms.CharField(label='Text in English', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}))
+#     title_az = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
+#     text_az = forms.CharField(label='Text in Azerbaijan', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
+#     title_ru = forms.CharField(label='Training Paragraph', widget=forms.TextInput(attrs={'class': 'form-input mb-2','placeholder' : 'Enter Paragraph Title'}), required=False)
+#     text_ru = forms.CharField(label='Text in Russian', widget = forms.Textarea(attrs = {'class': 'form-input mb-2', 'placeholder' : 'Enter your custom paragraph here...', 'rows' : '5'}), required=False)
 
-    class Meta:
-        model = TrainingDetail
-        fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
+#     class Meta:
+#         model = TrainingDetail
+#         fields = ('title_en', 'text_en', 'title_az', 'text_az', 'title_ru', 'text_ru', )
 
 
 class OrganizerTrainingURLForm(forms.ModelForm):
@@ -501,7 +501,8 @@ class OrganizerTrainingScheduleForm(forms.ModelForm):
 
 class OrganizerEditForm(forms.ModelForm):
 
-   # description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-input', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
+    description = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
+    about = forms.CharField(label = 'Description', widget = forms.Textarea(attrs = {'class': 'form-input ckeditor', 'placeholder' : 'Enter short description about organizer...', 'rows' : '5'}))
 
     class Meta:
         model = Organizer
@@ -511,14 +512,14 @@ class OrganizerEditForm(forms.ModelForm):
             'organizer_type' : forms.Select(attrs={
                 'class' : 'custom-select'
             }),
-            'description' : forms.Textarea(attrs={
-                'class': 'form-input',
-                'placeholder' : 'Enter short description about organizer...',
-                'rows' : '5'
-            }),
-            'about' : forms.Textarea(attrs={
-                'rows' : '5'
-            }),
+            # 'description' : forms.Textarea(attrs={
+            #     'class': 'form-input ckeditor',
+            #     'placeholder' : 'Enter short description about organizer...',
+            #     'rows' : '5'
+            # }),
+            # 'about' : forms.Textarea(attrs={
+            #     'rows' : '5'
+            # }),
             'cover' : forms.ClearableFileInput(attrs={
                 'id' : 'coverPhoto'
             }),

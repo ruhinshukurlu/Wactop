@@ -1,11 +1,11 @@
 from django import forms
 from django.forms import ModelForm
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
-from tour.models import TourComment , TourDeny , Tour, TourDetail
+from tour.models import TourComment , TourDeny , Tour
 
 
 class TourCommentForm(forms.ModelForm):
-    
+
     class Meta:
         model = TourComment
         fields = ('rating', 'message',)
@@ -13,13 +13,13 @@ class TourCommentForm(forms.ModelForm):
             'message': forms.Textarea(attrs={
                 'class': 'form-input resize',
                 'placeholder' : 'Write Comment...',
-                'rows' : '5'    
-            }),            
+                'rows' : '5'
+            }),
         }
 
 
 class TourDenyForm(forms.ModelForm):
-    
+
     class Meta:
         model = TourDeny
         fields = ("message",)
@@ -27,8 +27,8 @@ class TourDenyForm(forms.ModelForm):
             'message': forms.Textarea(attrs={
                 'class': 'form-input resize',
                 'placeholder' : 'Write Comment...',
-                'rows' : '5'    
-            }),            
+                'rows' : '5'
+            }),
         }
 
 
@@ -39,8 +39,8 @@ class TourAdminForm(forms.ModelForm):
         fields = '__all__'
 
 
-class TourDetailAdminForm(forms.ModelForm):
-    text = forms.CharField(widget=CKEditorUploadingWidget())
-    class Meta:
-        model = TourDetail
-        fields = '__all__'
+# class TourDetailAdminForm(forms.ModelForm):
+#     text = forms.CharField(widget=CKEditorUploadingWidget())
+#     class Meta:
+#         model = TourDetail
+#         fields = '__all__'

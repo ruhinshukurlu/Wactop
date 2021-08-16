@@ -113,10 +113,14 @@
                 {% if request.user.is_authenticated %}
                     <div class="user-profile">
                         <div class="d-flex justify-content-center align-center">
-                            {% if request.user.profile_img %}
-                                <img src="{{request.user.profile_img.url}}"  alt="">
+                            {% if request.user.is_organizer %}
+                                <img src="{{request.user.organizer.profile_photo.url}}"  alt="">
                             {% else %}
-                                <img src="{% static 'images/profile.png' %}"  alt="">
+                                {% if request.user.profile_img %}
+                                    <img src="{{request.user.profile_img.url}}"  alt="">
+                                {% else %}
+                                    <img src="{% static 'images/profile.png' %}"  alt="">
+                                {% endif %}
                             {% endif %}
                             <span class="ml-2">
                                 <span class="username">{{request.user.username}}</span>
